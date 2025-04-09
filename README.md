@@ -1,5 +1,5 @@
 # saragihruben.wiki
-This is the source of the official [MyWiki website](https://wiki.saragihruben.my.id).
+This is the source of the official [MyWiki website](https://saragihruben.wiki).
 
 ## Installation
 
