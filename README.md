@@ -1,0 +1,24 @@
+# saragihruben.wiki
+This is the source of the official [MyWiki website](https://wiki.saragihruben.my.id).
+
+## Installation
+
+```bash
+npm install
+```
+
+## Local Development
+
+```bash
+npm start
+```
+
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+
+## Prettier
+
+```bash
+npx prettier --write .
+```
+
+This command formats the source code.
