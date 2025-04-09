@@ -1,0 +1,113 @@
+{
+  "/__docusaurus/debug-5ff": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/config-5ba": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/content-a2b": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    },
+    "__props": "__props---docusaurus-debug-content-3-c-0-be2"
+  },
+  "/__docusaurus/debug/globalData-c3c": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/metadata-156": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/registry-88c": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/routes-000": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/docs-470": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---docsaba-d7c"
+    }
+  },
+  "/docs-2c1": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---docs-005-788"
+  },
+  "/docs-011": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/docs/devops-sre-024": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-devops-srec-36-9e1"
+  },
+  "/docs/Getting-started/introduction-3d5": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-getting-started-introduction-426-488"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator-ec2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administratorf-45-0b6"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041-696": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-az-10415-d-8-269"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042-a2c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-az-1042-c-49-e13"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals-b4c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-7-ec-aed"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901-4f2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-901-f-43-fba"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902-535": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-902-ce-6-d53"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On-f67": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-hands-on-2-bb-e5b"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 1-777": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-hands-on-coming-soon-1-efa-4f9"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 2-99d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-hands-on-coming-soon-2-ee-1-b04"
+  },
+  "/docs/others-8ee": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-others-14-c-9fb"
+  },
+  "/-2e1": {
+    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
+    "__context": {
+      "plugin": "plugin---a-74-9d6"
+    },
+    "config": "config---5-e-9-4f3"
+  }
+}

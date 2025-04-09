@@ -1,0 +1,26 @@
+{
+  "id": "Microsoft Azure/Microsoft Azure Administrator/Microsoft Azure Administrator",
+  "title": "Microsoft Azure Administrator",
+  "description": "Gotenberg routes accept multipart/form-data requests, which are natively supported by most programming languages and tools, including cURL.",
+  "source": "@site/docs/Microsoft Azure/Microsoft Azure Administrator/AZ-104.mdx",
+  "sourceDirName": "Microsoft Azure/Microsoft Azure Administrator",
+  "slug": "/Microsoft Azure/Microsoft Azure Administrator/Microsoft Azure Administrator",
+  "permalink": "/docs/Microsoft Azure/Microsoft Azure Administrator/Microsoft Azure Administrator",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "Microsoft Azure Administrator",
+    "title": "Microsoft Azure Administrator"
+  },
+  "sidebar": "defaultSidebar",
+  "previous": {
+    "title": "Comming Soon 2",
+    "permalink": "/docs/Microsoft Azure/AZ-Hands-On/Comming Soon 2"
+  },
+  "next": {
+    "title": "Describe cloud concepts",
+    "permalink": "/docs/Microsoft Azure/Microsoft Azure Administrator/AZ-1041"
+  }
+}

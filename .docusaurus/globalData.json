@@ -1,0 +1,88 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "Getting-started/introduction",
+          "docs": [
+            {
+              "id": "devops-sre/devops-sre",
+              "path": "/docs/devops-sre/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Getting-started/introduction",
+              "path": "/docs/Getting-started/introduction",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Microsoft-Azure-Administrator",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/Microsoft-Azure-Fundamentals",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 1",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 1",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 2",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 2",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Hands-On/Microsoft-Azure-Hands-On",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "others",
+              "path": "/docs/others",
+              "sidebar": "defaultSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "defaultSidebar": {
+              "link": {
+                "path": "/docs/Getting-started/introduction",
+                "label": "Getting-started/introduction"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

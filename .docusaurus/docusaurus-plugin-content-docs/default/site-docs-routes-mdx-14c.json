@@ -1,0 +1,22 @@
+{
+  "id": "others",
+  "title": "Others",
+  "description": "Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!",
+  "source": "@site/docs/routes.mdx",
+  "sourceDirName": ".",
+  "slug": "/others",
+  "permalink": "/docs/others",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "others",
+    "title": "Others"
+  },
+  "sidebar": "defaultSidebar",
+  "previous": {
+    "title": "DevOps and SRE Practices",
+    "permalink": "/docs/devops-sre/"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "Microsoft-Azure/Microsoft-Azure-Hands-On/Microsoft-Azure-Hands-On",
+  "title": "Microsoft Azure Hands-On",
+  "description": "Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!",
+  "source": "@site/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Microsoft-Azure-Hands-On.mdx",
+  "sourceDirName": "Microsoft-Azure/Microsoft-Azure-Hands-On",
+  "slug": "/Microsoft-Azure/Microsoft-Azure-Hands-On/",
+  "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "Microsoft-Azure-Hands-On",
+    "title": "Microsoft Azure Hands-On"
+  },
+  "sidebar": "defaultSidebar",
+  "previous": {
+    "title": "Coming Soon 2",
+    "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902"
+  },
+  "next": {
+    "title": "Coming Soon 1",
+    "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 1"
+  }
+}

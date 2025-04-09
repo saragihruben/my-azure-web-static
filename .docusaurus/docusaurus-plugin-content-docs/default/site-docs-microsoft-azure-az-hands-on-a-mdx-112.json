@@ -1,0 +1,26 @@
+{
+  "id": "Microsoft Azure/AZ-Hands-On/A",
+  "title": "A",
+  "description": "Gotenberg routes accept multipart/form-data requests, which are natively supported by most programming languages and tools, including cURL.",
+  "source": "@site/docs/Microsoft Azure/AZ-Hands-On/A.mdx",
+  "sourceDirName": "Microsoft Azure/AZ-Hands-On",
+  "slug": "/Microsoft Azure/AZ-Hands-On/A",
+  "permalink": "/docs/Microsoft Azure/AZ-Hands-On/A",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "A",
+    "title": "A"
+  },
+  "sidebar": "defaultSidebar",
+  "previous": {
+    "title": "AZ-902",
+    "permalink": "/docs/Microsoft Azure/AZ-900/AZ-902"
+  },
+  "next": {
+    "title": "B",
+    "permalink": "/docs/Microsoft Azure/AZ-Hands-On/B"
+  }
+}

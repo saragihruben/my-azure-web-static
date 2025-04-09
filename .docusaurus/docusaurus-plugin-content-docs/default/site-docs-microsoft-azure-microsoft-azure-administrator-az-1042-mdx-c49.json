@@ -1,0 +1,26 @@
+{
+  "id": "Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
+  "title": "Coming Soon 2",
+  "description": "Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!",
+  "source": "@site/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042.mdx",
+  "sourceDirName": "Microsoft-Azure/Microsoft-Azure-Administrator",
+  "slug": "/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
+  "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "AZ-1042",
+    "title": "Coming Soon 2"
+  },
+  "sidebar": "defaultSidebar",
+  "previous": {
+    "title": "Coming Soon 1",
+    "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041"
+  },
+  "next": {
+    "title": "Microsoft Azure Fundamentals",
+    "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/"
+  }
+}
