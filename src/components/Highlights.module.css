@@ -22,7 +22,7 @@
 }
 
 .paddingTopLg {
-  padding-top: 0rem;
+  padding-top: 1rem;
   font-size: 16px !important; /* Adjust the font size as needed */
   text-align: justify !important; /* Justifies the text */ /* Adjust the indent size as needed */
 }
