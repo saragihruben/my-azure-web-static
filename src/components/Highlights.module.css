@@ -44,8 +44,8 @@
 }
 
 .videoWrapper {
-  width: 100%;
-  max-width: 100%;
+  width: 90%;
+  max-width: 90%;
   aspect-ratio: 16 / 9;
 }
 
