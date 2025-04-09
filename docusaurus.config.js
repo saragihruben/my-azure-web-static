@@ -5,7 +5,7 @@ const lightTheme = themes.github;
 module.exports = {
   title: "MyWiki",
   trailingSlash: false,
-  url: "https://agreeable-desert-0d71abe00.6.azurestaticapps.net",
+  url: "https://wiki.saragihruben.my.id",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
