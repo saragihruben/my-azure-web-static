@@ -1,0 +1,6 @@
+.docusaurus
+.github
+build
+docs
+static
+versioned_docs

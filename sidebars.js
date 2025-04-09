@@ -40,8 +40,8 @@ module.exports = {
               label: "Microsoft Azure Fundamentals",
               collapsible: true,
               items: [
-                "Microsoft Azure/Microsoft Azure Fundamentals/AZ-901",
-                "Microsoft Azure/Microsoft Azure Fundamentals/AZ-902",
+                "Microsoft Azure/Microsoft-Azure-Fundamentals/AZ-901",
+                "Microsoft Azure/Microsoft-Azure-Fundamentals/AZ-902",
               ],
             },
             {
@@ -49,8 +49,8 @@ module.exports = {
               label: "Microsoft Azure Administrator",
               collapsible: true,
               items: [
-                "Microsoft Azure/Microsoft Azure Administrator/AZ-1041",
-                "Microsoft Azure/Microsoft Azure Administrator/AZ-1042",
+                "Microsoft Azure/Microsoft-Azure-Administrator/AZ-1041",
+                "Microsoft Azure/Microsoft-Azure-Administrator/AZ-1042",
               ],
             },
             {
@@ -58,8 +58,8 @@ module.exports = {
               label: "Microsoft Azure Hands-On",
               collapsible: true,
               items: [
-                "Microsoft Azure/Microsoft Azure Hands-On/Comming Soon 1",
-                "Microsoft Azure/Microsoft Azure Hands-On/Comming Soon 2",
+                "Microsoft Azure/Microsoft-Azure-Hands-On/Comming Soon 1",
+                "Microsoft Azure/Microsoft-Azure-Hands-On/Comming Soon 2",
               ],
             },
           ],
