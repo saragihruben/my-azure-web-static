@@ -84,5 +84,14 @@
       ],
       "breadcrumbs": true
     }
+  },
+  "docusaurus-plugin-google-gtag": {
+    "default": {
+      "trackingID": [
+        "G-Q1MDM8KFVG"
+      ],
+      "anonymizeIP": false,
+      "id": "default"
+    }
   }
 }
