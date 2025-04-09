@@ -66,7 +66,7 @@ function Async() {
           </div>
 
           <div className="col col--6">
-            <p className={styles.paddingTopLg}>
+            <p className={styles.videoWrapper}>
               <br/><br/>
               Beberapa hands-On dan penjelasan materi pada Wiki akan dilengkapi dengan video dan di harapkan dapat mempermudah pemahaman tentang materi yang akan di pelajari.
               <br/><br/>
