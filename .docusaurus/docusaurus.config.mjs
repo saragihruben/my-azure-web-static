@@ -6,7 +6,7 @@
 export default {
   "title": "MyWiki",
   "trailingSlash": false,
-  "url": "https://agreeable-desert-0d71abe00.6.azurestaticapps.net",
+  "url": "https://zealous-dune-02dd8c700.6.azurestaticapps.net",
   "baseUrl": "/",
   "onBrokenLinks": "throw",
   "onBrokenMarkdownLinks": "warn",
