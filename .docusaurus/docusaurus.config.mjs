@@ -6,7 +6,7 @@
 export default {
   "title": "MyWiki",
   "trailingSlash": false,
-  "url": "https://wiki.saragihruben.my.id",
+  "url": "https://white-pebble-0a8b06200.6.azurestaticapps.net",
   "baseUrl": "/",
   "onBrokenLinks": "throw",
   "onBrokenMarkdownLinks": "warn",
