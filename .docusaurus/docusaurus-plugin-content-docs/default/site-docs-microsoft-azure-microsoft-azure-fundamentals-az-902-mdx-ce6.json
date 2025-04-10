@@ -1,6 +1,6 @@
 {
   "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902",
-  "title": "Coming Soon 2",
+  "title": "Keuntungan menggunakan Cloud Services",
   "description": "Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!",
   "source": "@site/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902.mdx",
   "sourceDirName": "Microsoft-Azure/Microsoft-Azure-Fundamentals",
@@ -12,15 +12,15 @@
   "version": "current",
   "frontMatter": {
     "id": "AZ-902",
-    "title": "Coming Soon 2"
+    "title": "Keuntungan menggunakan Cloud Services"
   },
   "sidebar": "defaultSidebar",
   "previous": {
-    "title": "Coming Soon 1",
+    "title": "Apa itu Cloud Computing?",
     "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901"
   },
   "next": {
-    "title": "Microsoft Azure Hands-On",
-    "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/"
+    "title": "Kategori Cloud Services",
+    "permalink": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903"
   }
 }

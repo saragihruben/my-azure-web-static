@@ -46,6 +46,46 @@
               "sidebar": "defaultSidebar"
             },
             {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910",
+              "sidebar": "defaultSidebar"
+            },
+            {
               "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/Microsoft-Azure-Fundamentals",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/",
               "sidebar": "defaultSidebar"
@@ -83,6 +123,15 @@
         }
       ],
       "breadcrumbs": true
+    }
+  },
+  "docusaurus-plugin-google-gtag": {
+    "default": {
+      "trackingID": [
+        "G-Q1MDM8KFVG"
+      ],
+      "anonymizeIP": false,
+      "id": "default"
     }
   }
 }

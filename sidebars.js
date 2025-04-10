@@ -42,6 +42,14 @@ module.exports = {
               items: [
                 "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
                 "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910",
               ],
             },
             {
