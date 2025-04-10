@@ -44,12 +44,8 @@
 }
 
 .videoWrapper {
-  width: 90%;
-  max-width: 90%;
-  aspect-ratio: 16 / 9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 29rem;
+  height: 25rem;
 }
 
 .videoWrapper iframe {
