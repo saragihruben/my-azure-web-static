@@ -44,8 +44,12 @@
 }
 
 .videoWrapper {
-  width: 25rem;
-  height: 25rem;
+  width: 25rem !important;
+  height: 25rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: auto !important;
 }
 
 .videoWrapper iframe {
