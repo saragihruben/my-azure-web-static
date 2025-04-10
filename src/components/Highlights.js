@@ -67,7 +67,6 @@ function Async() {
 
           <div className="col col--6">
             <p className={styles.paddingTopLg}>
-              
               Beberapa hands-On dan penjelasan materi pada Wiki akan dilengkapi dengan video dan di harapkan dapat mempermudah pemahaman tentang materi yang akan di pelajari.
               <br/>
               Subscribe channel youtube <a href="https://www.youtube.com/@SaragihRubens" target="_blank">Saragih Ruben</a> untuk mendukung saya dalam pembuatan materi dan video selanjutnya.
