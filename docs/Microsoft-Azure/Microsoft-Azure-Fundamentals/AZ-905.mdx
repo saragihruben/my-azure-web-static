@@ -3,12 +3,409 @@ id: AZ-905
 title: Azure network and compute services
 ---
 
-:::info
+## Azure virtual machine
+Azure Virtual Machines (VMs) adalah layanan **Infrastructure as a Service (IaaS)** yang memungkinkan pengguna membuat dan menjalankan mesin virtual di cloud. 
+Seperti komputer fisik, pengguna dapat menginstal sistem operasi, aplikasi, dan konfigurasi sesuai kebutuhan.
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+# Kapan Menggunakan Azure VMs?
+Azure VMs cocok digunakan jika  membutuhkan:
 
+- Kontrol penuh atas sistem operasi (OS).
+- Kemampuan menjalankan perangkat lunak khusus.
+- Konfigurasi hosting yang dapat disesuaikan.
+
+Dengan Azure VMs, pengguna mendapatkan fleksibilitas virtualisasi tanpa perlu membeli dan merawat perangkat keras fisik 
+tetapi tetap bertanggung jawab untuk mengelola, memperbarui, dan memelihara software yang berjalan di VM.
+
+# Skalabilitas Azure VMs
+Kita bisa menjalankan satu VM untuk pengujian atau pengembangan, atau mengelompokkan beberapa VM agar lebih **high availability**, **scalable**, dan **redundant**.
+
+**Virtual Machine Scale Sets**
+- Memungkinkan pembuatan dan pengelolaan grup VM identik secara otomatis.
+-  VM dapat bertambah atau berkurang secara otomatis sesuai permintaan.
+-  Termasuk load balancer otomatis untuk efisiensi resources.
+-  Cocok untuk big data, beban kerja kontainer, dan komputasi skala besar.
+
+**Virtual Machine Availability Sets**
+- Dirancang untuk meningkatkan ketahanan dan ketersediaan aplikasi.
+- Membantu mencegah kegagalan total akibat gangguan jaringan atau daya.
+- Dua mekanisme utama:
+    - Update Domain: Mengelompokkan VM agar pembaruan dilakukan secara bertahap.
+    - Fault Domain: Memisahkan VM berdasarkan resources dan jaringan untuk menghindari kegagalan total.
+
+- Tidak ada biaya tambahan untuk menggunakan Availability Sets, hanya membayar VM yang digunakan.
+
+<br/>
+:::info Kapan Menggunakan Azure VMs? (Use Cases)
+- 🚀 Pengujian & Pengembangan: Membantu tim developer menguji aplikasi dalam berbagai konfigurasi OS dan software dengan cepat.
+- ☁ Menjalankan Aplikasi di Cloud: Menjalankan aplikasi di cloud lebih fleksibel dibandingkan infrastruktur tradisional.
+- 🔌 Memperluas Data Center ke Cloud: Menghubungkan VM di Azure dengan jaringan on-premises untuk meningkatkan kapasitas.
+- ⚠ Disaster Recovery: Jika pusat data utama gagal, VM di Azure bisa digunakan sementara untuk menjalankan aplikasi penting.
+- 🔄 Lift & Shift ke Cloud: Memigrasikan server fisik ke cloud dengan sedikit atau tanpa perubahan.
 :::
 
-:::warning
+<br/>
+# Resources yang Dapat Dipilih saat Membuat VM
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Saat membuat VM, kita bisa mengatur berbagai aspek seperti:
+- Ukuran VM (jumlah core CPU, RAM, dll.)
+- Tipe penyimpanan (HDD, SSD)
+- Jaringan (Virtual Network, IP Publik, konfigurasi port)
+
+:::tip Konklusi
+Azure VMs memberikan fleksibilitas tinggi untuk menjalankan aplikasi di cloud dengan kontrol penuh atas OS dan software. Namun, karena merupakan layanan IaaS, 
+Kita tetap bertanggung jawab atas pemeliharaan software. Dengan fitur scale sets dan availability sets, kita dapat memastikan VM tetap efisien, scalable, dan andal. 🚀
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure virtual dekstop
+
+Azure Virtual Desktop (AVD) adalah layanan virtualisasi desktop dan aplikasi berbasis cloud. Dengan AVD, 
+kita dapat mengakses Windows yang di-hosting di cloud dari mana saja, di berbagai perangkat dan sistem operasi.
+
+**Keunggulan Azure Virtual Desktop**
+
+🔒 Meningkatkan Keamanan
+- Manajemen keamanan terpusat dengan Microsoft Entra ID.
+- Autentikasi multifaktor (MFA) untuk meningkatkan keamanan login.
+- Role-Based Access Control (RBAC) untuk mengontrol akses data secara lebih granular.
+- Data dan aplikasi dipisahkan dari perangkat lokal, sehingga mengurangi risiko kebocoran data.
+
+💻 Multi-Session Windows 10 & 11
+- AVD mendukung Windows 10 & 11 Enterprise Multi-Session, memungkinkan banyak pengguna untuk menggunakan satu VM secara bersamaan.
+- Lebih stabil dan kompatibel dibandingkan dengan sistem operasi berbasis Windows Server.
+
+<br/>
+:::tip Konklusi
+Azure Virtual Desktop adalah solusi fleksibel untuk mengakses Windows di cloud, dengan keamanan tinggi, 
+akses dari berbagai perangkat, dan dukungan multi-session. Cocok untuk perusahaan yang ingin mengamankan data, menghemat biaya infrastruktur, dan meningkatkan efisiensi kerja jarak jauh. 🚀
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure virtual containers
+
+Azure Containers adalah solusi virtualisasi ringan untuk menjalankan banyak aplikasi pada satu host fisik atau 
+virtual tanpa perlu mengelola sistem operasi secara langsung. Dibandingkan dengan virtual machines (VMs), containers lebih cepat, 
+lebih fleksibel, dan lebih ringan dalam penggunaan resources.
+
+**Apa Itu Container?**
+
+- Lingkungan virtualisasi ringan, memungkinkan banyak aplikasi berjalan di satu host.
+- Tidak perlu mengelola OS seperti pada VM.
+- Lebih cepat dan dinamis, bisa dibuat, dihentikan, atau diskalakan sesuai permintaan.
+- Respon cepat terhadap kegagalan, bisa restart otomatis saat terjadi crash.
+- **Docker** adalah salah satu engine container yang paling populer dan didukung oleh Azure.
+
+![Docusaurus logo](/img/az900/5.png)
+
+# Layanan Azure untuk Container
+
+**Azure Container Instances (ACI)**
+- Cara tercepat dan termudah untuk menjalankan container di Azure.
+- Platform as a Service (PaaS), tanpa perlu mengelola VM.
+- Cukup upload container, Azure akan menjalankannya secara otomatis.
+
+**Azure Container Apps**
+- Seperti ACI, tetapi dengan fitur tambahan seperti load balancing & auto-scaling.
+- Cocok untuk aplikasi yang memerlukan elastisitas tinggi.
+
+**Azure Kubernetes Service (AKS)**
+- Layanan orchestrasi container yang mengelola siklus hidup banyak container sekaligus.
+- Cocok untuk deploy fleet (kumpulan) container secara efisien.
+
+# Container dalam Arsitektur Microservices
+Containers sering digunakan dalam arsitektur microservices, di mana aplikasi dipecah menjadi bagian-bagian kecil yang dapat dikelola, diskalakan, dan diperbarui secara independen.
+
+Contoh: Website dengan arsitektur container
+- Front-end di satu container.
+- Back-end di container lain.
+- Database/Storage di container terpisah.
+
+Jika back-end mengalami overload, pengguna bisa meningkatkan skalanya tanpa memengaruhi front-end atau database.
+
+:::tip Konklusi
+Azure Containers adalah solusi virtualisasi modern yang lebih cepat, ringan, dan fleksibel dibandingkan VM. 
+Dengan layanan seperti ACI, Container Apps, dan AKS, perusahaan dapat membangun aplikasi high-performance, scalable, dan hemat biaya di cloud. 
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure functions
+
+Azure Functions adalah layanan serverless computing berbasis event yang memungkinkan pengguna menjalankan kode tanpa harus memelihara infrastruktur seperti virtual machines (VMs) atau containers. Dengan Azure Functions, aplikasi hanya berjalan saat ada event yang memicunya, sehingga hemat biaya dan mudah diskalakan.
+
+# Keuntungan Azure Functions
+- Tanpa perlu mengelola server atau infrastruktur – cukup fokus pada kode.
+- Skalabilitas otomatis – resources bertambah atau berkurang sesuai kebutuhan.
+- Bayar sesuai pemakaian – hanya dikenakan biaya saat fungsi berjalan.
+- Respon cepat terhadap event – cocok untuk aplikasi yang membutuhkan reaksi instan.
+
+# Bagaimana Cara Kerja Azure Functions?
+- Ditrigger oleh event seperti REST request, timer, atau pesan dari layanan Azure lain.
+- Kode dieksekusi saat ada event, tanpa perlu menjaga resource tetap aktif.
+- Setelah selesai, Azure secara otomatis melepaskan resource untuk menghemat biaya.
+
+![Docusaurus logo](/img/az900/6.png)
+
+# Kapan Menggunakan Azure Functions?
+
+**Kasus Penggunaan Umum:**
+- Pemrosesan data real-time (misalnya, update database saat ada event baru).
+- Notifikasi otomatis (misalnya, mengirim email saat ada transaksi).
+- Integrasi dengan layanan lain (misalnya, Azure Blob Storage, IoT, atau API lainnya).
+- Backend untuk aplikasi serverless (misalnya, fungsi sebagai API endpoint untuk aplikasi web atau mobile).
+
+<br/>
+:::tip Konklusi
+Azure Functions adalah solusi serverless yang fleksibel, hemat biaya, dan otomatis diskalakan. 
+Dengan dukungan untuk event-driven programming, layanan ini sangat cocok untuk membangun aplikasi modern, scalable, dan responsif di cloud. 🚀
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure virtual networking
+
+Azure Virtual Network (VNet) adalah layanan jaringan fundamental di Azure yang memungkinkan komunikasi aman antara resources cloud dan lingkungan on-premises. VNet berfungsi seperti jaringan lokal, tetapi sepenuhnya berbasis cloud, dengan fitur yang mendukung skalabilitas dan keamanan tinggi.
+
+<br/>
+# Fitur Utama Azure Virtual Networking 
+
+# 🛑 1. Isolasi & Segmentasi
+- Setiap VNet bersifat terisolasi dari VNet lainnya, mirip dengan jaringan private.
+- Bisa dibuat subnet untuk mengalokasikan IP address ke berbagai resources.
+- Dukungan untuk internal & eksternal DNS untuk resolusi domain.
+
+<br/>
+# 🌍 2. Komunikasi dengan Internet
+- Akses internet bisa dilakukan dengan Public IP atau melalui Load Balancer.
+- Public endpoints memiliki IP global, sementara private endpoints tetap di dalam VNet.
+
+<br/>
+# 🔄 3. Komunikasi Antar Azure resources
+- VNet dapat menghubungkan berbagai layanan Azure, seperti:
+    - Azure Virtual Machines (VMs)
+    - Azure Kubernetes Service (AKS)
+    - Azure App Service (dengan App Service Environment)
+    - Service Endpoints dapat digunakan untuk menghubungkan ke layanan Azure lainnya, seperti Azure SQL Database dan Storage Account.
+
+<br/>
+# 🏢 4. Komunikasi dengan On-Premises
+Ada beberapa metode untuk menghubungkan jaringan on-premises ke Azure:
+
+![Docusaurus logo](/img/az900/7.png)
+
+
+# 🚦 5. Routing Traffic Jaringan
+- Azure secara otomatis mengatur routing antar subnet, VNet, dan internet.
+- Bisa dikustomisasi menggunakan:
+    - Route Tables untuk menentukan jalur khusus dalam jaringan.
+    - Border Gateway Protocol (BGP) untuk pertukaran informasi routing dengan jaringan on-premises.
+
+<br/>
+# 🔐 6. Filtering & Keamanan
+- Network Security Groups (NSG): Mengontrol lalu lintas masuk & keluar berdasarkan IP, port, dan protokol.
+- Network Virtual Appliance (NVA): Firewall berbasis VM untuk keamanan tambahan.
+
+<br/>
+# 🔗 7. Koneksi Antar Virtual Network (Peering)
+- Virtual Network Peering memungkinkan dua VNet berkomunikasi secara langsung melalui jaringan backbone Microsoft.
+- Mendukung Global VNet Peering, untuk komunikasi antar region yang berbeda.
+
+:::tip Konklusi
+- Azure Virtual Network memungkinkan komunikasi aman & fleksibel di cloud.
+- Dukungan hybrid untuk menghubungkan Azure dengan on-premises.
+- Keamanan tinggi melalui NSG, VPN, dan firewall berbasis NVA.
+- Dukungan skala global dengan VNet Peering & ExpressRoute.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure virtual private networks
+
+Azure VPN adalah solusi aman untuk menghubungkan berbagai jaringan melalui jaringan yang internet publik
+dengan menggunakan terowongan terenkripsi (tunneling). Teknologi ini memungkinkan komunikasi yang aman antara jaringan di lokasi fisik (on-premises), 
+perangkat individu, dan Virtual Network (VNet) di Azure.
+
+# Fitur Utama Azure VPN
+- Lalu lintas terenkripsi – Semua data dienkripsi untuk mencegah penyadapan.
+- Konektivitas aman – Menghubungkan datacenter, pekerja jarak jauh, dan antar VNet di Azure.
+- Fleksibilitas koneksi – Mendukung berbagai metode koneksi (Site-to-Site, Point-to-Site, dan VNet-to-VNet).
+- Ketersediaan tinggi & redundansi – Memastikan koneksi tetap aktif bahkan saat terjadi gangguan.
+
+# Apa Itu Azure VPN Gateway?
+VPN Gateway adalah resources khusus di Azure yang digunakan untuk mengamankan koneksi antar jaringan. 
+Gateway ini ditempatkan di subnet khusus dalam Virtual Network (VNet).
+
+# Jenis Koneksi VPN Gateway
+1️⃣ **Site-to-Site (S2S) VPN**
+- Menghubungkan jaringan on-premises (lokasi fisik) dengan Azure VNet.
+- Menggunakan protokol IPSec/IKE VPN tunnels.
+
+2️⃣ **Point-to-Site (P2S) VPN**
+- Menghubungkan perangkat individu (laptop, pekerja jarak jauh) ke VNet di Azure.
+- Menggunakan protokol seperti OpenVPN, SSTP, atau IKEv2.
+
+3️⃣ **Network-to-Network (VNet-to-VNet) VPN**
+- Menghubungkan dua atau lebih VNet di Azure secara aman.
+
+# Jenis VPN Gateway
+
+![Docusaurus logo](/img/az900/8.png)
+
+:::warning
+💡 Route-Based VPN lebih disarankan karena lebih fleksibel dan mendukung skenario yang lebih kompleks.
+:::
+
+<br/>
+# Opsi Ketersediaan Tinggi & Redundansi
+1️⃣ Active/Standby Mode (Default)
+- Azure menyediakan dua instance, tetapi hanya satu yang aktif pada satu waktu.
+- Jika terjadi gangguan, instance cadangan akan aktif dalam beberapa detik hingga 90 detik.
+
+2️⃣ Active/Active Mode
+- Menggunakan BGP (Border Gateway Protocol) untuk routing.
+- Memiliki dua instance aktif dengan alamat IP publik terpisah untuk redundansi lebih tinggi.
+
+3️⃣ ExpressRoute Failover
+- VPN Gateway dapat digunakan sebagai cadangan ExpressRoute.
+- Jika koneksi ExpressRoute gagal, VPN Gateway akan mengambil alih.
+
+4️⃣ Zone-Redundant Gateways
+- Dapat ditempatkan di Azure Availability Zones untuk ketahanan lebih tinggi.
+- Melindungi dari kegagalan di tingkat zona Azure.
+
+:::tip Konklusi
+- Azure VPN memungkinkan komunikasi aman antara jaringan dengan enkripsi data.
+- Dapat digunakan untuk menghubungkan on-premises, perangkat individu, dan antar VNet.
+- VPN Route-Based lebih direkomendasikan untuk skalabilitas yang lebih baik.
+- Opsi redundansi memastikan konektivitas tetap terjaga meskipun terjadi gangguan.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure ExpressRoute
+
+Azure ExpressRoute adalah layanan koneksi pribadi yang memungkinkan organisasi memperluas jaringan on-premises mereka ke 
+Microsoft Cloud tanpa melewati internet publik. Koneksi ini disebut ExpressRoute Circuit dan disediakan melalui penyedia konektivitas.
+
+# Digunakan untuk menghubungkan:
+- Datacenter, kantor, atau fasilitas lain ke layanan Microsoft seperti Azure & Microsoft 365.
+- Koneksi lebih cepat, lebih aman, dan lebih stabil dibandingkan koneksi internet biasa.
+
+# Fitur & Keunggulan ExpressRoute
+- Koneksi langsung ke layanan cloud Microsoft di semua wilayah dalam satu kawasan geopolitik.
+- Global Reach – Menghubungkan ExpressRoute dari berbagai lokasi on-premises.
+- Routing dinamis melalui protokol BGP (Border Gateway Protocol).
+- Redundansi bawaan di setiap lokasi peering untuk keandalan tinggi.
+
+<br/>
+# 🔗 Koneksi ke Layanan Microsoft
+Dengan ExpressRoute, pengguna bisa mengakses langsung layanan berikut tanpa melewati internet publik:
+- Microsoft 365 (Outlook, SharePoint, Teams, dll.)
+- Microsoft Dynamics 365
+- Azure Compute Services (seperti Azure Virtual Machines)
+- Azure Cloud Services (seperti Azure Cosmos DB, Azure Storage)
+
+<br/>
+# 🌍 Global Connectivity dengan ExpressRoute Global Reach
+- Memungkinkan koneksi antar datacenter & kantor di berbagai wilayah melalui jaringan Microsoft.
+- Contoh: Kantor di Asia dan datacenter di Eropa dapat berkomunikasi langsung tanpa melewati internet publik.
+
+<br/>
+# 📡 Model Koneksi ExpressRoute
+1. Colocation di Cloud Exchange
+    - Jika datacenter atau kantor pengguna berada di lokasi cloud exchange, pengguna bisa menggunakan cross-connect virtual untuk menghubungkan langsung ke Microsoft Cloud.
+
+2. Point-to-Point Ethernet Connection
+    - Menggunakan koneksi point-to-point langsung dari fasilitas pengguna ke Microsoft Cloud.
+
+3. Any-to-Any (IP VPN)
+    - Menghubungkan jaringan area luas (WAN) organisasi pengguna ke Azure, seperti koneksi antara kantor pusat dan cabang.
+
+4. ExpressRoute Direct
+    - Koneksi langsung ke jaringan global Microsoft di peering location tertentu.
+    - Mendukung dual 100 Gbps atau 10 Gbps, ideal untuk koneksi Active/Active skala besar.
+
+<br/>
+# Routing Dinamis dengan BGP
+ExpressRoute menggunakan protokol BGP untuk secara otomatis menukar rute antara jaringan on-premises dan Azure.
+Keuntungan BGP:
+- Routing lebih fleksibel & otomatis.
+- Mendukung failover otomatis untuk keandalan tinggi.
+
+<br/>
+# 🔐 Keamanan ExpressRoute
+- Tidak melewati internet publik, mengurangi risiko peretasan & serangan siber.
+- Lalu lintas data lebih aman dan stabil dibanding VPN biasa.
+- Tetap membutuhkan internet untuk DNS queries, sertifikat, dan CDN request.
+
+<br/>
+:::tip Konklusi
+- Azure ExpressRoute menyediakan koneksi pribadi ke Microsoft Cloud dengan kecepatan tinggi, keamanan lebih baik, dan latensi lebih rendah dibanding internet publik.
+- Mendukung berbagai model konektivitas, termasuk colocation, point-to-point, any-to-any, dan ExpressRoute Direct.
+- Dengan ExpressRoute Global Reach, organisasi dapat menghubungkan kantor dan datacenter secara langsung tanpa melewati internet publik.
+- Keamanan lebih tinggi dibanding VPN, tetapi tetap membutuhkan internet untuk beberapa layanan seperti DNS dan Azure CDN.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure DNS
+
+Azure DNS adalah layanan hosting untuk domain DNS yang menyediakan resolusi nama domain menggunakan infrastruktur Microsoft Azure. 
+Dengan Azure DNS, Anda dapat mengelola DNS records menggunakan kredensial, API, alat, dan sistem penagihan yang sama seperti layanan Azure lainnya.
+
+<br/>
+# Keunggulan Azure DNS
+- Keandalan & Performa Tinggi
+- Keamanan Data & Kontrol Akses
+- Kemudahan Pengelolaan
+- Dukungan untuk Jaringan Virtual Kustom
+- Alias Records untuk Azure Resources
+
+<br/>
+# Keandalan & Performa Tinggi
+- Domain DNS dalam Azure di-hosting pada jaringan global Microsoft Azure, memastikan ketersediaan tinggi & ketahanan sistem.
+- Menggunakan teknologi anycast, di mana server DNS terdekat akan menjawab setiap kueri DNS, sehingga menghasilkan respon yang cepat dan andal.
+
+<br/>
+# Keamanan Data & Kontrol Akses
+Azure DNS berbasis pada Azure Resource Manager, yang menyediakan fitur keamanan seperti:
+- Azure Role-Based Access Control (RBAC) – Mengontrol siapa yang memiliki akses untuk mengelola domain DNS.
+- Activity Logs – Memantau perubahan yang dilakukan pada DNS untuk audit & troubleshooting.
+- Resource Locking – Mencegah pengguna lain menghapus atau mengubah sumber daya yang penting secara tidak sengaja.
+
+<br/>
+# Kemudahan Pengelolaan
+- Dapat mengelola DNS records untuk layanan Azure maupun sumber daya eksternal.
+- Terintegrasi dengan Azure Portal, Azure CLI, PowerShell, dan REST API untuk otomatisasi pengelolaan DNS.
+- Dapat digunakan dengan SDK untuk pengelolaan berbasis kode.
+
+<br/>
+# Dukungan untuk Private DNS di Jaringan Virtual
+Azure DNS mendukung private DNS zones, memungkinkan organisasi menggunakan domain kustom di jaringan virtual mereka.
+**Keuntungan:**
+- Tidak perlu menggunakan nama domain default dari Azure.
+- Resolusi nama lebih fleksibel & aman untuk infrastruktur internal.
+
+<br/>
+# Alias Records untuk Azure Resources
+Azure DNS mendukung alias record sets, yang memungkinkan domain langsung menunjuk ke resource Azure, seperti:
+- Azure Public IP Address
+- Azure Traffic Manager
+- Azure CDN (Content Delivery Network)
+
+**Keunggulan Alias Records:** Jika IP resource berubah, record akan diperbarui secara otomatis tanpa perlu konfigurasi manual.
+
+:::warning ⚠ Catatan Penting
+❌ Azure DNS tidak dapat digunakan untuk membeli domain. Domain dapat dibeli melalui App Service Domains atau penyedia domain pihak ketiga, kemudian dikelola dengan Azure DNS.
+:::
+
+:::tip Konklusi
+- Azure DNS adalah layanan hosting DNS yang menawarkan keandalan tinggi, keamanan, dan kemudahan pengelolaan.
+- Mendukung DNS publik & private, serta integrasi dengan layanan Azure lainnya.
+- Alias records memungkinkan domain langsung terhubung ke resource Azure dengan pembaruan otomatis.
+- Cocok untuk bisnis yang membutuhkan layanan DNS cepat, aman, dan mudah diintegrasikan dengan infrastruktur cloud.
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------------
