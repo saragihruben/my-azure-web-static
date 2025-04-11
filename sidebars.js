@@ -50,6 +50,7 @@ module.exports = {
                 "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908",
                 "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909",
                 "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910",
+                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911",
               ],
             },
             {

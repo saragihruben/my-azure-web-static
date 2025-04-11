@@ -42,17 +42,17 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/docs-3c3": {
+  "/docs-ce6": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docsaba-d7c"
     }
   },
-  "/docs-316": {
+  "/docs-31c": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "__props": "__props---docs-005-788"
   },
-  "/docs-02e": {
+  "/docs-c12": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
   "/docs/devops-sre-024": {
@@ -118,6 +118,10 @@
   "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910-0ec": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-910-cda-16f"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911-29b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-9116-db-033"
   },
   "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On-f67": {
     "__comp": "__comp---theme-doc-item-178-a40",

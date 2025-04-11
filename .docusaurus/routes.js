@@ -39,15 +39,15 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', '3c3'),
+    component: ComponentCreator('/docs', 'ce6'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', '316'),
+        component: ComponentCreator('/docs', '31c'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '02e'),
+            component: ComponentCreator('/docs', 'c12'),
             routes: [
               {
                 path: '/docs/devops-sre',
@@ -142,6 +142,12 @@ export default [
               {
                 path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910',
                 component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910', '0ec'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911', '29b'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },

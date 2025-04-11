@@ -86,6 +86,11 @@
               "sidebar": "defaultSidebar"
             },
             {
+              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911",
+              "sidebar": "defaultSidebar"
+            },
+            {
               "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/Microsoft-Azure-Fundamentals",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/",
               "sidebar": "defaultSidebar"
