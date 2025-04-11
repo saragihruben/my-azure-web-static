@@ -72,3 +72,7 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
 .footer__copyright > a {
   color: white;
 }
+
+article p {
+  text-align: justify;
+}

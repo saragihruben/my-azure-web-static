@@ -1,7 +1,7 @@
 {
   "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
-  "title": "Apa itu Cloud Computing?",
-  "description": "Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!",
+  "title": "Definisi Cloud Computing",
+  "description": "Apa itu Cloud Computing?",
   "source": "@site/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901.mdx",
   "sourceDirName": "Microsoft-Azure/Microsoft-Azure-Fundamentals",
   "slug": "/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
@@ -12,7 +12,7 @@
   "version": "current",
   "frontMatter": {
     "id": "AZ-901",
-    "title": "Apa itu Cloud Computing?"
+    "title": "Definisi Cloud Computing"
   },
   "sidebar": "defaultSidebar",
   "previous": {
