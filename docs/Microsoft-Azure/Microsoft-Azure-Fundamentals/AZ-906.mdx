@@ -3,12 +3,278 @@ id: AZ-906
 title: Azure identity, access, and security
 ---
 
-:::info
+## Azure directory services
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Microsoft Entra ID adalah layanan direktori yang memungkinkan pengguna untuk masuk dan mengakses aplikasi Microsoft Cloud maupun aplikasi cloud 
+yang mereka kembangkan sendiri. Selain itu, layanan ini juga dapat membantu perusahaan dalam mengelola Active Directory di data center lokal (on-premises).
 
+# Microsoft Entra ID: Layanan Direktori Cloud dari Microsoft
+**1️⃣ Apa itu Microsoft Entra ID?**
+
+Microsoft Entra ID adalah layanan identitas & manajemen akses berbasis cloud dari Microsoft.
+Digunakan untuk mengontrol akun identitas, sedangkan Microsoft bertanggung jawab atas ketersediaan layanan secara global.
+
+**Keuntungan utama:**
+- Memantau upaya login mencurigakan tanpa biaya tambahan.
+- Deteksi akses dari lokasi atau perangkat yang tidak dikenal.
+- Dapat diintegrasikan dengan Active Directory lokal.
+
+**2️⃣ Siapa yang Menggunakan Microsoft Entra ID?**
+- 👨‍💻 Administrator IT – Mengontrol akses pengguna ke aplikasi & resources sesuai dengan kebijakan bisnis.
+- 💻 Pengembang Aplikasi – Menggunakan Entra ID untuk menambahkan Single Sign-On (SSO) dan autentikasi ke aplikasi mereka.
+- 👥 Pengguna Umum – Mengelola akun, mengganti password, atau melakukan reset password secara mandiri.
+- 📦 Pelanggan Layanan Online – Pengguna Microsoft 365, Office 365, Azure, dan Dynamics CRM Online sudah menggunakan Entra ID untuk autentikasi.
+
+<br/>
+# Fitur Utama Microsoft Entra ID
+**1️⃣ Autentikasi & Keamanan**
+- Verifikasi identitas sebelum mengakses aplikasi & resources.
+- Mendukung autentikasi multifaktor (MFA) untuk keamanan ekstra.
+- Smart Lockout – Melindungi akun dari upaya login mencurigakan.
+
+**2️⃣ Single Sign-On (SSO)**
+- SSO memungkinkan pengguna mengakses banyak aplikasi hanya dengan satu username dan password.
+- Memudahkan manajemen akses: jika seorang karyawan keluar dari organisasi, aksesnya dapat dicabut dengan cepat.
+
+**3️⃣ Manajemen Aplikasi**
+- Microsoft Entra ID memungkinkan pengelolaan aplikasi baik di cloud maupun on-premises.
+- Dapat digunakan dengan Application Proxy, SaaS Apps, dan My Apps Portal.
+
+**4️⃣ Manajemen Perangkat**
+- Selain akun pengguna, Microsoft Entra ID juga mendukung registrasi perangkat.
+- Dengan Microsoft Intune, perangkat dapat dikelola dan dilindungi dari akses yang tidak sah.
+- Kebijakan akses berbasis perangkat bisa diterapkan (Conditional Access).
+
+<br/>
+# Integrasi dengan Active Directory On-Premises
+Jika organisasi pengguna menggunakan Active Directory (AD) lokal, Microsoft Entra ID dapat dihubungkan dengan AD menggunakan Microsoft Entra Connect.
+
+**Keunggulan Integrasi AD dengan Microsoft Entra ID:**
+- Identitas pengguna tetap konsisten antara cloud & on-premises.
+- Mendukung fitur SSO dan autentikasi multifaktor di kedua lingkungan.
+- Mengurangi kompleksitas dalam mengelola dua identitas terpisah.
+
+<br/>
+# Microsoft Entra Domain Services
+Layanan ini memberikan domain services terkelola, seperti:
+- Domain Join
+- Group Policy
+- LDAP Authentication
+- Kerberos & NTLM Authentication
+
+Microsoft Entra Domain Services memungkinkan pengguna menjalankan aplikasi lama di cloud tanpa perlu memelihara domain controller (DCs) sendiri.
+
+**Keuntungan utama:**
+- Dapat memindahkan (lift & shift) aplikasi lama ke cloud tanpa perlu mengubah autentikasi.
+- Terintegrasi dengan Microsoft Entra ID, sehingga pengguna bisa login menggunakan kredensial mereka.
+- Azure menangani pengelolaan & keamanan domain controller secara otomatis.
+
+<br/>
+:::warning Catatan Penting
+- Microsoft Entra ID dapat digunakan secara mandiri atau dikombinasikan dengan Active Directory on-premises untuk pengalaman yang lebih konsisten.
+- Microsoft Entra Domain Services adalah solusi untuk menjalankan aplikasi lama di cloud tanpa harus memelihara domain controller sendiri.
+- Microsoft Entra ID menawarkan Single Sign-On, manajemen perangkat, dan integrasi aplikasi untuk mempermudah pengelolaan akses dalam organisasi.
 :::
 
-:::warning
+:::tip Konklusi
+- Microsoft Entra ID adalah solusi manajemen identitas berbasis cloud untuk mengautentikasi pengguna dan perangkat.
+- Terintegrasi dengan Active Directory lokal, memungkinkan pengalaman identitas yang konsisten di cloud & on-premises.
+- Mendukung keamanan tinggi dengan fitur seperti MFA, SSO, dan Conditional Access.
+- Microsoft Entra Domain Services membantu menjalankan aplikasi lama di cloud tanpa harus mengelola domain controller sendiri. 
+:::
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure authentication methods
+
+Azure mendukung berbagai metode autentikasi seperti kata sandi, **Single Sign-On (SSO)**, **autentikasi multifaktor (MFA)**, dan **autentikasi tanpa kata sandi (passwordless)**.
+- SSO memudahkan akses dengan satu identitas untuk berbagai aplikasi, mengurangi jumlah kata sandi yang harus diingat dan dikelola.
+- MFA meningkatkan keamanan dengan menambahkan faktor autentikasi tambahan, seperti kode OTP atau biometrik, untuk melindungi dari pencurian kredensial.
+- Autentikasi tanpa kata sandi (passwordless) menawarkan keamanan dan kenyamanan, menggantikan kata sandi dengan metode yang lebih aman seperti biometrik atau perangkat fisik.
+
+Berikut adalah representasi perbandingan antara tingkat keamanan dan kenyamanan untuk berbagai metode autentikasi:
+
+![Docusaurus logo](/img/az900/9.png)
+
+Azure menyediakan tiga opsi autentikasi tanpa kata sandi:
+- Windows Hello for Business – Autentikasi berbasis biometrik atau PIN pada perangkat Windows.
+- Microsoft Authenticator App – Menggunakan ponsel sebagai metode autentikasi tanpa kata sandi.
+- FIDO2 Security Keys – Kunci keamanan fisik untuk autentikasi tanpa kata sandi yang lebih aman.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure external identities
+
+Identitas eksternal adalah individu, perangkat, atau layanan yang berasal dari luar organisasi yang kita miliki pada Azure Cloud. 
+Microsoft Entra External ID mencakup semua cara untuk berinteraksi secara aman dengan pengguna eksternal.
+
+**Jika Kita ingin berkolaborasi dengan:**
+- Mitra, distributor, pemasok, atau vendor → Kita bisa berbagi resources dan menentukan akses internal ke organisasi eksternal.
+- Pelanggan (consumer apps) → Kita dapat mengelola pengalaman identitas pelanggan dengan lebih mudah.
+
+# Bagaimana Identitas Eksternal Berbeda dengan Single Sign-On (SSO)?
+- Identitas Eksternal memungkinkan pengguna membawa identitas mereka sendiri!
+- Bisa menggunakan identitas perusahaan, pemerintah, atau sosial (Google, Facebook).
+- Penyedia identitas eksternal mengelola identitas mereka—Kita hanya perlu mengelola akses ke aplikasi dengan Microsoft Entra ID atau Azure AD B2C.
+
+<br/>
+# Fitur-Fitur Utama Identitas Eksternal
+**1. Kolaborasi Business-to-Business (B2B)**
+- Pengguna eksternal bisa masuk dengan identitas pilihan mereka (akun Microsoft atau SaaS lain).
+- Pengguna B2B muncul dalam direktori sebagai pengguna tamu (guest users).
+
+**2. B2B Direct Connect**
+- Hubungan kepercayaan dua arah dengan organisasi Microsoft Entra lainnya.
+- Saat ini mendukung Microsoft Teams Shared Channels → Pengguna eksternal bisa bergabung dari akun Teams mereka sendiri.
+- Pengguna tidak muncul di direktori, tetapi tetap bisa dimonitor dari Teams Admin Center.
+
+**3. Azure AD Business-to-Customer (B2C)**
+- Untuk aplikasi SaaS atau aplikasi kustom yang ditujukan ke pelanggan.
+- Azure AD B2C mengelola identitas dan akses pengguna ke aplikasi tersebut.
+- Tidak mendukung aplikasi Microsoft, hanya aplikasi yang dibuat sendiri atau pihak ketiga.
+
+<br/>
+# Manfaat Menggunakan Microsoft Entra ID untuk Identitas Eksternal
+- Kolaborasi mudah dengan fitur Microsoft Entra B2B.
+- Administrasi pengguna tamu → Bisa diundang oleh admin atau pengguna lain.
+- Pengelolaan akses tamu dengan Access Review → Memastikan hanya pengguna yang masih membutuhkan akses yang tetap memiliki izin.
+- Keamanan lebih baik → Akses tamu bisa dicabut otomatis jika tidak lagi diperlukan.
+
+:::tip Konklusi
+🎯 Microsoft Entra ID memungkinkan organisasi untuk berkolaborasi secara aman dengan mitra bisnis dan pelanggan tanpa mengorbankan kontrol serta keamanan identitas digital mereka.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure role-based access control
+
+# Deskripsi Azure Role-Based Access Control (RBAC)
+Bagaimana cara mengontrol akses tim IT dan engineering ke resources cloud?
+- Prinsip "least privilege" → Hanya memberikan akses yang diperlukan untuk menyelesaikan tugas.
+- Contoh: Jika hanya perlu akses baca ke storage blob, jangan berikan akses tulis atau ke resources lain.
+
+:::info
+Solusi: Azure Role-Based Access Control (Azure RBAC) memungkinkan pengelolaan akses berbasis peran tanpa harus menetapkan izin satu per satu untuk setiap individu.
+:::
+
+<br/>
+# Cara Kerja Azure RBAC
+**1. Pengelolaan Akses Berbasis Peran**
+- Azure menyediakan built-in roles untuk akses umum ke resources cloud.
+- Bisa juga membuat custom roles sesuai kebutuhan organisasi.
+- Saat seseorang ditambahkan ke grup Azure RBAC, mereka langsung mendapatkan izin yang terkait dengan peran tersebut.
+
+**2. Penerapan RBAC pada "Scope"**
+
+![Docusaurus logo](/img/az900/10.png)
+
+RBAC diterapkan pada "scope" (cakupan tertentu) seperti:
+- Management Group 
+- Subscription 
+- Resource Group 
+- Single Resource 
+
+:::info
+- RBAC bersifat hierarkis → Izin di tingkat atas otomatis diwarisi oleh level di bawahnya.
+- Jika seseorang diberikan Owner role di tingkat Management Group, mereka bisa mengelola semua Subscription di dalamnya.
+- Jika grup pengguna diberikan Reader role di tingkat Subscription, mereka bisa melihat semua resources dalam Subscription tersebut.
+:::
+
+<br/>
+**3. Penegakan (Enforcement) Azure RBAC**
+RBAC diterapkan pada semua tindakan terhadap resources Azure yang melewati Azure Resource Manager.
+Resource Manager bisa diakses melalui:
+- 🌐 Azure Portal
+- 💻 Azure CLI / PowerShell / Cloud Shell
+
+ RBAC tidak mengatur keamanan aplikasi atau data → Pengamanan aplikasi harus dilakukan di dalam aplikasi itu sendiri.
+
+**4. Model "Allow" dalam RBAC**
+- Azure RBAC menggunakan model "allow" → Jika Anda diberi peran, maka Anda diizinkan melakukan tindakan sesuai peran tersebut.
+- Izin bersifat kumulatif → Jika satu peran memberikan akses baca dan peran lain memberikan akses tulis, maka pengguna memiliki kedua izin tersebut.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Zero Trust model
+
+Zero Trust adalah model keamanan yang mengasumsikan skenario terburuk dan melindungi resources dengan ekspektasi tersebut. 
+Model ini menganggap adanya pelanggaran sejak awal dan memverifikasi setiap permintaan akses seolah-olah berasal dari jaringan yang tidak dikendalikan.
+
+Microsoft merekomendasikan model keamanan Zero Trust, yang didasarkan pada prinsip-prinsip berikut:
+- Verifikasi Secara Eksplisit – Selalu lakukan autentikasi dan otorisasi berdasarkan semua data yang tersedia.
+- Gunakan Akses dengan Hak Istimewa Minimum – Batasi akses pengguna dengan Just-In-Time (JIT) dan Just-Enough-Access (JEA), 
+serta gunakan kebijakan adaptif berbasis risiko dan perlindungan data.
+- Asumsikan Terjadi Pelanggaran – Minimalkan dampak serangan dengan segmentasi akses, verifikasi enkripsi ujung ke ujung, 
+dan gunakan analitik untuk meningkatkan visibilitas serta deteksi ancaman.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure defense-in-depth
+
+Defense-in-Depth adalah strategi keamanan yang menggunakan lapisan perlindungan untuk mencegah akses tidak sah ke data. 
+Jika satu lapisan berhasil ditembus, masih ada lapisan lainnya untuk menghambat serangan.
+
+**Lapisan-Lapisan Defense-in-Depth**
+
+**1. Keamanan Fisik**
+- Melindungi akses fisik ke pusat data dan perangkat keras komputasi.
+- Mencegah pencurian atau manipulasi perangkat keras.
+
+**2. Identitas & Akses**
+- Mengontrol akses ke infrastruktur dengan autentikasi ganda (MFA) dan Single Sign-On (SSO).
+- Memonitor dan mencatat setiap perubahan atau aktivitas mencurigakan.
+
+**3. Perimeter** 
+- Menggunakan proteksi DDoS untuk menyaring serangan berskala besar.
+- Firewall perimeter untuk mendeteksi dan memperingatkan serangan jaringan.
+
+**4. Jaringan**
+- Membatasi komunikasi antar sumber daya untuk mencegah penyebaran serangan.
+- Menutup akses yang tidak perlu secara default ("Deny by Default").
+
+**5. Komputasi** 
+- Mengamankan akses ke mesin virtual (VM).
+- Memastikan sistem selalu diperbarui dan memiliki perlindungan malware.
+
+**6. Aplikasi** 
+- Mengembangkan aplikasi yang aman dan bebas dari celah keamanan.
+- Menyimpan data sensitif dalam penyimpanan aman.
+
+**7. Data** 
+- Mengontrol akses ke data pelanggan dan bisnis.
+- Menggunakan enkripsi dan kebijakan keamanan yang sesuai dengan regulasi.
+
+:::info Mengapa Defense-in-Depth Penting?
+- Tidak bergantung pada satu lapisan keamanan saja.
+- Memperlambat serangan dan memberikan waktu untuk merespons.
+- Memastikan data dan sistem tetap aman meskipun ada celah keamanan di satu lapisan.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Microsoft Defender for cloud
+
+Microsoft Defender for Cloud adalah alat pemantauan untuk manajemen keamanan dan perlindungan ancaman. 
+Alat ini memantau lingkungan cloud, on-premises, hybrid, dan multicloud untuk memberikan panduan serta notifikasi guna meningkatkan keamanan.
+
+**Keamanan di Mana Pun Anda Beroperasi**
+
+Sebagai layanan asli Azure, Defender for Cloud secara otomatis memantau banyak layanan Azure tanpa perlu penerapan tambahan. 
+Untuk pusat data lokal atau lingkungan cloud lainnya, Defender for Cloud dapat menginstal agen Log Analytics guna mengumpulkan data keamanan.
+
+🛡️ Perlindungan Terintegrasi di Azure
+Defender for Cloud membantu mendeteksi ancaman pada berbagai layanan Azure seperti:
+- 🖥️ Azure PaaS Services (misalnya App Service, Azure SQL, Azure Storage)
+- 📊 Azure Data Services (menganalisis data di Azure SQL & Storage)
+- 🌐 Jaringan (mencegah serangan brute-force dengan akses Just-in-Time VM)
+- 🌍 Perlindungan Hybrid & Multicloud
+
+:::info
+Selain Azure, Defender for Cloud dapat diperluas ke:
+- 🏢 Lingkungan hybrid (melindungi server non-Azure dengan Azure Arc)
+- ☁️ Cloud lain (misalnya AWS & GCP dengan fitur CSPM & perlindungan khusus)
+:::
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
