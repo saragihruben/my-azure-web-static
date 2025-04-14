@@ -3,12 +3,144 @@ id: AZ-911
 title: Monitoring tools pada Azure Cloud
 ---
 
+<br/>
+## Azure Advisor
+Azure Advisor mengevaluasi resources pada Azure dan memberikan rekomendasi untuk membantu meningkatkan:
+- Keandalan
+- Keamanan
+- Performa
+- Keunggulan Operasional
+- Efisiensi Biaya
+
+Azure Advisor dirancang untuk membantu pengguna menghemat waktu dalam mengoptimalkan cloud.
+Layanan rekomendasi ini mencakup tindakan yang disarankan yang dapat di ambil langsung, tunda, atau abaikan.
+
+Rekomendasi ini tersedia melalui portal Azure dan API, dan kita juga dapat mengatur notifikasi untuk memberi tahu jika ada rekomendasi baru.
+
+**Bagaimana Cara Mengaksesnya?**
+Saat berada di portal Azure, dashboard Azure Advisor menampilkan rekomendasi yang dipersonalisasi untuk semua langganan (subscriptions). 
+Kita bisa menggunakan filter untuk melihat rekomendasi berdasarkan:
+- Langganan tertentu
+- Resource group
+
+# Jenis layanan
+
+**Kategori Rekomendasi Azure Advisor:**
+- **Reliability (Keandalan)**
+  Untuk memastikan dan meningkatkan kontinuitas aplikasi penting bisnis.
+- **Security (Keamanan)**
+  Untuk mendeteksi ancaman dan kerentanan yang dapat menyebabkan pelanggaran keamanan.
+- **Performance (Performa)**
+  Untuk meningkatkan kecepatan dan efisiensi aplikasi.
+- **Operational Excellence** (Keunggulan Operasional)
+  Untuk membantu meningkatkan efisiensi proses dan alur kerja, pengelolaan resources, serta praktik penyebaran yang baik.
+- **Cost (Biaya)**
+  Untuk mengoptimalkan dan mengurangi pengeluaran Azure secara keseluruhan.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure Service Health
+Microsoft Azure menyediakan solusi cloud global untuk membantu dalam mengelola infrastruktur, menjangkau pelanggan, berinovasi, dan beradaptasi dengan cepat. 
+Azure Service Health membantu dalam melacak status resources Azure, baik secara global maupun spesifik ke langganan pengguna. 
+
+Azure Service Health mencakup tiga layanan utama:
+
+**1. Azure Status**
+- Memberikan gambaran umum tentang status seluruh layanan Azure secara global.
+- Menampilkan gangguan layanan (service outage) di semua wilayah.
+- Cocok untuk insiden dengan dampak luas.
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+Bisa diakses melalui halaman: https://status.azure.com
 :::
 
-:::warning
+<br/>
+**2. Service Health**
+- Memberikan pandangan yang lebih terfokus pada layanan Azure dan wilayah yang di gunakan.
+- Menampilkan gangguan layanan, pemeliharaan terjadwal, dan pemberitahuan kesehatan lainnya.
+- Otentikasi memungkinkan tampilan yang dipersonalisasi sesuai layanan yang di gunakan.
+- Kita dapat mengatur notifikasi otomatis agar tahu jika ada masalah yang memengaruhi layanan.
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+<br/>
+**3. Resource Health**
+- Menampilkan kesehatan resources Azure secara spesifik, seperti instance VM tertentu.
+- Memberi tahu apakah sebuah resources tidak tersedia karena masalah Azure atau masalah konfigurasi lokal.
+- Dapat diintegrasikan dengan Azure Monitor untuk membuat alert.
+
+:::tip Manfaat Tambahan:
+- Memberikan pandangan menyeluruh, dari level global hingga level resources individual.
+- Menyimpan riwayat gangguan dan peringatan untuk analisis lebih lanjut.
+- Menyediakan tautan langsung ke dukungan Microsoft jika beban kerja terdampak oleh suatu insiden.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure Monitor
+
+Azure Monitor adalah sebuah platform pemantauan komprehensif yang digunakan untuk:
+- Mengumpulkan data dari berbagai sumber (Azure, on-premise, atau multi-cloud)
+- Menganalisis data tersebut
+- Memvisualisasikan informasi
+- Mengambil tindakan otomatis berdasarkan hasil analisis
+
+Azure Monitor mampu memantau resources Azure, resources on-premise, dan bahkan resources dari penyedia cloud lain seperti VM di cloud berbeda.
+
+**Bagaimana Azure Monitor Bekerja?**
+
+**1. Sumber Data**
+
+Data dikumpulkan dari seluruh lapisan arsitektur aplikasi—mulai dari aplikasi, sistem operasi, hingga jaringan.
+
+**2. Penyimpanan Data**
+
+Data log dan metrik disimpan di repositori pusat.
+
+**3. Penggunaan Data**
+- Menampilkan kinerja real-time dan historis
+- Menampilkan data teragregasi atau detail
+- Disajikan dalam bentuk dashboard, Power BI, atau kueri Kusto (KQL)
+- Bisa digunakan untuk mengirim notifikasi atau melakukan auto-scaling berdasarkan ambang batas tertentu
+
+<br/>
+# Azure Log Analytics
+**Azure Log Analytics** adalah alat di portal Azure untuk menulis dan menjalankan kueri log dari data yang dikumpulkan oleh Azure Monitor. 
+Mendukung kueri sederhana hingga kompleks, serta analisis statistik dan visualisasi hasilnya.
+Kueri ini dapat digunakan dalam fitur Azure Monitor lain seperti:
+- Peringatan berbasis log
+- Workbook
+- Dashboard interaktif
+
+<br/>
+# Azure Monitor Alerts
+**Azure Monitor Alerts** adalah sistem notifikasi otomatis yang aktif ketika Azure Monitor mendeteksi kondisi tertentu, seperti ambang batas yang terlampaui.
+
+**Kita dapat:**
+- Menentukan kondisi pemicu (trigger)
+- Mengatur tindakan notifikasi
+- Mengaitkan dengan grup tindakan (action groups) seperti email, SMS, webhook, dll
+
+Contoh: Mengirim alert jika CPU VM > 80%
+
+**Alerts bisa berdasarkan:**
+- Metrik (real-time & numerik)
+- Log (dengan logika kompleks dan multi-source)
+
+<br/>
+# Application Insights
+**Application Insights** adalah fitur dari Azure Monitor yang memantau aplikasi web, baik yang berjalan di:
+- Azure
+- Server lokal (on-premises)
+- Cloud lain
+
+**Cara Konfigurasi:**
+- Menggunakan SDK langsung dalam aplikasi
+- Atau menggunakan Application Insights Agent
+
+**Apa yang Dipantau:**
+- Tingkat permintaan, waktu respons, tingkat kegagalan
+- Ketergantungan layanan eksternal
+- Tampilan halaman dan performa loading dari browser pengguna
+- Penggunaan AJAX, session pengguna, dan metrik server (CPU, memori, jaringan)
+- Synthetic requests untuk memantau aplikasi saat tidak ada trafik nyata
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
