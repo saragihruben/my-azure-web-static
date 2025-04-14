@@ -3,12 +3,123 @@ id: AZ-909
 title: Fitur dan tools pada Azure Cloud untuk penerapan governance and compliance
 ---
 
-:::info
+<br/>
+## Microsoft Purview
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Microsoft Purview adalah salah satu solusi untuk tata **data governance**, **manajemen risiko**, dan **compliance**.
+Tujuannya adalah memberi insight terhadap data baik di on-premises, multi-cloud, maupun SaaS (seperti Microsoft 365).
+
+
+**Fitur Utama Microsoft Purview**
+
+![Docusaurus logo](/img/az900/16.png)
+
+<br/>
+# Dua Area Solusi Utama Microsoft Purview:
+**1. Risk & Compliance**
+Terintegrasi langsung dengan Microsoft 365 seperti Teams, OneDrive, Exchange.
+
+**Tujuan:**
+- Melindungi data sensitif di seluruh cloud, aplikasi, dan perangkat
+- Mengidentifikasi risiko data dan memenuhi persyaratan regulasi
+- Membantu organisasi memulai perjalanan kepatuhan hukum (compliance)
+
+**2. Unified Data Governance**
+Membantu mengelola data di:
+- Azure
+- SQL, Hive
+- Amazon S3
+- Lokal (on-premises)
+
+**Manfaat:**
+- Memetakan semua aset data secara terpusat dan terkini
+- Mengetahui di mana data sensitif disimpan
+- Memberi akses aman dan terkendali untuk konsumen data
+- Menghasilkan insight dari pola penggunaan data
+- Mengelola hak akses dalam skala besar secara aman
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure Policy
+
+Azure Policy adalah layanan yang memungkinkan pengguna untuk:
+- Membuat, menetapkan, dan mengelola kebijakan
+- Mengontrol konfigurasi sumber daya
+- Memastikan kepatuhan (compliance) dengan standar organisasi
+
+# Tujuan Azure Policy
+
+![Docusaurus logo](/img/az900/17.png)
+
+
+# Bagaimana Azure Policy Bekerja?
+Policy dapat diterapkan pada:
+- Resource
+- Resource group
+- Subscription
+- Management group
+
+**Kebijakan bersifat turun-temurun (inheritable)**
+Misalnya: kebijakan di subscription akan berlaku ke seluruh resource group dan resource di bawahnya.
+
+# Apa Itu Inisiatif (Initiative) Azure Policy?
+**Initiative** = Kumpulan kebijakan dengan tujuan yang sama
+
+**Tujuan**: Memudahkan pengelolaan dan pelacakan compliance skala besar
+
+Contoh: Enable Monitoring in Azure Security Center yang berisi lebih dari 100 kebijakan untuk memantau kerentanan, enkripsi, dan proteksi server.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Penggunaan Resources Locks
+
+**Resource Lock** digunakan untuk mencegah penghapusan atau perubahan tidak sengaja pada resource penting di Azure.
+
+:::warning
+Meskipun sudah ada **Azure RBAC**, pengguna dengan izin tinggi seperti Owner tetap bisa menghapus resource. Di sinilah Resource Lock berperan sebagai perlindungan ekstra.
+:::
+
+<br/>
+# Jenis Resource Locks
+
+![Docusaurus logo](/img/az900/17.png)
+
+**Di Mana Resource Lock Dapat Diterapkan?**
+- Individual Resource
+- Resource Group
+- Subscription
+
+**Lock bersifat turun-temurun (inheritable):**
+Kalau lock diterapkan pada level resource group, semua resource di dalamnya ikut terkunci juga.
+
+
+**Cara Mengelola Resource Lock**
+Kamu bisa mengatur lock lewat:
+- Azure Portal (menu Settings pada resource)
+- PowerShell
+- Azure CLI
+- ARM Template (Azure Resource Manager)
+
+
+**Bagaimana Mengubah Resource yang Terkunci?**
+- Hapus lock terlebih dahulu
+- Lakukan aksi yang diinginkan (hapus/ubah resource)
+
+:::warning
+Walaupun kita sebagai Owner dari sebuah resources / resources group, kita tetap harus menghapus lock dulu sebelum bisa mengubah resources / resources group.
+:::
+
+:::info Manfaat Resources Locks
+
+- Perlindungan dari penghapusan atau modifikasi yang tidak disengaja
+- Menjamin stabilitas layanan penting
+- Memberi rasa aman saat banyak tim mengakses cloud
+- Dapat digunakan bersamaan dengan Azure Policy dan RBAC
 
 :::
 
-:::warning
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+## Penggunaan Service Trust portal
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
