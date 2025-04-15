@@ -42,17 +42,17 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/docs-103": {
+  "/docs-ace": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docsaba-d7c"
     }
   },
-  "/docs-acd": {
+  "/docs-779": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "__props": "__props---docs-005-788"
   },
-  "/docs-7f9": {
+  "/docs-2f1": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
   "/docs/devops-sre-024": {
@@ -62,6 +62,54 @@
   "/docs/Getting-started/introduction-3d5": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-getting-started-introduction-426-488"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals-8cd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-8-c-0-2aa"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-901-78f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-901802-90b"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-902-22d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-902-e-42-aee"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-903-35b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-90331-f-ec4"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904-308": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-9042-f-7-e66"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-905-a4a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-905-dce-6d9"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-906-115": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-906326-ac9"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-907-70d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-907397-556"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-908-474": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-908658-149"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-909-7d1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-909108-6ad"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-910-001": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-91025-c-a65"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-911-47e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-911-a-3-b-9b1"
   },
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator-ec2": {
     "__comp": "__comp---theme-doc-item-178-a40",
@@ -198,54 +246,6 @@
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068-017": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-microsoft-azure-microsoft-azure-administrator-monitor-and-back-up-resources-az-10687-e-3-764"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals-b4c": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-7-ec-aed"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901-4f2": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-901-f-43-fba"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902-535": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-902-ce-6-d53"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903-20d": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-903787-a56"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904-8e9": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-904-abf-ae0"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905-920": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-9051-b-9-0ea"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906-410": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-906-ef-7-7df"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907-826": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-90706-d-ba3"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908-595": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-908-d-13-e06"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909-b10": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-909961-df0"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910-0ec": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-910-cda-16f"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911-29b": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-fundamentals-az-9116-db-033"
   },
   "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On-f67": {
     "__comp": "__comp---theme-doc-item-178-a40",

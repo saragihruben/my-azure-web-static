@@ -1,6 +1,6 @@
 {
   "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Microsoft-Azure-Administrator",
-  "title": "Microsoft Azure Administrator",
+  "title": "Azure Administrator",
   "description": "Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!",
   "source": "@site/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Microsoft-Azure-Administrator.mdx",
   "sourceDirName": "Microsoft-Azure/Microsoft-Azure-Administrator",
@@ -12,12 +12,12 @@
   "version": "current",
   "frontMatter": {
     "id": "Microsoft-Azure-Administrator",
-    "title": "Microsoft Azure Administrator"
+    "title": "Azure Administrator"
   },
   "sidebar": "defaultSidebar",
   "previous": {
-    "title": "Welcome",
-    "permalink": "/docs/Getting-started/introduction"
+    "title": "Monitoring tools pada Azure Cloud",
+    "permalink": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-911"
   },
   "next": {
     "title": "Manage Identity and Governance",

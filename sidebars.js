@@ -30,27 +30,23 @@ module.exports = {
       label: "My Azure Cloud Computing",
       collapsible: false,
       items: [
-        {
-          type: "category",
-          label: "sub1",
-          collapsible: true,
-          items: [
+
             {
               type: "category",
-              label: "Microsoft-Azure-Fundamentals",
+              label: "Azure-Fundamentals",
               collapsible: true,
               items: [
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910",
-                "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-901",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-902",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-903",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-904",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-905",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-906",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-907",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-908",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-909",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-910",
+                "Microsoft-Azure/Azure-Fundamentals/AZ-911",
               ],
             },
             
@@ -142,8 +138,7 @@ module.exports = {
                 "Microsoft-Azure/Microsoft-Azure-Hands-On/Comming Soon 2",
               ],
             },
-          ],
-        },
+
       ],
     },
     {

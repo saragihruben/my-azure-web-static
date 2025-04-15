@@ -21,6 +21,66 @@
               "sidebar": "defaultSidebar"
             },
             {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-901",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-901",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-902",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-902",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-903",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-903",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-904",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-905",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-905",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-906",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-906",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-907",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-907",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-908",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-908",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-909",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-909",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-910",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-910",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/AZ-911",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-911",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Azure-Fundamentals/Azure-Fundamentals",
+              "path": "/docs/Microsoft-Azure/Azure-Fundamentals/",
+              "sidebar": "defaultSidebar"
+            },
+            {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/02-Configure-and-manage-virtual-networks",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/",
               "sidebar": "defaultSidebar"
@@ -188,66 +248,6 @@
             {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Fundamentals/Microsoft-Azure-Fundamentals",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/",
               "sidebar": "defaultSidebar"
             },
             {

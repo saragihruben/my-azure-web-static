@@ -39,15 +39,15 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', '103'),
+    component: ComponentCreator('/docs', 'ace'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', 'acd'),
+        component: ComponentCreator('/docs', '779'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '7f9'),
+            component: ComponentCreator('/docs', '2f1'),
             routes: [
               {
                 path: '/docs/devops-sre',
@@ -58,6 +58,78 @@ export default [
               {
                 path: '/docs/Getting-started/introduction',
                 component: ComponentCreator('/docs/Getting-started/introduction', '3d5'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals', '8cd'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-901',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-901', '78f'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-902',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-902', '22d'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-903',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-903', '35b'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904', '308'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-905',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-905', 'a4a'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-906',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-906', '115'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-907',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-907', '70d'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-908',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-908', '474'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-909',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-909', '7d1'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-910',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-910', '001'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Azure-Fundamentals/AZ-911',
+                component: ComponentCreator('/docs/Microsoft-Azure/Azure-Fundamentals/AZ-911', '47e'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
@@ -262,78 +334,6 @@ export default [
               {
                 path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068',
                 component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068', '017'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals', 'b4c'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-901', '4f2'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-902', '535'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-903', '20d'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-904', '8e9'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-905', '920'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-906', '410'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-907', '826'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-908', '595'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-909', 'b10'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-910', '0ec'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911', '29b'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
