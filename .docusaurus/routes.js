@@ -39,15 +39,15 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', 'ce6'),
+    component: ComponentCreator('/docs', '103'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', '31c'),
+        component: ComponentCreator('/docs', 'acd'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', 'c12'),
+            component: ComponentCreator('/docs', '7f9'),
             routes: [
               {
                 path: '/docs/devops-sre',
@@ -68,14 +68,200 @@ export default [
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041', '696'),
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks', '817'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042', 'a2c'),
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1047',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1047', '637'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1048',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1048', '0dd'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1049',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1049', '8a7'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1050',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1050', '234'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1051',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1051', '64d'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1052',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1052', '612'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1053',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1053', 'd58'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1054',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1054', '835'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources', '98c'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050', '013'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052', 'e3a'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060', '856'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061', '679'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063', 'f40'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage', '1e1'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1056',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1056', '74d'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1057',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1057', '424'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058', '5b8'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065', 'b03'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance', 'e88'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041', 'f04'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042', '1a1'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043', 'd88'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044', 'aff'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045', 'f4c'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046', '042'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources', 'a33'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1064',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1064', 'd83'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1065',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1065', '89f'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1066',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1066', '596'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1067',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1067', 'e16'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068', '017'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },

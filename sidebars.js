@@ -53,15 +53,86 @@ module.exports = {
                 "Microsoft-Azure/Microsoft-Azure-Fundamentals/AZ-911",
               ],
             },
+            
             {
               type: "category",
-              label: "Microsoft-Azure--Administrator",
+              label: "Microsoft-Azure-Administrator",
               collapsible: true,
               items: [
-                "Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041",
-                "Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
+                {
+                  type: "category",
+                  label: "01-Manage-Identity-and-Governance",
+                  collapsible: true,
+                  items: [
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/01-Manage-Identity-and-Governance/AZ-1041",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/01-Manage-Identity-and-Governance/AZ-1042",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/01-Manage-Identity-and-Governance/AZ-1043",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/01-Manage-Identity-and-Governance/AZ-1044",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/01-Manage-Identity-and-Governance/AZ-1045",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/01-Manage-Identity-and-Governance/AZ-1046",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "02-Configure-and-manage-virtual-networks",
+                  collapsible: true,
+                  items: [
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1047",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1048",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1049",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1050",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1051",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1052",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1053",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/02-Configure-and-manage-virtual-networks/AZ-1054",
+                  ],
+                },
+                
+
+                {
+                  type: "category",
+                  label: "03-Implement-and-manage-storage",
+                  collapsible: true,
+                  items: [
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/03-Implement-and-manage-storage/AZ-1055",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/03-Implement-and-manage-storage/AZ-1056",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/03-Implement-and-manage-storage/AZ-1057",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/03-Implement-and-manage-storage/AZ-1058",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "04-Deploy-and-manage-compute-resources",
+                  collapsible: true,
+                  items: [
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/04-Deploy-and-manage-compute-resources/AZ-1059",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/04-Deploy-and-manage-compute-resources/AZ-1060",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/04-Deploy-and-manage-compute-resources/AZ-1061",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/04-Deploy-and-manage-compute-resources/AZ-1062",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/04-Deploy-and-manage-compute-resources/AZ-1063",
+                  ],
+                },
+                
+                {
+                  type: "category",
+                  label: "05-Monitor-and-back-up-resources",
+                  collapsible: true,
+                  items: [
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/05-Monitor-and-back-up-resources/AZ-1064",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/05-Monitor-and-back-up-resources/AZ-1065",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/05-Monitor-and-back-up-resources/AZ-1066",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/05-Monitor-and-back-up-resources/AZ-1067",
+                    "Microsoft-Azure/Microsoft-Azure-Administrator/05-Monitor-and-back-up-resources/AZ-1068",
+                  ],
+                },
+
+                
               ],
             },
+
+
             {
               type: "category",
               label: "Microsoft-Azure-Hands-On",

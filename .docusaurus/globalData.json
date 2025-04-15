@@ -21,18 +21,173 @@
               "sidebar": "defaultSidebar"
             },
             {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1041",
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/02-Configure-and-manage-virtual-networks",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/",
               "sidebar": "defaultSidebar"
             },
             {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/AZ-1042",
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1047",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1047",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1048",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1048",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1049",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1049",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1050",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1050",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1051",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1051",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1052",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1052",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1053",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1053",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1054",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1054",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/04-Deploy-and-manage-compute-resources",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/03-Implement-and-manage-storage",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1056",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1056",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1057",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1057",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/01-Manage-Identity-and-Governance",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046",
               "sidebar": "defaultSidebar"
             },
             {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Microsoft-Azure-Administrator",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/05-Monitor-and-back-up-resources",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1064",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1064",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1065",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1065",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1066",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1066",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1067",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1067",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068",
               "sidebar": "defaultSidebar"
             },
             {
