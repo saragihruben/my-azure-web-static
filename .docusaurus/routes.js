@@ -39,15 +39,15 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', 'ace'),
+    component: ComponentCreator('/docs', '200'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', '779'),
+        component: ComponentCreator('/docs', '116'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '2f1'),
+            component: ComponentCreator('/docs', '7dc'),
             routes: [
               {
                 path: '/docs/devops-sre',
@@ -200,26 +200,26 @@ export default [
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050', '013'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052', 'e3a'),
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1059',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1059', '129'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
               {
                 path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060', '856'),
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060', '32d'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
               {
                 path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061',
                 component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061', '679'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1062',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1062', 'c19'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
@@ -232,6 +232,12 @@ export default [
               {
                 path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage',
                 component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage', '1e1'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1055',
+                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1055', 'f63'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
@@ -250,12 +256,6 @@ export default [
               {
                 path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058',
                 component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058', '5b8'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065',
-                component: ComponentCreator('/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065', 'b03'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },

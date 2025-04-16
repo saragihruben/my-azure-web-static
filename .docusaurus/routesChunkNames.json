@@ -42,17 +42,17 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/docs-ace": {
+  "/docs-200": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docsaba-d7c"
     }
   },
-  "/docs-779": {
+  "/docs-116": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "__props": "__props---docs-005-788"
   },
-  "/docs-2f1": {
+  "/docs-7dc": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
   "/docs/devops-sre-024": {
@@ -155,21 +155,21 @@
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resourcesd-9-d-db7"
   },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050-013": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-10508-cf-939"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052-e3a": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-1052-dd-0-c92"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060-856": {
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1059-129": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-10601-b-4-8ea"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060-32d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-10508-cf-939"
   },
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061-679": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-1061-eb-1-eff"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1062-c19": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-1052-dd-0-c92"
   },
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063-f40": {
     "__comp": "__comp---theme-doc-item-178-a40",
@@ -178,6 +178,10 @@
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage-1e1": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-7-b-9-103"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1055-f63": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-az-1065-a-99-9e3"
   },
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1056-74d": {
     "__comp": "__comp---theme-doc-item-178-a40",
@@ -190,10 +194,6 @@
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058-5b8": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-az-1058-aef-9f0"
-  },
-  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065-b03": {
-    "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-az-1065-a-99-9e3"
   },
   "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance-e88": {
     "__comp": "__comp---theme-doc-item-178-a40",

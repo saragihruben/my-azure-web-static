@@ -131,13 +131,8 @@
               "sidebar": "defaultSidebar"
             },
             {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1050",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1052",
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1059",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1059",
               "sidebar": "defaultSidebar"
             },
             {
@@ -151,6 +146,11 @@
               "sidebar": "defaultSidebar"
             },
             {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1062",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1062",
+              "sidebar": "defaultSidebar"
+            },
+            {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063",
               "sidebar": "defaultSidebar"
@@ -158,6 +158,11 @@
             {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/03-Implement-and-manage-storage",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1055",
+              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1055",
               "sidebar": "defaultSidebar"
             },
             {
@@ -173,11 +178,6 @@
             {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058",
               "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065",
-              "path": "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1065",
               "sidebar": "defaultSidebar"
             },
             {
