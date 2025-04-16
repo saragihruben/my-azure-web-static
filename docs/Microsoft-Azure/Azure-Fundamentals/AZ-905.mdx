@@ -37,11 +37,11 @@ Kita bisa menjalankan satu VM untuk pengujian atau pengembangan, atau mengelompo
 
 <br/>
 :::info Kapan Menggunakan Azure VMs? (Use Cases)
-- 🚀 Pengujian & Pengembangan: Membantu tim developer menguji aplikasi dalam berbagai konfigurasi OS dan software dengan cepat.
-- ☁ Menjalankan Aplikasi di Cloud: Menjalankan aplikasi di cloud lebih fleksibel dibandingkan infrastruktur tradisional.
-- 🔌 Memperluas Data Center ke Cloud: Menghubungkan VM di Azure dengan jaringan on-premises untuk meningkatkan kapasitas.
-- ⚠ Disaster Recovery: Jika data center utama gagal, VM di Azure bisa digunakan sementara untuk menjalankan aplikasi penting.
-- 🔄 Lift & Shift ke Cloud: Memigrasikan server fisik ke cloud dengan sedikit atau tanpa perubahan.
+- Pengujian & Pengembangan: Membantu tim developer menguji aplikasi dalam berbagai konfigurasi OS dan software dengan cepat.
+- Menjalankan Aplikasi di Cloud: Menjalankan aplikasi di cloud lebih fleksibel dibandingkan infrastruktur tradisional.
+- Memperluas Data Center ke Cloud: Menghubungkan VM di Azure dengan jaringan on-premises untuk meningkatkan kapasitas.
+- Disaster Recovery: Jika data center utama gagal, VM di Azure bisa digunakan sementara untuk menjalankan aplikasi penting.
+- Lift & Shift ke Cloud: Memigrasikan server fisik ke cloud dengan sedikit atau tanpa perubahan.
 :::
 
 <br/>
@@ -54,7 +54,7 @@ Saat membuat VM, kita bisa mengatur berbagai aspek seperti:
 
 :::tip Konklusi
 Azure VMs memberikan fleksibilitas tinggi untuk menjalankan aplikasi di cloud dengan kontrol penuh atas OS dan software. Namun, karena merupakan layanan IaaS, 
-Kita tetap bertanggung jawab atas pemeliharaan software. Dengan fitur scale sets dan availability sets, kita dapat memastikan VM tetap efisien, scalable, dan andal. 🚀
+Kita tetap bertanggung jawab atas pemeliharaan software. Dengan fitur scale sets dan availability sets, kita dapat memastikan VM tetap efisien, scalable, dan andal. 
 :::
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,20 +66,21 @@ kita dapat mengakses Windows yang di-hosting di cloud dari mana saja, di berbaga
 
 **Keunggulan Azure Virtual Desktop**
 
-🔒 Meningkatkan Keamanan
+- Meningkatkan Keamanan
 - Manajemen keamanan terpusat dengan Microsoft Entra ID.
 - Autentikasi multifaktor (MFA) untuk meningkatkan keamanan login.
 - Role-Based Access Control (RBAC) untuk mengontrol akses data secara lebih granular.
 - Data dan aplikasi dipisahkan dari perangkat lokal, sehingga mengurangi risiko kebocoran data.
 
-💻 Multi-Session Windows 10 & 11
+- Multi-Session Windows 10 & 11
 - AVD mendukung Windows 10 & 11 Enterprise Multi-Session, memungkinkan banyak pengguna untuk menggunakan satu VM secara bersamaan.
 - Lebih stabil dan kompatibel dibandingkan dengan sistem operasi berbasis Windows Server.
 
 <br/>
 :::tip Konklusi
 Azure Virtual Desktop adalah solusi fleksibel untuk mengakses Windows di cloud, dengan keamanan tinggi, 
-akses dari berbagai perangkat, dan dukungan multi-session. Cocok untuk perusahaan yang ingin mengamankan data, menghemat biaya infrastruktur, dan meningkatkan efisiensi kerja jarak jauh. 🚀
+akses dari berbagai perangkat, dan dukungan multi-session. Cocok untuk perusahaan yang ingin mengamankan data, 
+menghemat biaya infrastruktur, dan meningkatkan efisiensi kerja jarak jauh. 
 :::
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -160,7 +161,7 @@ Azure Functions adalah layanan serverless computing berbasis event yang memungki
 <br/>
 :::tip Konklusi
 Azure Functions adalah solusi serverless yang fleksibel, hemat biaya, dan otomatis diskalakan. 
-Dengan dukungan untuk event-driven programming, layanan ini sangat cocok untuk membangun aplikasi modern, scalable, dan responsif di cloud. 🚀
+Dengan dukungan untuk event-driven programming, layanan ini sangat cocok untuk membangun aplikasi modern, scalable, dan responsif di cloud. 
 :::
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -172,18 +173,18 @@ Azure Virtual Network (VNet) adalah layanan jaringan fundamental di Azure yang m
 <br/>
 # Fitur Utama Azure Virtual Networking 
 
-# 🛑 1. Isolasi & Segmentasi
+# 1. Isolasi & Segmentasi
 - Setiap VNet bersifat terisolasi dari VNet lainnya, mirip dengan jaringan private.
 - Bisa dibuat subnet untuk mengalokasikan IP address ke berbagai resources.
 - Dukungan untuk internal & eksternal DNS untuk resolusi domain.
 
 <br/>
-# 🌍 2. Komunikasi dengan Internet
+# 2. Komunikasi dengan Internet
 - Akses internet bisa dilakukan dengan Public IP atau melalui Load Balancer.
 - Public endpoints memiliki IP global, sementara private endpoints tetap di dalam VNet.
 
 <br/>
-# 🔄 3. Komunikasi Antar Azure resources
+# 3. Komunikasi Antar Azure resources
 - VNet dapat menghubungkan berbagai layanan Azure, seperti:
     - Azure Virtual Machines (VMs)
     - Azure Kubernetes Service (AKS)
@@ -191,25 +192,25 @@ Azure Virtual Network (VNet) adalah layanan jaringan fundamental di Azure yang m
     - Service Endpoints dapat digunakan untuk menghubungkan ke layanan Azure lainnya, seperti Azure SQL Database dan Storage Account.
 
 <br/>
-# 🏢 4. Komunikasi dengan On-Premises
+# 4. Komunikasi dengan On-Premises
 Ada beberapa metode untuk menghubungkan jaringan on-premises ke Azure:
 
 ![Docusaurus logo](/img/az900/7.png)
 
 
-# 🚦 5. Routing Traffic Jaringan
+# 5. Routing Traffic Jaringan
 - Azure secara otomatis mengatur routing antar subnet, VNet, dan internet.
 - Bisa dikustomisasi menggunakan:
     - Route Tables untuk menentukan jalur khusus dalam jaringan.
     - Border Gateway Protocol (BGP) untuk pertukaran informasi routing dengan jaringan on-premises.
 
 <br/>
-# 🔐 6. Filtering & Keamanan
+# 6. Filtering & Keamanan
 - Network Security Groups (NSG): Mengontrol lalu lintas masuk & keluar berdasarkan IP, port, dan protokol.
 - Network Virtual Appliance (NVA): Firewall berbasis VM untuk keamanan tambahan.
 
 <br/>
-# 🔗 7. Koneksi Antar Virtual Network (Peering)
+# 7. Koneksi Antar Virtual Network (Peering)
 - Virtual Network Peering memungkinkan dua VNet berkomunikasi secara langsung melalui jaringan backbone Microsoft.
 - Mendukung Global VNet Peering, untuk komunikasi antar region yang berbeda.
 
@@ -239,15 +240,15 @@ VPN Gateway adalah resources khusus di Azure yang digunakan untuk mengamankan ko
 Gateway ini ditempatkan di subnet khusus dalam Virtual Network (VNet).
 
 # Jenis Koneksi VPN Gateway
-1️⃣ **Site-to-Site (S2S) VPN**
+- **1. Site-to-Site (S2S) VPN**
 - Menghubungkan jaringan on-premises (lokasi fisik) dengan Azure VNet.
 - Menggunakan protokol IPSec/IKE VPN tunnels.
 
-2️⃣ **Point-to-Site (P2S) VPN**
+- **2. Point-to-Site (P2S) VPN**
 - Menghubungkan perangkat individu (laptop, pekerja jarak jauh) ke VNet di Azure.
 - Menggunakan protokol seperti OpenVPN, SSTP, atau IKEv2.
 
-3️⃣ **Network-to-Network (VNet-to-VNet) VPN**
+ **3. Network-to-Network (VNet-to-VNet) VPN**
 - Menghubungkan dua atau lebih VNet di Azure secara aman.
 
 # Jenis VPN Gateway
@@ -255,24 +256,24 @@ Gateway ini ditempatkan di subnet khusus dalam Virtual Network (VNet).
 ![Docusaurus logo](/img/az900/8.png)
 
 :::warning
-💡 Route-Based VPN lebih disarankan karena lebih fleksibel dan mendukung skenario yang lebih kompleks.
+- Route-Based VPN lebih disarankan karena lebih fleksibel dan mendukung skenario yang lebih kompleks.
 :::
 
 <br/>
 # Opsi Ketersediaan Tinggi & Redundansi
-1️⃣ Active/Standby Mode (Default)
+1. Active/Standby Mode (Default)
 - Azure menyediakan dua instance, tetapi hanya satu yang aktif pada satu waktu.
 - Jika terjadi gangguan, instance cadangan akan aktif dalam beberapa detik hingga 90 detik.
 
-2️⃣ Active/Active Mode
+2. Active/Active Mode
 - Menggunakan BGP (Border Gateway Protocol) untuk routing.
 - Memiliki dua instance aktif dengan alamat IP publik terpisah untuk redundansi lebih tinggi.
 
-3️⃣ ExpressRoute Failover
+3. ExpressRoute Failover
 - VPN Gateway dapat digunakan sebagai cadangan ExpressRoute.
 - Jika koneksi ExpressRoute gagal, VPN Gateway akan mengambil alih.
 
-4️⃣ Zone-Redundant Gateways
+4. Zone-Redundant Gateways
 - Dapat ditempatkan di Azure Availability Zones untuk ketahanan lebih tinggi.
 - Melindungi dari kegagalan di tingkat zona Azure.
 
@@ -301,7 +302,7 @@ Microsoft Cloud tanpa melewati internet publik. Koneksi ini disebut ExpressRoute
 - Redundansi bawaan di setiap lokasi peering untuk keandalan tinggi.
 
 <br/>
-# 🔗 Koneksi ke Layanan Microsoft
+# Koneksi ke Layanan Microsoft
 Dengan ExpressRoute, pengguna bisa mengakses langsung layanan berikut tanpa melewati internet publik:
 - Microsoft 365 (Outlook, SharePoint, Teams, dll.)
 - Microsoft Dynamics 365
@@ -309,12 +310,12 @@ Dengan ExpressRoute, pengguna bisa mengakses langsung layanan berikut tanpa mele
 - Azure Cloud Services (seperti Azure Cosmos DB, Azure Storage)
 
 <br/>
-# 🌍 Global Connectivity dengan ExpressRoute Global Reach
+# Global Connectivity dengan ExpressRoute Global Reach
 - Memungkinkan koneksi antar datacenter & kantor di berbagai wilayah melalui jaringan Microsoft.
 - Contoh: Kantor di Asia dan datacenter di Eropa dapat berkomunikasi langsung tanpa melewati internet publik.
 
 <br/>
-# 📡 Model Koneksi ExpressRoute
+# Model Koneksi ExpressRoute
 1. Colocation di Cloud Exchange
     - Jika datacenter atau kantor pengguna berada di lokasi cloud exchange, pengguna bisa menggunakan cross-connect virtual untuk menghubungkan langsung ke Microsoft Cloud.
 
@@ -336,7 +337,7 @@ Keuntungan BGP:
 - Mendukung failover otomatis untuk keandalan tinggi.
 
 <br/>
-# 🔐 Keamanan ExpressRoute
+# Keamanan ExpressRoute
 - Tidak melewati internet publik, mengurangi risiko peretasan & serangan siber.
 - Lalu lintas data lebih aman dan stabil dibanding VPN biasa.
 - Tetap membutuhkan internet untuk DNS queries, sertifikat, dan CDN request.

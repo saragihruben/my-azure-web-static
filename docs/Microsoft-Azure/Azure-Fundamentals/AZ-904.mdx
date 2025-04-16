@@ -10,7 +10,7 @@ Azure memiliki infrastruktur fisik yang mencakup  **datacenter**, **region**, **
 Infrastruktur ini dirancang untuk menyediakan layanan cloud yang andal, cepat, dan aman bagi penggunanya.
 
 <br/>
-# 🌍 Azure Regions
+# Azure Regions
 
 Region adalah area geografis yang berisi satu atau lebih data center dengan koneksi jaringan berlatensi rendah.
 Setiap resource yang dibuat pada Azure harus ditempatkan dalam region tertentu.
@@ -21,7 +21,7 @@ Ada layanan global Azure yang tidak memerlukan pemilihan region, seperti **Micro
 :::
 
 <br/>
-# 🏢 Availability Zones
+# Availability Zones
 
 Availability Zones adalah data center yang terpisah secara fisik dalam satu region Azure.
 Setiap zona memiliki daya, pendingin, dan jaringan yang terpisah, sehingga jika satu zona gagal, zona lain tetap beroperasi.
@@ -32,7 +32,7 @@ Kegunaan Availability Zones:
 -  Dapat menambah biaya karena ada replikasi antar zona
 
 <br/>
-# 🔗 Region Pairs 
+# Region Pairs 
 
 Sebagian besar region Azure dipasangkan dengan region lain dalam satu wilayah geografis (minimal 300 mil jauhnya).
 Fungsi utama: Replikasi resources untuk mengurangi risiko gangguan besar, seperti bencana alam atau pemadaman listrik.
@@ -49,7 +49,7 @@ Contoh Region Pairs:
 Namun, ada beberapa region yang tidak memiliki pasangan dua arah, seperti West India & Brazil South.
 
 <br/>
-# 🔒 Sovereign Regions
+# Sovereign Regions
 Azure memiliki beberapa wilayah khusus yang terisolasi dari jaringan utama Azure untuk kepatuhan hukum dan regulasi tertentu.
 
 - Azure Government (US DoD, US Gov Virginia, dll.): Digunakan oleh instansi pemerintah AS dengan keamanan tambahan.
@@ -135,11 +135,11 @@ dapat menerapkan satu aturan akses ke semua subscriptions di bawahnya, tanpa per
 
 <br/>
 :::info Fakta Penting tentang Management groups :
-✅ Mendukung hingga 10.000 management groups dalam satu direktori.
+- Mendukung hingga 10.000 management groups dalam satu direktori.
 
-✅ Struktur management groups dapat memiliki kedalaman hingga 6 level.
+- Struktur management groups dapat memiliki kedalaman hingga 6 level.
 
-✅ Setiap management groups dan subscriptions hanya dapat memiliki satu induk (parent).
+- Setiap management groups dan subscriptions hanya dapat memiliki satu induk (parent).
 :::
 
 <br/>
