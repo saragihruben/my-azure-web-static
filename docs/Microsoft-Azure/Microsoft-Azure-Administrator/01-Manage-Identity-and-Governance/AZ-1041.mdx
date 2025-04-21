@@ -3,12 +3,86 @@ id: AZ-1041
 title: Memahami Microsoft Entra ID
 ---
 
+
+## Microsoft Entra ID 
+Microsoft Entra ID adalah layanan direktori berbasis cloud yang dikelola oleh **Microsoft (PaaS)** dan bukan bagian dari infrastruktur yang dimiliki dan dikelola pelanggan.
+
+# Fitur Microsoft Entra ID:
+- Mendukung multi-factor authentication (MFA), perlindungan identitas, dan reset kata sandi mandiri.
+- Digunakan untuk mengonfigurasi akses ke aplikasi, single sign-on (SSO), dan Conditional Access.
+- Dapat digunakan untuk mengelola pengguna dan grup, provisioning pengguna, serta manajemen antar organisasi.
+
 :::info
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+**AD DS (Active Directory Domain Services)** adalah layanan direktori yang menyediakan metode untuk menyimpan data direktori seperti akun pengguna dan kata sandi, 
+dan memungkinkan data ini diakses oleh pengguna jaringan dan administrator.
 
 :::
 
-:::warning
+Berbeda dengan AD DS, Microsoft Entra ID dirancang sebagai multi-tenant dan 
+diimplementasikan secara khusus untuk memastikan isolasi antar direktori organisasi / instansi.
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+**Microsoft Entra Tenant:**
+- Di buat untuk Multi-tenant dan menyediakan isolasi antara direktori instansi.
+- Setiap Azure subscription hanya dapat terkait dengan satu tenant Microsoft Entra.
+- Tenant dapat digunakan untuk mengelola sumber daya menggunakan RBAC.
+
+Setiap tenant Microsoft Entra diberikan nama domain Domain Name System (DNS) default, yang terdiri dari prefix yang berasal dari nama akun 
+Microsoft yang kita gunakan untuk membuat langganan Azure atau diberikan secara eksplisit saat membuat tenant Microsoft Entra, diikuti dengan suffix **onmicrosoft.com**.
+
+# Skema Microsoft Entra:
+- Skema Microsoft Entra lebih sederhana dibandingkan AD DS dan tidak mencakup **class computer**.
+- Tidak mendukung **Group Policy Objects (GPOs)** atau **organizational units (OU)**.
+- Microsoft Entra ID lebih berfokus pada manajemen identitas untuk aplikasi berbasis web dibandingkan dengan AD DS yang lebih berfokus pada aplikasi on-premises.
+
+## Perbandingan antara Microsoft Entra ID dan Active Directory Domain Services
+
+![Docusaurus logo](/img/az104/1.png)
+
+:::info Perbedaan Utama:
+- AD DS lebih berfokus pada manajemen identitas untuk aplikasi on-premises, sementara Microsoft Entra ID dirancang untuk aplikasi cloud.
+- AD DS menggunakan Kerberos dan LDAP, sedangkan Microsoft Entra ID menggunakan protokol berbasis HTTP seperti **SAML**, **OAuth**, dan **OpenID Connect**.
+- Microsoft Entra ID lebih cocok untuk aplikasi berbasis internet, sedangkan AD DS lebih untuk aplikasi on-premise.
+:::
+
+## Perbandingan Microsoft Entra ID P1 dan P2
+
+| Fitur                                               | Microsoft Entra ID P1                                            | Microsoft Entra ID P2                                                |
+|-----------------------------------------------------|------------------------------------------------------------------|----------------------------------------------------------------------|
+| Manajemen Grup Layanan Mandiri                     | Pengguna dapat membuat & mengelola grup.                         | Sama seperti P1, dengan tambahan keamanan lanjutan.                 |
+| Laporan & Peringatan Keamanan Lanjutan             | Deteksi anomali dan akses mencurigakan.                         | Sama dengan P1, dengan analisis lebih dalam.                        |
+| Multi-Factor Authentication (MFA)                  | Mendukung aplikasi on-premise & cloud.                               | Sama dengan P1, ditambah kebijakan lanjutan.                        |
+| Lisensi Microsoft Identity Manager (MIM)           | Integrasi identitas hybrid.                                     | Sama dengan P1.                                                     |
+| SLA 99.9%                                           | Ketersediaan layanan terjamin.                                  | Sama seperti P1.                                                    |
+| Reset Kata Sandi dengan Writeback                  | Sesuai kebijakan AD on-premise.                                      | Sama seperti P1.                                                    |
+| Cloud App Discovery                                | Menemukan aplikasi cloud populer.                               | Sama seperti P1, dengan fitur lebih canggih.                        |
+| Akses Kondisional                                   | Berdasarkan perangkat, grup, atau lokasi.                       | Sama seperti P1, dengan kontrol lebih granular.                     |
+| Entra Connect Health                                | Wawasan operasional dan performa sinkronisasi.                  | Sama seperti P1.                                                    |
+| Entra ID Protection                                 | -                                                                | Monitoring dan proteksi akun pengguna.                              |
+| Privileged Identity Management                      | -                                                                | Kontrol akses admin secara dinamis & berbasis kebijakan.           |
+
+
+## Microsoft Entra Domain Services
+
+Microsoft menyediakan Microsoft Entra Domain Services sebagai alternatif. 
+Layanan domain seperti manajemen Group Policy, join domain, dan autentikasi Kerberos ke tenant Microsoft Entra serta sepenuhnya kompatibel 
+dengan AD DS pada on-premise, tanpa harus menerapkan dan mengelola domain controller tambahan di cloud.
+
+Kita dapat menerapkannya dengan Microsoft Entra Connect, sehingga pengguna dapat menggunakan kredensial organisasi mereka baik di AD DS 
+maupun di Microsoft Entra Domain Services. 
+
+**Integrasi dengan AD DS Lokal**
+- Menggunakan Microsoft Entra Connect.
+- Pengguna bisa menggunakan kredensial organisasi yang sama di on-prem dan cloud.
+- Bisa digunakan tanpa AD DS lokal (cloud-only service).
+
+**Keuntungan Microsoft Entra Domain Services**
+- Tidak perlu mengelola domain controller.
+- Tidak perlu mengelola replikasi AD.
+- Tidak perlu grup Domain Admins/Enterprise Admins.
+- Dapat memigrasikan aplikasi LDAP, NTLM, dan Kerberos ke cloud.
+- Bisa jalankan SQL Server / SharePoint Server di VM Azure tanpa domain controller atau VPN.
+
+**Biaya**
+- Dikenakan biaya per jam berdasarkan ukuran direktori.
+- Diaktifkan melalui Azure Portal.
