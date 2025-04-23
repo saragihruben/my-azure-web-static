@@ -187,7 +187,7 @@ export default {
       {
         "docs": {},
         "theme": {
-          "customCss": "Z:\\azure\\docusaurus\\github\\my-azure-web-static\\src\\css\\custom.css"
+          "customCss": "/Users/saragihruben/Documents/GitHub/my-azure-web-static/src/css/custom.css"
         },
         "gtag": {
           "trackingID": "G-Q1MDM8KFVG"
