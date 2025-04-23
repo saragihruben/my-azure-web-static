@@ -10,10 +10,10 @@ title: Azure Policy Initiatives
 
 **Azure Policy Initiatives** adalah kumpulan dari beberapa **Azure Policy definitions** 
 yang dikelompokkan pada suatu organisasi dalam :
-- Mengelola dan menegakkan kebijakan secara terpusat di seluruh sumber daya Azure.
+- Mengelola dan menegakkan kebijakan secara terpusat pada Azure resources.
 - Mempercepat compliance terhadap standar dan regulasi (nasional maupun regional).
 - Menyederhanakan audit dan mempercepat penerapan kebijakan.
-- Melakukan otomasi penyebaran untuk memastikan konsistensi dan efisiensi pada manajemen resources.
+- Melakukan otomasi terhadap deployment untuk memastikan konsistensi dan efisiensi pada manajemen resources.
 - Membentuk solusi kebijakan yang disesuaikan dengan kebutuhan spesifik organisasi.
 
 ## Cloud Adoption Framework pada Azure
@@ -33,17 +33,16 @@ Terdapat dua hal penting yang menjadi pertimbangan dalam menerapkan policy untuk
 ![Docusaurus logo](/img/az104/3.png)
 
 **1. Mendefinisikan Corporate Policy**
-- Risiko bisnis – Melakukan dokumentasi risiko bisnis secara berkala berdasarkan klasifikasi data dan tingkat kepentingan aplikasi.
-- Kebijakan dan kepatuhan – Menerapkan kebijakan berdasarkan resiko dengan menetapkan aturan adopsi cloud secara efisien.
-- Proses – Melakukan monitoring terhadap pelanggaran dan kepatuhan terhadap kebijakan organisasi.
-
+- **Risiko bisnis** – Melakukan dokumentasi risiko bisnis secara berkala berdasarkan klasifikasi data dan tingkat kepentingan aplikasi.
+- **Kebijakan dan kepatuhan** – Menerapkan kebijakan berdasarkan resiko dengan menetapkan aturan adopsi cloud secara efisien.
+- **Keberlangsungan** – Melakukan monitoring terhadap pelanggaran dan kepatuhan terhadap kebijakan organisasi.
 
 **2. Penerapan 5 disiplin dari cloud governance**
-- Manajemen biaya – Mengevaluasi dan memantau biaya serta memastikan penggunaan resources berdasarkan kebutuhan yang di perlukan.
-- Standar keamanan – Memastikan comliance terhadap standar keamanan IT dengan menerapkan standar keamanan pada seluruh upaya adopsi cloud.
-- Konsistensi resources – Menjamin konsistensi dalam konfigurasi resources.
-- Standar identitas – Memastikan standar identitas dan akses berlangsung secara konsisten dengan menerapkan definisi dan penugasan peran.
-- Percepatan penyebaran – Mempercepat penerapan kebijakan melalui sentralisasi, konsistensi, dan standarisasi pada template.
+- **Manajemen biaya** – Mengevaluasi dan memantau biaya serta memastikan penggunaan resources berdasarkan kebutuhan yang di perlukan.
+- **Standar keamanan** – Memastikan comliance terhadap standar keamanan IT dengan menerapkan standar keamanan pada seluruh upaya adopsi cloud.
+- **Konsistensi** – Menjamin konsistensi dalam konfigurasi resources.
+- **Standar identitas** – Memastikan standar identitas dan akses berlangsung secara konsisten dengan menerapkan definisi dan penugasan peran.
+- **Percepatan deployment** – Mempercepat penerapan kebijakan melalui sentralisasi, konsistensi, dan standarisasi pada template.
 
 :::tip Konklusi
 Cloud Adoption Framework mencakup praktik terbaik, dokumentasi, dan alat-alat yang dikontribusikan oleh Microsoft, 
@@ -58,55 +57,67 @@ Read More: [**Cloud Adoption Framework**](https://learn.microsoft.com/en-us/azur
 
 Dalam penerapan governance, kita harus mengetahui hirarki dari 
 [**Manajemen Infrastuktur**](/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904#management-infrastructure)
-pada azure untuk menerapkan policy guna memastikan keamanan dan manajemen cost berdasarkan resources yang di perlukan.
+pada Azure untuk menerapkan policy guna memastikan keamanan dan manajemen cost berdasarkan resources yang di perlukan.
 
-<br/>
-**Hubungan antara Azure Policy dan Azure Resouce Management**
+## Hubungan antara Azure Policy dan Azure Resource Management
 
 **Azure Resource Management (ARM)** adalah layanan manajemen dan deployment pada Azure resources.
-Terdapat dua area dimana Azure Resources Management beroperasi:
+Terdapat dua area dimana Azure Resource Management beroperasi:
 
 ![Docusaurus logo](/img/az104/4.png)
 
 **1. Control Plane**
-Azure Policy beroperasi di control plane untuk mmenerapkan aturan dan kepatuhan pada resources. 
-Azure Resource Manager mengelola semua operasi di control plane di Azure dan mencakup berbagai komponen yang dipusatkan 
-di antara berbagai layanan. Azure Policy terintegrasi dengan Azure Resource Manager.
 
+Azure Policy beroperasi di control plane untuk menerapkan aturan dan kepatuhan pada resources. 
+Azure Resource Manager mengelola semua operasi di control plane Azure dan mencakup berbagai komponen terpusat. Azure Policy terintegrasi dengan Azure Resource Manager.
 
 **2. Data Plane**
+
 Data plane adalah tempat interaksi langsung terhadap resources, dan Azure Policy memastikan bahwa resource yang 
 menerima interaksi pada data plane sesuai dengan kebijakan yang telah diterapkan.
 
+## Alur operasi pada Azure Resource Management
 
-<br/>
-**Alur operasi pada Azure Resource Management**
-
-Azure Resource Management memiliki dua skenario dalam menangani request terhadap resources.
-Saat kita mendeploy resources, Azure Resource Manager memahami kapan pembuatan resource baru atau update terhadap resources yang sudah ada.
+Azure Resource Management memiliki dua skenario dalam menangani request terhadap resources yaitu **Greenfield** dan **Brownfield**.
+Saat kita mendeploy resources, Azure Resource Management memahami kapan pembuatan resource baru atau update terhadap resources yang sudah ada.
 
 ![Docusaurus logo](/img/az104/5.png)
 
-**- Greenfield**
+**- Greenfield :**
 Mengacu pada skenario dimana terdapat sebuah policy saat membuat atau melakukan update pada resource.
 
-**- Brownfield** 
-Mengacu pada skenario dimana sudah terdapat resource sebelum sebuah policy baru diterapkan.
+**- Brownfield :** 
+Mengacu pada skenario dimana sudah terdapat resource sebelum sebuah policy baru diterapkan dan resource tersebut akan di kategorikan sebagai **non-compliance**.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 ## Azure Policy resources
 
+Azure Policy mengevaluasi resources dan interaksi pada Azure dengan membandingkan nilai properties terhadap policy yang sudah di terapkan.
+Terdapat enam konsep Azure policy resources sebagai berikut :
+
+![Docusaurus logo](/img/az104/6.png)
+
+1. **Definitions** – Menentukan kondisi compliance dan efeknya jika sesuai dengan policy yang diterapkan pada 
+[**scope**](/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904#management-infrastructure).
+2. **Initiatives** – Kumpulan beberapa definisi kebijakan dalam satu set atau group untuk menyederhanakan manajemen dan penerapannya. 
+Terdapat **Built-in policy** dan **Built-in initiatives** yang secara default disediakan oleh **Azure Resource Providers**.
+3. **Assignments** – Menetapkan resource yang akan di evaluasi terhadap sebuah **definition** atau **initiative**.
+4. **Exemptions** – Pembebasan resource dari evaluasi **definition** atau **initiative**.
+5. **Attestations** – Pengesahan terhadap **Azure manual-policy** **(bukan built-in policy / built-in initiatives)** yang dibuat berdasarkan aturan dan ketentuan organisasi.
+6. **Remediations** – Tindakan untuk menetapkan resource yang **non-compliance** terhadap definisi dengan tipe 
+**modify** atau **deployIfNotExist** dapat menjadi **compliance** dan termasuk resource yang baru dibuat secara otomatis menjadi **compliance**.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Azure Policy definition
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Evaluasi resources melalui Azure Policy 
+
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
