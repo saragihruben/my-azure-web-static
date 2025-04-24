@@ -112,12 +112,339 @@ Terdapat **Built-in policy** dan **Built-in initiatives** yang secara default di
 
 ## Azure Policy definition
 
+Definisi Azure Policy menjelaskan kondisi compliance resource dan tindakan atau efek yang terjadi jika kondisi tersebut terpenuhi. 
+Kebijakan ini terdiri dari dua bagian:
+1. **Kondisi** yang membandingkan properti atau nilai suatu resource, yang diakses menggunakan alias, dengan nilai yang ditentukan.
+2. **Efek** menentukan apa yang terjadi ketika policy dievaluasi dan cocok dengan kondisi tersebut. Untuk setiap resource baru, 
+resource yang diperbarui, atau resource yang sudah ada, efeknya berbeda.
 
+# Struktur dari sebuah policy definition
+
+JSON merupakan format yang digunnakan untuk policy definition.
+
+| Elemen | Deskripsi | Properti atau Nilai |
+|--------|-----------|---------------------|
+| `displayName` (string, maks. 128 karakter) | Digunakan untuk mengidentifikasi definisi kebijakan. | — |
+| `description` (string, maks. 512 karakter) | Memberikan konteks mengenai kapan definisi digunakan. | — |
+| `policyType` (string, hanya baca) | Menunjukkan asal dari definisi kebijakan. Properti ini tidak dapat diatur, tetapi SDK mengembalikan tiga nilai yang terlihat di portal. | ● **Built-in**: Disediakan dan dikelola oleh Microsoft.<br />● **Custom**: Definisi kustom yang dibuat oleh pengguna.<br />● **Static**: Kebijakan Kepatuhan Regulasi milik Microsoft. |
+| `mode` (string) | Dikonfigurasi tergantung pada target kebijakan: properti Azure Resource Manager atau Resource Provider. | **Mode Resource Manager:**<br />• On All<br />• Indexed<br />**Mode Resource Provider (Built-in dan didukung penuh):**<br />• Microsoft.Kubernetes.Data<br />• Microsoft.KeyVault.Data<br />• Microsoft.Network.Data<br />**Mode Resource Provider (Built-in, pratinjau):**<br />• Microsoft.ManagedHSM.Data<br />• Microsoft.DataFactory.Data |
+| `version` (string, opsional) | Definisi kebijakan bawaan dapat memiliki beberapa versi dengan `definitionID` yang sama. Jika tidak ada versi, versi terbaru yang digunakan. | — |
+| `metadata` (objek, opsional, maks. 1.024 karakter) | Menyimpan informasi tentang definisi kebijakan. | **Properti umum:**<br />• `version` (string)<br />• `category` (string)<br />• `preview` (boolean)<br />• `deprecated` (boolean)<br />• `portalReview` (string) |
+| `parameters` (objek, opsional) | Membantu menyederhanakan manajemen kebijakan dengan mengurangi jumlah definisi. | **Properti:**<br />• `name`<br />• `type` (String, Array, Object, Boolean, Integer, Float, DateTime)<br />• `metadata` (description, displayName, strongType, assignPermissions)<br />• `defaultValue`<br />• `allowedValues`<br />• `schema` |
+| `policyRule` (objek) | Efek dari kebijakan didefinisikan dalam `policyRule`. Terdiri dari blok `if` dan `then`. | • **if**: Kondisi kapan kebijakan berlaku<br />• **then**: Efek jika kondisi `if` terpenuhi |
+
+<br/>
+
+```jsx
+{
+  "displayName": "Allowed locations", 
+  "description": "This policy enables you to restrict the locations your organization can specify when deploying resources. Use to enforce your geo-compliance requirements. Excludes resource groups, Microsoft.AzureActiveDirectory/b2cDirectories, and resources that use the 'global' region.",
+  "policyType": "BuiltIn",
+  "mode": "Indexed",
+  "metadata": {
+    "version": "1.0.0",
+    "category": "General"
+  },
+  "parameters": {
+    "listOfAllowedLocations": {
+      "type": "Array",
+      "metadata": {
+        "description": "The list of locations that can be specified when deploying resources.",
+        "strongType": "location",
+        "displayName": "Allowed locations"
+      }
+    }
+  },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "location",
+            "notIn": "[parameters('listOfAllowedLocations')]"
+          },
+          {
+            "field": "location",
+            "notEquals": "global"
+          },
+          {
+            "field": "type",
+            "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+
+  }
+```
+
+Contoh di atas, *b2cDirectories* dikecualikan dari policy rule karena field lokasi-nya bukan merupakan wilayah 
+(lokasinya bisa berupa "United States," "Europe," "Asia Pacific," atau "Australia").
+
+<br/>
+# Operator logika dan kondisinya (if blocks)
+
+Bagian pertama dari policyRule dalam definisi Azure Policy adalah blok if. 
+Blok ini mendefinisikan kondisi-kondisi yang digunakan rule untuk mengevaluasi resource. 
+Sebuah definitin rule dapat berisi beberapa pernyataan kondisi. Tergantung pada evaluasi yang digunakan
+kemungkinan membutuhkan setiap pernyataan untuk bernilai benar, atau mungkin hanya beberapa di antaranya yang bernilai benar.
+
+| Operator  | Tipe                                | Deskripsi                                                                                                                                                      |
+|-----------|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `not`     | `{kondisi atau operator}`           | Sintaks `not` membalikkan hasil dari kondisi.                                                                                                                   |
+| `allOf`   | `[{kondisi atau operator}, {kondisi atau operator}]` | Sintaks `allOf` (seperti operasi logika `and`) mengharuskan semua kondisi bernilai benar.                                                                       |
+| `anyOf`   | `[{kondisi atau operator}, {kondisi atau operator}]` | Sintaks `anyOf` (seperti operasi logika `or`) mengharuskan satu atau lebih kondisi bernilai benar.                                                              |
+
+Mari kita cek kembali bagian logika pada policy definition sebelumnya :
+
+```jsx
+{
+  "if": {
+    // highlight-next-line
+    "allOf": [
+      {
+        "field": "location",
+        "notIn": "[parameters('listOfAllowedLocations')]"
+      },
+      {
+        "field": "location",
+        "notEquals": "global"
+      },
+      {
+        "field": "type",
+        "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
+      }
+    ]
+  },
+  "then": {
+    // highlight-next-line
+    "effect": "deny"
+  }
+}
+
+```
+Policy ini akan menolak **(effect: deny)** deployment jika semua kondisi terpenuhi **(allOf)**:
+- Lokasi tidak termasuk pada **(notIn) listOfAllowedLocations** → Selain Lokasi yang sudah di definisikan.
+- Lokasi tidak sama dengan **(notEquals) global** → Lokasi selain global.
+- Tipe tidak sama dengan **(notEquals) b2cDirectories** → Resource tidak ada dalam B2C Directory.
+
+<br/>
+# Operator logika bertingkat
+
+Operasi logika bersifat opsional dan dapat bertingkat (nested) untuk membuat skenario yang kompleks.
+Contoh berikut menunjukkan operator **not** bertingkat di dalam operator **allOf**:
+
+```jsx
+
+"if": {
+    "allOf": [
+      {
+        "not": {
+          "field": "tags",
+          "containsKey": "application"
+        }
+      },
+      {
+        "field": "type",
+        "equals": "Microsoft.Storage/storageAccounts"
+      }
+    ]
+  },
+  "then": {
+    "effect": "deny"
+  }
+
+```
+
+Policy ini akan menolak **(effect: deny)** deployment jika semua kondisi terpenuhi:
+- Tidak terdapat tags dengan containsKey application
+- Resource merupakan storageAccounts
+
+Maka kondisi yang dihasilkan dari logika tersebut :
+
+**Deployment Allowed:**
+- Resource storageAccounts yang memiliki tag dengan containsKey application.
+- Resource apapun (asal bukan storageAccounts), bahkan jika tidak memiliki tag.
+
+**Deployment Denied:**
+- storageAccounts yang tidak memiliki tag.
+
+<br/>
+# Conditions
+
+Properti seperti fields, values, atau counts dapat dievaluasi di dalam suatu kondisi.
+
+| Properti | Deskripsi |
+|----------|-----------|
+| **Fields** | Kondisi yang mengevaluasi apakah nilai dari properti dalam payload permintaan resource memenuhi kriteria tertentu dapat dibentuk dengan menggunakan ekspresi field.<br/><br/>**Contoh:** `Name`, `fullName`, `kind`, `type`, `location`, `ID`, `identity.type`, `tags`, `tags['tagName']`, alias properti |
+| **Value** | Kondisi yang mengevaluasi apakah sebuah nilai memenuhi kriteria tertentu dapat dibentuk dengan menggunakan ekspresi nilai. |
+| **Count** | Kondisi yang menghitung berapa banyak anggota dari sebuah array yang memenuhi kriteria tertentu dapat dibentuk dengan menggunakan ekspresi count.<br/><br/>**Contoh:**<br/>• Jumlah field, jumlah nilai<br/>• Fungsi `current()` mengembalikan nilai dari anggota array yang sedang dievaluasi |
+
+Kondisi dalam sebuah Azure Policy mengevaluasi apakah nilai-nilai dari properti seperti **Fields**, **Value**, atau **Count** memenuhi kriteria tertentu. 
+Jika hasil dari sebuah fungsi menghasilkan kesalahan, maka kebijakan tersebut akan menghasilkan efek deny. 
+Hasil ini dapat dihindari saat pengujian dengan menonaktifkan **enforcementMode** pada penugasannya **(assignment)**.
+
+| Kriteria Evaluasi           | Tipe Nilai                    |
+|-----------------------------|-------------------------------|
+| `equals`                   | `stringValue`                 |
+| `notEquals`                | `stringValue`                 |
+| `like`                     | `stringValue`                 |
+| `notLike`                  | `stringValue`                 |
+| `match`                    | `stringValue`                 |
+| `notMatch`                 | `stringValue`                 |
+| `matchInsensitively`       | `stringValue`                 |
+| `notMatchInsensitively`    | `stringValue`                 |
+| `contains`                 | `stringValue`                 |
+| `notContains`              | `stringValue`                 |
+| `In`                       | `["stringValue1", "stringValue2"]` |
+| `notIn`                    | `["stringValue1", "stringValue2"]` |
+| `containsKey`              | `keyName`                     |
+| `notContainsKey`           | `keyName`                     |
+| `less`                     | `dateValue` / `stringValue` / `intValue` |
+| `lessOrEquals`             | `dateValue` / `stringValue` / `intValue` |
+| `greater`                  | `dateValue` / `stringValue` / `intValue` |
+| `greaterOrEquals`          | `dateValue` / `stringValue` / `intValue` |
+| `exists`                   | `bool`                        |
+
+
+<br/>
+# Policy Functions
+
+Fungsi dapat digunakan untuk menambahkan logika tambahan ke dalam policy. Fungsi-fungsi ini diselesaikan di dalam policy definition 
+dan juga di nilai parameter yang ditetapkan ke policy initiative.
+Fungsi-fungsi dari Resource Manager template dapat digunakan dalam policy, kecuali beberapa fungsi buatan pengguna **(user-defined functions)**.
+
+Tabel berikut menjelaskan fungsi-fungsi yang hanya tersedia di dalam aturan kebijakan.
+
+| Fungsi | Deskripsi |
+|--------|-----------|
+| **addDays(dateTime, numberOfDaysToAdd)** | ● `dateTime`: [Wajib] *string* – String dalam format Universal ISO 8601 DateTime `'yyyy-MM-ddTHH:mm:ss.FFFFFFFZ'`.<br/>● `numberOfDaysToAdd`: [Wajib] *integer* – Jumlah hari yang akan ditambahkan. |
+| **Field(fieldName)** | ● `fieldName`: [Wajib] *string* – Nama field yang ingin diambil.<br/>● Mengembalikan nilai dari field tersebut dari resource yang dievaluasi oleh kondisi *If*.<br/>● Fungsi `field` terutama digunakan dengan `auditIfNotExists` dan `deployIfNotExists` untuk mereferensikan field pada resource yang sedang dievaluasi. |
+| **requestContext().apiVersion** | Mengembalikan versi API dari permintaan yang memicu evaluasi kebijakan. Nilai ini merupakan versi API yang digunakan dalam permintaan PUT/PATCH saat pembuatan atau pembaruan resource. Versi API terbaru selalu digunakan saat evaluasi kepatuhan pada resource yang sudah ada. |
+| **policy()** | Mengembalikan informasi tentang kebijakan yang sedang dievaluasi. Properti dapat diakses dari objek yang dikembalikan.<br/>**Contoh properti:**<br/>- `assignmentId`<br/>- `definitionId`<br/>- `setDefinitionId`<br/>- `definitionReferenceId` |
+| **ipRangeContains(range, targetRange)** | ● `range`: [Wajib] *string* – String yang menentukan rentang alamat IP untuk memeriksa apakah `targetRange` termasuk di dalamnya.<br/>● `targetRange`: [Wajib] *string* – String yang menentukan rentang alamat IP yang akan divalidasi apakah termasuk dalam `range`.<br/>Mengembalikan nilai boolean apakah rentang IP `range` mencakup rentang IP `targetRange`. Rentang kosong atau campuran antara keluarga IP tidak diperbolehkan dan akan menyebabkan kegagalan evaluasi. |
+| **current(indexName)** | Fungsi khusus yang hanya dapat digunakan di dalam ekspresi `count`. |
+
+
+<br/>
+# Tipe Efek **(*then* blocks)**
+
+Bagian kedua dari policyRule dalam definisi Azure Policy adalah **blok then**. 
+Blok ini menentukan efek yang akan diterapkan ketika aturan kebijakan dievaluasi dan cocok dengan resource yang sesuai dengan kondisi.
+- Lebih dari satu **effect** dapat berlaku untuk **satu policy definition**. 
+- Parameter sering digunakan untuk menentukan nilai efek yang diperbolehkan, sehingga satu policy definition dapat menjadi lebih fleksibel.
+- Properti resource dan logika pada policy rule dapat menentukan apakah suatu efek dianggap valid terhadap definisi kebijakan tersebut.
+
+| Efek               | Deskripsi | Tipe Evaluasi |
+|--------------------|-----------|----------------|
+| **disabled**       | Efek *disabled* digunakan untuk menonaktifkan kebijakan. Jika sebuah definisi kebijakan memiliki efek ini, maka semua penugasannya tidak akan aktif. Efek ini diperiksa pertama kali untuk menentukan apakah aturan kebijakan perlu dievaluasi. Memberikan fleksibilitas untuk menonaktifkan satu penugasan tanpa menonaktifkan semua penugasan dari kebijakan tersebut. | Evaluasi Sinkron (*Synchronous*) |
+| **append**         | Efek *append* digunakan untuk menambahkan field tambahan ke resource yang diminta saat dibuat atau diperbarui. Saat ini sebagian besar tidak digunakan lagi karena efek *modify* juga bisa menambahkan field. | Evaluasi Sinkron (*Synchronous*) |
+| **modify**         | Efek *modify* digunakan untuk menambahkan, memperbarui, atau menghapus properti atau tag pada subscription atau resource saat dibuat atau diperbarui. Memungkinkan Azure Policy untuk mengubah permintaan ke Azure Resource Manager guna memastikan kepatuhan. | Evaluasi Sinkron (*Synchronous*) |
+| **deny**           | Efek *deny* digunakan untuk mencegah permintaan resource yang tidak sesuai dengan standar yang didefinisikan dalam kebijakan, sehingga permintaan akan gagal. | Evaluasi Sinkron (*Synchronous*) |
+| **denyAction**     | Efek *denyAction* digunakan untuk memblokir permintaan berdasarkan tindakan yang dimaksud terhadap resource dalam skala besar. Saat ini, satu-satunya tindakan yang didukung adalah `DELETE`. | Evaluasi Sinkron (*Synchronous*) |
+| **audit**          | Efek *audit* digunakan untuk membuat peringatan di log aktivitas saat mengevaluasi resource yang tidak patuh, tanpa menghentikan permintaan. | Evaluasi Asinkron (*Asynchronous*) |
+| **auditIfNotExists** | Efek *auditIfNotExists* memungkinkan audit terhadap resource yang terkait dengan resource yang cocok dengan kondisi `if`, tetapi tidak memiliki properti yang ditentukan dalam rincian kondisi `then`. | Evaluasi Asinkron (*Asynchronous*) |
+| **deployIfNotExists** | Efek *deployIfNotExists* menjalankan *template deployment* saat kondisi terpenuhi. Dapat memicu penyebaran resource terkait berdasarkan status kepatuhan dari resource yang sedang dievaluasi. | Evaluasi Asinkron (*Asynchronous*) |
+| **manual**         | Efek *manual* memungkinkan Anda untuk menyatakan sendiri kepatuhan dari resource atau cakupan (*scope*). Ketika definisi kebijakan dengan efek ini ditugaskan, Anda dapat menetapkan status kepatuhan secara manual melalui *custom attestations*. | Pernyataan Manual (*Manual Attestation*) |
+
+
+Daftar berikut memberikan panduan umum mengenai efek-efek yang dapat saling dipertukarkan:
+- **audit**, **deny**, dan baik **modify** maupun **append** sering kali dapat saling dipertukarkan.
+- **auditIfNotExists** dan **deployIfNotExists** juga sering kali dapat saling dipertukarkan.
+- **manual** tidak dapat dipertukarkan.
+- **disabled** dapat dipertukarkan dengan efek apa pun.
+
+Dipertukarkan disini dimaksud dapat digunakan sebagai pengganti satu sama lain, tergantung pada tujuan atau situasi kebijakannya
+dan hasil atau dampaknya akan relatif serupa terhadap evaluasi kebijakan tersebut.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Evaluasi resources melalui Azure Policy 
 
 
+Salah satu manfaat utama dari Azure Policy adalah insight dan kontrol yang diberikannya terhadap resource dalam sebuah subscription (subscription) 
+atau grup manajemen dari beberapa subscription. Kontrol ini dapat digunakan untuk:
+- Mencegah resource dibuat di lokasi yang salah
+- Memaksakan penggunaan tag yang umum dan konsisten
+- Melakukan audit terhadap konfigurasi dan pengaturan resource yang sudah ada
+
+
+# Pemicu Evaluasi (Evaluation Triggers)
+Evaluasi atas kebijakan atau inisiatif yang ditetapkan terjadi karena berbagai peristiwa, seperti:
+- Kebijakan atau inisiatif baru ditetapkan pada suatu cakupan (scope)
+- Kebijakan atau inisiatif yang sudah ada diperbarui
+- Resource dibuat atau diperbarui melalui Azure Resource Manager, REST API, atau SDK yang didukung
+- Subscription dibuat atau dipindahkan dalam hierarki grup manajemen yang memiliki kebijakan yang ditargetkan untuk jenis resource subscription
+- Pengecualian kebijakan dibuat, diperbarui, atau dihapus
+- Penyedia resource konfigurasi mesin diperbarui oleh resource yang dikelola
+- Pemindaian berdasarkan permintaan (on-demand scan)
+
+# Waktu Evaluasi (Evaluation Timing)
+Saat bekerja dengan penetapan kebijakan di Azure, penting untuk memahami perilaku dan waktu dari pemindaian kepatuhan, 
+terutama dalam skenario Brownfield (kebijakan baru diterapkan pada resource yang sudah ada):
+- Pemindaian otomatis penuh: Dilakukan setiap 24 jam
+- Pemindaian manual (Brownfield): Jalankan az policy state trigger-scan secara manual
+- Delay saat kebijakan baru ditetapkan: Hingga 30 menit. Cache Azure Resource Manager bisa menyebabkan keterlambatan
+    - Solusi: Logout dan login ulang untuk menyegarkan cache
+
+**Faktor yang mempengaruhi durasi pemindaian:**
+- Ukuran dan kompleksitas definisi kebijakan
+- Jumlah kebijakan yang diterapkan
+- Ukuran cakupan resource
+- Beban sistem (pemindaian kepatuhan adalah operasi prioritas rendah)
+
+# Status Kepatuhan resource (Resource Compliance States)
+Setelah kebijakan ditetapkan, Azure Policy menentukan resource yang relevan dan mengevaluasi resource tersebut (selain yang dikecualikan). Status kepatuhan:
+- Compliant (mematuhi)
+- Non-compliant (tidak mematuhi)
+- Error (gagal evaluasi)
+- Conflicting (kebijakan bertentangan)
+- Protected (terlindungi oleh kebijakan denyAction)
+- Exempted (dikecualikan)
+- Unknown (efek manual, status default)
+
+**Persentase kepatuhan = (Compliant + Exempted + Unknown) / Total resource**
+
+# 🔧 Enforcement Mode
+
+**enforcementMode** adalah properti dari penetapan kebijakan untuk menonaktifkan efek kebijakan tertentu saat pengujian. 
+Ini berbeda dari efek **disabled**, karena evaluasi tetap berjalan, tetapi efeknya tidak diterapkan.
+
+| Mode     | JSON Value     | Log Aktif | Efek Diterapkan | Manual Remediasi | Deskripsi                                                                 |
+|----------|----------------|-----------|------------------|------------------|---------------------------------------------------------------------------|
+| Enabled  | `Default`      | ✅         | ✅               | ✅               | Kebijakan dijalankan sepenuhnya                                           |
+| Disabled | `DoNotEnforce` | ❌         | ❌               | ✅               | Evaluasi tetap dilakukan, tetapi efek kebijakan tidak dijalankan         |
+
+> Enforcement Mode cocok untuk skenario _"What If"_, karena memungkinkan uji coba kebijakan tanpa mempengaruhi sumber daya secara langsung.
+
+
+# Praktik Terbaik Penetapan Kebijakan (Safe Deployment)
+Tanpa pengujian yang benar, menerapkan kebijakan di lingkungan produksi bisa menyebabkan masalah.
+
+**Kerangka kerja terbaik meliputi:**
+
+1. Mulai dengan enforcementMode: Disabled
+    - Evaluasi dulu sebelum efek dijalankan.
+
+2. Terapkan secara bertahap (deployment rings)
+    - Mulai dari lingkungan uji, lalu bertahap ke produksi.
+
+**Langkah Umum:**
+- Buat definisi kebijakan (scope: root)
+- Buat penetapan untuk ring tertentu (misal: Ring 5)
+- Cek Kepatuhan & Kesehatan Aplikasi
+- Ulangi di semua ring non-produksi
+- Setelah valid, terapkan ke produksi secara bertahap
+
+# Reaksi terhadap Perubahan Status Kebijakan
+Azure Policy dapat memicu event yang memberi tahu aplikasi saat terjadi perubahan status.
+Event dikirim melalui Azure Event Grid ke Event Handlers, seperti:
+- Azure Functions
+- Azure Logic Apps
+- Webhook kustom
+
+Event Grid menjamin pengiriman yang andal dengan retry otomatis dan pengelolaan error.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
