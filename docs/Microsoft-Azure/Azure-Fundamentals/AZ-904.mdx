@@ -10,7 +10,7 @@ Azure memiliki infrastruktur fisik yang mencakup  **datacenter**, **region**, **
 Infrastruktur ini dirancang untuk menyediakan layanan cloud yang andal, cepat, dan aman bagi penggunanya.
 
 <br/>
-# Azure Regions
+### Azure Regions
 
 Region adalah area geografis yang berisi satu atau lebih data center dengan koneksi jaringan berlatensi rendah.
 Setiap resource yang dibuat pada Azure harus ditempatkan dalam region tertentu.
@@ -21,7 +21,7 @@ Ada layanan global Azure yang tidak memerlukan pemilihan region, seperti **Micro
 :::
 
 <br/>
-# Availability Zones
+### Availability Zones
 
 Availability Zones adalah data center yang terpisah secara fisik dalam satu region Azure.
 Setiap zona memiliki daya, pendingin, dan jaringan yang terpisah, sehingga jika satu zona gagal, zona lain tetap beroperasi.
@@ -32,7 +32,7 @@ Kegunaan Availability Zones:
 -  Dapat menambah biaya karena ada replikasi antar zona
 
 <br/>
-# Region Pairs 
+### Region Pairs 
 
 Sebagian besar region Azure dipasangkan dengan region lain dalam satu wilayah geografis (minimal 300 mil jauhnya).
 Fungsi utama: Replikasi resources untuk mengurangi risiko gangguan besar, seperti bencana alam atau pemadaman listrik.
@@ -49,7 +49,7 @@ Contoh Region Pairs:
 Namun, ada beberapa region yang tidak memiliki pasangan dua arah, seperti West India & Brazil South.
 
 <br/>
-# Sovereign Regions
+### Sovereign Regions
 Azure memiliki beberapa wilayah khusus yang terisolasi dari jaringan utama Azure untuk kepatuhan hukum dan regulasi tertentu.
 
 - Azure Government (US DoD, US Gov Virginia, dll.): Digunakan oleh instansi pemerintah AS dengan keamanan tambahan.
@@ -71,7 +71,7 @@ Infrastruktur manajemen mencakup **Azure resources**, **Resources group**, **Sub
 
 ![Docusaurus logo](/img/az900/3.png)
 
-# Azure resources
+### Azure resources
 Azure resources adalah blok bangunan dasar dalam Azure. Apa pun yang dibuat, disediakan, atau diterapkan dalam Azure dianggap sebagai resources, seperti:
 - Virtual Machines (VMs) 
 - App Services 
@@ -80,7 +80,7 @@ Azure resources adalah blok bangunan dasar dalam Azure. Apa pun yang dibuat, dis
 - Azure Functions 
 
 <br/>
-# Resources group
+### Resources group
 Resources group adalah kumpulan resources dalam Azure. Saat membuat resources, pengguna harus menempatkannya dalam sebuah resources group.
 
 **Fakta Penting tentang Resources group**
@@ -94,7 +94,7 @@ Resources group adalah kumpulan resources dalam Azure. Saat membuat resources, p
 - Strukturisasi proyek → Misalnya, mengelompokkan semua resources dalam satu grup untuk penghapusan lebih mudah setelah proyek selesai.
 
 <br/>
-# Subscriptions Azure
+### Subscriptions Azure
 subscriptions Azure digunakan untuk pengelolaan, penagihan, dan skala resources. 
 Mirip dengan resources group, subscriptions memungkinkan pengorganisasian resources dan resources group.
 
@@ -114,7 +114,7 @@ Jenis Batasan subscriptions :
 :::
 
 <br/>
-# Management groups Azure
+### Management groups Azure
 
 ![Docusaurus logo](/img/az900/4.png)
 

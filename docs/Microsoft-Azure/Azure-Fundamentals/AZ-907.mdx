@@ -8,7 +8,7 @@ title: Azure storage services
 Azure Storage Account menyediakan namespace unik untuk data Azure Storage Anda, yang dapat diakses secara global melalui HTTP atau HTTPS. 
 Data dalam akun ini aman, tersedia tinggi, tahan lama, dan sangat fleksibel.
 
-# Jenis Storage Account dan Opsi Redundansi
+### Jenis Storage Account dan Opsi Redundansi
 Saat membuat storage account, kita dapat memilih jenis akun yang menentukan layanan penyimpanan, opsi redundansi, dan kasus penggunaannya.
 
 **Opsi Redundansi:**
@@ -30,7 +30,7 @@ Kombinasi ZRS dan GRS untuk daya tahan maksimal.
 6. Read-Access Geo-Zone-Redundant Storage (RA-GZRS) :
 GZRS dengan akses baca ke secondary region.
 
-# Storage Account Endpoints
+### Storage Account Endpoints
 Setiap Azure Storage Account memiliki namespace unik. Nama akun harus:
 - 3-24 karakter
 - Hanya huruf kecil dan angka
@@ -114,7 +114,7 @@ Platform Azure Storage mencakup layanan data berikut:
 - Azure Disks: Volume penyimpanan berbasis blok untuk VM Azure.
 - Azure Tables: Opsi tabel NoSQL untuk data terstruktur dan non-relasional.
 
-# Manfaat Azure Storage
+### Manfaat Azure Storage
 Azure Storage menawarkan manfaat berikut bagi pengembang aplikasi dan profesional IT:
 - Tahan lama dan sangat tersedia: Redundansi memastikan data aman meskipun terjadi kegagalan perangkat keras sementara. 
 Replikasi data antar data center atau wilayah geografis juga tersedia.
@@ -124,7 +124,7 @@ Replikasi data antar data center atau wilayah geografis juga tersedia.
 - Dapat diakses secara global: Data dapat diakses melalui HTTP atau HTTPS secara global, dengan dukungan berbagai bahasa pemrograman seperti 
 .NET, Java, Python, Node.js, dll.
 
-# Azure Blobs
+### Azure Blobs
 Azure Blob Storage adalah solusi penyimpanan objek berbasis cloud yang dapat menangani data dalam jumlah besar seperti teks atau data biner.
 
 Kasus penggunaan utama Blob Storage:
@@ -141,7 +141,7 @@ Azure menawarkan beberapa tingkat penyimpanan berdasarkan frekuensi akses dan du
 - Cold: Untuk data yang sangat jarang diakses (minimal 90 hari).
 - Archive: Untuk penyimpanan jangka panjang (minimal 180 hari).
 
-# Azure Files
+### Azure Files
 Azure File Storage menyediakan berbagi file yang sepenuhnya dikelola di cloud menggunakan protokol SMB (Server Message Block) atau NFS (Network File System).
 
 **Keuntungan utama Azure Files:**
@@ -150,17 +150,17 @@ Azure File Storage menyediakan berbagi file yang sepenuhnya dikelola di cloud me
 - Scripting & Tools: Bisa dikelola melalui Azure Portal, PowerShell, CLI, dan Azure Storage Explorer.
 - Ketahanan tinggi: Dibangun agar selalu tersedia tanpa gangguan dari kegagalan perangkat keras lokal.
 
-# Azure Queues
+### Azure Queues
 Azure Queue Storage adalah layanan penyimpanan pesan yang mendukung jumlah pesan dalam jumlah besar (hingga jutaan).
 - Digunakan untuk mengatur antrian tugas secara asinkron.
 - Setiap pesan dapat berukuran hingga 64 KB.
 - Dapat dikombinasikan dengan Azure Functions untuk mengeksekusi tugas otomatis setelah pesan diterima.
 
-# Azure Disks
+### Azure Disks
 Azure Disk Storage adalah volume penyimpanan berbasis blok yang dikelola Azure untuk VM Azure. 
 Keunggulannya dibandingkan disk fisik adalah ketahanan yang lebih tinggi dan ketersediaan lebih baik.
 
-# Azure Tables
+### Azure Tables
 Azure Table Storage adalah penyimpanan NoSQL untuk data terstruktur dalam jumlah besar. 
 Ini memungkinkan autentikasi dari dalam maupun luar Azure, sehingga ideal untuk solusi hybrid atau multicloud.
 
@@ -168,15 +168,13 @@ Ini memungkinkan autentikasi dari dalam maupun luar Azure, sehingga ideal untuk 
 
 ## Azure data migration options
 
-# 1. Azure Migrate
+### 1. Azure Migrate
 Azure Migrate adalah layanan yang membantu migrasi dari lingkungan lokal ke Azure. 
 Fungsinya sebagai pusat kendali untuk menilai dan mengelola migrasi data center lokal ke cloud.
 
-✔️ Platform Migrasi: Satu portal untuk memulai, menjalankan, dan melacak proses migrasi.
-
-✔️ Beragam Tools Migrasi: Termasuk penilaian dan migrasi server serta integrasi dengan layanan Azure lainnya.
-
-✔️ Penilaian dan Migrasi Infrastruktur: Memungkinkan evaluasi serta pemindahan server dan database ke Azure.
+- Platform Migrasi: Satu portal untuk memulai, menjalankan, dan melacak proses migrasi.
+- Beragam Tools Migrasi: Termasuk penilaian dan migrasi server serta integrasi dengan layanan Azure lainnya.
+- Penilaian dan Migrasi Infrastruktur: Memungkinkan evaluasi serta pemindahan server dan database ke Azure.
 
 Tools Terintegrasi di Azure Migrate:
 - Azure Migrate: Discovery & Assessment – Menilai kesiapan server fisik atau virtual (VMware, Hyper-V) sebelum migrasi.
@@ -186,14 +184,12 @@ Tools Terintegrasi di Azure Migrate:
 - Azure App Service Migration Assistant – Menilai kesiapan dan melakukan migrasi untuk aplikasi .NET dan PHP ke Azure App Service.
 
 <br/>
-# 2. Azure Data Box
+### 2. Azure Data Box
 Azure Data Box adalah layanan migrasi fisik yang memungkinkan transfer data dalam jumlah besar ke Azure dengan cepat dan aman.
 
-✔️ Kapasitas penyimpanan hingga 80 TB dalam satu perangkat.
-
-✔️ Transfer offline untuk menghindari keterbatasan jaringan atau kecepatan internet yang rendah.
-
-✔️ Dikirim dan dikembalikan secara fisik, dengan enkripsi dan proteksi keamanan tingkat tinggi.
+- Kapasitas penyimpanan hingga 80 TB dalam satu perangkat.
+- Transfer offline untuk menghindari keterbatasan jaringan atau kecepatan internet yang rendah.
+- Dikirim dan dikembalikan secara fisik, dengan enkripsi dan proteksi keamanan tingkat tinggi.
 
 Kasus Penggunaan Azure Data Box:
 - Migrasi Sekali Pakai – Memindahkan data dalam jumlah besar ke Azure, seperti perpustakaan media atau database historis untuk analisis.

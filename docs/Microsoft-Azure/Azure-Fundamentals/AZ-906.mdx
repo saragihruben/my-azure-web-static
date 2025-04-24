@@ -8,7 +8,7 @@ title: Azure identity, access, and security
 Microsoft Entra ID adalah layanan direktori yang memungkinkan pengguna untuk masuk dan mengakses aplikasi Microsoft Cloud maupun aplikasi cloud 
 yang mereka kembangkan sendiri. Selain itu, layanan ini juga dapat membantu perusahaan dalam mengelola Active Directory di data center lokal (on-premises).
 
-# Microsoft Entra ID: Layanan Direktori Cloud dari Microsoft
+### Microsoft Entra ID: Layanan Direktori Cloud dari Microsoft
 **1. Apa itu Microsoft Entra ID?**
 
 Microsoft Entra ID adalah layanan identitas & manajemen akses berbasis cloud dari Microsoft.
@@ -26,7 +26,7 @@ Digunakan untuk mengontrol akun identitas, sedangkan Microsoft bertanggung jawab
 - Pelanggan Layanan Online – Pengguna Microsoft 365, Office 365, Azure, dan Dynamics CRM Online sudah menggunakan Entra ID untuk autentikasi.
 
 <br/>
-# Fitur Utama Microsoft Entra ID
+### Fitur Utama Microsoft Entra ID
 **1. Autentikasi & Keamanan**
 - Verifikasi identitas sebelum mengakses aplikasi & resources.
 - Mendukung autentikasi multifaktor (MFA) untuk keamanan ekstra.
@@ -46,7 +46,7 @@ Digunakan untuk mengontrol akun identitas, sedangkan Microsoft bertanggung jawab
 - Kebijakan akses berbasis perangkat bisa diterapkan (Conditional Access).
 
 <br/>
-# Integrasi dengan Active Directory On-Premises
+### Integrasi dengan Active Directory On-Premises
 Jika organisasi pengguna menggunakan Active Directory (AD) lokal, Microsoft Entra ID dapat dihubungkan dengan AD menggunakan Microsoft Entra Connect.
 
 **Keunggulan Integrasi AD dengan Microsoft Entra ID:**
@@ -55,7 +55,7 @@ Jika organisasi pengguna menggunakan Active Directory (AD) lokal, Microsoft Entr
 - Mengurangi kompleksitas dalam mengelola dua identitas terpisah.
 
 <br/>
-# Microsoft Entra Domain Services
+### Microsoft Entra Domain Services
 Layanan ini memberikan domain services terkelola, seperti:
 - Domain Join
 - Group Policy
@@ -112,13 +112,13 @@ Microsoft Entra External ID mencakup semua cara untuk berinteraksi secara aman d
 - Mitra, distributor, pemasok, atau vendor → Kita bisa berbagi resources dan menentukan akses internal ke organisasi eksternal.
 - Pelanggan (consumer apps) → Kita dapat mengelola pengalaman identitas pelanggan dengan lebih mudah.
 
-# Bagaimana Identitas Eksternal Berbeda dengan Single Sign-On (SSO)?
+### Bagaimana Identitas Eksternal Berbeda dengan Single Sign-On (SSO)?
 - Identitas Eksternal memungkinkan pengguna membawa identitas mereka sendiri!
 - Bisa menggunakan identitas perusahaan, pemerintah, atau sosial (Google, Facebook).
 - Penyedia identitas eksternal mengelola identitas mereka—Kita hanya perlu mengelola akses ke aplikasi dengan Microsoft Entra ID atau Azure AD B2C.
 
 <br/>
-# Fitur-Fitur Utama Identitas Eksternal
+### Fitur-Fitur Utama Identitas Eksternal
 **1. Kolaborasi Business-to-Business (B2B)**
 - Pengguna eksternal bisa masuk dengan identitas pilihan mereka (akun Microsoft atau SaaS lain).
 - Pengguna B2B muncul dalam direktori sebagai pengguna tamu (guest users).
@@ -134,7 +134,7 @@ Microsoft Entra External ID mencakup semua cara untuk berinteraksi secara aman d
 - Tidak mendukung aplikasi Microsoft, hanya aplikasi yang dibuat sendiri atau pihak ketiga.
 
 <br/>
-# Manfaat Menggunakan Microsoft Entra ID untuk Identitas Eksternal
+### Manfaat Menggunakan Microsoft Entra ID untuk Identitas Eksternal
 - Kolaborasi mudah dengan fitur Microsoft Entra B2B.
 - Administrasi pengguna tamu → Bisa diundang oleh admin atau pengguna lain.
 - Pengelolaan akses tamu dengan Access Review → Memastikan hanya pengguna yang masih membutuhkan akses yang tetap memiliki izin.
@@ -148,7 +148,7 @@ Microsoft Entra External ID mencakup semua cara untuk berinteraksi secara aman d
 
 ## Azure role-based access control
 
-# Deskripsi Azure Role-Based Access Control (RBAC)
+### Deskripsi Azure Role-Based Access Control (RBAC)
 Bagaimana cara mengontrol akses tim IT dan engineering ke resources cloud?
 - Prinsip "least privilege" → Hanya memberikan akses yang diperlukan untuk menyelesaikan tugas.
 - Contoh: Jika hanya perlu akses baca ke storage blob, jangan berikan akses tulis atau ke resources lain.
@@ -158,7 +158,7 @@ Solusi: Azure Role-Based Access Control (Azure RBAC) memungkinkan pengelolaan ak
 :::
 
 <br/>
-# Cara Kerja Azure RBAC
+### Cara Kerja Azure RBAC
 **1. Pengelolaan Akses Berbasis Peran**
 - Azure menyediakan built-in roles untuk akses umum ke resources cloud.
 - Bisa juga membuat custom roles sesuai kebutuhan organisasi.

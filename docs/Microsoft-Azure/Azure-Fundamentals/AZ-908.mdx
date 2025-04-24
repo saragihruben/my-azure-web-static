@@ -5,7 +5,7 @@ title: Cost Management pada Azure Cloud
 
 ## Faktor yang mempengaruhi cost pada Azure
 
-# 1. Jenis Resources
+### Jenis Resources
 Biaya bergantung pada:
 - Jenis Resources (VM, Storage, dll)
 - Pengaturan (tier performa, redundansi, wilayah)
@@ -15,19 +15,19 @@ Biaya bergantung pada:
     - Akun penyimpanan di Eropa vs Asia biayanya bisa berbeda.
     - VM dengan jumlah core lebih banyak dan lisensi OS tertentu akan lebih mahal.
 
-# 2. Konsumsi (Pay-as-you-go)
+### Konsumsi (Pay-as-you-go)
 Bayar sesuai pemakaian. Jika menggunakan lebih banyak, pasti membayar lebih. Jika menggunakan lebih sedikit, maka akan membayar lebih sedikit.
 Opsi Diskon:
 - Komitmen penggunaan (1 atau 3 tahun)
 - Diskon hingga 72% untuk resource yang dipesan
 
-# 3. Pemeliharaan
+### Pemeliharaan
 Jaga lingkungan cloud tetap rapi:
 - Deprovision resource yang tidak digunakan
 - Gunakan resource group untuk organisasi yang lebih baik
 - Monitoring VM, storage, network agar sesuai dengan demand yang dibutuhkan
 
-# 4. Geografi
+### Geografi
 Lokasi memengaruhi biaya:
 - Biaya listrik, pajak, tenaga kerja berbeda-beda
 - Penyimpanan atau VM di AS bisa lebih murah daripada di Jepang
@@ -35,17 +35,17 @@ Lokasi memengaruhi biaya:
 
     Contoh: Transfer data dari Eropa ke Asia lebih mahal dibanding antar negara di Eropa.
 
-# 5. Lalu Lintas Jaringan (Bandwidth)
+### Lalu Lintas Jaringan (Bandwidth)
 - Transfer masuk ke Azure biasanya gratis
 - Transfer keluar dikenakan biaya per zona
 - Zona = kelompok wilayah Azure untuk penagihan
 
-# 6. Jenis Langganan
+### Jenis Langganan
 Beberapa langganan mencakup:
 - Langganan Uji Coba Gratis: 12 bulan produk gratis + kredit awal 30 hari
 - Akses ke 25+ produk yang selalu gratis (tergantung wilayah dan kapasitas)
 
-# 7. Azure Marketplace
+### Azure Marketplace
 Beli solusi pihak ketiga, seperti:
 - Server dengan software terinstal
 - Firewall terkelola
@@ -63,7 +63,7 @@ Semua produk tersertifikasi sesuai standar dan kebijakan Azure.
 
 ## Membandingkan Pricing dan Total Cost of Ownership calculators
 
-# 1. Kalkulator Harga (Pricing Calculator)
+### Kalkulator Harga (Pricing Calculator)
 **Tujuan:**
 Memberikan perkiraan biaya untuk penyediaan resources di Azure.
 
@@ -81,7 +81,7 @@ Memberikan perkiraan biaya untuk penyediaan resources di Azure.
 **Contoh Penggunaan:**
 Simulasi biaya saat ingin menjalankan VM dengan penyimpanan premium dan tingkat redundansi tinggi di region Asia Tenggara.
 
-# 2. Kalkulator TCO (Total Cost of Ownership Calculator)
+### Kalkulator TCO (Total Cost of Ownership Calculator)
 **Tujuan:**
 Membandingkan biaya menjalankan infrastruktur lokal (on-premises) dengan Azure Cloud.
 
@@ -100,7 +100,7 @@ Kalkulator TCO akan menunjukkan selisih estimasi biaya antara:
 - Lingkungan on-premise Anda saat ini dan Lingkungan cloud Azure dengan kebutuhan infrastruktur yang sama
 
 <br/>
-# Perbandingan Pricing Calculator dan TCO Calculator
+### Perbandingan Pricing Calculator dan TCO Calculator
 ![Docusaurus logo](/img/az900/12.png)
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ Microsoft Cost Management adalah layanan di Azure yang membantu untuk memantau, 
 - Ingin membuat anggaran dan menghindari kejutan saat faktur datang
 
 <br/>
-# Analisis Biaya (Cost Analysis)
+### Analisis Biaya (Cost Analysis)
 Gunakan Cost Analysis untuk:
 - Melihat total biaya berdasarkan:
     - Siklus tagihan
@@ -126,7 +126,7 @@ Gunakan Cost Analysis untuk:
 Kita bisa melihat bahwa 70% biaya berasal dari storage di wilayah Asia Timur.
 
 <br/>
-# Peringatan Biaya (Cost Alerts)
+### Peringatan Biaya (Cost Alerts)
 Satu tempat untuk melihat semua jenis peringatan biaya.
 
 **Jenis Peringatan:**
@@ -145,7 +145,7 @@ Satu tempat untuk melihat semua jenis peringatan biaya.
 - Contoh: Kuota 75% tercapai → peringatan dikirim via email
 
 <br/>
-# Anggaran (Budgets)
+### Anggaran (Budgets)
 **Apa itu anggaran?** Batas pengeluaran yang ditetapkan pada:
 - Subscription
 - Resource group
@@ -174,7 +174,7 @@ Tag tidak diwariskan otomatis oleh resource group atau subscription, jadi kita p
 Saat penggunaan cloud kamu makin luas, organisasi yang rapi jadi kunci efisiensi dan kontrol biaya. 
 Tag memudahkan pengguna untuk melacak, mengelompokkan, dan mengelola resource berdasarkan berbagai kriteria.
 
-# Manfaat Utama Tag pada Azure Resources
+### Manfaat Utama Tag pada Azure Resources
 ![Docusaurus logo](/img/az900/14.png)
 
 <br/>
@@ -191,7 +191,7 @@ Tags dapat di kelola lewat:
 - Menstandarisasi konvensi penamaan
 - Memulihkan tag yang hilang
 
-# Contoh penggunaan Tag
+### Contoh penggunaan Tag
 ![Docusaurus logo](/img/az900/15.png)
 
 :::warning
