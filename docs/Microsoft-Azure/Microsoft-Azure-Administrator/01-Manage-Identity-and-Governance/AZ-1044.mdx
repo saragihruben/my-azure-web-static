@@ -59,7 +59,7 @@ Dalam penerapan governance, kita harus mengetahui hirarki dari
 [**Manajemen Infrastuktur**](/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904#management-infrastructure)
 pada Azure untuk menerapkan policy guna memastikan keamanan dan manajemen cost berdasarkan resources yang di perlukan.
 
-## Hubungan antara Azure Policy dan Azure Resource Management
+### Hubungan antara Azure Policy dan Azure Resource Management
 
 **Azure Resource Management (ARM)** adalah layanan manajemen dan deployment pada Azure resources.
 Terdapat dua area dimana Azure Resource Management beroperasi:
@@ -76,7 +76,7 @@ Azure Resource Manager mengelola semua operasi di control plane Azure dan mencak
 Data plane adalah tempat interaksi langsung terhadap resources, dan Azure Policy memastikan bahwa resource yang 
 menerima interaksi pada data plane sesuai dengan kebijakan yang telah diterapkan.
 
-## Alur operasi pada Azure Resource Management
+### Alur operasi pada Azure Resource Management
 
 Azure Resource Management memiliki dua skenario dalam menangani request terhadap resources yaitu **Greenfield** dan **Brownfield**.
 Saat kita mendeploy resources, Azure Resource Management memahami kapan pembuatan resource baru atau update terhadap resources yang sudah ada.
@@ -118,7 +118,7 @@ Kebijakan ini terdiri dari dua bagian:
 2. **Efek** menentukan apa yang terjadi ketika policy dievaluasi dan cocok dengan kondisi tersebut. Untuk setiap resource baru, 
 resource yang diperbarui, atau resource yang sudah ada, efeknya berbeda.
 
-# Struktur dari sebuah policy definition
+### Struktur dari sebuah policy definition
 
 JSON merupakan format yang digunnakan untuk policy definition.
 
@@ -184,7 +184,7 @@ Contoh di atas, *b2cDirectories* dikecualikan dari policy rule karena field loka
 (lokasinya bisa berupa "United States," "Europe," "Asia Pacific," atau "Australia").
 
 <br/>
-# Operator logika dan kondisinya (if blocks)
+### Operator logika dan kondisinya (if blocks)
 
 Bagian pertama dari policyRule dalam definisi Azure Policy adalah blok if. 
 Blok ini mendefinisikan kondisi-kondisi yang digunakan rule untuk mengevaluasi resource. 
@@ -231,7 +231,7 @@ Policy ini akan menolak **(effect: deny)** deployment jika semua kondisi terpenu
 - Tipe tidak sama dengan **(notEquals) b2cDirectories** → Resource tidak ada dalam B2C Directory.
 
 <br/>
-# Operator logika bertingkat
+### Operator logika bertingkat
 
 Operasi logika bersifat opsional dan dapat bertingkat (nested) untuk membuat skenario yang kompleks.
 Contoh berikut menunjukkan operator **not** bertingkat di dalam operator **allOf**:
@@ -272,7 +272,7 @@ Maka kondisi yang dihasilkan dari logika tersebut :
 - storageAccounts yang tidak memiliki tag.
 
 <br/>
-# Conditions
+### Conditions
 
 Properti seperti fields, values, atau counts dapat dievaluasi di dalam suatu kondisi.
 
@@ -310,7 +310,7 @@ Hasil ini dapat dihindari saat pengujian dengan menonaktifkan **enforcementMode*
 
 
 <br/>
-# Policy Functions
+### Policy Functions
 
 Fungsi dapat digunakan untuk menambahkan logika tambahan ke dalam policy. Fungsi-fungsi ini diselesaikan di dalam policy definition 
 dan juga di nilai parameter yang ditetapkan ke policy initiative.
@@ -329,7 +329,7 @@ Tabel berikut menjelaskan fungsi-fungsi yang hanya tersedia di dalam aturan kebi
 
 
 <br/>
-# Tipe Efek **(*then* blocks)**
+### Tipe Efek **(*then* blocks)**
 
 Bagian kedua dari policyRule dalam definisi Azure Policy adalah **blok then**. 
 Blok ini menentukan efek yang akan diterapkan ketika aturan kebijakan dievaluasi dan cocok dengan resource yang sesuai dengan kondisi.
@@ -371,7 +371,7 @@ atau grup manajemen dari beberapa subscription. Kontrol ini dapat digunakan untu
 - Melakukan audit terhadap konfigurasi dan pengaturan resource yang sudah ada
 
 
-# Pemicu Evaluasi (Evaluation Triggers)
+#### Pemicu Evaluasi (Evaluation Triggers)
 Evaluasi atas kebijakan atau inisiatif yang ditetapkan terjadi karena berbagai peristiwa, seperti:
 - Kebijakan atau inisiatif baru ditetapkan pada suatu cakupan (scope)
 - Kebijakan atau inisiatif yang sudah ada diperbarui
@@ -381,7 +381,7 @@ Evaluasi atas kebijakan atau inisiatif yang ditetapkan terjadi karena berbagai p
 - Penyedia resource konfigurasi mesin diperbarui oleh resource yang dikelola
 - Pemindaian berdasarkan permintaan (on-demand scan)
 
-# Waktu Evaluasi (Evaluation Timing)
+#### Waktu Evaluasi (Evaluation Timing)
 Saat bekerja dengan penetapan kebijakan di Azure, penting untuk memahami perilaku dan waktu dari pemindaian kepatuhan, 
 terutama dalam skenario Brownfield (kebijakan baru diterapkan pada resource yang sudah ada):
 - Pemindaian otomatis penuh: Dilakukan setiap 24 jam
@@ -395,7 +395,7 @@ terutama dalam skenario Brownfield (kebijakan baru diterapkan pada resource yang
 - Ukuran cakupan resource
 - Beban sistem (pemindaian kepatuhan adalah operasi prioritas rendah)
 
-# Status Kepatuhan resource (Resource Compliance States)
+### Status Kepatuhan resource (Resource Compliance States)
 Setelah kebijakan ditetapkan, Azure Policy menentukan resource yang relevan dan mengevaluasi resource tersebut (selain yang dikecualikan). Status kepatuhan:
 - Compliant (mematuhi)
 - Non-compliant (tidak mematuhi)
@@ -407,7 +407,7 @@ Setelah kebijakan ditetapkan, Azure Policy menentukan resource yang relevan dan 
 
 **Persentase kepatuhan = (Compliant + Exempted + Unknown) / Total resource**
 
-# 🔧 Enforcement Mode
+### Enforcement Mode
 
 **enforcementMode** adalah properti dari penetapan kebijakan untuk menonaktifkan efek kebijakan tertentu saat pengujian. 
 Ini berbeda dari efek **disabled**, karena evaluasi tetap berjalan, tetapi efeknya tidak diterapkan.
@@ -420,7 +420,7 @@ Ini berbeda dari efek **disabled**, karena evaluasi tetap berjalan, tetapi efekn
 > Enforcement Mode cocok untuk skenario _"What If"_, karena memungkinkan uji coba kebijakan tanpa mempengaruhi sumber daya secara langsung.
 
 
-# Praktik Terbaik Penetapan Kebijakan (Safe Deployment)
+### Praktik Terbaik Penetapan Kebijakan (Safe Deployment)
 Tanpa pengujian yang benar, menerapkan kebijakan di lingkungan produksi bisa menyebabkan masalah.
 
 **Kerangka kerja terbaik meliputi:**
@@ -438,7 +438,7 @@ Tanpa pengujian yang benar, menerapkan kebijakan di lingkungan produksi bisa men
 - Ulangi di semua ring non-produksi
 - Setelah valid, terapkan ke produksi secara bertahap
 
-# Reaksi terhadap Perubahan Status Kebijakan
+#### Reaksi terhadap Perubahan Status Kebijakan
 Azure Policy dapat memicu event yang memberi tahu aplikasi saat terjadi perubahan status.
 Event dikirim melalui Azure Event Grid ke Event Handlers, seperti:
 - Azure Functions
