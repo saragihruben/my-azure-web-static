@@ -3,12 +3,115 @@ id: AZ-1045
 title: Mengamankan Azure resources dengan Role-Based Access Control (RBAC)
 ---
 
-:::info
+<br/>
+:::info Prerequisites
+- [**Memahami Azure RBAC**](/docs/Microsoft-Azure/Azure-Fundamentals/AZ-906#azure-role-based-access-control)
+:::
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+:::info Azure Subscription
+
+Pertama-tama, perlu diingat bahwa setiap Azure subscription dikaitkan dengan satu direktori Microsoft Entra. 
+Pengguna, grup, dan aplikasi di direktori tersebut dapat mengelola resource dalam Azure subscription. 
+Saat akun dinonaktifkan, maka akses ke semua Azure reources yang terhubung dengan Microsoft Entra ID akan otomatis dicabut.
 
 :::
 
-:::warning
+## Apa itu Azure RBAC?
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Bagi organisasi yang menggunakan layanan cloud, mengamankan Azure resource seperti mesin virtual, website, jaringan, dan storage merupakan fungsi 
+yang sangat penting. Organisasi ingin memastikan bahwa data dan aset terlindungi, namun tetap memberikan akses yang dibutuhkan oleh karyawan dan mitra untuk menjalankan 
+tugas mereka. Azure RBAC **(Role-Based Access Control)** adalah sistem otorisasi di Azure yang membantu mengelola siapa saja yang memiliki akses ke Azure resource, 
+apa yang dapat mereka lakukan terhadap resource tersebut, dan di mana mereka memiliki akses tersebut.
+
+**Azure RBAC (Role-Based Access Control)** adalah sistem otorisasi yang dibangun di atas **Azure Resource Manager** dan 
+menyediakan manajemen akses yang sangat rinci untuk Azure resource. Dengan Azure RBAC, organisasi dapat memberikan akses yang tepat sesuai kebutuhan pengguna untuk 
+menyelesaikan pekerjaan mereka. Misalnya, mengizinkan satu karyawan mengelola mesin virtual dalam satu subscription, sementara yang lain mengelola database SQL 
+dalam subscription yang sama.
+
+![Docusaurus logo](/img/az104/7.png)
+
+:::warning Penjelasan Diagram
+Dalam diagram ddiatas, satu subscription hanya dikaitkan dengan satu tenant Microsoft Entra. 
+Perlu juga dicatat bahwa satu resource group dapat memiliki banyak resources, namun hanya terikat dengan satu subscription dan 
+satu resource hanya dapat terikat pada satu resource group.
+:::
+
+Organisasi dapat memberikan akses dengan menetapkan role Azure yang sesuai kepada pengguna, grup, atau aplikasi dalam cakupan tertentu. 
+Cakupan tersebut bisa berupa **management group**, **subscription**, **resource group**, atau **resource** dan sifatnya *inheritance* (diturunkan berdasarkan hirarki).
+Misalnya, jika seorang pengguna memiliki akses ke resource group, maka ia juga dapat mengelola semua 
+resources di dalamnya seperti website, mesin virtual, dan subnet.
+
+#### Apa yang bisa dilakukan dengan Azure RBAC
+
+Azure RBAC memungkinkan pengguna mengontrol akses ke Azure resource yang di kelola. 
+Misalnya, jika perlu mengatur akses untuk tim developer, engineer, dan marketting, pengguna bisa menerapkan skenario seperti berikut:
+- Memberikan akses kepada satu pengguna untuk mengelola mesin virtual dalam satu subscription, dan pengguna lain untuk mengelola jaringan virtual.
+- Memberikan akses kepada grup administrator database untuk mengelola database SQL dalam satu subscription.
+- Mengizinkan satu pengguna mengelola semua resource dalam satu resource group, seperti VM, situs web, dan subnet.
+- Mengizinkan sebuah aplikasi mengakses semua resource dalam satu resource group.
+
+#### Azure RBAC pada Azure Portal
+
+Pada Azure Portal, pengguna akan menemukan panel bernama Access control yaitu **Identity and Access Management (IAM)**. 
+Di panel ini, pengguna dapat melihat siapa yang memiliki akses dan apa rolenya serta dapat memberikan atau mencabut akses terhadap scope.
+Contoh: Alain telah diberikan role Backup Operator untuk sebuah resource group tertentu.
+
+![Docusaurus logo](/img/az104/8.png)
+<br/>
+
+## Cara kerja Azure RBAC
+
+Pengguna dapat mengontrol akses pada resource menggunakan Azure RBAC dengan membuat **penetapan role (role assignment)**, yang mengatur bagaimana izin diberlakukan. 
+Untuk membuat sebuah **role assignment**, pengguna memerlukan tiga elemen: 
+**security principal (prinsipal keamanan)**, **role definition (definisi role)**, dan **scope (cakupan)**. 
+
+### Security principal (who)
+Yaitu pengguna, grup, atau aplikasi yang ingin Anda beri akses.
+
+![Docusaurus logo](/img/az104/9.png)
+
+### Role definition (what)
+Berisi izin yang dapat dilakukan oleh role tersebut, seperti membaca, menulis, dan menghapus. 
+Role dapat bersifat umum atau tingkat tinggi, seperti **Owner**, atau lebih spesifik, seperti **Virtual Machine Contributor**.
+
+![Docusaurus logo](/img/az104/10.png)
+
+Contoh role bawaan di Azure:
+- **Owner:** Akses penuh ke seluruh resource, termasuk memberi akses kepada orang lain.
+- **Contributor:** Dapat membuat dan mengelola semua jenis Azure resource, tapi tidak bisa memberikan akses kepada orang lain.
+- **Reader:** Hanya bisa melihat resource.
+- **User Access Administrator:** Mengelola akses pengguna ke Azure resource.
+
+Jika role bawaan tidak cukup, pengguna dapat membuat **role khusus (custom roles)**.
+
+### Scope (where)
+Cakupan (scope) adalah tingkat di mana akses diterapkan. Ini sangat berguna jika pengguna ingin menjadikan seseorang sebagai Website Contributor, 
+tetapi hanya untuk satu resource group.
+
+![Docusaurus logo](/img/az104/11.png)
+
+Di Azure, pengguna dapat menentukan cakupan pada beberapa tingkat: management group, subscription, resource group, atau resource. 
+Cakupan disusun dalam hubungan *inheritance*. Ketika Anda memberikan akses pada cakupan induk, maka semua cakupan anak di bawahnya secara otomatis mewarisi izin tersebut. 
+
+
+### Role assignment
+
+Ini adalah proses untuk memberikan (atau mencabut) akses.
+Contoh: Grup marketing diberikan role Contributor pada cakupan resource group Sales.
+
+![Docusaurus logo](/img/az104/12.png)
+
+#### Azure RBAC merupakan allow model
+
+Azure RBAC bekerja berdasarkan *allow model*. Artinya, saat pengguna diberi role, pengguna akan diberi izin untuk melakukan tindakan tertentu seperti membaca, 
+menulis, atau menghapus. Jika pengguna memiliki dua penetapan role—satu memberikan akses baca, satu lagi akses tulis—maka pengguna akan memiliki kedua izin tersebut.
+
+Secara default , konsep tersebut dinamakan **Actions**.
+Azure RBAC juga memiliki konsep **NotActions**, yaitu daftar tindakan yang tidak diizinkan. 
+Hal ini berguna apabila kita menetapkan banyak role terhadap pengguna tetapi hanya untuk tindakan yang tidak di izinkan.
+
+Contoh: Jika kita ingin menetapkan hampir seluruh role pada seorang pengguna tetapi hanya beberapa role saja yang tidak di izinkan, 
+maka penggunaan **NotActions** akan memudahkan kita dalam role assignment dan sangat efisien dalam menetapkan role.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
