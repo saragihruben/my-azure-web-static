@@ -3,12 +3,269 @@ id: AZ-1056
 title: Konfigurasi Azure Blob Storage
 ---
 
-:::info
+<br/>
+## Implementasi Azure Blob Storage
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+**Azure Blob Storage** adalah layanan yang menyimpan data tidak terstruktur di cloud sebagai objek atau blob. 
+Blob adalah singkatan dari *Binary Large Object*. Blob Storage juga dikenal sebagai penyimpanan objek atau penyimpanan dalam kontainer.
 
+#### Hal-hal yang perlu diketahui tentang Azure Blob storage
+
+Blob Storage dapat menyimpan berbagai jenis data teks atau biner. Contohnya termasuk dokumen teks, gambar, file video, dan 
+penginstal aplikasi. Blob Storage menggunakan tiga sumber daya untuk menyimpan dan mengelola data Anda:
+- Azure storage account
+- Kontainer dalam storage account
+- Blob di dalam kontainer
+
+Untuk mengimplementasikan Blob Storage, Anda perlu mengatur beberapa konfigurasi berikut:
+- Opsi kontainer blob.
+- Jenis blob dan opsi unggahan.
+- Tingkatan akses Blob Storage.
+- Lifecycle blob.
+- Opsi replikasi objek blob.
+
+Diagram berikut menunjukkan hubungan antara resource Blob Storage.
+
+![Docusaurus logo](/img/az104/47.png)
+
+#### Hal-hal yang perlu dipertimbangkan saat mengimplementasikan Azure Blob Storage
+Beberapa pertimbangan skenario-skenario berikut dan pikirkan tentang kebutuhan data :
+- Unggahan melalui browser. Gunakan Blob Storage untuk menyajikan gambar atau dokumen langsung ke browser.
+- Akses terdistribusi. Blob Storage dapat menyimpan file untuk diakses secara terdistribusi.
+- Streaming data. Menggunakan Blob Storage untuk streaming video dan audio.
+- Pengarsipan dan pemulihan. Blob Storage dapat menyimpan data cadangan dan pemulihan bencana (BCDR), serta pengarsipan.
+- Akses aplikasi. Kita dapat menyimpan data di Blob Storage untuk dianalisis oleh layanan on-premises atau dihosting pada Azure cloud.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat Blob container
+
+Azure Blob Storage menggunakan resource kontainer untuk mengelompokkan satu set blob. Sebuah blob tidak dapat berdiri sendiri di 
+Blob Storage. Setiap blob harus disimpan dalam suatu kontainer.
+
+#### Hal-hal yang Perlu Diketahui tentang Kontainer dan Blob
+Mari kita lihat karakteristik konfigurasi dari kontainer dan blob:
+- Semua blob harus berada dalam sebuah kontainer.
+- Satu kontainer dapat menyimpan jumlah blob yang tidak terbatas.
+- Satu akun penyimpanan Azure dapat memiliki jumlah kontainer yang tidak terbatas.
+- Anda dapat membuat kontainer melalui portal Azure.
+- Anda dapat mengunggah blob ke dalam sebuah kontainer.
+
+### Mengonfigurasi Kontainer
+Di portal Azure, Kita akan bertemu dengan dua konfigurasi untuk membuat kontainer dalam akun penyimpanan Azure.
+
+![Docusaurus logo](/img/az104/48.png)
+
+**Nama:** Masukkan nama untuk kontainer Anda. Nama ini harus unik di dalam akun penyimpanan Azure.
+- Nama hanya boleh mengandung huruf kecil, angka, dan tanda hubung.
+- Nama harus diawali dengan huruf atau angka.
+- Panjang minimum nama adalah tiga karakter.
+- Panjang maksimum nama adalah 63 karakter.
+
+**Tingkat akses publik:** Tingkat akses ini menentukan apakah kontainer dan blob di dalamnya dapat diakses secara publik. 
+Secara default, data kontainer bersifat privat dan hanya terlihat oleh pemilik akun. Terdapat tiga pilihan tingkat akses:
+- **Private** : (Default) Melarang akses anonim ke kontainer dan blob.
+- **Blob** : Mengizinkan akses baca publik anonim hanya untuk blob.
+- **Container** : Mengizinkan akses baca terhadap publik anonim dan melakukan list ke seluruh kontainer, termasuk semua blob di dalamnya.
+
+:::warning Catatan:
+Anda juga dapat membuat kontainer blob menggunakan PowerShell dengan perintah **New-AzStorageContainer**.
 :::
 
-:::warning
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+## Tiers akses Blob 
+
+:::info Referensi lengkap:
+[**Access Tiers**](https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview)
+:::
+
+#### Hot Tier
+- Dioptimalkan untuk data yang sering diakses atau dimodifikasi.
+- Cocok untuk data yang sedang aktif digunakan.
+- Biaya penyimpanan tinggi, tetapi biaya akses rendah.
+
+#### Cool Tier
+- Dioptimalkan untuk data jarang diakses, disimpan minimal 30 hari.
+- Cocok untuk cadangan jangka pendek atau data lama yang masih dibutuhkan.
+- Biaya penyimpanan lebih rendah dari Hot, namun biaya akses lebih tinggi.
+
+#### Cold Tier
+- Untuk data sangat jarang diakses, disimpan minimal 90 hari.
+- Biaya penyimpanan lebih murah dari Cool, namun biaya akses lebih mahal.
+
+#### Archive Tier
+- Untuk data arsip yang jarang sekali diakses dan bisa menoleransi latensi beberapa jam.
+- Data harus disimpan minimal 180 hari.
+- Biaya penyimpanan paling murah, tapi biaya akses tertinggi.
+
+<br/>
+#### Perbandingan Tingkatan Akses
+Opsi akses dalam Azure Blob Storage menyediakan berbagai fitur dan tingkat dukungan untuk membantu mengoptimalkan biaya penyimpanan. 
+Saat membandingkan fitur dan dukungan ini, pertimbangkan opsi mana yang paling sesuai dengan kebutuhan.
+
+![Docusaurus logo](/img/az104/49.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menambahkan blob lifecycle management rules
+
+Azure Blob Storage mendukung manajemen lifecycle untuk kumpulan data. 
+Azure menyediakan kebijakan berbasis aturan yang kaya untuk akun GPv2 dan akun Blob Storage. 
+Anda dapat menggunakan aturan kebijakan lifecycle untuk:
+- Mengalihkan data ke tingkatan akses yang sesuai, dan
+- Menetapkan waktu kedaluwarsa untuk mengakhiri lifecycle kumpulan data.
+
+### Hal-hal yang Perlu Diketahui tentang Manajemen Lifecycle
+Anda dapat menggunakan aturan kebijakan manajemen lifecycle di Azure Blob Storage untuk melakukan beberapa tugas berikut:
+- Memindahkan blob ke tingkatan penyimpanan yang lebih dingin (dari Hot ke Cool, Hot ke Archive, atau Cool ke Archive) 
+untuk mengoptimalkan kinerja dan biaya.
+- Menghapus blob di akhir lifecyclenya.
+- Menetapkan kondisi berbasis aturan yang dijalankan sekali per hari pada level akun penyimpanan Azure.
+- Menerapkan kondisi berbasis aturan ke kontainer tertentu atau sebagian blob saja.
+
+#### Skenario Bisnis
+Pertimbangkan skenario di mana data sering diakses pada tahap awal lifecycle, 
+tetapi hanya diakses sesekali setelah dua minggu. Setelah satu bulan, data tersebut hampir tidak pernah diakses lagi. Dalam skenario ini:
+- Tingkatan Hot paling cocok untuk tahap awal.
+- Tingkatan Cool lebih sesuai saat akses menjadi jarang.
+- Tingkatan Archive adalah pilihan terbaik setelah data berumur lebih dari satu bulan.
+
+Untuk mencapai transisi otomatis ini, **lifecycle management policy rules** dapat digunakan untuk memindahkan data lama ke tingkatan 
+yang lebih dingin.
+
+### Mengkonfigurasi Aturan Kebijakan Manajemen Lifecycle
+Di portal Azure, Anda dapat membuat aturan kebijakan manajemen lifecycle untuk akun penyimpanan Azure Anda dengan menentukan 
+beberapa pengaturan. Untuk setiap aturan, Anda membuat kondisi If - Then untuk mentransisikan atau menghapus data berdasarkan 
+kriteria yang Anda tentukan. Saat meninjau pengaturan ini, pikirkan bagaimana Anda dapat menyusun aturan kebijakan lifecycle untuk 
+kumpulan data Anda.
+
+![Docusaurus logo](/img/az104/50.png)
+
+- **If (Jika):** Klausa ini menentukan kondisi evaluasi untuk aturan kebijakan. Ketika klausa If bernilai benar, maka klausa Then akan 
+dijalankan. Gunakan klausa If untuk menentukan periode waktu yang akan diterapkan pada data blob. Fitur manajemen lifecycle akan 
+memeriksa apakah data telah diakses atau dimodifikasi berdasarkan waktu yang ditentukan.
+
+    - Lebih dari (hari yang lalu): Jumlah hari yang digunakan dalam kondisi evaluasi.
+
+- **Then (Maka):** Klausa ini menentukan tindakan yang akan dilakukan jika kondisi If terpenuhi. Gunakan klausa Then untuk menetapkan 
+tindakan transisi pada data blob. Fitur manajemen lifecycle akan mentransisikan data sesuai pengaturan.
+    - Pindahkan ke penyimpanan Cool: Data blob dipindahkan ke tingkatan Cool.
+    - Pindahkan ke penyimpanan Cold: Data blob dipindahkan ke tingkatan Cold.
+    - Pindahkan ke penyimpanan Archive: Data blob dipindahkan ke tingkatan Archive.
+    - Hapus blob: Data blob dihapus.
+
+Dengan merancang aturan kebijakan yang menyesuaikan tingkatan penyimpanan berdasarkan usia data, kita dapat merancang solusi 
+penyimpanan yang paling hemat biaya sesuai kebutuhan.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menjelaskan blob object replication
+
+Replikasi objek menyalin blob dalam sebuah kontainer secara asinkron sesuai dengan aturan kebijakan yang di konfigurasikan. 
+Selama proses replikasi, konten berikut disalin dari kontainer sumber ke kontainer tujuan:
+- Isi blob
+- Metadata dan properti blob
+- Semua versi data yang terkait dengan blob
+
+![Docusaurus logo](/img/az104/51.png)
+
+#### Hal-hal yang Perlu Diketahui tentang Replikasi Objek Blob
+Beberapa hal yang perlu dipertimbangkan saat merencanakan konfigurasi replikasi objek blob:
+- Replikasi objek memerlukan versi blob (blob versioning) diaktifkan pada akun sumber dan akun tujuan.
+- Replikasi objek tidak mendukung snapshot blob — snapshot yang ada di blob sumber tidak akan direplikasi ke akun tujuan.
+- Replikasi objek didukung untuk akun sumber dan tujuan yang berada di tingkatan Hot, Cool, atau Cold. 
+Kedua akun boleh berada di tingkatan yang berbeda.
+- Saat mengonfigurasi replikasi objek, kita membuat kebijakan replikasi yang menetapkan akun penyimpanan sumber dan 
+akun penyimpanan tujuan.
+- Sebuah kebijakan replikasi terdiri dari satu atau lebih aturan yang menentukan kontainer sumber dan kontainer tujuan, serta 
+mengidentifikasi blob yang akan direplikasi dari kontainer sumber.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Upload blobs
+
+Sebuah blob dapat berupa data apa pun dan file dengan ukuran berapa pun. 
+Azure Storage menyediakan tiga jenis blob: **block blob**, **page blob**, dan **append blob**.
+
+Karakteristik dari masing-masing jenis blob:
+- **Block blobs:** Terdiri dari blok-blok data yang disusun menjadi satu blob. Kebanyakan skenario Blob Storage menggunakan block blob. 
+Cocok untuk menyimpan data teks dan biner di cloud, seperti file, gambar, dan video.
+- **Append blobs:** Mirip dengan block blob, karena juga terdiri dari blok-blok data. Namun, append blob dioptimalkan untuk operasi 
+penambahan data. Cocok digunakan dalam skenario pencatatan/logging, di mana jumlah data terus bertambah.
+- **Page blobs:** Dapat berukuran hingga 8 TB. Cocok untuk operasi baca/tulis yang sering. Digunakan oleh Azure Virtual Machines 
+untuk disk sistem operasi dan disk data.
+
+#### Tools 
+Mengunggah blob ke akun penyimpanan Azure pada umumnya menggunakan **Azure Storage Explorer**. 
+Namun, tersedia banyak tools lain. Berikut adalah beberapa opsi unggah beserta deskripsinya:
+
+![Docusaurus logo](/img/az104/53.png)
+
+#### Skenario Bisnis
+Contoh berikut menunjukkan bagaimana cara mengunggah data blob:
+- Tentukan file yang akan diunggah.
+- Pilih jenis blob dan ukuran blok.
+- Tentukan folder kontainer.
+- Atur tingkatan akses (access tier) dan cakupan enkripsi (encryption scope).
+
+![Docusaurus logo](/img/az104/52.png)
+
+:::warning 
+- Jenis block blob adalah jenis default saat membuat blob baru. Jika tidak memilih jenis blob saat membuatnya, 
+maka blob akan dibuat sebagai block blob secara otomatis.
+- Setelah blob dibuat, jenisnya tidak dapat diubah.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menjelaskan blob storage pricing
+
+
+Semua akun penyimpanan Azure menggunakan **model harga berdasarkan tingkatan Azure Blob Storage**. **Total biaya penyimpanan block blob** bergantung pada:
+
+- Volume data yang disimpan per bulan
+- Jumlah dan jenis operasi yang dilakukan, termasuk biaya transfer data
+- Opsi redundansi data yang dipilih
+
+### Hal-hal yang Perlu Diketahui tentang Harga Blob Storage
+
+Berikut ini adalah beberapa hal penting yang perlu dipahami terkait penagihan di akun penyimpanan Azure dan Blob Storage:
+
+#### Tingkatan Performa
+
+- Tingkatan Blob Storage menentukan jumlah data yang disimpan dan biaya penyimpanan.
+- Semakin dingin tingkatan, semakin rendah biaya per gigabyte.
+
+#### Biaya Akses Data
+
+- Biaya akses data **meningkat** seiring semakin dinginnya tingkatan.
+- Pada tingkatan **Cool** dan **Archive**, Anda dikenai **biaya per gigabyte** saat membaca data.
+
+#### Biaya Transaksi
+
+- Semua tingkatan dikenakan **biaya per transaksi**.
+- Biaya ini juga **meningkat pada tingkatan yang lebih dingin**.
+
+#### Biaya Transfer Data Geo-replikasi
+
+- Berlaku untuk akun dengan geo-replikasi seperti **GRS** dan **RA-GRS**.
+- Transfer data antar wilayah dikenakan **biaya per gigabyte**.
+
+#### Biaya Transfer Data Keluar (Outbound)
+
+- Transfer data keluar dikenai **biaya bandwidth per gigabyte**.
+- Biaya ini konsisten dengan akun penyimpanan umum di Azure.
+
+#### Perubahan Tingkatan Penyimpanan
+
+- **Cool → Hot**: dikenai biaya **setara dengan membaca semua data** dalam akun.
+- **Hot → Cool**: dikenai biaya **setara dengan menulis semua data** ke tingkatan Cool.  
+  *(Berlaku untuk akun **GPv2** saja)*
+
+---
+
+:::info 
+Pahami pola penggunaan data untuk memilih tingkatan dan konfigurasi penyimpanan yang paling hemat biaya.
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------------
