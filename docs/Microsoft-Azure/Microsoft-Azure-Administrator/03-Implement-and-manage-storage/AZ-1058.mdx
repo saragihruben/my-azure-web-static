@@ -3,23 +3,210 @@ id: AZ-1058
 title: Konfigurasi Azure Files
 ---
 
+<br/>
 ## Membandingkan storage untuk file share dan blob data
+
+Azure Files menyediakan layanan file share yang dikelola sepenuhnya di cloud, memungkinkan akses melalui protokol SMB, NFS, dan HTTP. Azure Blob Storage, di sisi lain, digunakan untuk menyimpan data tidak terstruktur dalam blob dengan akses skala besar menggunakan REST API.
+
+### Keunggulan Azure Files
+- **Penerapan tanpa server**: Tidak memerlukan infrastruktur seperti VM atau pembaruan.
+- **Penyimpanan hampir tak terbatas**: Dapat menyimpan hingga 100 TiB per file share, dengan file hingga 4 TiB.
+- **Enkripsi data**: Data dienkripsi saat disimpan dan ditransmisikan.
+- **Akses global**: Dapat diakses dari perangkat Windows, Linux, dan macOS dengan konektivitas internet.
+- **Integrasi mudah**: Mendukung kontrol akses menggunakan identitas Microsoft Entra atau AD DS.
+- **Cadangan dan versi sebelumnya**: Mendukung snapshot dan backup menggunakan Azure Backup.
+
+#### Kapan Menggunakan Azure Files?
+- Untuk menggantikan atau melengkapi server file lokal atau perangkat NAS tradisional.
+- Untuk aplikasi yang memerlukan akses file share dari berbagai platform (Windows, Linux, macOS).
+- Menggunakan Azure File Sync untuk replikasi data di cloud dan on-premises.
+
+
+### Keunggulan Azure Blob Storage
+- **Penyimpanan data tidak terstruktur**: Cocok untuk aplikasi yang membutuhkan penyimpanan skala besar dan akses data secara acak.
+- **Akses melalui container**: Data disimpan dalam container dan diakses melalui REST API.
+- **Ideal untuk streaming dan akses acak**: Mendukung aplikasi dengan kebutuhan penyimpanan data skala besar yang memerlukan akses acak atau streaming.
+
+#### Kapan Menggunakan Azure Blob Storage?
+- Untuk aplikasi yang membutuhkan streaming atau akses acak ke data.
+- Untuk kebutuhan penyimpanan data besar yang dapat diakses dari mana saja melalui API.
+
+:::info
+Azure Files lebih cocok untuk aplikasi yang mengandalkan file share, 
+sedangkan Azure Blob Storage lebih fleksibel untuk penyimpanan data besar dan aplikasi yang memerlukan akses acak atau streaming.
+:::
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Manajemen Azure file share
 
+Azure Files menawarkan dua protokol sistem file standar industri untuk mounting Azure file shares: protokol **Server Message Block (SMB)** dan 
+**Network File System (NFS)**. Azure file shares tidak mendukung kedua protokol (SMB dan NFS) dalam satu file share yang sama, meskipun pengguna dapat 
+membuat SMB dan NFS Azure file shares dalam akun penyimpanan yang sama.
+
+### Jenis Azure File Shares
+Azure Files mendukung dua tier penyimpanan: premium dan standard. Azure file shares standar dibuat di akun penyimpanan general purpose (GPv2), 
+sementara Azure file shares premium dibuat di akun penyimpanan FileStorage. Berikut adalah deskripsi dari kedua tier penyimpanan tersebut:
+
+| **Tier Penyimpanan** | **Deskripsi** |
+| -------------------- | ------------- |
+| **Premium**           | Menyimpan data pada solid-state drives (SSDs), hanya tersedia di akun penyimpanan FileStorage. Menyediakan performa tinggi yang konsisten dan latensi rendah, tersedia dengan redundansi LRS, dan ZRS di beberapa wilayah. Tidak tersedia di semua wilayah Azure. |
+| **Standard**          | Menyimpan data pada hard disk drives (HDDs), dan diciptakan di akun penyimpanan general-purpose versi 2 (GPv2). Memberikan performa untuk workload seperti file shares umum dan lingkungan pengembangan/penguji. File shares standar tersedia dengan LRS, ZRS, GRS, dan GZRS di semua wilayah Azure. |
+
+### Jenis Autentikasi
+Ada tiga metode autentikasi utama yang didukung oleh Azure Files:
+
+| **Metode Autentikasi**                 | **Deskripsi** |
+| ------------------------------------- | ------------- |
+| **Autentikasi berbasis identitas melalui SMB** | Menyediakan pengalaman single sign-on (SSO) yang mulus ketika mengakses Azure file shares seperti mengakses file shares lokal. |
+| **Access key**                        | Opsi lama yang kurang fleksibel. Akun penyimpanan Azure memiliki dua kunci akses yang dapat digunakan saat membuat permintaan ke akun penyimpanan, termasuk Azure Files. Kunci akses bersifat statis dan memberikan kontrol penuh atas Azure Files. Kunci akses sebaiknya tidak dibagikan karena bisa melewati pembatasan kontrol akses. |
+| **Shared Access Signature (SAS) token** | SAS adalah Uniform Resource Identifier (URI) yang dihasilkan secara dinamis berdasarkan kunci akses penyimpanan. SAS memberikan hak akses terbatas ke akun penyimpanan Azure, termasuk izin yang diizinkan, waktu mulai dan kedaluwarsa, alamat IP yang diizinkan, dan protokol yang diizinkan. SAS digunakan untuk akses REST API dari kode. |
+
+### Membuat SMB Azure File Shares
+Ada dua pengaturan penting yang perlu di perhatikan saat membuat dan mengonfigurasi SMB Azure file shares:
+
+- **Buka port 445**: SMB berkomunikasi melalui TCP port 445. Pastikan port ini terbuka dan firewall tidak memblokir port ini dari mesin klien. 
+Jika tidak dapat membuka port 445, pengguna memerlukan koneksi VPN atau ExpressRoute dari on-premises ke jaringan Azure, dengan Azure Files 
+terpapar menggunakan private endpoints.
+  
+- **Aktifkan transfer aman**: Pengaturan "Secure transfer required" meningkatkan keamanan storage accountt dengan membatasi permintaan hanya dari 
+koneksi yang aman. Jika pengguna mencoba mengakses menggunakan HTTP sementara "Secure transfer required" diaktifkan, koneksi akan ditolak.
+
+### Mount SMB Azure File Share di Windows
+Pengguna dapat mengakses Azure file shares secara mulus di Windows dan Windows Server. Pengguna dapat mengonfigurasi share di portal Azure, memilih drive tempat 
+yang diinginkan untuk melakukan mount, dan memilih metode autentikasi. Portal Azure menyediakan perintah PowerShell untuk digunakan saat siap bekerja dengan file share.
+
+### Mount SMB Azure File Share di Linux
+Pengguna juga dapat mengakses Azure file shares dari mesin Linux. Dari halaman virtual machine, pilih Connect. Azure file shares dapat di-mount di distribusi 
+Linux menggunakan CIFS kernel client. Mount file dapat dilakukan sesuai permintaan dengan perintah `mount` atau secara persisten saat boot dengan 
+menambahkan entri di `/etc/fstab`.
+
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Membuat snapshot pada File share
+
+Azure Files menyediakan kemampuan untuk membuat snapshot file share. Snapshot file share menangkap salinan data dalam kondisi saat itu (point-in-time) 
+yang hanya bisa dibaca (read-only).
+
+![Docusaurus logo](/img/az104/58.png)
+
+#### Hal yang Perlu Diketahui tentang Snapshot File Share
+
+- Snapshot file share dilakukan di **tingkat file share**, bukan per file.
+- Snapshot bersifat **inkremental**, hanya menyimpan perubahan sejak snapshot terakhir.
+- Snapshot inkremental **menghemat waktu** pembuatan dan **biaya penyimpanan**.
+- Pengguna hanya perlu menyimpan **snapshot terbaru** untuk melakukan pemulihan.
+- Pengguna dapat mengambil snapshot **untuk file individu**, memungkinkan pemulihan file tertentu tanpa harus memulihkan seluruh file share.
+- Snapshot **tidak melindungi dari penghapusan** file share secara tidak sengaja. Jika sebuah file share dihapus, semua snapshot-nya juga ikut terhapus.
+
+<br/>
+#### Hal yang Perlu Dipertimbangkan saat Menggunakan Snapshot
+
+| **Manfaat**                                         | **Deskripsi** |
+| -------------------------------------------------- | ------------- |
+| **Perlindungan terhadap kesalahan aplikasi dan kerusakan data** | Snapshot dapat dibuat sebelum pengguna menerapkan kode baru ke aplikasi. Jika kode baru menyebabkan kerusakan atau bug, pengguna bisa mengembalikan data ke versi sebelumnya. |
+| **Perlindungan terhadap penghapusan atau perubahan yang tidak disengaja** | Jika file diubah atau dihapus secara tidak sengaja, snapshot memungkinkan pengguna untuk memulihkan versi sebelumnya dari file tersebut. |
+| **Mendukung proses backup dan pemulihan**           | Snapshot yang dibuat secara berkala dapat digunakan sebagai cadangan data untuk kebutuhan audit di masa depan atau pemulihan bencana (disaster recovery). |
+
+:::tip Konklusi
+- Snapshot file share di Azure Files bersifat inkremental dan hemat biaya.
+- Snapshot mendukung pemulihan file individu dan digunakan untuk mengatasi kesalahan aplikasi, penghapusan tak disengaja, dan kebutuhan backup.
+- Snapshot **tidak mencegah penghapusan file share secara keseluruhan**, sehingga tetap perlu pengelolaan yang hati-hati.
+:::
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Soft delete pada Azure Files
 
+Azure Files menyediakan fitur **soft delete** untuk file share. Soft delete memungkinkan Pengguna memulihkan file dan file share yang telah dihapus.
+
+![Docusaurus logo](/img/az104/59.png)
+
+#### Hal yang Perlu Diketahui tentang Soft Delete
+
+- Soft delete diaktifkan di **tingkat file share**.
+- Ketika file dihapus, konten akan **beralih ke status soft deleted**, bukan langsung dihapus permanen.
+- Pengguna dapat **mengonfigurasi periode retensi**, yaitu lama waktu file yang dihapus disimpan dan tersedia untuk dipulihkan.
+- Periode retensi dapat diatur antara **1 hingga 365 hari**.
+- Soft delete dapat diaktifkan pada **file share baru maupun yang sudah ada**.
+
+<br/>
+#### Hal yang Perlu Dipertimbangkan saat Menggunakan Soft Delete
+
+| **Skenario Penggunaan**                 | **Deskripsi** |
+| -------------------------------------- | ------------- |
+| **Pemulihan dari kehilangan data yang tidak disengaja** | Soft delete memungkinkan Pengguna memulihkan data yang terhapus atau rusak tanpa kesulitan. |
+| **Pemulihan setelah kegagalan upgrade** | Jika terjadi masalah saat upgrade sistem, Pengguna bisa kembali ke kondisi data sebelumnya menggunakan soft delete. |
+| **Perlindungan terhadap ransomware**    | Soft delete memungkinkan Pengguna memulihkan data tanpa harus membayar tebusan kepada pelaku serangan siber. |
+| **Retensi jangka panjang**             | Soft delete membantu memenuhi persyaratan penyimpanan data untuk jangka waktu tertentu. |
+| **Kelangsungan bisnis**                | Menyediakan ketahanan infrastruktur agar tetap tersedia untuk beban kerja penting. |
+
+:::tip Konklusi
+- Soft delete memungkinkan pemulihan data yang terhapus untuk periode tertentu.
+- Dapat digunakan untuk perlindungan terhadap kehilangan data, serangan siber, atau kesalahan saat upgrade.
+- Memberikan fleksibilitas retensi antara 1 hingga 365 hari, serta dapat diterapkan pada file share baru maupun yang sudah ada.
+:::
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Azure Storage Explorer
+
+**Azure Storage Explorer** adalah aplikasi mandiri yang memudahkan Pengguna untuk bekerja dengan data Azure Storage di Windows, macOS, dan Linux. 
+Dengan aplikasi ini, pengguna dapat mengakses storage account dari berbagai akun dan Azure subscription. 
+
+![Docusaurus logo](/img/az104/60.png)
+
+#### Hal yang Perlu Diketahui tentang Azure Storage Explorer
+
+- Azure Storage Explorer membutuhkan **izin manajemen (Azure Resource Manager)** dan **izin lapisan data** untuk memberikan akses penuh ke resource.
+- Diperlukan **izin Microsoft Entra ID** untuk mengakses akun penyimpanan, kontainer, dan data di dalamnya.
+- Azure Storage Explorer memungkinkan Pengguna **terhubung ke berbagai akun penyimpanan**, baik milik sendiri maupun dari langganan Azure lain.
+
+<br/>
+#### Koneksi yang Didukung:
+
+- **Akun penyimpanan milik sendiri** dari Azure subscription.
+- **Akun dan layanan penyimpanan eksternal** yang dibagikan dari subscription lain.
+- **Penyimpanan lokal** menggunakan **Azure Storage Emulator**.
+
+![Docusaurus logo](/img/az104/61.png)
+
+<br/>
+#### Hal yang Perlu Dipertimbangkan saat Menggunakan Azure Storage Explorer
+
+| **Skenario**                                | **Deskripsi** |
+|---------------------------------------------|----------------|
+| **Terhubung ke langganan Azure**            | Mengelola resource penyimpanan yang dimiliki oleh subscription. |
+| **Bekerja dengan penyimpanan lokal**        | Mengelola penyimpanan lokal menggunakan Azure Storage Emulator. |
+| **Menautkan penyimpanan eksternal**         | Mengelola resource penyimpanan dari subscription lain atau dari Azure Nasional menggunakan nama akun, kunci, dan endpoint. |
+| **Menautkan akun dengan SAS**               | Mengelola resource dari langganan lain menggunakan **Shared Access Signature (SAS)**. |
+| **Menautkan layanan dengan SAS**            | Mengelola layanan spesifik seperti blob container, queue, atau table dari langganan lain menggunakan SAS. |
+
+<br/>
+#### Menautkan ke Akun Penyimpanan Eksternal
+
+Azure Storage Explorer memungkinkan Pengguna **menautkan ke akun penyimpanan eksternal** sehingga dapat dibagikan dengan mudah.
+
+- Untuk membuat koneksi, Pengguna memerlukan:
+  - **Nama akun penyimpanan**
+  - **Kunci akun (key1)** dari portal Azure
+
+![Docusaurus logo](/img/az104/62.png)
+
+- Untuk akun di **Azure Nasional**, pilih opsi **"Other"** di menu **Storage endpoints domain**, lalu masukkan endpoint domain kustom Pengguna.
+
+<br/>
+#### Tentang Access Key
+
+- **Access key** memberikan akses penuh ke seluruh akun penyimpanan.
+- Tersedia **dua access key** agar Pengguna bisa tetap terhubung menggunakan satu key sambil merotasi key lainnya.
+
+:::warning Penting  
+- Simpan access key Pengguna dengan aman. Disarankan untuk melakukan regenerasi access key secara berkala.  
+- Setelah regenerasi, **perbarui semua aplikasi dan resource Azure** yang menggunakan key tersebut agar tetap dapat mengakses akun penyimpanan.
+- Aksi ini **tidak akan mengganggu akses ke disk** dari virtual machine Pengguna.
+:::
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
