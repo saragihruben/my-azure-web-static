@@ -3,12 +3,284 @@ id: AZ-1055
 title: Konfigurasi Storage Account
 ---
 
-:::info
+**Azure Storage** adalah layanan yang di gunakan untuk menyimpan file, pesan, tabel, dan jenis informasi lainnya. 
+Azure Storage dapat digunakan untuk aplikasi seperti file share. Para developer menggunakan Azure Storage untuk data kerja mereka, seperti situs web, 
+aplikasi seluler, dan aplikasi desktop. Azure Storage juga digunakan oleh **mesin virtual IaaS** dan **layanan cloud PaaS**.
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+## Implementasi Azure Storage
 
+Hal-hal yang Perlu Diketahui tentang Azure Storage. Azure Storage mendukung tiga kategori data utama:
+
+![Docusaurus logo](/img/az104/37.png)
+
+### Cara Membuat Akun Penyimpanan
+Akun penyimpanan di Azure terbagi dua tipe:
+
+**Standard:**
+- Didukung oleh hard disk (HDD).
+- Biaya per GB paling rendah.
+- Cocok untuk penyimpanan besar atau data yang jarang diakses.
+
+**Premium:**
+- Didukung oleh solid-state drives (SSD).
+- Performa konsisten dengan latensi rendah.
+- Cocok untuk disk VM Azure dengan aplikasi intensif I/O, seperti database.
+
+:::warning Catatan:
+Kita tidak dapat mengubah akun penyimpanan dari Standard ke Premium atau sebaliknya. 
+Dan harus membuat akun baru dengan tipe yang diinginkan dan menyalin data ke akun baru jika diperlukan.
 :::
 
-:::warning
+#### Hal yang Perlu Dipertimbangkan saat Menggunakan Azure Storage
+**- Daya tahan dan ketersediaan (Durability and Availability):**
+Azure Storage sangat tahan terhadap kegagalan dan sangat tersedia. Replikasi menjaga data tetap aman dari kerusakan perangkat keras dan bencana alam. 
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+**- Akses yang aman:**
+Azure Storage mengenkripsi semua data dan dapat mengatur akses secara rinci.
+
+**- Skalabilitas:**
+Dirancang untuk skala besar, mampu memenuhi kebutuhan penyimpanan dan performa aplikasi modern.
+
+**- Kemudahan pengelolaan:**
+Microsoft menangani pemeliharaan dan menangani isu pada hardware.
+
+**- Aksesibilitas data:**
+Data dapat diakses dari manapun melalui HTTP/HTTPS. Tersedia SDK untuk berbagai bahasa: .NET, Java, Node.js, Python, PHP, Ruby, Go, serta REST API. 
+Azure Storage mendukung skrip melalui PowerShell atau Azure CLI, serta GUI akses seperti Azure Portal dan Azure Storage Explorer.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Jenis layanan Azure Storage
+
+Azure Storage menawarkan empat layanan data yang dapat diakses melalui akun penyimpanan Azure:
+- **Azure Blob Storage (kontainer):** Penyimpanan objek yang sangat skalabel untuk data teks dan biner.
+- **Azure Files:** File share yang dikelola untuk cloud atau on-premise.
+- **Azure Queue Storage:** Penyimpanan pesan untuk komunikasi antar komponen aplikasi.
+- **Azure Table Storage:** Layanan untuk menyimpan data terstruktur non-relasional (data NoSQL terstruktur).
+
+### Azure Blob Storage
+Azure Blob Storage adalah solusi penyimpanan objek dari Microsoft untuk cloud. Layanan ini dioptimalkan untuk menyimpan jumlah besar data tidak terstruktur atau 
+non-relasional, seperti teks atau data biner.
+Blob Storage cocok untuk:
+- Menyajikan gambar atau dokumen langsung ke browser.
+- Menyimpan file untuk diakses secara terdistribusi.
+- Streaming video dan audio.
+- Menyimpan data untuk backup, disaster recovery, dan pengarsipan.
+- Menyimpan data untuk dianalisis oleh layanan di tempat (on-premises) atau yang dihosting di Azure.
+
+Objek dalam Blob Storage dapat diakses dari mana saja di dunia melalui HTTP atau HTTPS. Akses dapat dilakukan melalui URL, REST API Azure Storage, PowerShell, 
+Azure CLI, atau SDK untuk berbagai bahasa pemrograman seperti .NET, Java, Node.js, Python, PHP, dan Ruby.
+
+:::warning Catatan: 
+Kita dapat mengakses data dari Azure Blob Storage menggunakan protokol NFS atau SFTP.
+:::
+
+### Azure Files
+File share ini dapat diakses menggunakan protokol SMB dan NFS. 
+
+Penggunaan umum file share:
+- Aplikasi pada on-premises menggunakan file share. Fitur ini memudahkan migrasi aplikasi ke Azure.
+- File konfigurasi dapat disimpan di file share dan diakses oleh banyak VM.
+- Tools yang digunakan oleh tim developer dapat disimpan bersama agar mudah ditemukan dan seragam.
+- Data seperti log diagnostik, metrik, dan crash dump dapat ditulis ke file share.
+
+Akses ke file share diatur melalui kredensial akun penyimpanan dan semua pengguna yang melakukan mount terhadap file share memiliki akses baca/tulis penuh.
+
+### Azure Queue Storage
+Azure Queue Storage digunakan untuk menyimpan dan mengambil pesan. Setiap pesan dapat berukuran hingga 64 KB, dan satu antrean dapat menampung jutaan pesan. 
+Queue biasa digunakan untuk menyimpan daftar pekerjaan yang diproses secara asinkron.
+
+**Contoh skenario:**
+Jika pelanggan mengunggah gambar dan  ingin membuat thumbnail untuk setiap gambar, kita bisa menulis pesan ke antrean setelah unggahan selesai. 
+Kemudian, Azure Function dapat mengambil pesan dari antrean dan membuat thumbnail. Setiap bagian proses bisa diskalakan secara terpisah.
+
+### Azure Table Storage
+Azure Table Storage menyimpan data terstruktur non-relasional (NoSQL) di cloud, menggunakan model key/attribute tanpa skema tetap. Karena skemanya fleksibel, 
+mudah untuk menyesuaikan data seiring perkembangan aplikasi.
+
+Akses ke Table Storage cepat dan hemat biaya, serta biasanya lebih murah dibandingkan SQL tradisional untuk volume data serupa.
+
+Selain layanan Table Storage yang ada, ada juga **Azure Cosmos DB Table API** yang menyediakan:
+- Tabel dengan throughput tinggi,
+- Distribusi global,
+- Indeks sekunder otomatis.
+
+<br/>
+:::info Hal yang Perlu Dipertimbangkan Saat Memilih Layanan Azure Storage
+- **Optimasi penyimpanan untuk data masif:**
+Gunakan Azure Blob Storage untuk menyimpan data tidak terstruktur dalam jumlah besar. Ideal untuk akses global, streaming, dan pencadangan.
+
+- **Penyimpanan dengan ketersediaan tinggi:**
+Gunakan Azure Files untuk file share yang dapat diakses banyak pengguna. Cocok untuk migrasi aplikasi on-premise dan tools sharing.
+
+- **Penyimpanan untuk pesan:**
+Gunakan Azure Queue Storage untuk menyimpan pesan dalam jumlah besar yang akan diproses secara asinkron.
+
+- **Penyimpanan untuk data terstruktur:**
+Gunakan Azure Table Storage untuk data NoSQL yang terstruktur. Mendukung distribusi global dan kinerja tinggi melalui Azure Cosmos DB.
+
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Tipe storage account
+
+![Docusaurus logo](/img/az104/38.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Jenis replikasi
+
+:::info Referensi lengkap:
+[**Storage redundancy**](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy)
+:::
+
+Data pada Azure storage account harus selalu direplikasi untuk memastikan daya tahan dan ketersediaan tinggi. 
+Replikasi Azure Storage menyalin data untuk melindungi dari kejadian yang direncanakan maupun tidak terduga, 
+mulai dari kegagalan perangkat keras sementara, gangguan jaringan atau listrik, hingga bencana alam besar. 
+Kita dapat memilih untuk mereplikasi data dalam data center yang sama, antar data center zona dalam satu wilayah, atau bahkan antar wilayah. 
+Replikasi memastikan storage account memenuhi Service-Level Agreement (SLA) untuk Azure Storage meskipun terjadi kegagalan.
+
+Terdapat empat strategi replikasi:
+- Locally Redundant Storage (LRS)
+- Zone Redundant Storage (ZRS)
+- Geo-Redundant Storage (GRS)
+- Geo-Zone Redundant Storage (GZRS)
+
+### Locally Redundant Storage (LRS)
+Replikasi lokal dalam satu data center dengan tiga salinan.
+LRS adalah opsi replikasi dengan biaya paling rendah dan daya tahan paling rendah dibanding strategi lainnya. 
+Jika terjadi bencana tingkat data center (seperti kebakaran atau banjir), semua salinan data mungkin hilang atau tidak dapat dipulihkan.
+
+![Docusaurus logo](/img/az104/39.png)
+
+Meski ada keterbatasan, LRS cocok digunakan dalam skenario berikut:
+- Aplikasi menyimpan data yang mudah dikonstruksi ulang jika terjadi kehilangan.
+- Data terus berubah (misalnya dari live feed), dan pengarsipan data tidaklah penting.
+- Aplikasi dibatasi hanya dapat mereplikasi data dalam negara atau wilayah tertentu karena regulasi data.
+
+### Zone Redundant Storage (ZRS)
+Replikasi sinkron ke tiga availability zone dalam satu wilayah.
+
+![Docusaurus logo](/img/az104/40.png)
+
+ZRS mereplikasi data Anda secara sinkron ke tiga klaster penyimpanan di satu wilayah, masing-masing berada di availability zone berbeda. 
+Dengan ZRS, Anda tetap bisa mengakses data jika satu zona mengalami kegagalan. 
+ZRS menawarkan performa tinggi dan latensi rendah.
+
+:::warning Catatan:
+- Tidak semua wilayah Azure mendukung ZRS.
+- Mengubah dari replikasi lain ke ZRS memerlukan pemindahan data fisik.
+:::
+
+### Geo-Redundant Storage (GRS)
+Replikasi ke wilayah sekunder yang jauh dari wilayah utama.
+GRS mereplikasi data ke wilayah sekunder (ratusan mil dari lokasi utama). GRS menyediakan daya tahan sangat tinggi bahkan saat terjadi **region outage**. 
+GRS dirancang untuk daya tahan 99.99999999999999% (16 angka 9).
+
+![Docusaurus logo](/img/az104/41.png)
+
+Terdapat memiliki dua pilihan terkait GRS:
+- GRS: Data hanya dapat dibaca dari wilayah sekunder jika Microsoft menginisiasi failover.
+- RA-GRS (Read-Access GRS): Kita bisa membaca data dari wilayah sekunder setiap saat, tanpa menunggu failover.
+
+Cara kerjanya:
+- Pembaruan data pertama kali direplikasi secara lokal (LRS) di wilayah utama.
+- Lalu direplikasi secara asinkron ke wilayah sekunder.
+- Di wilayah sekunder, data juga direplikasi menggunakan LRS.
+
+### Geo-Zone Redundant Storage (GZRS)
+Gabungan antara ZRS dan GRS untuk ketahanan maksimal.
+
+![Docusaurus logo](/img/az104/42.png)
+
+GZRS mereplikasi data ke tiga zona ketersediaan di wilayah utama dan juga ke wilayah geografis sekunder. 
+Ini memberikan perlindungan terhadap bencana tingkat zona maupun wilayah.
+- Tetap bisa membaca dan menulis data jika satu zona tidak tersedia.
+- Data tetap aman jika terjadi bencana besar di seluruh wilayah utama.
+- GZRS mendukung skalabilitas seperti LRS, ZRS, GRS, dan RA-GRS.
+- Dapat mengaktifkan RA-GZRS untuk akses baca ke wilayah sekunder.
+
+:::info Tips:
+- Microsoft merekomendasikan GZRS untuk aplikasi yang membutuhkan konsistensi, daya tahan, ketersediaan tinggi, performa unggul, dan ketahanan terhadap bencana. 
+- Aktifkan RA-GZRS jika Anda ingin akses baca saat terjadi bencana di wilayah utama.
+:::
+
+#### Hal yang Perlu Dipertimbangkan Saat Memilih Strategi Replikasi
+Berikut adalah ringkasan faktor penting yang membedakan strategi replikasi Azure Storage:
+
+![Docusaurus logo](/img/az104/43.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Akses storage
+
+Setiap objek yang Anda simpan di Azure Storage memiliki alamat URL unik. Nama akun penyimpanan Anda membentuk bagian subdomain dari alamat URL tersebut. 
+Kombinasi antara subdomain dan nama domain, yang spesifik untuk setiap layanan, membentuk endpoint untuk storage account.
+
+![Docusaurus logo](/img/az104/44.png)
+
+Untuk mengakses suatu objek dalam storage account, URL dibuat dengan menambahkan lokasi objek tersebut ke endpoint.
+
+Contoh:
+Untuk mengakses data myblob dalam lokasi mycontainer di storage account, gunakan URL berikut:
+
+```
+https://mystorageaccount.blob.core.windows.net/mycontainer/myblob
+
+```
+
+### Mengonfigurasi Domain Kustom
+Kita dapat mengonfigurasi domain kustom untuk mengakses data blob di Azure storage account. 
+Seperti yang telah dibahas, endpoint default untuk Azure Blob Storage adalah:
+**(nama-akun).blob.core.windows.net**
+
+Jika ingin memetakan domain dan subdomain kustom, seperti www.contoso.com, ke endpoint blob atau web , kita dapat mengakses data blob melalui domain tersebut.
+
+**Ada dua cara untuk mengonfigurasi domain kustom:**
+
+- **Pemetaan Langsung (Direct Mapping)**
+Anda mengaktifkan domain kustom untuk subdomain yang diarahkan ke akun penyimpanan Azure. Anda membuat catatan CNAME yang mengarah dari 
+subdomain ke akun penyimpanan Azure.
+
+    - Subdomain: blobs.contoso.com
+    - Akun Azure Storage: (storageaccount).blob.core.windows.net
+    - Catatan CNAME langsung: contosoblobs.blob.core.windows.net
+
+- **Pemetaan Domain Perantara (Intermediary Domain Mapping)**
+Digunakan jika domain sudah digunakan di Azure. Metode ini mungkin menyebabkan sedikit downtime saat pemetaan dilakukan.
+
+Untuk menghindari downtime, kita bisa menggunakan domain perantara asverify. Dengan menambahkan awalan asverify pada subdomain, 
+Azure dapat memverifikasi domain kustom tanpa mengubah catatan DNS secara langsung. Setelah catatan DNS dimodifikasi, 
+domain akan terhubung ke endpoint blob tanpa downtime.
+
+Contoh pemetaan:
+- Catatan CNAME: asverify.blobs.contoso.com
+- Catatan CNAME perantara: asverify.contosoblobs.blob.core.windows.net
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Melindungi storage endpoints
+
+Di portal Azure, setiap layanan Azure memerlukan langkah-langkah tertentu untuk mengonfigurasi endpoint layanan dan membatasi akses jaringan.
+
+Untuk mengakses pengaturan ini pada , gunakan pengaturan **Firewalls and virtual networks**. 
+Kita dapat menambahkan virtual network yang seharusnya memiliki akses ke layanan di akun tersebut.
+Pengaturan ini membatasi akses ke storage account dari subnet tertentu di virtual network atau dari IP publik tertentu.
+
+![Docusaurus logo](/img/az104/45.png)
+
+Endpoint layanan untuk akun penyimpanan menyediakan URL dasar untuk objek blob, queue, table, atau file di Azure Storage. 
+Gunakan URL ini untuk membuat alamat resource tertentu.
+
+![Docusaurus logo](/img/az104/46.png)
+
+#### Hal yang Perlu Diketahui Saat Mengonfigurasi Endpoint Layanan
+Berikut beberapa hal penting saat mengonfigurasi pengaturan akses layanan:
+- Anda dapat mengonfigurasi layanan untuk mengizinkan akses dari satu atau beberapa rentang IP publik.
+- Subnet dan virtual network harus berada di wilayah Azure yang sama atau dalam region pair yang sama dengan storage account.
+
+:::warning Penting
+Pastikan untuk menguji service endpoint dan memverifikasi bahwa akses dibatasi sesuai dengan yang diharapkan.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
