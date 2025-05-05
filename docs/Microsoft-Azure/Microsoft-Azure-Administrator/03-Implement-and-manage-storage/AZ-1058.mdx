@@ -212,4 +212,40 @@ Azure Storage Explorer memungkinkan Pengguna **menautkan ke akun penyimpanan eks
 
 ## Penggunaan Azure File Sync
 
+**Azure File Sync** memungkinkan pengguna untuk melakukan cache beberapa **Azure File Shares** di server Windows lokal atau mesin virtual di cloud. 
+Layanan ini membantu penguna untuk memusatkan file share organisasi di Azure Files sambil tetap menjaga fleksibilitas, performa, dan kompatibilitas seperti 
+file server on-premise.
+
+#### Hal yang Perlu Diketahui tentang Azure File Sync
+
+- Azure File Sync mengubah **Windows Server menjadi cache cepat** untuk Azure File Shares Anda.
+- Anda bisa menggunakan **protokol apa pun** yang tersedia di Windows Server, seperti **SMB**, **NFS**, dan **FTPS**, untuk mengakses data secara lokal.
+- Azure File Sync mendukung **banyak cache secara global** di lokasi-lokasi yang berbeda.
+
+
+### Cloud Tiering (Penjenjangan Cloud)
+
+- Cloud tiering adalah **fitur opsional**.
+- File yang sering diakses akan disimpan secara lokal, sedangkan file lainnya dipindahkan ke Azure Files.
+- File yang dipindahkan digantikan oleh **pointer (reparse point)** — sebuah URL ke file yang ada di Azure.
+- Saat pengguna membuka file yang ditier, data file tersebut **akan diunduh otomatis** dari Azure.
+- File dengan tiering ditandai dengan **ikon abu-abu** dan atribut file **offline (O)**.
+
+<br/>
+####  Pertimbangan saat Menggunakan Azure File Sync
+
+| **Skenario**                                 | **Deskripsi** |
+|----------------------------------------------|----------------|
+| **Lift and Shift Aplikasi**                  | Migrasikan aplikasi yang memerlukan akses ke data di Azure dan sistem on-premise secara bersamaan. Dukungan akses tulis untuk data yang sama antara Windows Server dan Azure Files. |
+| **Kantor Cabang (Branch Office)**            | Dukung kantor cabang dengan backup file menggunakan Azure File Sync. Cukup hubungkan server baru ke Azure Storage. |
+| **Backup dan Pemulihan Bencana (DR)**        | Azure Backup dapat mencadangkan data on-premise setelah Azure File Sync diterapkan. Pulihkan metadata file secara instan dan data sesuai kebutuhan saat bencana terjadi. |
+| **Arsip File dengan Cloud Tiering**          | Simpan hanya file yang sering diakses di server on-premise. Gunakan cloud tiering untuk memindahkan data lama ke Azure Files dan menghemat ruang penyimpanan. |
+
+:::tip Konklusi
+Azure File Sync adalah solusi ideal untuk organisasi yang ingin tetap menggunakan infrastruktur on-premise, 
+namun mengintegrasikannya dengan fleksibilitas cloud. Fitur seperti **cloud tiering**, **sinkronisasi multi-lokasi**, dan **integrasi backup** 
+menjadikannya tools yang handal untuk mengelola file secara efisien dan aman.
+:::
+
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
