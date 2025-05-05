@@ -3,12 +3,268 @@ id: AZ-1057
 title: Konfigurasi keamanan Azure Storage
 ---
 
-:::info
+## Review strategi keamanan Azure Storage
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+# Strategi Keamanan Azure Storage
 
+Azure Storage menyediakan berbagai fitur keamanan untuk melindungi data, termasuk enkripsi, autentikasi, otorisasi, dan kontrol akses.
+
+### Enkripsi
+
+#### a. Enkripsi Saat Disimpan
+    - Menggunakan Storage Service Encryption (SSE) dengan AES 256-bit.
+    - Semua data dienkripsi secara otomatis tanpa biaya tambahan dan tidak mengurangi performa.
+
+#### b. Enkripsi Saat Transit
+    - Gunakan HTTPS untuk komunikasi antara klien dan Azure.
+    - Dapat mengaktifkan pengaturan "secure transfer" untuk memaksa koneksi aman.
+    - SMB 3.0 digunakan untuk transfer file melalui protokol SMB.
+
+#### c. Enkripsi Disk
+    - Azure Disk Encryption mengenkripsi VHD VM.
+    - BitLocker digunakan untuk Windows, dm-crypt untuk Linux.
+    - Kunci disimpan dan dikelola oleh Azure Key Vault.
+
+### Autentikasi
+- Mendukung Microsoft Entra ID dan Role-Based Access Control (RBAC).
+- Entra ID digunakan untuk autentikasi pengguna dan aplikasi.
+- RBAC mengontrol akses ke operasi manajemen resource.
+
+### Otorisasi
+
+#### Strategi Otorisasi
+
+| Strategi                  | Deskripsi                                                                 |
+|---------------------------|---------------------------------------------------------------------------|
+| Microsoft Entra ID        | Kontrol akses berbasis peran yang detail untuk pengguna, grup, dan aplikasi. |
+| Shared Key                | Gunakan kunci akses akun untuk menghasilkan string tanda tangan terenkripsi. |
+| Shared Access Signature   | Delegasikan akses dengan izin dan waktu tertentu.                         |
+| Akses Anonim              | Opsional, untuk mengizinkan akses baca publik ke container atau blob.     |
+
+### Shared Access Signature (SAS)
+- Memberikan akses delegasi ke objek data.
+- Dapat diatur dengan izin spesifik dan waktu berlaku tertentu.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat Shared Access Signatures (SAS)
+
+### Apa itu Shared Access Signature (SAS)?
+
+**Shared Access Signature (SAS)** adalah sebuah **URI (Uniform Resource Identifier)** yang memberikan hak akses terbatas ke Azure Storage resource. 
+SAS merupakan cara aman untuk berbagi storage resource tanpa harus membagikan kunci akun Anda.
+
+Pengguna dapat memberikan SAS kepada klien yang seharusnya tidak memiliki akses ke kunci storage account. Dengan mendistribusikan URI SAS kepada klien tersebut, 
+pengguna memberikan akses ke resource dalam jangka waktu tertentu.
+
+### Kapan Menggunakan SAS?
+
+SAS biasanya digunakan dalam layanan di mana pengguna mengunggah dan mengunduh data mereka ke akun penyimpanan.
+Dua desain umum untuk akun penyimpanan data pengguna:
+
+1. **Layanan Proxy Front-End**  
+
+![Docusaurus logo](/img/az104/54.png)
+
+   Klien mengunggah dan mengunduh data melalui layanan proxy front-end yang melakukan autentikasi.  
+   - Keuntungan: memungkinkan validasi aturan.  
+   - Tantangan: sulit diskalakan untuk data dalam jumlah besar atau transaksi volume tinggi.
+
+2. **Layanan Ringan dengan SAS**  
+
+![Docusaurus logo](/img/az104/55.png)
+
+   Layanan ringan mengautentikasi klien dan kemudian menghasilkan SAS.  
+   - Klien menggunakan SAS untuk mengakses resource langsung.  
+   - SAS menentukan izin dan jangka waktu akses.  
+   - Mengurangi kebutuhan routing data melalui layanan proxy.
+
+### Karakteristik SAS
+
+- SAS memberikan **kontrol granular** terhadap jenis akses yang diberikan ke klien.
+- SAS tingkat akun dapat memberikan akses ke **beberapa layanan Azure Storage** seperti blob, file, queue, dan table.
+- Pengguna dapat menentukan **jangka waktu** validitas SAS (waktu mulai dan kadaluarsa).
+- Pengguna dapat menentukan **izin akses** yang diberikan. Misalnya, SAS untuk blob bisa memberikan izin baca dan tulis, tapi tidak untuk menghapus.
+- SAS mendukung kontrol di **tingkat akun** dan **tingkat layanan**:
+    - **SAS Tingkat Akun**  
+    Memberikan akses ke seluruh layanan dan resource di akun, termasuk kemampuan seperti membuat file system.
+    - **SAS Tingkat Layanan**  
+    Memberikan akses spesifik ke resource tertentu, misalnya untuk mengunduh file atau mengambil daftar isi folder.
+
+:::info Catatan: 
+Kita bisa menggunakan *Stored Access Policy* untuk memberikan tingkat kontrol tambahan dengan SAS tingkat layanan. 
+Kebijakan ini memungkinkan Anda mengelompokkan SAS dan menetapkan pembatasan lebih lanjut.
 :::
 
-:::warning
+- Pengaturan Konfigurasi Tambahan SAS (Opsional)
+    - **Alamat IP:** Pengguna dapat menentukan alamat IP atau rentang alamat IP yang diizinkan menggunakan SAS.
+    - **Protokol:** Pengguna dapat menentukan protokol komunikasi (misalnya HTTPS) yang diizinkan untuk menggunakan SAS.
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+### Mengonfigurasi Shared Access Signature di Azure Portal
+
+Saat membuat SAS di portal Azure, peggguna akan diminta mengatur beberapa konfigurasi berikut:
+
+![Docusaurus logo](/img/az104/56.png)
+
+- **Metode Penandatanganan:** Pilih metode penandatanganan: *Account Key* atau *User Delegation Key*.
+- **Kunci Penandatanganan:** Pilih kunci dari daftar kunci akun.
+- **Izin (Permissions):** Pilih izin yang diberikan, seperti baca atau tulis.
+- **Tanggal/Waktu Mulai dan Kadaluarsa:** Tentukan interval waktu validitas SAS.
+- **Alamat IP yang Diizinkan (Opsional):** Tentukan alamat IP atau rentang IP yang diizinkan.
+- **Protokol yang Diizinkan (Opsional):** Tentukan protokol seperti HTTPS untuk mengakses SAS.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Identifikasi parameter dari URI dan SAS
+
+
+Saat Anda membuat Shared Access Signature (SAS), sebuah **Uniform Resource Identifier (URI)** terbentuk menggunakan parameter dan token. URI terdiri dari:
+
+- URI Azure storage resource
+- Token SAS
+
+**URI = Resource + Token SAS**
+
+#### Contoh URI SAS
+Berikut adalah contoh URI SAS tingkat layanan (service-level) yang memberikan izin baca dan tulis ke sebuah blob:
+```
+https://myaccount.blob.core.windows.net/?restype=service&comp=properties&sv=2015-04-05&ss=bf&st=2015-04-29T22%3A18%3A26Z&se=2015-04-30T02%3A23%3A26Z&sr=b&sp=rw&sip=168.1.5.60-168.1.5.70&spr=https&sig=F%6GRVAZ5Cdj2Pw4tgU7IlSTkWgn7bUkkAg8P6HESXwmf%4B
+```
+<br/>
+#### Penjelasan Parameter URI
+
+| Parameter       | Contoh                                                                 | Deskripsi |
+|-----------------|------------------------------------------------------------------------|-----------|
+| **Resource URI** | `https://myaccount.blob.core.windows.net/?restype=service&comp=properties` | Menentukan endpoint Azure Storage dan parameter tambahan. Contoh ini menunjukkan endpoint untuk Blob Storage dan operasi tingkat layanan. |
+| **Storage version (sv)** | `sv=2015-04-05` | Menentukan versi API Azure Storage yang digunakan. Versi ini menentukan fitur dan perilaku SAS. |
+| **Storage service (ss)** | `ss=bf` | Menunjukkan layanan penyimpanan yang berlaku untuk SAS. Contoh ini untuk Blob dan File Storage. |
+| **Start time (st)** | `st=2015-04-29T22%3A18%3A26Z` | (Opsional) Waktu mulai SAS dalam format UTC. Jika ingin langsung berlaku, parameter ini bisa dihilangkan. |
+| **Expiry time (se)** | `se=2015-04-30T02%3A23%3A26Z` | Waktu kedaluwarsa SAS dalam format UTC. |
+| **Resource (sr)** | `sr=b` | Menentukan jenis sumber daya yang dapat diakses. `b` berarti blob. |
+| **Permissions (sp)** | `sp=rw` | Menentukan izin akses. Contoh ini memberikan izin baca (read) dan tulis (write). |
+| **IP range (sip)** | `sip=168.1.5.60-168.1.5.70` | Menentukan rentang alamat IP yang diizinkan mengakses SAS. |
+| **Protocol (spr)** | `spr=https` | Menentukan protokol yang diizinkan. Contoh ini hanya mengizinkan HTTPS. |
+| **Signature (sig)** | `sig=F%6GRVAZ5Cdj2Pw4tgU7IlSTkWgn7bUkkAg8P6HESXwmf%4B` | Digunakan untuk otentikasi akses ke sumber daya, menggunakan HMAC (Hash-Based Message Authentication Code) dengan algoritma SHA256 dan encoding Base64. |
+
+<br/>
+#### Ringkasan
+
+URI SAS dibentuk dari kombinasi resource dan token dengan berbagai parameter konfigurasi. Parameter ini memberikan kontrol yang rinci terhadap:
+
+- Izin akses
+- Durasi berlaku
+- IP dan protokol yang diizinkan
+- Jenis sumber daya yang dapat diakses
+
+Dengan memahami setiap parameter, kita dapat mengatur SAS dengan aman dan efisien sesuai kebutuhan.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Enkripsi pada Azure Storage
+
+Melindungi data yang disimpan di Azure Storage (data at rest) dengan enkripsi otomatis untuk memenuhi kebutuhan keamanan dan kepatuhan organisasi.
+
+### Hal-hal yang Perlu Diketahui tentang Enkripsi Azure Storage
+
+- **Enkripsi Otomatis**  
+  Data otomatis dienkripsi sebelum disimpan dan didekripsi saat diambil, tanpa memerlukan perubahan pada aplikasi atau kode.
+
+- **Kunci Akses Akun**  
+  Azure membuat dua kunci akses 512-bit saat akun penyimpanan dibuat. Kunci ini digunakan untuk otorisasi akses data melalui Shared Key atau SAS token.
+
+- **Manajemen Kunci**  
+  Disarankan menggunakan **Azure Key Vault** untuk mengelola, merotasi, dan meregenerasi kunci secara aman tanpa gangguan aplikasi.
+
+- **Standar Enkripsi**  
+  Azure menggunakan algoritma enkripsi AES 256-bit, salah satu cipher terkuat yang tersedia.
+
+- **Aktif Secara Default**  
+  Enkripsi aktif untuk semua akun penyimpanan baru maupun yang sudah ada, dan tidak dapat dinonaktifkan.
+
+
+### Opsi Konfigurasi Enkripsi Azure Storage
+
+- **Infrastructure Encryption**  
+  Opsi enkripsi ganda: sekali di tingkat layanan, sekali di tingkat infrastruktur, dengan algoritma dan kunci berbeda.
+
+- **Platform-Managed Keys (PMK)**  
+  Kunci dikelola sepenuhnya oleh Azure, tanpa interaksi pengguna.
+
+- **Customer-Managed Keys (CMK)**  
+  Kunci dikelola oleh pelanggan melalui Key Vault atau HSM. Mendukung skenario **Bring Your Own Key (BYOK)**.
+
+<br/>
+:::tip Konklusi
+Azure Storage menyediakan enkripsi bawaan dan fleksibilitas dalam manajemen kunci, 
+memungkinkan perlindungan data yang kuat dengan kontrol penuh oleh pelanggan atau otomatisasi penuh oleh Azure.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat customer-managed keys
+
+Memberikan kontrol penuh kepada pelanggan atas kunci enkripsi yang digunakan untuk melindungi data di Azure Storage.
+
+### Hal-hal yang Perlu Diketahui tentang Kunci yang Dikelola Pelanggan
+
+- **Fleksibilitas dan Kontrol**  
+  Pelanggan dapat membuat, menonaktifkan, mengaudit, merotasi, dan mengatur hak akses terhadap kunci enkripsi mereka sendiri.
+
+- **Azure Key Vault**  
+  Kunci disimpan dan dikelola melalui Azure Key Vault. Kunci bisa dibuat baru atau menggunakan kunci yang sudah ada.
+
+- **Persyaratan Lokasi**  
+  Akun penyimpanan dan Key Vault harus berada di **region yang sama**, tetapi bisa berada di langganan (subscription) yang berbeda.
+
+- **Pilihan Manajemen Kunci**  
+  Pengguna dapat memilih antara:
+  - **Kunci dikelola Microsoft (PMK)**
+  - **Kunci dikelola pelanggan (CMK)**
+
+- **Konfigurasi di Azure Portal**  
+  Pengguna menentukan URI kunci secara manual atau memilih dari Key Vault yang tersedia.
+
+### Mengonfigurasi Kunci yang Dikelola Pelanggan
+
+Di Azure Portal, pengguna dapat mengonfigurasi enkripsi menggunakan kunci yang dikelola pelanggan. 
+Pengguna dapat memilih untuk membuat kunci sendiri, atau menggunakan kunci yang dikelola oleh Microsoft.
+
+![Docusaurus logo](/img/az104/57.png)
+
+#### Langkah Konfigurasi:
+
+- **Tipe Enkripsi:** Pilih bagaimana kunci enkripsi akan dikelola—oleh Microsoft atau oleh user sendiri sebagai pelanggan.
+- **Kunci Enkripsi:** Tentukan kunci enkripsi dengan memasukkan URI secara manual, atau pilih kunci dari Key Vault yang sudah ada.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Implementasi keamanan Azure Storage
+
+#### Hal yang Perlu Diketahui
+
+Penting untuk memahami bahwa saat pengguna menggunakan SAS dalam aplikasi, ada beberapa risiko yang perlu dipertimbangkan.
+
+- **Risiko Kompromi SAS**  
+  Jika SAS terganggu, siapa pun yang mendapatkannya dapat mengakses penyimpanan.
+
+- **Kedaluwarsa SAS**  
+  Jika SAS yang diberikan kepada aplikasi klien kedaluwarsa dan aplikasi tidak dapat mengambil SAS baru dari layanan, fungsionalitas aplikasi dapat terganggu.
+
+<br/>
+#### Tabel Rekomendasi untuk mengelola resiko
+
+| **Rekomendasi** | **Deskripsi** |
+|-----------------|---------------|
+| **Selalu gunakan HTTPS untuk pembuatan dan distribusi** | Jika SAS dikirim melalui HTTP dan disadap, penyerang dapat mengintersepsi dan menggunakan SAS tersebut. Serangan man-in-the-middle dapat membahayakan data sensitif atau menyebabkan kerusakan data. |
+| **Gunakan kebijakan akses yang disimpan jika memungkinkan** | Kebijakan akses yang disimpan memungkinkan Anda mencabut izin tanpa harus menghasilkan kembali kunci akun penyimpanan Azure. Tentukan tanggal kedaluwarsa kunci penyimpanan di masa depan. |
+| **Tetapkan waktu kedaluwarsa jangka pendek untuk SAS yang tidak direncanakan** | Jika SAS terganggu, batasi waktu validitasnya untuk mengurangi potensi serangan. Waktu kedaluwarsa yang pendek juga membatasi jumlah data yang dapat diunggah ke blob. |
+| **Minta klien memperbarui SAS secara otomatis** | Minta klien untuk memperbarui SAS sebelum tanggal kedaluwarsa. Dengan memperbarui lebih awal, Anda memberikan waktu untuk percakapan ulang jika layanan penyedia SAS tidak tersedia. |
+| **Rencanakan dengan hati-hati waktu mulai SAS** | Jika waktu mulai SAS diatur ke waktu saat ini, perbedaan waktu antar mesin dapat menyebabkan kegagalan sementara. Umumnya, atur waktu mulai minimal 15 menit di masa lalu. |
+| **Tentukan izin akses minimum untuk sumber daya** | Praktik terbaik keamanan adalah memberikan pengguna izin sesedikit mungkin. Jika pengguna hanya perlu akses baca ke entitas tunggal, berikan akses baca hanya ke entitas tersebut. |
+| **Pahami tagihan akun untuk penggunaan SAS** | Batasi izin untuk mengurangi risiko tindakan pengguna jahat. Izin baca dan tulis dapat menyebabkan biaya tagihan. Gunakan SAS jangka pendek untuk mengurangi ancaman ini. |
+| **Validasi data yang ditulis dengan menggunakan SAS** | Setelah aplikasi klien menulis data ke akun penyimpanan Azure, pastikan untuk memvalidasi data sebelum digunakan. Ini melindungi terhadap data yang rusak atau jahat yang mungkin ditulis oleh pengguna yang memiliki SAS. |
+| **Jangan anggap SAS selalu pilihan yang tepat** | Dalam beberapa situasi, risiko terkait operasi terhadap akun penyimpanan Azure lebih besar daripada manfaat SAS. Untuk operasi tersebut, buat layanan lapisan tengah yang menulis ke akun penyimpanan setelah validasi aturan bisnis, otentikasi, dan audit. |
+| **Pantau aplikasi Anda dengan Azure Storage Analytics** | Gunakan logging dan metrik untuk memantau lonjakan kegagalan otentikasi, yang bisa disebabkan oleh gangguan pada layanan penyedia SAS atau penghapusan kebijakan akses yang disimpan. |
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
