@@ -14,6 +14,12 @@ module.exports = {
   projectName: "saragihruben.wiki",
   themeConfig: {
   
+    algolia: {
+      appId: 'RW0NXEX198',               // From Algolia dashboard
+      apiKey: '9b103489c9df93178006369fa7a6a4f7', // Not the admin key
+      indexName: 'saragihruben-my',       // The index your Crawler pushes to
+      contextualSearch: true,             // Optional but helpful
+    },
    
     navbar: {
       title: "MyWiki",
@@ -57,6 +63,7 @@ module.exports = {
       // using user system preferences, instead of the hardcoded defaultMode
       respectPrefersColorScheme: false,
     },
+  themes: ['@docusaurus/theme-search-algolia'],
   },
   presets: [
     [

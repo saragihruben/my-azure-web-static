@@ -6,7 +6,7 @@
 export default {
   "title": "MyWiki",
   "trailingSlash": false,
-  "url": "https://white-pebble-0a8b06200.6.azurestaticapps.net",
+  "url": "https://lively-stone-0b0c94d10.6.azurestaticapps.net",
   "baseUrl": "/",
   "onBrokenLinks": "throw",
   "onBrokenMarkdownLinks": "warn",
@@ -14,6 +14,14 @@ export default {
   "organizationName": "saragihruben",
   "projectName": "saragihruben.wiki",
   "themeConfig": {
+    "algolia": {
+      "appId": "RW0NXEX198",
+      "apiKey": "9b103489c9df93178006369fa7a6a4f7",
+      "indexName": "saragihruben-my",
+      "contextualSearch": true,
+      "searchParameters": {},
+      "searchPagePath": "search"
+    },
     "navbar": {
       "title": "MyWiki",
       "logo": {
@@ -163,6 +171,9 @@ export default {
       "disableSwitch": true,
       "respectPrefersColorScheme": false
     },
+    "themes": [
+      "@docusaurus/theme-search-algolia"
+    ],
     "docs": {
       "versionPersistence": "localStorage",
       "sidebar": {
