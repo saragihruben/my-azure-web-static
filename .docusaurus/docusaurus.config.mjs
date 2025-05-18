@@ -207,10 +207,7 @@ export default {
           "routeBasePath": "docs"
         },
         "theme": {
-          "customCss": "/Users/saragihruben/Documents/GitHub/my-azure-web-static/src/css/custom.css"
-        },
-        "gtag": {
-          "trackingID": "G-Q1MDM8KFVG"
+          "customCss": "Z:\\azure\\docusaurus\\github\\my-azure-web-static\\src\\css\\custom.css"
         }
       }
     ]

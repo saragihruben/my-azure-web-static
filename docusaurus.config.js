@@ -86,13 +86,12 @@ module.exports = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
-        gtag: {
-          trackingID: "G-Q1MDM8KFVG",
-        },
       },
     ],
   ],
-  plugins: ["@docusaurus/plugin-ideal-image"],
+  plugins: ["@docusaurus/plugin-ideal-image",
+           ],
+           
   i18n: {
   defaultLocale: 'id',
   locales: ['id', 'en'],
