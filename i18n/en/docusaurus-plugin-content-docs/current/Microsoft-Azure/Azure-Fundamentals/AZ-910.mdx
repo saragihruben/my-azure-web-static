@@ -1,0 +1,124 @@
+---
+id: AZ-910
+title: Fitur dan tools pada Azure Cloud untuk managing dan deploying Azure resources
+---
+
+## Tools 
+
+Untuk mengelola lingkungan Azure secara efektif, Microsoft menyediakan beberapa tools yang bisa kamu gunakan sesuai dengan preferensi atau kebutuhan kamu:
+
+**1. Azure Portal :**
+Portal berbasis web dengan UI grafis untuk mengelola semua resources Azure.
+
+**Fitur Utama:**
+- Buat dan kelola resource secara visual
+- Pantau penggunaan dan performa layanan
+- Buat dashboard kustom
+- Akses langsung tanpa install — hanya butuh browser!
+
+**Kelebihan:**
+Cocok untuk pemula atau siapa pun yang ingin bekerja secara visual.
+
+<br/>
+**2. Azure Cloud Shell :**
+Shell berbasis browser di dalam Azure Portal yang mendukung:
+- Azure PowerShell
+- Azure CLI (Bash)
+
+**Fitur Utama:**
+-Tidak perlu instalasi lokal
+- Otomatis terhubung ke akun Azure kamu
+- Simpan file/script di Azure Files
+- Akses cepat: Klik ikon Cloud Shell di bagian atas Azure Portal
+
+<br/>
+**3. Azure PowerShell :**
+Tool berbasis PowerShell untuk manajemen Azure lewat skrip atau baris perintah (cmdlet).
+
+**Fungsi:**
+- Automasi deployment
+- Setup dan maintenance infrastruktur
+- Cocok untuk pengguna Windows dan script berbasis PowerShell
+- Tersedia di: Windows, macOS, Linux, dan Azure Cloud Shell
+
+<br/>
+**4. Azure CLI:**
+Tool berbasis Bash dengan fungsi yang mirip dengan Azure PowerShell, tetapi menggunakan sintaks Bash.
+
+Fungsi:
+- Manajemen resource via perintah baris
+- Cocok untuk pengguna Linux/macOS atau yang terbiasa dengan Bash
+- Tersedia di: Windows, macOS, Linux, dan Cloud Shell
+
+# Konklusi
+
+![Docusaurus logo](/img/az900/20.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure Arc
+
+**Azure Arc** adalah solusi dari Microsoft untuk mengelola lingkungan **hybrid** dan **multi-cloud** secara terpusat dan konsisten, 
+seolah-olah semua resources tersebut berada di dalam Azure.
+
+Ketika kita memiliki resource lokal (on-premises) atau resource di cloud lain (seperti AWS atau Google Cloud), 
+**Azure Arc** memungkinkan kita menghubungkan dan mengelola resource tersebut melalui **Azure Resource Manager (ARM)**.
+
+#### Manfaat Azure Arc
+
+- Menyatukan pengelolaan resource dari berbagai tempat (on-prem, multi-cloud) ke dalam satu platform manajemen yaitu Azure.
+- Memproyeksikan resource non-Azure ke dalam Azure sehingga bisa dikelola seperti resource Azure.
+- Menggunakan tools dan layanan Azure yang sudah familiar, seperti Azure Policy, Azure Monitor, dan Security Center—untuk semua resource, tidak peduli di mana mereka berada.
+- Menggabungkan pendekatan IT tradisional (ITOps) dengan praktik DevOps, sehingga cocok untuk berbagai jenis tim dan organisasi.
+- Mendefinisikan custom locations di atas cluster Kubernetes yang diaktifkan Azure Arc, untuk pengelolaan yang lebih fleksibel.
+
+Saat ini, Azure Arc mendukung pengelolaan beberapa jenis resource yang berada di luar Azure, antara lain:
+- Server fisik (on-premises atau cloud lain)
+- Kubernetes clusters
+- Azure Data Services (seperti Azure SQL Managed Instance, PostgreSQL Hyperscale)
+- SQL Server
+- Virtual Machines (dalam versi preview)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure Resouces Manager
+
+**Azure Resource Manager (ARM)** adalah layanan manajemen dan penyebaran (deployment) untuk resources di Azure. 
+ARM menjadi lapisan pengelola yang menangani semua permintaan yang dikirim melalui portal Azure, CLI, PowerShell, SDK, atau API.
+
+Saat kita membuat, menghapus, atau memperbarui resource di Azure—semua permintaan itu diproses melalui **ARM**.
+
+**Manfaat Utama ARM:**
+- Mengelola infrastruktur secara deklaratif menggunakan template
+- Mengelompokkan resource dalam satu paket agar lebih mudah dikelola
+- Menyebarkan ulang (redeploy) dengan hasil yang konsisten
+- Menentukan dependensi antar resource agar urutan deployment tepat
+- Mengatur akses (RBAC) dan menandai resource (tagging) untuk manajemen dan penghitungan biaya
+- Memantau biaya berdasarkan tag atau kelompok resources
+
+**ARM Template**
+ARM Template adalah file JSON yang mendeskripsikan infrastruktur secara deklaratif. 
+Kita cukup menyatakan apa yang ingin dibuat, dan Azure akan menangani bagaimana proses pembuatannya.
+
+### Keuntungan ARM Template
+
+![Docusaurus logo](/img/az900/21.png)
+
+### Bicep 
+Bicep adalah bahasa yang lebih sederhana dan ringkas dibandingkan template ARM JSON. 
+Sama-sama deklaratif, tetapi lebih mudah dibaca dan ditulis.
+
+**Keunggulan Bicep:**
+- Sintaks lebih simpel dan bersih
+- Dukungan penuh semua tipe resource Azure
+- Idempoten – bisa dideploy berkali-kali dan hasil tetap sama
+- Modularitas tinggi – bisa dibuat menjadi blok kode yang reusable
+
+**Infrastructure as Code (IaC)**
+Dengan pendekatan Infrastructure as Code, kita dapat:
+- Mengelola infrastruktur dengan kode
+- Menyimpan versi di Git
+- Mengotomatiskan proses deployment
+- Mengurangi kesalahan manual
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,97 @@
+---
+id: AZ-902
+title: Keuntungan menggunakan Cloud Services
+---
+
+
+## High Availability dan Scalability
+
+Saat membangun atau menerapkan aplikasi di cloud, dua aspek utama yang harus dipertimbangkan adalah **High Availability** dan **Scalability**.
+### Ketersediaan Tinggi (High Availability)
+Ketika menerapkan aplikasi atau layanan di cloud, penting untuk memastikan bahwa resources tetap tersedia kapan pun dibutuhkan.
+Microsoft Azure, menyediakan garansi uptime berdasarkan layanan tertentu yang dijelaskan dalam Service-Level Agreement (SLA).
+
+### Skalabilitas (Scalability)
+Salah satu manfaat utama cloud computing adalah kemampuan untuk menyesuaikan kapasitas resources sesuai kebutuhan.
+Secara umum, ada dua jenis skalabilitas utama dalam cloud:
+- Skalabilitas Vertikal (Vertical Scaling) → Scale Up / Scale Down : Meningkatkan atau menurunkan kapasitas resources dalam satu sistem.
+- Skalabilitas Horizontal (Horizontal Scaling) → Scale Out / Scale In : Menambah atau mengurangi jumlah resources yang digunakan.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Reliability dan Predictability
+Dalam layanan cloud, dua manfaat utama yang meningkatkan kepercayaan dalam penerapan solusi adalah kehandalan (reliability) dan prediktabilitas (predictability).
+
+### Kehandalan dalam Cloud
+kehandalan mengacu pada kemampuan sistem untuk pulih dari kegagalan dan terus beroperasi dengan lancar. 
+Ini adalah salah satu pilar utama dalam **Microsoft Azure Well-Architected Framework**.
+Bagaimana Cloud Memastikan kehandalan : 
+
+- Desain Terdesentralisasi → 
+Cloud dirancang untuk didistribusikan secara global, yang berarti resources tersebar di berbagai wilayah. 
+Jika satu wilayah mengalami gangguan atau bencana, wilayah lain tetap beroperasi tanpa gangguan.
+
+- Failover Otomatis → Beberapa lingkungan cloud secara otomatis mengalihkan beban kerja ke wilayah lain yang tersedia, 
+memastikan waktu henti minimal tanpa perlu intervensi manual.
+
+- Ketahanan → Penyedia cloud seperti Azure menerapkan zona ketersediaan tinggi, replikasi data, dan solusi pencadangan untuk meningkatkan kehandalan sistem.
+
+### Prediktabilitas dalam Cloud
+Prediktabilitas memungkinkan bisnis merencanakan operasi cloud mereka dengan lebih percaya diri. Ini mencakup dua aspek utama:
+
+- Kinerja :
+Memastikan bahwa aplikasi cloud memberikan performa yang konsisten di bawah beban kerja yang beragam.
+Fitur seperti **autoscaling**, **load balancing**, dan **high availability** membantu menjaga stabilitas kinerja.
+
+- Biaya :
+Perhitungan biaya secara real-time memungkinkan pengguna memantau penggunaan resources dan menghindari pengeluaran yang tidak perlu.
+Alat seperti **Total Cost of Ownership (TCO) Calculator** dan **Pricing Calculator** membantu memperkirakan biaya cloud di awal.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Security and Governance
+
+Baik saat menerapkan Infrastructure as a Service (IaaS) maupun Software as a Service (SaaS), fitur cloud mendukung tata kelola (governance) dan kepatuhan (compliance).
+Tata Kelola dalam Cloud
+
+- Standar Kepatuhan Otomatis → Cloud menyediakan template standar yang memastikan semua resources yang diterapkan mematuhi kebijakan perusahaan dan regulasi organisasi.
+
+- Pembaruan Standar yang Mudah → Jika ada perubahan dalam standar atau peraturan, 
+semua resources cloud dapat diperbarui secara otomatis untuk tetap sesuai dengan aturan terbaru.
+
+- Audit Berbasis Cloud → Sistem audit cloud dapat mendeteksi resources yang tidak sesuai standar dan memberikan strategi mitigasi untuk memperbaikinya.
+
+- Patch dan Pembaruan Otomatis → Bergantung pada model operasi yang digunakan, 
+pembaruan perangkat lunak dan patch keamanan dapat diterapkan secara otomatis, meningkatkan efisiensi dan keamanan.
+
+- Perlindungan terhadap Serangan Siber
+Penyedia cloud biasanya memiliki sistem keamanan yang kuat untuk menangani ancaman seperti serangan Distributed Denial of Service (DDoS).
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Manageability 
+
+Salah satu keuntungan utama komputasi cloud adalah kemudahan pengelolaan (manageability). Dalam cloud computing, terdapat dua aspek utama dalam pengelolaan yang memberikan manfaat signifikan:
+
+### Pengelolaan resources Cloud (Management of the Cloud)
+Pengelolaan resources di cloud memungkinkan organisasi untuk mengotomatiskan dan mengoptimalkan infrastruktur TI. Manfaatnya antara lain:
+- Skalabilitas Otomatis → resources dapat ditambahkan atau dikurangi secara otomatis berdasarkan kebutuhan.
+- Penerapan resources yang Cepat → Dengan template yang sudah dikonfigurasi sebelumnya, penerapan resources menjadi lebih cepat dan tidak memerlukan konfigurasi manual.
+- Pemantauan Kesehatan resources → Sistem cloud dapat mendeteksi kegagalan dan secara otomatis mengganti resources yang bermasalah.
+- Peringatan Otomatis → Cloud memungkinkan pemantauan real-time dan memberikan peringatan otomatis berdasarkan metrik yang dikonfigurasi, 
+sehingga tim IT selalu mendapatkan informasi terbaru tentang kinerja sistem.
+
+### Pengelolaan Lingkungan Cloud (Management in the Cloud)
+
+Cloud menyediakan berbagai metode fleksibel untuk mengelola infrastruktur dan layanan yang digunakan, yaitu:
+- Melalui portal web → Antarmuka berbasis web yang intuitif untuk mengelola resources cloud secara visual.
+- Menggunakan Command Line Interface (CLI) → Pengguna dapat mengelola cloud melalui perintah berbasis teks.
+- Menggunakan API (Application Programming Interface) → Memungkinkan integrasi dan otomatisasi dalam pengelolaan cloud.
+- Menggunakan PowerShell → Administrasi cloud dapat dilakukan dengan skrip PowerShell untuk mengotomatisasi tugas manajemen.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+:::info Informasi Terkait
+- [**Build great solutions with the Microsoft Azure Well-Architected Framework**](https://learn.microsoft.com/en-us/learn/paths/azure-well-architected-framework/)
+:::
+

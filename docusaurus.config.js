@@ -35,6 +35,10 @@ module.exports = {
           label: "Documentation",
           docId: "Getting-started/introduction",
         },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
       ],
     },
     footer: {
@@ -70,7 +74,9 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          //sidebarPath: require.resolve("./sidebars.js"),
+          path: 'docs',
+          routeBasePath: 'docs',
+          sidebarPath: undefined,
           //editUrl: "https://github.com/gotenberg/gotenberg.dev/edit/main/",
           //lastVersion: "current",
           //versions: {
@@ -87,4 +93,18 @@ module.exports = {
     ],
   ],
   plugins: ["@docusaurus/plugin-ideal-image"],
+  i18n: {
+  defaultLocale: 'id',
+  locales: ['id', 'en'],
+  localeConfigs: {
+    id: {
+      label: 'Bahasa Indonesia',
+      direction: 'ltr',
+    },
+    en: {
+      label: 'English',
+      direction: 'ltr',
+    },
+  },
+},
 };

@@ -1,0 +1,10 @@
+{
+  "copyright": {
+    "message": "Copyright © 2025 Saragih Ruben.<br /> Built with <a href=\"https://docusaurus.io\" target=\"_blank\">Docusaurus</a>.",
+    "description": "The footer copyright"
+  },
+  "logo.alt": {
+    "message": "Saragih Ruben Logo",
+    "description": "The alt text of footer logo"
+  }
+}

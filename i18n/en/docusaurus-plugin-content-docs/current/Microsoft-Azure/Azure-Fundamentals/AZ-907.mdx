@@ -1,0 +1,246 @@
+---
+id: AZ-907
+title: Azure storage services
+---
+
+## Azure storage accounts
+
+Azure Storage Account menyediakan namespace unik untuk data Azure Storage Anda, yang dapat diakses secara global melalui HTTP atau HTTPS. 
+Data dalam akun ini aman, tersedia tinggi, tahan lama, dan sangat fleksibel.
+
+### Jenis Storage Account dan Opsi Redundansi
+Saat membuat storage account, kita dapat memilih jenis akun yang menentukan layanan penyimpanan, opsi redundansi, dan kasus penggunaannya.
+
+**Opsi Redundansi:**
+1. Locally Redundant Storage (LRS) :
+Menyimpan tiga salinan data dalam satu wilayah Azure.
+
+2. Zone-Redundant Storage (ZRS) :
+Menyimpan data di beberapa zona dalam satu wilayah.
+
+3. Geo-Redundant Storage (GRS) :
+Menyimpan data di dua wilayah Azure berbeda (primary dan secondary).
+
+4. Read-Access Geo-Redundant Storage (RA-GRS) :
+Sama seperti GRS, tetapi memungkinkan akses baca ke secondary region.
+
+5. Geo-Zone-Redundant Storage (GZRS) :
+Kombinasi ZRS dan GRS untuk daya tahan maksimal.
+
+6. Read-Access Geo-Zone-Redundant Storage (RA-GZRS) :
+GZRS dengan akses baca ke secondary region.
+
+### Storage Account Endpoints
+Setiap Azure Storage Account memiliki namespace unik. Nama akun harus:
+- 3-24 karakter
+- Hanya huruf kecil dan angka
+- Unik di seluruh Azure
+
+![Docusaurus logo](/img/az900/11.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure storage redundancy
+
+Azure Storage selalu menyimpan beberapa salinan data untuk melindungi dari kegagalan perangkat keras, gangguan jaringan, pemadaman listrik, dan bencana alam. 
+Redundansi memastikan ketersediaan dan daya tahan data, bahkan saat terjadi kegagalan.
+
+**1. Memilih Opsi Redundansi**
+
+Saat memilih opsi redundansi, pertimbangkan:
+- Bagaimana data direplikasi dalam primary region.
+- Apakah data direplikasi ke secondary region yang jauh secara geografis.
+- Apakah aplikasi memerlukan akses baca ke data di secondary region saat primary region tidak tersedia.
+
+<br/>
+**2. Redundansi di primary region**
+
+Setiap akun Azure Storage secara otomatis menyimpan tiga salinan data dalam primary region.
+
+    a. Locally Redundant Storage (LRS)
+        - Menyimpan 3 salinan data dalam satu data center di primary region.
+        - Daya tahan 99,999999999% (11 sembilan) per tahun.
+        - Biaya terendah tetapi rentan terhadap bencana yang memengaruhi seluruh data center.
+
+    b. Zone-Redundant Storage (ZRS)
+        - Menyimpan 3 salinan data di 3 zona ketersediaan dalam primary region.
+        - Daya tahan 99,9999999999% (12 sembilan) per tahun.
+        - Lebih aman daripada LRS, tetap tersedia meskipun satu zona gagal.
+        - Direkomendasikan untuk aplikasi yang memerlukan ketersediaan tinggi.
+
+<br/>
+**3. Redundansi di secondary region**
+
+Untuk daya tahan lebih tinggi, data dapat direplikasi ke secondary region ratusan mil dari primary region.
+
+    a. Geo-Redundant Storage (GRS)
+        - Menyimpan 3 salinan data di primary region (LRS) dan mereplikasi ke secondary region (LRS) secara asinkron.
+        - Daya tahan 99,99999999999999% (16 sembilan) per tahun.
+        - secondary region hanya bisa diakses setelah failover.
+
+    b. Geo-Zone-Redundant Storage (GZRS)
+        - Menggabungkan ZRS di primary region dengan replikasi LRS di secondary region.
+        - Memberikan ketersediaan tinggi + perlindungan terhadap bencana regional.
+        - Cocok untuk aplikasi dengan kebutuhan konsistensi, daya tahan, dan performa maksimal.
+
+<br/>
+**4. Akses Baca ke secondary region**
+
+Secara default, data di secondary region tidak dapat dibaca atau ditulis hingga terjadi failover.
+- Read-Access Geo-Redundant Storage (RA-GRS) → Membuka akses baca ke data di secondary region.
+- Read-Access Geo-Zone-Redundant Storage (RA-GZRS) → Sama seperti RA-GRS tetapi menggunakan GZRS.
+
+:::info
+Catatan Penting:
+Karena replikasi ke secondary region bersifat asinkron, ada kemungkinan kehilangan data jika primary region gagal sebelum replikasi selesai.
+:::
+
+:::tip Konklusi 
+- LRS → Paling murah, hanya melindungi dari kegagalan perangkat keras.
+- ZRS → Melindungi dari kegagalan zona dalam primary region.
+- GRS & GZRS → Melindungi dari bencana regional dengan replikasi ke secondary region.
+- RA-GRS & RA-GZRS → Memungkinkan akses baca ke secondary region sebelum failover.
+
+Opsi mana yang terbaik tergantung pada biaya, ketersediaan, dan **Business Continuity and Disaster Recovery (BCDR)**.
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure storage services
+
+Platform Azure Storage mencakup layanan data berikut:
+- Azure Blobs: Penyimpanan objek yang sangat fleksibel untuk teks dan data biner. Juga mendukung analiis big data melalui Data Lake Storage Gen2.
+- Azure Files: Berbagi file yang dikelola untuk penerapan di cloud atau on-premises.
+- Azure Queues: Penyimpanan pesan untuk komunikasi yang andal antar komponen aplikasi.
+- Azure Disks: Volume penyimpanan berbasis blok untuk VM Azure.
+- Azure Tables: Opsi tabel NoSQL untuk data terstruktur dan non-relasional.
+
+### Manfaat Azure Storage
+Azure Storage menawarkan manfaat berikut bagi pengembang aplikasi dan profesional IT:
+- Tahan lama dan sangat tersedia: Redundansi memastikan data aman meskipun terjadi kegagalan perangkat keras sementara. 
+Replikasi data antar data center atau wilayah geografis juga tersedia.
+- Aman: Semua data dalam akun penyimpanan Azure dienkripsi. Pengguna memiliki kontrol akses yang detail.
+- Fleksibel: Dirancang untuk menangani pertumbuhan data yang sangat besar.
+- Dikelola sepenuhnya: Microsoft menangani pemeliharaan perangkat keras, pembaruan, dan perbaikan kritis.
+- Dapat diakses secara global: Data dapat diakses melalui HTTP atau HTTPS secara global, dengan dukungan berbagai bahasa pemrograman seperti 
+.NET, Java, Python, Node.js, dll.
+
+### Azure Blobs
+Azure Blob Storage adalah solusi penyimpanan objek berbasis cloud yang dapat menangani data dalam jumlah besar seperti teks atau data biner.
+
+Kasus penggunaan utama Blob Storage:
+- Menyediakan gambar atau dokumen langsung ke browser.
+- Penyimpanan file untuk akses terdistribusi.
+- Streaming video dan audio.
+- Penyimpanan untuk pencadangan, pemulihan bencana, dan pengarsipan.
+- Penyimpanan data untuk analitik baik di lokasi atau di Azure.
+
+**Tingkat Penyimpanan Azure Blob**
+Azure menawarkan beberapa tingkat penyimpanan berdasarkan frekuensi akses dan durasi penyimpanan:
+- Hot: Untuk data yang sering diakses (misalnya gambar untuk situs web).
+- Cool: Untuk data yang jarang diakses (minimal 30 hari).
+- Cold: Untuk data yang sangat jarang diakses (minimal 90 hari).
+- Archive: Untuk penyimpanan jangka panjang (minimal 180 hari).
+
+### Azure Files
+Azure File Storage menyediakan berbagi file yang sepenuhnya dikelola di cloud menggunakan protokol SMB (Server Message Block) atau NFS (Network File System).
+
+**Keuntungan utama Azure Files:**
+- Akses Bersama: Dapat menggantikan file share lokal tanpa perlu perubahan kompatibilitas aplikasi.
+- Dikelola sepenuhnya: Tidak perlu menangani pemeliharaan perangkat keras atau OS.
+- Scripting & Tools: Bisa dikelola melalui Azure Portal, PowerShell, CLI, dan Azure Storage Explorer.
+- Ketahanan tinggi: Dibangun agar selalu tersedia tanpa gangguan dari kegagalan perangkat keras lokal.
+
+### Azure Queues
+Azure Queue Storage adalah layanan penyimpanan pesan yang mendukung jumlah pesan dalam jumlah besar (hingga jutaan).
+- Digunakan untuk mengatur antrian tugas secara asinkron.
+- Setiap pesan dapat berukuran hingga 64 KB.
+- Dapat dikombinasikan dengan Azure Functions untuk mengeksekusi tugas otomatis setelah pesan diterima.
+
+### Azure Disks
+Azure Disk Storage adalah volume penyimpanan berbasis blok yang dikelola Azure untuk VM Azure. 
+Keunggulannya dibandingkan disk fisik adalah ketahanan yang lebih tinggi dan ketersediaan lebih baik.
+
+### Azure Tables
+Azure Table Storage adalah penyimpanan NoSQL untuk data terstruktur dalam jumlah besar. 
+Ini memungkinkan autentikasi dari dalam maupun luar Azure, sehingga ideal untuk solusi hybrid atau multicloud.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure data migration options
+
+### 1. Azure Migrate
+Azure Migrate adalah layanan yang membantu migrasi dari lingkungan lokal ke Azure. 
+Fungsinya sebagai pusat kendali untuk menilai dan mengelola migrasi data center lokal ke cloud.
+
+- Platform Migrasi: Satu portal untuk memulai, menjalankan, dan melacak proses migrasi.
+- Beragam Tools Migrasi: Termasuk penilaian dan migrasi server serta integrasi dengan layanan Azure lainnya.
+- Penilaian dan Migrasi Infrastruktur: Memungkinkan evaluasi serta pemindahan server dan database ke Azure.
+
+Tools Terintegrasi di Azure Migrate:
+- Azure Migrate: Discovery & Assessment – Menilai kesiapan server fisik atau virtual (VMware, Hyper-V) sebelum migrasi.
+- Azure Migrate: Server Migration – Migrasikan VM lokal (VMware, Hyper-V, dan server fisik) ke Azure.
+- Data Migration Assistant – Tools untuk mengevaluasi dan mengidentifikasi kendala sebelum migrasi SQL Server.
+- Azure Database Migration Service – Memindahkan database SQL Server ke Azure SQL Database atau Azure SQL Managed Instance.
+- Azure App Service Migration Assistant – Menilai kesiapan dan melakukan migrasi untuk aplikasi .NET dan PHP ke Azure App Service.
+
+<br/>
+### 2. Azure Data Box
+Azure Data Box adalah layanan migrasi fisik yang memungkinkan transfer data dalam jumlah besar ke Azure dengan cepat dan aman.
+
+- Kapasitas penyimpanan hingga 80 TB dalam satu perangkat.
+- Transfer offline untuk menghindari keterbatasan jaringan atau kecepatan internet yang rendah.
+- Dikirim dan dikembalikan secara fisik, dengan enkripsi dan proteksi keamanan tingkat tinggi.
+
+Kasus Penggunaan Azure Data Box:
+- Migrasi Sekali Pakai – Memindahkan data dalam jumlah besar ke Azure, seperti perpustakaan media atau database historis untuk analisis.
+- Transfer Awal dalam Skala Besar – Memulai transfer besar menggunakan Data Box, kemudian melanjutkan dengan transfer jaringan.
+- Pengiriman Berkala – Digunakan untuk data besar yang dihasilkan secara berkala, misalnya dari pusat riset atau manufaktur.
+- Pemulihan Bencana – Memulihkan data dari Azure ke lokasi lokal dengan cepat dalam situasi darurat.
+- Persyaratan Keamanan – Ketika perlu mengekspor data dari Azure karena peraturan pemerintah atau persyaratan keamanan.
+- Migrasi Balik atau ke Cloud Lain – Mengekspor data dari Azure ke penyimpanan lokal atau penyedia cloud lain.
+
+Setelah data dikirim ke Azure, perangkat Data Box akan dibersihkan sesuai standar keamanan NIST 800-88r1 untuk memastikan keamanan data pengguna.
+
+:::tip Konklusi
+Azure menawarkan dua pendekatan migrasi data utama:
+- Azure Migrate untuk migrasi online dan real-time dengan evaluasi serta pemindahan otomatis.
+- Azure Data Box untuk transfer data skala besar secara offline dengan perangkat fisik.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure file movement options
+
+Selain migrasi skala besar menggunakan Azure Migrate dan Azure Data Box,
+Azure menyediakan beberapa tools untuk memindahkan atau berinteraksi dengan file individu atau kelompok file kecil, seperti:
+
+**1. AzCopy**
+- Tools baris perintah untuk menyalin blob atau file ke/dari akun penyimpanan Azure.
+- Bisa digunakan untuk unggah, unduh, menyalin, dan sinkronisasi file.
+- Mendukung transfer antar akun penyimpanan maupun antar cloud.
+
+:::warning 
+Catatan: Sinkronisasi hanya satu arah — AzCopy hanya menyalin dari sumber ke tujuan tanpa memperbarui metadata atau timestamp dua arah.
+:::
+
+<br/>
+**2. Azure Storage Explorer**
+- Aplikasi GUI (grafis) untuk mengelola file dan blob dalam akun penyimpanan Azure.
+- Tersedia di Windows, macOS, dan Linux.
+- Memanfaatkan AzCopy untuk transfer file.
+- Bisa digunakan untuk unggah, unduh, atau memindahkan file antar akun penyimpanan.
+
+<br/>
+**3. Azure File Sync**
+- Memungkinkan Anda menyentralisasi file share di Azure Files, tetapi tetap menjaga fleksibilitas dan kompatibilitas Windows File Server.
+- Bi-directional Sync otomatis antara server lokal dan Azure Files.
+- Mendukung berbagai protokol Windows Server seperti SMB, NFS, dan FTPS.
+- Memungkinkan cloud tiering, di mana file yang sering diakses disimpan lokal, sementara yang jarang diakses tetap di cloud.
+- Jika server lokal rusak, Anda bisa memulihkan data dengan cepat dengan menginstal ulang Azure File Sync pada server baru di datacenter yang sama.
+
+:::tip Konklusi
+- AzCopy cocok untuk pengguna yang nyaman dengan perintah CLI dan butuh transfer file cepat.
+- Azure Storage Explorer cocok untuk pengguna yang lebih suka antarmuka grafis.
+- Azure File Sync sangat berguna untuk organisasi yang ingin menghubungkan file server lokal dengan Azure Files secara otomatis.
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------------

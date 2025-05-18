@@ -1,0 +1,111 @@
+---
+id: AZ-901
+title: Definisi Cloud Computing
+---
+
+## Apa itu Cloud Computing? 
+
+Cloud Computing adalah penyediaan layanan komputasi pada internet. Layanan komputasi mencakup infrastruktur IT pada umumnya seperti **mesin virtual**, **storage**, **database**, dan **jaringan**. 
+Layanan cloud juga memperluas implementasi infrastruktur IT untuk mencakup hal-hal seperti **Internet of Things (IoT)**, **Machine Learning (ML)**, dan **Artificial Intelligence (AI)**.
+
+Dalam Cloud Computing terdapat istilah **Shared Responsibility Model** yang membagi layanan cloud kedalam beberapa jenis berdasarkan responsibility antara customer dan penyedia layanan cloud.
+
+Diagram berikut menggambarkan bagaimana **Shared Responsibility Model** menentukan siapa yang bertanggung jawab atas apa, tergantung pada jenis layanan cloud yang digunakan.
+
+![Docusaurus logo](/img/az900/1.png)
+
+Saat menggunakan penyedia cloud, pengguna selalu bertanggung jawab atas:
+- Informasi dan data yang disimpan di cloud
+- Perangkat yang diizinkan terhubung ke cloud (ponsel, komputer, dan sebagainya)
+- Akun dan identitas orang, layanan, dan perangkat dalam organisasi
+
+Penyedia cloud selalu bertanggung jawab atas:
+- Data Center
+- Jaringan Fisik 
+- Host Fisik (Daya Listrik, K3, CCTV, security, etc)
+
+Model layanan yang pengguna pilih akan menentukan tanggung jawab atas aspek-aspek seperti:
+- Sistem operasi
+- Kontrol jaringan
+- Aplikasi
+- Identitas dan infrastruktur
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Model Cloud Computing
+Model cloud mendefinisikan jenis penerapan resources cloud. Tiga model utama cloud adalah **private cloud**, **public cloud**, dan **hybrid cloud**.
+
+### Private Cloud
+Ini adalah cloud yang menyediakan layanan IT melalui internet tetapi hanya di kelola oleh satu entitas atau organisasi. 
+Private cloud memberikan kontrol dalam skala yang luas kepada perusahaan dan departemen IT-nya. 
+Private cloud dapat dihosting di data center lokal (on-premises) atau di data center yang dikelola oleh pihak ketiga yang hanya didedikasikan untuk perusahaan tersebut.
+
+### Public Cloud
+Public cloud dibangun, dikontrol, dan dikelola oleh penyedia cloud pihak ketiga. 
+Dalam model ini, siapa pun yang ingin membeli layanan cloud dapat mengakses dan menggunakan resources yang tersedia.
+
+### Hybrid Cloud
+Hybrid cloud adalah layanan cloud yang menggabungkan private cloud dan public cloud dalam satu sistem yang saling terhubung. 
+Model ini juga dapat digunakan untuk meningkatkan keamanan, misalnya dengan menentukan layanan mana yang akan tetap berada di public cloud dan mana yang harus 
+dijalankan di infrastruktur private cloud.
+
+Tabel berikut akan membandingkan beberapa aspek utama dari masing-masing model cloud.
+
+![Docusaurus logo](/img/az900/2.png)
+
+### Multi-cloud
+Multi-cloud adalah skenario menggunakan lebih dari satu penyedia cloud publik. Ini menjadi semakin umum karena berbagai alasan, seperti:
+- Menggunakan fitur yang berbeda dari berbagai penyedia cloud.
+- Memulai dengan satu penyedia cloud lalu bermigrasi ke penyedia lain.
+- Meningkatkan ketahanan dan menghindari ketergantungan pada satu penyedia cloud saja.
+- Dalam lingkungan multi-cloud, pengguna harus mengelola resources dan keamanan di beberapa penyedia cloud secara bersamaan.
+
+### Azure Arc
+Azure Arc adalah tools yang membantu mengelola lingkungan cloud, baik itu:
+- Public cloud yang hanya menggunakan Azure.
+- Private cloud di data center Anda sendiri.
+- Hybrid cloud yang menggabungkan private dan public cloud.
+- Multi-cloud yang menggunakan beberapa penyedia cloud secara bersamaan.
+Azure Arc memberikan kontrol yang lebih besar dan manajemen yang lebih mudah untuk berbagai skenario cloud.
+
+### Azure VMware Solution 
+Azure VMware Solution memungkinkan pengguna menjalankan beban kerja VMware di Azure dengan integrasi yang mulus dan skalabilitas yang tinggi.
+Ini membantu perusahaan yang ingin beralih ke cloud tanpa perlu mengubah arsitektur atau infrastruktur yang sudah ada.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Consumption-based model
+
+**Perbandingan Model Infrastruktur IT: CapEx vs OpEx**
+
+Dalam membandingkan model infrastruktur TI, terdapat dua jenis pengeluaran yang perlu dipertimbangkan:
+- Capital Expenditure (CapEx) : pengeluaran satu kali yang dilakukan di awal untuk membeli atau mengamankan resources fisik. 
+- Operational Expenditure (OpEx) : pengeluaran untuk layanan atau produk yang dilakukan secara berkala dalam jangka waktu tertentu.
+
+### Cloud Computing dan OpEx
+Cloud computing termasuk dalam kategori OpEx karena cloud beroperasi dengan model berbasis konsumsi (pay-as-you-go). Dalam cloud computing, pengguna tidak perlu membayar untuk:
+- Infrastruktur fisik
+- Listrik
+- Keamanan
+- Pemeliharaan data center
+
+### Manfaat Model Berbasis Konsumsi dalam Cloud Computing
+- Tanpa biaya di awal
+- Tidak perlu membeli dan mengelola infrastruktur mahal yang mungkin tidak dimanfaatkan sepenuhnya
+- Dapat menambah reources / layanan saat dibutuhkan
+- Dapat berhenti membayar reources / layanan yang tidak lagi diperlukan
+
+### Perbandingan Model Harga Cloud
+Cloud computing menggunakan model harga *pay-as-you-go*, yang berarti pengguna hanya membayar untuk layanan cloud yang digunakan. Hal ini membantu dalam:
+- Merencanakan dan mengelola biaya operasional
+- Mengoperasikan infrastruktur dengan lebih efisien
+- Menskalakan resources sesuai dengan kebutuhan bisnis
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+:::info Informasi Terkait
+- [**Shared responsibility in the cloud**](https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility)
+- [**Introduction to Azure VMWare Solution**](https://learn.microsoft.com/en-us/learn/modules/intro-azure-vmware-solution/)
+- [**Introduction to Azure cloud hybrid services**](https://learn.microsoft.com/en-us/learn/modules/intro-to-azure-hybrid-services/)
+
+:::

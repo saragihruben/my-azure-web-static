@@ -1,0 +1,153 @@
+---
+id: AZ-904
+title: Komponen Arsitektur dari Azure Cloud
+---
+
+<br/>
+## Physical Infrastructure
+
+Azure memiliki infrastruktur fisik yang mencakup  **datacenter**, **region**, **availability zones**, dan **region pairs**. 
+Infrastruktur ini dirancang untuk menyediakan layanan cloud yang andal, cepat, dan aman bagi penggunanya.
+
+<br/>
+### Azure Regions
+
+Region adalah area geografis yang berisi satu atau lebih data center dengan koneksi jaringan berlatensi rendah.
+Setiap resource yang dibuat pada Azure harus ditempatkan dalam region tertentu.
+
+:::info Fakta Penting:
+Beberapa layanan hanya tersedia di region tertentu, misalnya jenis VM spesifik atau jenis penyimpanan tertentu.
+Ada layanan global Azure yang tidak memerlukan pemilihan region, seperti **Microsoft Entra ID**, **Azure Traffic Manager**, dan **Azure DNS**.
+:::
+
+<br/>
+### Availability Zones
+
+Availability Zones adalah data center yang terpisah secara fisik dalam satu region Azure.
+Setiap zona memiliki daya, pendingin, dan jaringan yang terpisah, sehingga jika satu zona gagal, zona lain tetap beroperasi.
+
+Kegunaan Availability Zones:
+-  Meningkatkan keandalan aplikasi dengan replikasi data dan layanan
+-  Digunakan untuk layanan seperti VM, disk terkelola, load balancer, dan SQL database
+-  Dapat menambah biaya karena ada replikasi antar zona
+
+<br/>
+### Region Pairs 
+
+Sebagian besar region Azure dipasangkan dengan region lain dalam satu wilayah geografis (minimal 300 mil jauhnya).
+Fungsi utama: Replikasi resources untuk mengurangi risiko gangguan besar, seperti bencana alam atau pemadaman listrik.
+
+Keuntungan Region Pairs:
+- Failover otomatis jika salah satu region mengalami gangguan besar
+- Azure memperbarui region satu per satu untuk mengurangi downtime
+- Data tetap berada dalam satu wilayah hukum (kecuali Brasil Selatan)
+
+Contoh Region Pairs:
+- West US ↔ East US
+- Southeast Asia ↔ East Asia
+
+Namun, ada beberapa region yang tidak memiliki pasangan dua arah, seperti West India & Brazil South.
+
+<br/>
+### Sovereign Regions
+Azure memiliki beberapa wilayah khusus yang terisolasi dari jaringan utama Azure untuk kepatuhan hukum dan regulasi tertentu.
+
+- Azure Government (US DoD, US Gov Virginia, dll.): Digunakan oleh instansi pemerintah AS dengan keamanan tambahan.
+- Azure China (China East, China North, dll.): Dikelola oleh 21Vianet, bukan Microsoft langsung.
+
+<br/>
+:::tip Konklusi
+- Azure memiliki data center global yang tersebar di berbagai region
+- Availability Zones memastikan layanan tetap berjalan meskipun ada kegagalan zona tertentu
+- Region Pairs melindungi data dari bencana besar dengan failover otomatis
+- Sovereign Regions dibuat untuk kepatuhan hukum dan regulasi tertentu
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Management Infrastructure
+
+Infrastruktur manajemen mencakup **Azure resources**, **Resources group**, **Subscriptions**, dan **Account**. 
+
+![Docusaurus logo](/img/az900/3.png)
+
+### Azure resources
+Azure resources adalah blok bangunan dasar dalam Azure. Apa pun yang dibuat, disediakan, atau diterapkan dalam Azure dianggap sebagai resources, seperti:
+- Virtual Machines (VMs) 
+- App Services 
+- Komponen jaringan 
+- Database (SQL Server) 
+- Azure Functions 
+
+<br/>
+### Resources group
+Resources group adalah kumpulan resources dalam Azure. Saat membuat resources, pengguna harus menempatkannya dalam sebuah resources group.
+
+**Fakta Penting tentang Resources group**
+- Satu resources hanya dapat berada dalam satu resources group.
+- Beberapa resources dapat dipindahkan ke resources group lain, tetapi resources yang dipindahkan tidak lagi terkait dengan grup sebelumnya.
+- Resources group tidak dapat dibuat bertingkat (nested).
+
+**Resources group memberikan beberapa manfaat utama**
+- Penghapusan massal → Menghapus resources group akan menghapus semua resources di dalamnya.
+- Kontrol akses → Izin yang diberikan pada resources group berlaku untuk semua resources di dalamnya.
+- Strukturisasi proyek → Misalnya, mengelompokkan semua resources dalam satu grup untuk penghapusan lebih mudah setelah proyek selesai.
+
+<br/>
+### Subscriptions Azure
+subscriptions Azure digunakan untuk pengelolaan, penagihan, dan skala resources. 
+Mirip dengan resources group, subscriptions memungkinkan pengorganisasian resources dan resources group.
+
+Untuk menggunakan Azure, pengguna harus memiliki subscriptions Azure, yang memberikan akses autentikasi dan otorisasi ke produk serta layanan Azure.
+Jenis Batasan subscriptions :
+
+- Batasan Penagihan → Menentukan bagaimana account Azure ditagih. Dengan memiliki beberapa subscriptions, pengguna bisa mendapatkan laporan tagihan terpisah untuk masing-masing subscriptions.
+
+- Batasan Kontrol Akses → Kebijakan pengelolaan akses dapat diterapkan pada tingkat subscriptions. Ini membantu dalam mengelola akses ke resources berdasarkan struktur organisasi.
+
+:::info Mengapa Membuat Beberapa subscriptions?
+
+- Memisahkan lingkungan → Contohnya, satu subscriptions untuk produksi dan satu lagi untuk pengembangan.
+- Struktur organisasi → Masing-masing departemen dalam perusahaan dapat memiliki subscriptions sendiri dengan kebijakan berbeda.
+- Manajemen biaya → Mengelompokkan resources berdasarkan proyek atau departemen untuk pelacakan biaya yang lebih baik.
+
+:::
+
+<br/>
+### Management groups Azure
+
+![Docusaurus logo](/img/az900/4.png)
+
+Jika pengguna memiliki banyak subscriptions, diperlukan cara untuk mengelola akses, kebijakan, dan kepatuhan secara efisien di seluruh subscriptions. 
+Management groups Azure adalah hierarki di atas subscriptions yang memungkinkan penerapan kebijakan dan kontrol akses secara lebih luas.
+
+- Semua subscriptions dalam management groups akan otomatis mewarisi kebijakan dan aturan akses dari grup tersebut.
+
+- management groups dapat dibuat bertingkat, memungkinkan pengelompokan berdasarkan tim, departemen, atau kebutuhan spesifik lainnya.
+
+**Contoh Penggunaan management groups**
+
+- Penerapan Kebijakan → Misalnya, membatasi lokasi VM hanya di wilayah tertentu dalam management groups yang disebut "Production". 
+Semua subscriptions di bawahnya akan otomatis mewarisi kebijakan ini.
+
+- Akses ke Beberapa subscriptions → Dengan menempatkan beberapa subscriptions dalam satu management groups, pengguna 
+dapat menerapkan satu aturan akses ke semua subscriptions di bawahnya, tanpa perlu menerapkannya satu per satu.
+
+<br/>
+:::info Fakta Penting tentang Management groups :
+- Mendukung hingga 10.000 management groups dalam satu direktori.
+
+- Struktur management groups dapat memiliki kedalaman hingga 6 level.
+
+- Setiap management groups dan subscriptions hanya dapat memiliki satu induk (parent).
+:::
+
+<br/>
+
+:::tip Konklusi
+- Resources adalah unit dasar dalam Azure, yang dikelompokkan dalam group resources untuk memudahkan pengelolaan.
+- Azure subscriptions digunakan untuk mengatur resources dan resources group dalam cost and budgeting.
+- Management group menyediakan kontrol lebih luas di atas subscriptions, memungkinkan penerapan kebijakan dan akses secara terpusat.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

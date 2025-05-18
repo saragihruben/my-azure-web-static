@@ -7,7 +7,7 @@ export default {
   "title": "MyWiki",
   "trailingSlash": false,
   "url": "https://lively-stone-0b0c94d10.6.azurestaticapps.net",
-  "baseUrl": "/",
+  "baseUrl": "/en/",
   "onBrokenLinks": "throw",
   "onBrokenMarkdownLinks": "warn",
   "favicon": "img/favicon.png",
@@ -35,6 +35,12 @@ export default {
           "label": "Documentation",
           "docId": "Getting-started/introduction",
           "position": "left"
+        },
+        {
+          "type": "localeDropdown",
+          "position": "right",
+          "dropdownItemsBefore": [],
+          "dropdownItemsAfter": []
         }
       ]
     },
@@ -196,9 +202,12 @@ export default {
     [
       "@docusaurus/preset-classic",
       {
-        "docs": {},
+        "docs": {
+          "path": "docs",
+          "routeBasePath": "docs"
+        },
         "theme": {
-          "customCss": "Z:\\azure\\docusaurus\\github\\my-azure-web-static\\src\\css\\custom.css"
+          "customCss": "/Users/saragihruben/Documents/GitHub/my-azure-web-static/src/css/custom.css"
         },
         "gtag": {
           "trackingID": "G-Q1MDM8KFVG"
@@ -209,15 +218,25 @@ export default {
   "plugins": [
     "@docusaurus/plugin-ideal-image"
   ],
-  "baseUrlIssueBanner": true,
   "i18n": {
-    "defaultLocale": "en",
-    "path": "i18n",
+    "defaultLocale": "id",
     "locales": [
+      "id",
       "en"
     ],
-    "localeConfigs": {}
+    "localeConfigs": {
+      "id": {
+        "label": "Bahasa Indonesia",
+        "direction": "ltr"
+      },
+      "en": {
+        "label": "English",
+        "direction": "ltr"
+      }
+    },
+    "path": "i18n"
   },
+  "baseUrlIssueBanner": true,
   "future": {
     "experimental_faster": {
       "swcJsLoader": false,

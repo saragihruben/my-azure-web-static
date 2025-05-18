@@ -12,13 +12,9 @@
 module.exports = {
   "": [
     {
-      type: "category",
-      label: "Getting Started",
-      collapsible: false,
-      items: [
-        "Getting-started/introduction",
-      ],
-      position: 1, // Ensure it stays at the top
+      type: 'doc',
+      id: 'introduction', // ✅ match the id in frontmatter
+      label: 'Introduction',
     },
     {
       type: "doc",
@@ -134,8 +130,8 @@ module.exports = {
               label: "Microsoft-Azure-Hands-On",
               collapsible: true,
               items: [
-                "Microsoft-Azure/Microsoft-Azure-Hands-On/Comming Soon 1",
-                "Microsoft-Azure/Microsoft-Azure-Hands-On/Comming Soon 2",
+                "Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 1",
+                "Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 2",
               ],
             },
 

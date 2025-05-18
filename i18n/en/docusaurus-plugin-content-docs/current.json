@@ -1,0 +1,46 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.defaultSidebar.category.Getting-started": {
+    "message": "Getting-started",
+    "description": "The label for category Getting-started in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Microsoft-Azure": {
+    "message": "Microsoft-Azure",
+    "description": "The label for category Microsoft-Azure in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Azure Fundamentals": {
+    "message": "Azure Fundamentals",
+    "description": "The label for category Azure Fundamentals in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Azure Administrator": {
+    "message": "Azure Administrator",
+    "description": "The label for category Azure Administrator in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Manage Identity and Governance": {
+    "message": "Manage Identity and Governance",
+    "description": "The label for category Manage Identity and Governance in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Configure and manage virtual networks": {
+    "message": "Configure and manage virtual networks",
+    "description": "The label for category Configure and manage virtual networks in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Implement and manage storage": {
+    "message": "Implement and manage storage",
+    "description": "The label for category Implement and manage storage in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Deploy and manage compute resources": {
+    "message": "Deploy and manage compute resources",
+    "description": "The label for category Deploy and manage compute resources in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Monitor and back up resources": {
+    "message": "Monitor and back up resources",
+    "description": "The label for category Monitor and back up resources in sidebar defaultSidebar"
+  },
+  "sidebar.defaultSidebar.category.Microsoft Azure Hands-On": {
+    "message": "Microsoft Azure Hands-On",
+    "description": "The label for category Microsoft Azure Hands-On in sidebar defaultSidebar"
+  }
+}
