@@ -186,23 +186,8 @@
               "sidebar": "defaultSidebar"
             },
             {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/01-Manage-Identity-and-Governance",
-              "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/",
-              "sidebar": "defaultSidebar"
-            },
-            {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041",
               "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041",
-              "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042",
-              "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042",
               "sidebar": "defaultSidebar"
             },
             {
@@ -216,16 +201,6 @@
               "sidebar": "defaultSidebar"
             },
             {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043",
-              "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044",
-              "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044",
-              "sidebar": "defaultSidebar"
-            },
-            {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044",
               "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044",
               "sidebar": "defaultSidebar"
@@ -233,16 +208,6 @@
             {
               "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045",
               "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045",
-              "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046",
-              "path": "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046",
               "sidebar": "defaultSidebar"
             },
             {

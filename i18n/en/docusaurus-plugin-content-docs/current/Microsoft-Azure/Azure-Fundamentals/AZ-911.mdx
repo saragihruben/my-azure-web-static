@@ -1,146 +1,144 @@
 ---
 id: AZ-911
-title: Monitoring tools pada Azure Cloud
+title: Monitoring Tools on Azure Cloud
 ---
 
 <br/>
-## Azure Advisor
-Azure Advisor mengevaluasi resources pada Azure dan memberikan rekomendasi untuk membantu meningkatkan:
-- Keandalan
-- Keamanan
-- Performa
-- Keunggulan Operasional
-- Efisiensi Biaya
+## Azure Advisor  
+Azure Advisor evaluates your Azure resources and provides recommendations to help improve:  
+- Reliability  
+- Security  
+- Performance  
+- Operational Excellence  
+- Cost Efficiency  
 
-Azure Advisor dirancang untuk membantu pengguna menghemat waktu dalam mengoptimalkan cloud.
-Layanan rekomendasi ini mencakup tindakan yang disarankan yang dapat di ambil langsung, tunda, atau abaikan.
+Azure Advisor is designed to help users save time optimizing their cloud environment.  
+The recommendation service includes suggested actions that can be taken immediately, postponed, or ignored.
 
-Rekomendasi ini tersedia melalui portal Azure dan API, dan kita juga dapat mengatur notifikasi untuk memberi tahu jika ada rekomendasi baru.
+These recommendations are available through the Azure portal and API, and notifications can be set up to alert when new recommendations are available.
 
-**Bagaimana Cara Mengaksesnya?**
-Saat berada di portal Azure, dashboard Azure Advisor menampilkan rekomendasi yang dipersonalisasi untuk semua langganan (subscriptions). 
-Kita bisa menggunakan filter untuk melihat rekomendasi berdasarkan:
-- Langganan tertentu
-- Resource group
+**How to Access It?**  
+While in the Azure portal, the Azure Advisor dashboard displays personalized recommendations for all your subscriptions.  
+You can filter recommendations by:  
+- Specific subscription  
+- Resource group  
 
-### Jenis layanan
+### Service Categories
 
-**Kategori Rekomendasi Azure Advisor:**
-- **Reliability (Keandalan)**
-  Untuk memastikan dan meningkatkan kontinuitas aplikasi penting bisnis.
-- **Security (Keamanan)**
-  Untuk mendeteksi ancaman dan kerentanan yang dapat menyebabkan pelanggaran keamanan.
-- **Performance (Performa)**
-  Untuk meningkatkan kecepatan dan efisiensi aplikasi.
-- **Operational Excellence** (Keunggulan Operasional)
-  Untuk membantu meningkatkan efisiensi proses dan alur kerja, pengelolaan resources, serta praktik penyebaran yang baik.
-- **Cost (Biaya)**
-  Untuk mengoptimalkan dan mengurangi pengeluaran Azure secara keseluruhan.
-
----------------------------------------------------------------------------------------------------------------------------------------------------
-
-## Azure Service Health
-Microsoft Azure menyediakan solusi cloud global untuk membantu dalam mengelola infrastruktur, menjangkau pelanggan, berinovasi, dan beradaptasi dengan cepat. 
-Azure Service Health membantu dalam melacak status resources Azure, baik secara global maupun spesifik ke langganan pengguna. 
-
-Azure Service Health mencakup tiga layanan utama:
-
-**1. Azure Status**
-- Memberikan gambaran umum tentang status seluruh layanan Azure secara global.
-- Menampilkan gangguan layanan (service outage) di semua wilayah.
-- Cocok untuk insiden dengan dampak luas.
-
-:::info
-Bisa diakses melalui halaman: https://status.azure.com
-:::
-
-<br/>
-**2. Service Health**
-- Memberikan pandangan yang lebih terfokus pada layanan Azure dan wilayah yang di gunakan.
-- Menampilkan gangguan layanan, pemeliharaan terjadwal, dan pemberitahuan kesehatan lainnya.
-- Otentikasi memungkinkan tampilan yang dipersonalisasi sesuai layanan yang di gunakan.
-- Kita dapat mengatur notifikasi otomatis agar tahu jika ada masalah yang memengaruhi layanan.
-
-<br/>
-**3. Resource Health**
-- Menampilkan kesehatan resources Azure secara spesifik, seperti instance VM tertentu.
-- Memberi tahu apakah sebuah resources tidak tersedia karena masalah Azure atau masalah konfigurasi lokal.
-- Dapat diintegrasikan dengan Azure Monitor untuk membuat alert.
-
-:::tip Manfaat Tambahan:
-- Memberikan pandangan menyeluruh, dari level global hingga level resources individual.
-- Menyimpan riwayat gangguan dan peringatan untuk analisis lebih lanjut.
-- Menyediakan tautan langsung ke dukungan Microsoft jika beban kerja terdampak oleh suatu insiden.
-:::
+**Azure Advisor Recommendation Categories:**  
+- **Reliability**  
+  To ensure and improve the continuity of critical business applications.  
+- **Security**  
+  To detect threats and vulnerabilities that could cause security breaches.  
+- **Performance**  
+  To enhance application speed and efficiency.  
+- **Operational Excellence**  
+  To help improve process and workflow efficiency, resource management, and good deployment practices.  
+- **Cost**  
+  To optimize and reduce overall Azure expenditure.  
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Azure Monitor
+## Azure Service Health  
+Microsoft Azure provides a global cloud solution to help manage infrastructure, reach customers, innovate, and adapt quickly.  
+Azure Service Health helps track the status of your Azure resources, both globally and specific to your subscriptions.
 
-Azure Monitor adalah sebuah platform pemantauan komprehensif yang digunakan untuk:
-- Mengumpulkan data dari berbagai sumber (Azure, on-premise, atau multi-cloud)
-- Menganalisis data tersebut
-- Memvisualisasikan informasi
-- Mengambil tindakan otomatis berdasarkan hasil analisis
+Azure Service Health includes three main services:
 
-Azure Monitor mampu memantau resources Azure, resources on-premise, dan bahkan resources dari penyedia cloud lain seperti VM di cloud berbeda.
+**1. Azure Status**  
+- Provides an overview of the status of all Azure services globally.  
+- Displays service outages across all regions.  
+- Suitable for incidents with broad impact.
 
-**Bagaimana Azure Monitor Bekerja?**
-
-**1. Sumber Data**
-
-Data dikumpulkan dari seluruh lapisan arsitektur aplikasi—mulai dari aplikasi, sistem operasi, hingga jaringan.
-
-**2. Penyimpanan Data**
-
-Data log dan metrik disimpan di repositori pusat.
-
-**3. Penggunaan Data**
-- Menampilkan kinerja real-time dan historis
-- Menampilkan data teragregasi atau detail
-- Disajikan dalam bentuk dashboard, Power BI, atau kueri Kusto (KQL)
-- Bisa digunakan untuk mengirim notifikasi atau melakukan auto-scaling berdasarkan ambang batas tertentu
+:::info  
+Accessible at: https://status.azure.com  
+:::
 
 <br/>
-### Azure Log Analytics
-**Azure Log Analytics** adalah alat di portal Azure untuk menulis dan menjalankan kueri log dari data yang dikumpulkan oleh Azure Monitor. 
-Mendukung kueri sederhana hingga kompleks, serta analisis statistik dan visualisasi hasilnya.
-Kueri ini dapat digunakan dalam fitur Azure Monitor lain seperti:
-- Peringatan berbasis log
-- Workbook
-- Dashboard interaktif
+**2. Service Health**  
+- Provides a more focused view of Azure services and regions you use.  
+- Shows service outages, scheduled maintenance, and other health advisories.  
+- Authentication allows a personalized view based on services used.  
+- You can configure automatic notifications to be alerted of issues affecting your services.
 
 <br/>
-### Azure Monitor Alerts
-**Azure Monitor Alerts** adalah sistem notifikasi otomatis yang aktif ketika Azure Monitor mendeteksi kondisi tertentu, seperti ambang batas yang terlampaui.
+**3. Resource Health**  
+- Displays the health of specific Azure resources, like particular VM instances.  
+- Notifies if a resource is unavailable due to Azure issues or local configuration problems.  
+- Can integrate with Azure Monitor to create alerts.
 
-**Kita dapat:**
-- Menentukan kondisi pemicu (trigger)
-- Mengatur tindakan notifikasi
-- Mengaitkan dengan grup tindakan (action groups) seperti email, SMS, webhook, dll
+:::tip Additional Benefits:  
+- Provides a comprehensive view from global level down to individual resources.  
+- Stores outage and alert history for further analysis.  
+- Provides direct links to Microsoft support if workloads are impacted by an incident.  
+:::
 
-Contoh: Mengirim alert jika CPU VM > 80%
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Alerts bisa berdasarkan:**
-- Metrik (real-time & numerik)
-- Log (dengan logika kompleks dan multi-source)
+## Azure Monitor  
+
+Azure Monitor is a comprehensive monitoring platform used to:  
+- Collect data from various sources (Azure, on-premises, or multi-cloud)  
+- Analyze that data  
+- Visualize information  
+- Take automated actions based on analysis results  
+
+Azure Monitor can monitor Azure resources, on-premises resources, and even resources from other cloud providers such as VMs in different clouds.
+
+**How Does Azure Monitor Work?**
+
+**1. Data Sources**  
+Data is collected across all layers of application architecture—from applications, operating systems, to networking.
+
+**2. Data Storage**  
+Logs and metrics are stored in a central repository.
+
+**3. Data Usage**  
+- Display real-time and historical performance  
+- Show aggregated or detailed data  
+- Presented via dashboards, Power BI, or Kusto Query Language (KQL) queries  
+- Used to send notifications or perform auto-scaling based on thresholds  
 
 <br/>
-### Application Insights
-**Application Insights** adalah fitur dari Azure Monitor yang memantau aplikasi web, baik yang berjalan di:
-- Azure
-- Server lokal (on-premises)
-- Cloud lain
+### Azure Log Analytics  
+**Azure Log Analytics** is a tool in the Azure portal to write and run log queries on data collected by Azure Monitor.  
+It supports simple to complex queries, statistical analysis, and visualization of results.  
+These queries can be used in other Azure Monitor features like:  
+- Log-based alerts  
+- Workbooks  
+- Interactive dashboards  
 
-**Cara Konfigurasi:**
-- Menggunakan SDK langsung dalam aplikasi
-- Atau menggunakan Application Insights Agent
+<br/>
+### Azure Monitor Alerts  
+**Azure Monitor Alerts** is an automatic notification system that triggers when Azure Monitor detects certain conditions, such as threshold breaches.
 
-**Apa yang Dipantau:**
-- Tingkat permintaan, waktu respons, tingkat kegagalan
-- Ketergantungan layanan eksternal
-- Tampilan halaman dan performa loading dari browser pengguna
-- Penggunaan AJAX, session pengguna, dan metrik server (CPU, memori, jaringan)
-- Synthetic requests untuk memantau aplikasi saat tidak ada trafik nyata
+**You can:**  
+- Define trigger conditions  
+- Configure notification actions  
+- Associate with action groups like email, SMS, webhook, etc.
+
+Example: Send an alert if VM CPU > 80%.
+
+**Alerts can be based on:**  
+- Metrics (real-time & numeric)  
+- Logs (with complex logic and multiple sources)  
+
+<br/>
+### Application Insights  
+**Application Insights** is a feature of Azure Monitor that monitors web applications running on:  
+- Azure  
+- On-premises servers  
+- Other clouds  
+
+**How to Configure:**  
+- Use SDK integrated directly into the app  
+- Or use the Application Insights Agent  
+
+**What It Monitors:**  
+- Request rates, response times, failure rates  
+- External service dependencies  
+- Page views and loading performance from user browsers  
+- AJAX usage, user sessions, and server metrics (CPU, memory, network)  
+- Synthetic requests to monitor apps when there is no real traffic  
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------

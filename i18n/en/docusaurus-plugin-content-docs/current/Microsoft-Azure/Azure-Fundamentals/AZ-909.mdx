@@ -1,148 +1,144 @@
 ---
 id: AZ-909
-title: Fitur dan tools pada Azure Cloud untuk penerapan governance and compliance
+title: Features and Tools on Azure Cloud for Governance and Compliance Implementation
 ---
 
 <br/>
 ## Microsoft Purview
 
-Microsoft Purview adalah salah satu solusi untuk tata **data governance**, **manajemen risiko**, dan **compliance**.
-Tujuannya adalah memberi insight terhadap data baik di on-premises, multi-cloud, maupun SaaS (seperti Microsoft 365).
+Microsoft Purview is a solution for **data governance**, **risk management**, and **compliance**.  
+Its goal is to provide insights into data across on-premises, multi-cloud, and SaaS (such as Microsoft 365).
 
-
-**Fitur Utama Microsoft Purview**
+**Key Features of Microsoft Purview**
 
 ![Docusaurus logo](/img/az900/16.png)
 
 <br/>
-### Dua Area Solusi Utama Microsoft Purview:
-**1. Risk & Compliance**
-Terintegrasi langsung dengan Microsoft 365 seperti Teams, OneDrive, Exchange.
+### Two Main Solution Areas of Microsoft Purview:  
+**1. Risk & Compliance**  
+Directly integrated with Microsoft 365 apps like Teams, OneDrive, Exchange.
 
-**Tujuan:**
-- Melindungi data sensitif di seluruh cloud, aplikasi, dan perangkat
-- Mengidentifikasi risiko data dan memenuhi persyaratan regulasi
-- Membantu organisasi memulai perjalanan kepatuhan hukum (compliance)
+**Purpose:**  
+- Protect sensitive data across cloud, apps, and devices  
+- Identify data risks and meet regulatory requirements  
+- Help organizations start their compliance journey  
 
-**2. Unified Data Governance**
-Membantu mengelola data di:
-- Azure
-- SQL, Hive
-- Amazon S3
-- Lokal (on-premises)
+**2. Unified Data Governance**  
+Helps manage data in:  
+- Azure  
+- SQL, Hive  
+- Amazon S3  
+- On-premises  
 
-**Manfaat:**
-- Memetakan semua aset data secara terpusat dan terkini
-- Mengetahui di mana data sensitif disimpan
-- Memberi akses aman dan terkendali untuk konsumen data
-- Menghasilkan insight dari pola penggunaan data
-- Mengelola hak akses dalam skala besar secara aman
+**Benefits:**  
+- Centrally map all data assets and keep them up-to-date  
+- Know where sensitive data is stored  
+- Provide secure and controlled access to data consumers  
+- Generate insights from data usage patterns  
+- Manage access rights at scale securely  
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Azure Policy
 
-Azure Policy adalah layanan yang memungkinkan pengguna untuk:
-- Membuat, menetapkan, dan mengelola kebijakan
-- Mengontrol konfigurasi sumber daya
-- Memastikan kepatuhan (compliance) dengan standar organisasi
+Azure Policy is a service that enables users to:  
+- Create, assign, and manage policies  
+- Control resource configurations  
+- Ensure compliance with organizational standards  
 
-### Tujuan Azure Policy
+### Purpose of Azure Policy
 
 ![Docusaurus logo](/img/az900/17.png)
 
+### How Azure Policy Works  
+Policies can be applied to:  
+- Resources  
+- Resource groups  
+- Subscriptions  
+- Management groups  
 
-### Bagaimana Azure Policy Bekerja?
-Policy dapat diterapkan pada:
-- Resource
-- Resource group
-- Subscription
-- Management group
+**Policies are inheritable**  
+For example, a policy assigned at the subscription level applies to all resource groups and resources beneath it.
 
-**Kebijakan bersifat turun-temurun (inheritable)**
-Misalnya: kebijakan di subscription akan berlaku ke seluruh resource group dan resource di bawahnya.
+#### What is an Azure Policy Initiative?  
+**Initiative** = A collection of policies with a common goal  
 
-#### Apa Itu Inisiatif (Initiative) Azure Policy?
-**Initiative** = Kumpulan kebijakan dengan tujuan yang sama
+**Purpose:** Simplifies management and compliance tracking at scale  
 
-**Tujuan**: Memudahkan pengelolaan dan pelacakan compliance skala besar
-
-Contoh: Enable Monitoring in Azure Security Center yang berisi lebih dari 100 kebijakan untuk memantau kerentanan, enkripsi, dan proteksi server.
+Example: Enable Monitoring in Azure Security Center, which includes over 100 policies to monitor vulnerabilities, encryption, and server protection.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Penggunaan Resources Locks
+## Using Resource Locks
 
-**Resource Lock** digunakan untuk mencegah penghapusan atau perubahan tidak sengaja pada resource penting di Azure.
+**Resource Lock** is used to prevent accidental deletion or modification of important Azure resources.
 
-:::warning
-Meskipun sudah ada **Azure RBAC**, pengguna dengan izin tinggi seperti Owner tetap bisa menghapus resource. Di sinilah Resource Lock berperan sebagai perlindungan ekstra.
+:::warning  
+Even with **Azure RBAC**, users with high permissions such as Owner can delete resources. Resource Locks provide extra protection in such cases.  
 :::
 
 <br/>
-### Jenis Resource Locks
+### Types of Resource Locks
 
 ![Docusaurus logo](/img/az900/18.png)
 
-**Di Mana Resource Lock Dapat Diterapkan?**
-- Individual Resource
-- Resource Group
-- Subscription
+**Where Can Resource Locks Be Applied?**  
+- Individual Resource  
+- Resource Group  
+- Subscription  
 
-**Lock bersifat turun-temurun (inheritable):**
-Kalau lock diterapkan pada level resource group, semua resource di dalamnya ikut terkunci juga.
+**Locks are inheritable:**  
+If a lock is applied at the resource group level, all resources within it are also locked.
 
+**How to Manage Resource Locks**  
+You can manage locks through:  
+- Azure Portal (Settings menu on the resource)  
+- PowerShell  
+- Azure CLI  
+- ARM Template (Azure Resource Manager)  
 
-**Cara Mengelola Resource Lock**
-Kamu bisa mengatur lock lewat:
-- Azure Portal (menu Settings pada resource)
-- PowerShell
-- Azure CLI
-- ARM Template (Azure Resource Manager)
+**How to Modify Locked Resources?**  
+- Remove the lock first  
+- Perform the desired action (delete/modify resource)  
 
-
-**Bagaimana Mengubah Resource yang Terkunci?**
-- Hapus lock terlebih dahulu
-- Lakukan aksi yang diinginkan (hapus/ubah resource)
-
-:::warning
-Walaupun kita sebagai **Owner** dari sebuah resources / resources group, kita **tetap harus menghapus lock** terlebih dahulu sebelum bisa mengubah resources / resources group.
+:::warning  
+Even as an **Owner** of a resource or resource group, you **must remove the lock** before making changes.  
 :::
 
-:::info Manfaat Resources Locks
+:::info Benefits of Resource Locks
 
-- Perlindungan dari penghapusan atau modifikasi yang tidak disengaja
-- Menjamin stabilitas layanan penting
-- Memberi rasa aman saat banyak tim mengakses cloud
-- Dapat digunakan bersamaan dengan Azure Policy dan RBAC
+- Protection against accidental deletion or modification  
+- Ensures stability of critical services  
+- Provides peace of mind when multiple teams access the cloud  
+- Can be used alongside Azure Policy and RBAC  
 
 :::
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Penggunaan Service Trust portal
+## Using the Service Trust Portal
 
-**Service Trust Portal (STP)** adalah portal resmi Microsoft yang menyediakan akses ke:
-- Dokumen keamanan & kepatuhan
-- Informasi privasi data
-- Alat bantu & sumber daya compliance
-- Bukti kontrol dan standar keamanan Microsoft
+**Service Trust Portal (STP)** is Microsoft’s official portal providing access to:  
+- Security & compliance documents  
+- Data privacy information  
+- Compliance tools & resources  
+- Evidence of Microsoft’s controls and security standards  
 
-Portal ini membantu organisasi memahami bagaimana Microsoft melindungi data dan memenuhi persyaratan kepatuhan (compliance) global.
+This portal helps organizations understand how Microsoft protects data and meets global compliance requirements.
 
-
-### Fungsi Utama Service Trust Portal
+### Main Functions of the Service Trust Portal
 
 ![Docusaurus logo](/img/az900/19.png)
 
-:::info Akses Portal
-- Kunjungi: https://servicetrust.microsoft.com
-- Login dengan akun Microsoft Entra (sebelumnya Azure AD)
+:::info Portal Access  
+- Visit: https://servicetrust.microsoft.com  
+- Sign in with a Microsoft Entra account (formerly Azure AD)  
 :::
 
-:::tip Mengapa Service Trust Portal Penting?
-- Membantu tim keamanan & compliance menunjukkan bahwa penggunaan Microsoft Cloud memenuhi standar internasional
-- Memberikan kepercayaan lebih besar kepada pelanggan dan auditor internal
-- Membantu perusahaan menjalankan audit internal & eksternal dengan lebih cepat dan akurat
+:::tip Why is the Service Trust Portal Important?  
+- Helps security & compliance teams demonstrate Microsoft Cloud meets international standards  
+- Builds greater trust with customers and internal auditors  
+- Facilitates faster and more accurate internal & external audits for organizations  
 
 :::
 

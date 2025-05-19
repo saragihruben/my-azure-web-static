@@ -1,430 +1,402 @@
 ---
 id: AZ-1042
-title: Pembuatan, konfigurasi dan manajemen identitas
+title: Creation, Configuration, and Management of Identities
 ---
 
 <br/>
-## Pembuatan, konfigurasi dan manajemen user
+## Creation, Configuration, and Management of Users
 
-Akun user berisi semua informasi yang diperlukan untuk mengautentikasi user 
-selama proses masuk. Setelah terautentikasi, Microsoft Entra ID akan membuat token akses untuk memberi otorisasi kepada user dan menentukan resource apa yang 
-dapat di akses serta apa yang dapat di lakukan dengan resource tersebut.
+User accounts contain all the information needed to authenticate users during the sign-in process. Once authenticated, Microsoft Entra ID issues access tokens to authorize users and determine which resources they can access and what actions they can perform on those resources.
 
-### Melihat user
-Untuk melihat user Microsoft Entra, pilih entri Users di bawah Identity – kemudian buka tampilan All Users. 
-Perhatikan kolom User Type untuk melihat anggota (members) dan tamu (guests), seperti yang ditunjukkan pada gambar berikut.
+### Viewing Users
+To view Microsoft Entra users, select the Users entry under Identity, then open the All Users view.  
+Note the User Type column to see members and guests, as shown in the following image.
 
 ![Docusaurus logo](/img/az104/18.png)
 
-Biasanya, Microsoft Entra ID mendefinisikan user dalam tiga cara:
-- **Identitas cloud** – User ini hanya ada di Microsoft Entra ID. Contohnya adalah akun administrator dan user biasa.
-Sumber mereka adalah Microsoft Entra ID atau direktori Microsoft Entra eksternal jika user tersebut didefinisikan di instansi Microsoft 
-Entra lain namun membutuhkan akses ke resource langganan yang dikendalikan oleh direktori ini.
-- **Identitas yang disinkronkan dengan direktori** – User ini ada di Active Directory lokal (on-premises). 
-Aktivitas sinkronisasi yang dilakukan melalui Microsoft Entra Connect akan membawa user ini ke Azure. Sumber mereka adalah Windows Server AD.
-- **User tamu atau guest** – User ini berada di luar Azure. Contohnya adalah akun dari penyedia cloud lain dan akun Microsoft seperti akun Xbox LIVE. 
-Sumber mereka adalah Invited User. Jenis akun ini berguna ketika vendor eksternal atau kontraktor membutuhkan akses ke resource Azure.
+Typically, Microsoft Entra ID defines users in three ways:
+- **Cloud identities** – These users exist only in Microsoft Entra ID. Examples include administrator and regular user accounts.  
+Their source is Microsoft Entra ID or an external Microsoft Entra directory if the user is defined in another Microsoft Entra tenant but needs access to resources controlled by this directory.
+- **Synchronized identities** – These users exist in the on-premises Active Directory.  
+Synchronization activities performed through Microsoft Entra Connect bring these users to Azure. Their source is Windows Server AD.
+- **Guest users** – These users exist outside Azure. Examples include accounts from other cloud providers and Microsoft accounts like Xbox LIVE accounts.  
+Their source is Invited User. This account type is useful when external vendors or contractors require access to Azure resources.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Menambahkan license terhadap user
+## Assigning Licenses to Users
 
-Untuk membuat user pada Microsoft Entra harus memiliki akses akun sebagai User Administrator.
+To create users in Microsoft Entra, you must have a User Administrator account.
 
-### Membuat user baru di Microsoft Entra ID
-1. Buka menu Identity di pusat admin Microsoft Entra.
-2. Di navigasi sebelah kiri, pilih Users, lalu All Users.
-3. Pada halaman Users, di menu, pilih + New user lalu Create new user.
-4. Buat user menggunakan informasi berikut:
+### Creating a New User in Microsoft Entra ID
+1. Open the Identity menu in the Microsoft Entra admin center.
+2. In the left navigation, select Users, then All Users.
+3. On the Users page, in the menu, select + New user and then Create new user.
+4. Create the user using the following information:
 
 ![Docusaurus logo](/img/az104/19.png)
 
-5. Setelah selesai, verifikasi bahwa akun Chris Green muncul di daftar All Users.
+5. After completion, verify that the account Chris Green appears in the All Users list.
 
-### Membuat Grup Keamanan di Microsoft Entra ID
-1. Buka layar Microsoft Entra admin center.
-2. Pada navigasi sebelah kiri, di bawah Identity, pilih Groups lalu pilih All groups.
-3. Pada layar Groups, di menu, pilih New group.
-4. Buat grup dengan informasi berikut:
+### Creating a Security Group in Microsoft Entra ID
+1. Open the Microsoft Entra admin center.
+2. In the left navigation, under Identity, select Groups, then All groups.
+3. On the Groups page, in the menu, select New group.
+4. Create the group with the following information:
 
 ![Docusaurus logo](/img/az104/20.png)
 
-5. Setelah selesai, verifikasi bahwa grup bernama Marketing muncul di daftar All groups.
+5. After completion, verify that the group named Marketing appears in the All groups list.
 
-### Memberikan Lisensi ke Grup
-1. Pada daftar All groups, pilih grup Marketing.
-2. Di jendela Marketing, di bawah bagian Manage, pilih Licenses.
-3. Perhatikan bahwa saat ini tidak ada lisensi yang diberikan ke grup ini.
-4. Buka tab baru di browser Anda.
-5. Pergi ke Microsoft 365 admin center di http://admin.microsoft.com.
-6. Pilih Billing dari menu di sebelah kiri.
-7. Pilih Licenses.
-8. Dari daftar lisensi yang tersedia, pilih salah satu.
-9. Selanjutnya, pilih Groups dari daftar di dekat bagian atas layar.
-10. Pada halaman Groups, pilih + Assign license.
-11. Cari dan pilih grup Marketing yang telah kita buat sebelumnya.
-12. Pilih tombol Assign di bagian bawah dialog.
-13. Anda akan menerima pesan bahwa lisensi berhasil diberikan.
+### Assigning Licenses to a Group
+1. In the All groups list, select the Marketing group.
+2. In the Marketing window, under Manage, select Licenses.
+3. Note that no licenses have been assigned to this group yet.
+4. Open a new browser tab.
+5. Go to the Microsoft 365 admin center at http://admin.microsoft.com.
+6. Select Billing from the left menu.
+7. Select Licenses.
+8. From the available licenses list, choose one.
+9. Then select Groups near the top of the page.
+10. On the Groups page, select + Assign license.
+11. Search for and select the Marketing group created earlier.
+12. Click the Assign button at the bottom of the dialog.
+13. You will receive a confirmation that the license has been successfully assigned.
 
-#### Memulihkan atau Menghapus user yang Baru Saja Dihapus di Microsoft Entra ID
-Setelah Anda menghapus user, akun tersebut akan tetap dalam status suspended selama 30 hari. 
-Selama jangka waktu 30 hari ini, akun user dapat dipulihkan bersama dengan semua propertinya. 
-Setelah jangka waktu tersebut berakhir, proses penghapusan permanen akan dimulai secara otomatis.
+#### Recovering or Deleting Recently Deleted Users in Microsoft Entra ID
+After you delete a user, the account remains in a suspended state for 30 days.  
+During this 30-day period, the user account and all its properties can be recovered.  
+After the period ends, permanent deletion begins automatically.
 
-:::warning Penting:
-Baik Anda maupun dukungan pelanggan Microsoft tidak dapat memulihkan user yang telah dihapus secara permanen.
+:::warning Important:
+Neither you nor Microsoft Support can recover users who have been permanently deleted.
 :::
 
-:::info Izin yang Diperlukan
-- Anda harus memiliki salah satu peran berikut untuk dapat memulihkan atau menghapus user secara permanen:
+:::info Required Permissions
+- You must have one of the following roles to recover or permanently delete users:
 - Global administrator
 - Partner Tier-1 Support
 - Partner Tier-2 Support
 - User administrator
 :::
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Mengembalikan atau menghapus user
+## Restoring or Deleting Users
 
-Latihan ini mengasumsikan Anda memiliki tenant Microsoft Entra dasar dengan minimal hak User Administrator untuk menyelesaikannya.
-Anda bisa mendapatkan langganan uji coba gratis di Try Azure for Free.
+This exercise assumes you have a basic Microsoft Entra tenant with at least User Administrator rights.  
+You can get a free trial subscription at Try Azure for Free.
 
-### Menghapus user dari Microsoft Entra ID
-1. Buka Microsoft Entra admin center.
-2. Di navigasi sebelah kiri, di bawah Identity, pilih Users.
-3. Di daftar Users, centang kotak untuk user yang akan dihapus. Misalnya, pilih Chris Green.
+### Deleting a User from Microsoft Entra ID
+1. Open the Microsoft Entra admin center.
+2. In the left navigation, under Identity, select Users.
+3. In the Users list, check the box next to the user to delete, e.g., Chris Green.
 
 :::info Tip:
-Memilih user langsung dari daftar memungkinkan Anda mengelola beberapa user sekaligus.
-Jika Anda mengklik nama user untuk membuka halaman detail user tersebut, Anda hanya akan mengelola satu user itu saja.
+Selecting users directly from the list lets you manage multiple users at once.  
+If you click the user name to open the user detail page, you will manage only that single user.
 :::
 
 ![Docusaurus logo](/img/az104/21.png)
 
-4. Setelah akun user dipilih, di menu, pilih Delete user.
-5. Tinjau kotak dialog yang muncul, lalu pilih OK.
+4. After selecting the user account, in the menu, select Delete user.
+5. Review the dialog box, then select OK.
 
-### Memulihkan user yang Dihapus
-1. Anda dapat melihat semua user yang dihapus dalam waktu kurang dari 30 hari. user-user ini masih dapat dipulihkan.
-2. Pada halaman Users, di navigasi sebelah kiri, pilih Deleted users.
-3. Tinjau daftar user yang dihapus dan pilih user yang sebelumnya Anda hapus.
+### Restoring Deleted Users
+1. You can view all users deleted within the last 30 days. These users are still recoverable.
+2. On the Users page, in the left navigation, select Deleted users.
+3. Review the deleted users list and select the user you previously deleted.
 
-:::warning Penting:
-Secara default, akun user yang dihapus akan dihapus secara permanen dari Microsoft Entra ID setelah 30 hari.
+:::warning Important:
+By default, deleted user accounts are permanently removed from Microsoft Entra ID after 30 days.
 :::
 
-4. Pada menu, pilih Restore user.
-5. Tinjau kotak dialog yang muncul, lalu pilih OK.
-6. Di navigasi sebelah kiri, pilih All users.
-7. Verifikasi bahwa user tersebut telah berhasil dipulihkan.
+4. In the menu, select Restore user.
+5. Review the dialog box, then select OK.
+6. In the left navigation, select All users.
+7. Verify that the user has been successfully restored.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Pembuatan, konfigurasi dan manajemen group
+## Creation, Configuration, and Management of Groups
 
-Sebuah grup Microsoft Entra membantu mengorganisasi user, sehingga memudahkan dalam mengelola izin akses.
-Dengan menggunakan grup, pemilik resource (atau pemilik direktori Microsoft Entra) dapat menetapkan satu set izin akses kepada semua anggota grup sekaligus, 
-daripada harus memberikan hak akses satu per satu.
-Grup memungkinkan kita untuk mendefinisikan batasan keamanan (security boundary) dan kemudian menambahkan atau menghapus user tertentu untuk memberikan atau mencabut 
-akses dengan usaha seminimal mungkin.
+A Microsoft Entra group helps organize users, making it easier to manage access permissions.  
+By using groups, resource owners (or Microsoft Entra directory owners) can assign a set of access permissions to all group members at once, rather than granting access rights individually.  
+Groups enable defining security boundaries and then adding or removing specific users to grant or revoke access with minimal effort.
 
 :::info
-Microsoft Entra ID mendukung kemampuan untuk mendefinisikan keanggotaan berdasarkan aturan – misalnya berdasarkan departemen tempat user bekerja, 
-atau jabatan yang mereka miliki.
+Microsoft Entra ID supports membership rules—such as by department or job role—to define group membership.
 :::
 
-### Jenis Grup di Microsoft Entra ID
-Microsoft Entra ID memungkinkan Anda untuk mendefinisikan dua jenis grup yang berbeda:
+### Types of Groups in Microsoft Entra ID
+Microsoft Entra ID allows you to define two types of groups:
 
-**1. Security groups** – Ini adalah jenis grup yang paling umum dan digunakan untuk mengelola akses anggota dan komputer ke resource bersama.
-Misalnya, Anda dapat membuat grup keamanan untuk kebijakan keamanan tertentu.
-Dengan cara ini, Anda dapat memberikan satu set izin ke semua anggota sekaligus, daripada menambahkan izin satu per satu.
-Opsi ini memerlukan seorang Microsoft Entra administrator.
+**1. Security groups** – The most common type used to manage member and device access to shared resources.  
+For example, you can create security groups for specific security policies.  
+This way, you assign a set of permissions to all members at once rather than individually.  
+This option requires a Microsoft Entra administrator.
 
-**2. Microsoft 365 groups** – Grup ini menyediakan kesempatan kolaborasi dengan memberikan anggota akses ke kotak surat bersama (shared mailbox), 
-kalender, file, situs SharePoint, dan lainnya.
-Opsi ini juga memungkinkan Anda memberikan akses ke orang di luar organisasi Anda.
-Opsi ini tersedia untuk user biasa maupun admin.
+**2. Microsoft 365 groups** – These groups enable collaboration by giving members access to shared mailboxes, calendars, files, SharePoint sites, and more.  
+They also allow access to people outside your organization.  
+This option is available for regular users and admins.
 
-#### Melihat Grup yang Tersedia
-Anda dapat melihat semua grup melalui item Groups di bawah Identity di Microsoft Entra admin center.
-Sebuah deployment baru Microsoft Entra ID biasanya belum memiliki grup yang didefinisikan.
+#### Viewing Available Groups
+You can view all groups via the Groups item under Identity in the Microsoft Entra admin center.  
+A new Microsoft Entra ID deployment usually starts with no groups defined.
 
 ![Docusaurus logo](/img/az104/22.png)
 
-### Tipe Keanggotaan Grup (Membership Type)
-Karakteristik kedua dari sebuah grup yang perlu Anda ketahui adalah Membership Type, yang menentukan bagaimana anggota grup ditambahkan. Ada dua tipe:
-- **Assigned** – Anggota ditambahkan dan dikelola secara manual.
-- **Dynamic** – Anggota ditambahkan berdasarkan aturan, sehingga membentuk Dynamic Group. Grup dinamis ini tetap berupa security group atau Microsoft 365 group, 
-hanya saja anggotanya dikontrol melalui aturan.
+### Group Membership Types
+The second characteristic to know about a group is Membership Type, which determines how members are added. There are two types:
+- **Assigned** – Members are added and managed manually.
+- **Dynamic** – Members are added based on rules, forming a Dynamic Group. Dynamic groups are either security or Microsoft 365 groups whose membership is controlled by rules.
 
-### Grup Dinamis (Dynamic Groups)
-Jenis grup terakhir adalah dynamic group, seperti namanya, keanggotaan grup ini dibentuk berdasarkan formula setiap kali grup digunakan.
-Sebuah dynamic group akan mencakup semua penerima di Active Directory yang nilai atributnya cocok dengan filter yang ditentukan.
-Jika properti penerima diubah sehingga cocok dengan filter, maka penerima tersebut bisa secara otomatis menjadi anggota grup dan mulai menerima pesan yang 
-dikirim ke grup tersebut.
-Proses provisioning akun yang didefinisikan dengan baik dan konsisten akan mengurangi kemungkinan masalah ini terjadi.
+### Dynamic Groups
+The last group type is dynamic groups, where membership is determined by a formula each time the group is evaluated.  
+A dynamic group includes all recipients in Active Directory whose attribute values match the specified filter.  
+If a recipient’s properties change to meet the filter, they automatically become members and start receiving messages sent to the group.  
+Well-defined and consistent account provisioning reduces potential issues.
 
 ![Docusaurus logo](/img/az104/23.png)
 
-Grup dinamis ini akan terdiri dari semua anggota valid dari Microsoft Entra ID.
+These dynamic groups consist of all valid Microsoft Entra ID members.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Menambahkan grup pada Microsoft Entra ID
+## Adding Groups in Microsoft Entra ID
 
-Membuat Grup Microsoft 365 di Microsoft Entra ID
-1. Buka halaman Identity di Microsoft Entra admin center.
-2. Pada navigasi sebelah kiri, pilih Groups.
-3. Di bagian Groups, pada menu, pilih New group.
-4. Buat grup dengan informasi berikut:
+Creating a Microsoft 365 Group in Microsoft Entra ID  
+1. Open the Identity page in the Microsoft Entra admin center.  
+2. In the left navigation, select Groups.  
+3. In the Groups section, select New group from the menu.  
+4. Create the group using the following information:
 
 ![Docusaurus logo](/img/az104/24.png)
 
-5. Setelah selesai, verifikasi bahwa grup bernama Northwest Sales muncul di daftar All groups.
-6. Anda mungkin perlu me-refresh daftar All groups beberapa kali agar grup baru muncul.
----------------------------------------------------------------------------------------------------------------------------------------------------
+5. After completion, verify that the group named Northwest Sales appears in the All groups list.  
+6. You might need to refresh the All groups list several times before the new group appears.
 
-## konfigurasi dan manajemen registrasi perangkat
+---
 
-Untuk melindungi aset ini, staf IT harus terlebih dahulu mengelola identitas perangkat. 
-Mereka kemudian dapat membangun pengelolaan ini menggunakan alat seperti **Microsoft Intune** untuk memastikan standar keamanan dan kepatuhan dipenuhi.
-**Microsoft Entra ID** memungkinkan **single sign-on (SSO)** ke perangkat, aplikasi, dan layanan dari mana saja.
-- User dapat mengakses aset organisasi yang mereka butuhkan.
-- Staf IT memiliki kontrol yang diperlukan untuk mengamankan organisasi.
+## Device Registration Configuration and Management
 
-Tujuan perangkat terdaftar di Microsoft Entra adalah mendukung skenario bring-your-own-device (BYOD) atau perangkat mobile.
-Dalam skenario ini, User dapat mengakses resource yang dikendalikan oleh Microsoft Entra ID menggunakan perangkat pribadi.
+To protect assets, IT staff must first manage device identities.  
+They can then build management using tools like **Microsoft Intune** to ensure security standards and compliance are met.  
+**Microsoft Entra ID** enables **single sign-on (SSO)** to devices, applications, and services from anywhere.  
+- Users can access organizational assets they need.  
+- IT staff have the control required to secure the organization.
+
+The goal of devices registered in Microsoft Entra is to support bring-your-own-device (BYOD) or mobile device scenarios.  
+In these cases, users can access resources controlled by Microsoft Entra ID using their personal devices.
 
 ![Docusaurus logo](/img/az104/25.png)
 
 ![Docusaurus logo](/img/az104/26.png)
 
+These devices sign in using local accounts like Microsoft accounts on Windows 10, with Microsoft Entra accounts linked for organizational resource access.
 
-Perangkat ini masuk menggunakan akun lokal seperti akun Microsoft di Windows 10, dengan akun Microsoft Entra terlampir untuk akses resource organisasi.
+Administrators can secure and control these devices using **Mobile Device Management (MDM)** such as Microsoft Intune, e.g., enforcing storage encryption, password complexity, and keeping software updated.
 
-Administrator dapat mengamankan dan mengontrol perangkat ini menggunakan **Mobile Device Management (MDM)** seperti Microsoft Intune, misalnya memaksa enkripsi 
-penyimpanan, kompleksitas kata sandi, dan menjaga perangkat lunak tetap diperbarui.
+Microsoft Entra ID registration can happen when first accessing a work app or manually via the Settings menu on Windows 10.
 
-Registrasi Microsoft Entra ID bisa dilakukan saat pertama kali mengakses aplikasi kerja, atau secara manual melalui menu Settings di Windows 10.
+#### Scenarios for Registered Devices
+- User A wants to access organization email and HR services from their home PC. They register their personal PC with Microsoft Entra ID, and Intune policies apply to meet access requirements.  
+- User B tries to access organization email from a rooted Android device. Intune policies block rooted devices, so access is denied.
 
-#### Skenario untuk Perangkat Terdaftar
-- User A ingin mengakses email organisasi dan layanan HR dari PC rumahnya. Ia mendaftarkan PC pribadinya ke Microsoft Entra ID 
-dan kebijakan Intune diterapkan agar sesuai dengan syarat akses.
-- User B mencoba mengakses email organisasi dari Android yang sudah di-root. Karena kebijakan Intune memblokir perangkat root, akses ditolak.
+### Devices Joined to Microsoft Entra
 
-### Perangkat yang Bergabung dengan Microsoft Entra
-
-Microsoft Entra Join ditujukan untuk organisasi yang mengadopsi cloud-first atau cloud-only.
-Organisasi dapat mengakses aplikasi dan resource cloud maupun on-premises.
+Microsoft Entra Join is aimed at organizations adopting cloud-first or cloud-only strategies.  
+Organizations can access cloud and on-premises apps and resources.
 
 ![Docusaurus logo](/img/az104/27.png)
 
-Perangkat yang bergabung dengan Microsoft Entra (Microsoft Entra joined devices) masuk menggunakan akun Microsoft Entra organisasi.
-Akses ke resource dalam organisasi dapat dibatasi lebih lanjut berdasarkan akun Microsoft Entra tersebut dan kebijakan Conditional Access yang diterapkan pada 
-identitas perangkat.
+Devices joined to Microsoft Entra sign in with organizational Microsoft Entra accounts.  
+Access to organizational resources can be further restricted based on the Microsoft Entra account and Conditional Access policies applied to device identities.
 
-Administrator dapat mengamankan dan mengontrol perangkat Microsoft Entra yang bergabung menggunakan alat Mobile Device Management (MDM) seperti Microsoft Intune, 
-atau dalam skenario co-management menggunakan Microsoft Endpoint Configuration Manager.
-Alat-alat ini memungkinkan penerapan konfigurasi yang diwajibkan organisasi seperti:
-- Penyimpanan harus dienkripsi,
-- Kompleksitas kata sandi,
-- Instalasi perangkat lunak,
-- Pembaruan perangkat lunak.
+Administrators can secure and control Microsoft Entra joined devices using Mobile Device Management (MDM) like Microsoft Intune or, in co-management scenarios, Microsoft Endpoint Configuration Manager.  
+These tools enable applying organizationally required configurations such as:
+- Storage encryption,
+- Password complexity,
+- Software installation,
+- Software updates.
 
-Administrator juga dapat menyediakan aplikasi organisasi ke perangkat Microsoft Entra yang bergabung menggunakan Configuration Manager.
+Administrators can also deploy organizational apps to Microsoft Entra joined devices using Configuration Manager.
 
-Microsoft Entra Join dapat dilakukan melalui opsi layanan mandiri seperti Out of Box Experience (OOBE), bulk enrollment, atau Windows Autopilot.
+Microsoft Entra Join can be done via self-service options like Out of Box Experience (OOBE), bulk enrollment, or Windows Autopilot.
 
-Perangkat yang bergabung dengan Microsoft Entra tetap dapat mempertahankan akses single sign-on (SSO) ke resource on-premises saat perangkat 
-berada di dalam jaringan organisasi.
-Perangkat ini dapat mengautentikasi ke server on-premises untuk kebutuhan seperti berbagi file, pencetakan, dan aplikasi lainnya.
+Microsoft Entra joined devices retain single sign-on (SSO) access to on-premises resources when on the organization's network.  
+These devices can authenticate to on-premises servers for file sharing, printing, and other applications.
 
-#### Skenario untuk perangkat yang bergabung (joined devices)
-Meskipun Microsoft Entra Join terutama ditujukan untuk organisasi yang **tidak memiliki infrastruktur Windows Server Active Directory on-premises**, 
-Anda tetap dapat menggunakannya dalam skenario berikut:
-- Anda ingin beralih ke infrastruktur berbasis cloud menggunakan **Microsoft Entra ID** dan **MDM** seperti **Intune**.
-- Anda tidak dapat menggunakan domain join on-premises, misalnya saat Anda perlu mengelola perangkat mobile seperti tablet dan ponsel.
-- User Anda terutama perlu mengakses Microsoft 365 atau aplikasi SaaS lain yang terintegrasi dengan **Microsoft Entra ID**.
-- Anda ingin mengelola sekelompok User di **Microsoft Entra ID** alih-alih di **Active Directory**.
-Skenario ini bisa diterapkan, misalnya, untuk pekerja musiman, kontraktor, atau pelajar.
-- Anda ingin memberikan kemampuan join kepada pekerja di kantor cabang terpencil dengan infrastruktur on-premises yang terbatas.
+#### Scenarios for Joined Devices
+Although Microsoft Entra Join is mainly for organizations **without on-premises Windows Server Active Directory infrastructure**, you can use it if:
+- You want to move to cloud-based infrastructure using **Microsoft Entra ID** and **MDM** like **Intune**.
+- You cannot use on-premises domain join, e.g., managing mobile devices like tablets and phones.
+- Your users primarily access Microsoft 365 or SaaS apps integrated with **Microsoft Entra ID**.
+- You want to manage users in **Microsoft Entra ID** instead of **Active Directory**.  
+  This applies for seasonal workers, contractors, or students.
+- You want to enable branch office workers with limited on-premises infrastructure to join devices.
 
 ![Docusaurus logo](/img/az104/28.png)
 
-Anda dapat mengonfigurasi perangkat yang bergabung dengan Microsoft Entra untuk semua perangkat **Windows 10**, kecuali **Windows 10 Home**.
-Tujuan dari perangkat Microsoft Entra Join adalah untuk menyederhanakan:
-- Penerapan Windows untuk perangkat milik organisasi,
-- Akses ke aplikasi dan resource organisasi dari perangkat Windows mana pun,
-- Manajemen berbasis cloud untuk perangkat milik organisasi,
-- User dapat masuk ke perangkat mereka menggunakan **Microsoft Entra ID** atau akun **Active Directory** kerja atau sekolah yang disinkronkan.
+You can configure Microsoft Entra joined devices for all **Windows 10** devices except **Windows 10 Home**.  
+The goal of Microsoft Entra Join devices is to simplify:
+- Windows deployment for organization-owned devices,
+- Access to organization apps and resources from any Windows device,
+- Cloud-based management for organization-owned devices,
+- Users signing in to devices using **Microsoft Entra ID** or synced **Active Directory** work or school accounts.
 
-### Perangkat Hybrid Microsoft Entra yang Bergabung
-Selama lebih dari satu dekade, banyak organisasi telah menggunakan domain join ke Active Directory on-premises mereka untuk memungkinkan:
-- Departemen TI mengelola perangkat milik organisasi dari satu lokasi pusat.
-- User masuk ke perangkat mereka menggunakan akun Active Directory kerja atau sekolah mereka.
+### Hybrid Microsoft Entra Joined Devices
+For over a decade, many organizations have used domain join to their on-premises Active Directory to enable:
+- IT departments to manage organization-owned devices from a central location,
+- Users to sign in with their Active Directory work or school accounts.
 
-Biasanya, organisasi dengan infrastruktur on-premises bergantung pada metode pencitraan untuk mengonfigurasi perangkat, 
-dan mereka sering menggunakan Configuration Manager atau Group Policy (GP) untuk mengelolanya.
+Typically, organizations with on-premises infrastructure rely on imaging for device setup and often use Configuration Manager or Group Policy (GP) for management.
 
-Jika lingkungan Anda memiliki infrastruktur AD on-premises dan Anda juga ingin mendapatkan manfaat dari kemampuan yang disediakan oleh Microsoft Entra ID, 
-Anda dapat mengimplementasikan perangkat Microsoft Entra Join hybrid. Perangkat-perangkat ini adalah perangkat yang terhubung ke Active Directory on-premises 
-Anda dan terdaftar di direktori Microsoft Entra Anda.
+If your environment has on-premises AD infrastructure and you want benefits from Microsoft Entra ID, you can implement hybrid Microsoft Entra Join devices.  
+These devices are joined to your on-premises Active Directory and registered with your Microsoft Entra directory.
 
 ![Docusaurus logo](/img/az104/29.png)
 
 ![Docusaurus logo](/img/az104/30.png)
 
-#### Skenario untuk perangkat yang digabungkan secara hibrida
-Gunakan perangkat yang digabungkan secara hibrida Microsoft Entra jika:
-- Anda memiliki aplikasi Win32 yang diterapkan ke perangkat ini yang bergantung pada autentikasi mesin Active Directory.
-- Anda ingin terus menggunakan Group Policy untuk mengelola konfigurasi perangkat.
-- Anda ingin terus menggunakan solusi pencitraan yang ada untuk menyebarkan dan mengonfigurasi perangkat.
-- Anda harus mendukung perangkat Windows 7 dan 8.1 yang lebih rendah, selain Windows 10.
+#### Scenarios for Hybrid Joined Devices
+Use hybrid Microsoft Entra joined devices if:
+- You have Win32 apps deployed to these devices that depend on Active Directory machine authentication.
+- You want to continue using Group Policy for device configuration.
+- You want to continue using existing imaging solutions for device deployment and configuration.
+- You need to support Windows 7 and 8.1 devices, in addition to Windows 10.
 
 #### Device Writeback
-Dalam konfigurasi Microsoft Entra ID berbasis cloud, perangkat hanya terdaftar di Microsoft Entra ID. AD lokal Anda tidak memiliki visibilitas terhadap perangkat tersebut.
- Ini berarti bahwa akses kondisional di cloud mudah untuk diatur dan dipelihara. Namun, dalam bagian ini kita membahas pengaturan hibrida dengan Microsoft Entra Connect. 
- Bagaimana Anda melakukan akses kondisional di lokasi menggunakan perangkat, jika perangkat tersebut hanya ada di Microsoft Entra ID? Device writeback membantu Anda 
- untuk melacak perangkat yang terdaftar di Microsoft Entra ID di AD. Anda akan memiliki salinan objek perangkat di wadah "Registered Devices".
+In a cloud-based Microsoft Entra ID configuration, devices are registered only in Microsoft Entra ID. Your on-premises AD does not have visibility of these devices.  
+This makes cloud conditional access easy to configure and maintain.  
+However, for hybrid scenarios with Microsoft Entra Connect, how do you perform on-premises conditional access if the device exists only in Microsoft Entra ID? Device writeback helps track Microsoft Entra ID-registered devices in AD by creating a copy of the device object in the "Registered Devices" container.
 
-**Skenario:** Anda memiliki aplikasi yang ingin Anda beri akses kepada user hanya jika mereka datang dari perangkat yang terdaftar.
-- **Cloud:** Anda dapat menulis kebijakan Conditional Access untuk aplikasi-aplikasi yang terintegrasi dengan Microsoft Entra berdasarkan apakah perangkat tersebut 
-tergabung 
-dalam Microsoft Entra ID atau tidak.
-- **On-premises:** Ini tidak mungkin tanpa device writeback. Jika aplikasi terintegrasi dengan ADFS (2012 atau lebih tinggi), maka Anda dapat menulis aturan klaim untuk 
-memeriksa status perangkat dan memberikan akses hanya jika klaim "is managed" ada. Untuk mengeluarkan klaim ini, ADFS akan memeriksa objek perangkat di wadah 
-"Registered Devices" dan kemudian mengeluarkan klaim sesuai dengan itu.
+**Scenario:** You have apps that should grant access only if users come from registered devices.  
+- **Cloud:** You can write Conditional Access policies for apps integrated with Microsoft Entra based on whether the device is joined to Microsoft Entra ID or not.  
+- **On-premises:** This is impossible without device writeback. If apps integrate with ADFS (2012 or later), you can write claim rules to check device status and grant access only if the "is managed" claim exists. To issue this claim, ADFS checks the device object in the "Registered Devices" container and issues claims accordingly.
 
-Windows Hello For Business (WHFB) memerlukan device writeback untuk berfungsi dalam skenario Hybrid dan Federated.
+Windows Hello For Business (WHFB) requires device writeback to function in Hybrid and Federated scenarios.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Manajemen License
+## License Management
 
-Microsoft 365, EMS, Dynamics 365, dan layanan cloud Microsoft lainnya memerlukan lisensi untuk setiap user.
-Sebelumnya, lisensi hanya bisa diberikan per user; sekarang tersedia penetapan lisensi berbasis grup.
+Microsoft 365, EMS, Dynamics 365, and other Microsoft cloud services require licenses for each user.  
+Previously, licenses could only be assigned per user; now group-based license assignment is available.
 
-#### Manfaat Penetapan Lisensi Berbasis Grup
-- Memudahkan pengelolaan lisensi dalam skala besar.
-- Otomatis menetapkan atau mencabut lisensi saat user bergabung atau keluar dari grup.
-- Mengurangi kebutuhan user skrip PowerShell kompleks.
+#### Benefits of Group-Based License Assignment
+- Simplifies license management at scale.  
+- Automatically assigns or removes licenses when users join or leave the group.  
+- Reduces the need for complex PowerShell scripts for users.
 
 <br/>
-#### Persyaratan Lisensi
-Perlu memiliki salah satu dari:
-- Microsoft Entra ID Premium P1 (atau lebih tinggi).
-- Office 365 Enterprise E3, A3, GCC G3, E3 untuk GCCH/DOD (atau lebih tinggi).
-- Harus memiliki jumlah lisensi yang mencukupi untuk semua anggota grup.
+#### License Requirements  
+You must have one of the following:  
+- Microsoft Entra ID Premium P1 (or higher).  
+- Office 365 Enterprise E3, A3, GCC G3, E3 for GCCH/DOD (or higher).  
+- Sufficient number of licenses for all group members.
 
 <br/>
-#### Fitur-Fitur Utama
+#### Key Features
 
 ![Docusaurus logo](/img/az104/31.png)
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Mengidentifikasi dan Menyelesaikan Masalah Penetapan Lisensi Grup di Microsoft Entra ID
+## Identifying and Resolving Group License Assignment Issues in Microsoft Entra ID
 
-| Masalah Lisensi | Deskripsi | Solusi | Nama Error di PowerShell |
-|:----------------|:----------|:-------|:-------------------------|
-| Lisensi Tidak Cukup | Tidak cukup jumlah lisensi untuk produk yang diperlukan. | Beli lisensi tambahan atau bebaskan lisensi yang tidak digunakan. | `CountViolation` |
-| Konflik Rencana Layanan | Dua rencana layanan dari produk berbeda tidak bisa digunakan bersamaan (contoh: SharePoint Plan 1 vs Plan 2). | Nonaktifkan salah satu rencana layanan atau hapus salah satu lisensi. | `MutuallyExclusiveViolation` |
-| Produk Bergantung pada Lisensi Lain | Sebuah layanan membutuhkan layanan lain agar berfungsi (contoh: Workplace Analytics butuh Exchange Online). | Pastikan layanan prasyarat tetap aktif sebelum menghapus layanan lain. | `DependencyViolation` |
-| Lokasi Penggunaan Tidak Diizinkan | Lokasi user tidak mendukung layanan Microsoft tertentu. | Ubah lokasi penggunaan user ke lokasi yang didukung atau keluarkan dari grup. | `ProhibitedInUsageLocationViolation` |
-| Alamat Proxy Duplikat | User memiliki alamat proxy yang sama dengan user lain. | Perbaiki alamat proxy yang duplikat, lalu lakukan reprocess user. | (Tidak spesifik, terkait kesalahan proxy address) |
-| Perubahan Atribut Mail/ProxyAddresses | Perubahan lisensi memicu perubahan atribut `Mail` atau `ProxyAddresses`. | Diperbolehkan, tidak perlu tindakan khusus. | (Tidak spesifik) |
-| LicenseAssignmentAttributeConcurrencyException | Penetapan lisensi ganda secara bersamaan ke user. | Tidak perlu tindakan; Microsoft Entra akan retry otomatis. | `LicenseAssignmentAttributeConcurrencyException` |
-
+| License Issue | Description | Solution | PowerShell Error Name |
+|:--------------|:------------|:---------|:---------------------|
+| Insufficient Licenses | Not enough licenses for the required product. | Purchase additional licenses or free up unused licenses. | `CountViolation` |
+| Service Plan Conflict | Two service plans from different products cannot be used together (e.g., SharePoint Plan 1 vs Plan 2). | Disable one service plan or remove one license. | `MutuallyExclusiveViolation` |
+| Product Depends on Another License | A service requires another service to function (e.g., Workplace Analytics requires Exchange Online). | Ensure prerequisite services remain active before removing others. | `DependencyViolation` |
+| Usage Location Not Allowed | User's location does not support certain Microsoft services. | Change the user's usage location to a supported location or remove from the group. | `ProhibitedInUsageLocationViolation` |
+| Duplicate Proxy Address | User has a proxy address duplicated by another user. | Fix the duplicate proxy address, then reprocess the user. | (Not specific, related to proxy address error) |
+| Changes to Mail/ProxyAddresses Attributes | License changes trigger modifications to `Mail` or `ProxyAddresses` attributes. | Allowed, no special action needed. | (Not specific) |
+| LicenseAssignmentAttributeConcurrencyException | Concurrent duplicate license assignment to a user. | No action needed; Microsoft Entra will automatically retry. | `LicenseAssignmentAttributeConcurrencyException` |
 
 :::tip Tips
-- Reprocess Grup: Jika ada error setelah perbaikan, klik tombol Reprocess di halaman grup (Licenses) untuk memperbarui status.
-- Reprocess User: Setelah memperbaiki error di user tertentu (seperti proxy address), klik Reprocess di halaman user.
-- Migrasi Licenses: Pastikan tidak langsung hapus lisensi individual sebelum memastikan lisensi berbasis grup sudah aktif untuk menghindari kehilangan akses.
+- Reprocess Group: If errors persist after fixes, click the Reprocess button on the group’s Licenses page to update status.  
+- Reprocess User: After fixing errors on a specific user (e.g., proxy address), click Reprocess on the user’s page.  
+- License Migration: Avoid removing individual licenses until group-based licenses are active to prevent access loss.  
 :::
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Mengubah penetapan license pada user
+## Changing License Assignments on a User
 
-1. Buka halaman Identitas - User di Pusat Admin Microsoft Entra.
-2. Pada navigasi sebelah kiri, pilih User.
-3. Di bilah User, pada menu, pilih New user.
-4. Buat User dengan menggunakan informasi berikut:
+1. Open the Identity - Users page in the Microsoft Entra Admin Center.  
+2. In the left navigation, select Users.  
+3. In the Users pane, choose New user.  
+4. Create the user using the following information:
 
 ![Docusaurus logo](/img/az104/32.png)
 
-5. Setelah selesai, buka Microsoft Entra ID dan klik Users untuk memverifikasi bahwa akun Dominique Koch muncul di daftar semua User.
+5. Once done, open Microsoft Entra ID and click Users to verify that Dominique Koch’s account appears in the user list.
 
-#### Memperbarui Penetapan Lisensi User
-1. Buka Pusat Admin Microsoft Entra.
-2. Pada navigasi sebelah kiri, di bawah Identitas (Identity), pilih User (Users).
-3. Pada layar User, pilih Dominique Koch.
-4. Pada navigasi sebelah kiri, pilih Lisensi (Licenses).
-5. Pada bilah Perbarui Penetapan Lisensi (Update license assignments), centang kotak untuk satu atau beberapa lisensi.
+#### Updating User License Assignments
+1. Open the Microsoft Entra Admin Center.  
+2. In the left navigation, under Identity, select Users.  
+3. On the Users screen, select Dominique Koch.  
+4. In the left navigation, select Licenses.  
+5. In the Update license assignments pane, check one or more license boxes.
 
 ![Docusaurus logo](/img/az104/33.png)
 
-6. Klik Save.
+6. Click Save.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Membuat atribut custom untuk keamanan
+## Creating Custom Attributes for Security
 
 ![Docusaurus logo](/img/az104/34.png)
 
-#### Apa itu Atribut Keamanan Kustom?
-Atribut keamanan kustom di Microsoft Entra ID adalah atribut spesifik bisnis (pasangan kunci-nilai) yang dapat Anda definisikan dan tetapkan ke objek Microsoft Entra. 
-Atribut ini dapat digunakan untuk menyimpan informasi, mengkategorikan objek, atau menerapkan kontrol akses yang lebih rinci terhadap resource Azure tertentu.
+#### What Are Custom Security Attributes?  
+Custom security attributes in Microsoft Entra ID are business-specific attributes (key-value pairs) that you can define and assign to Microsoft Entra objects.  
+These attributes can be used to store information, categorize objects, or enforce more granular access controls on certain Azure resources.
 
-#### Mengapa Menggunakan Atribut Keamanan Kustom?
-- Memperluas profil user, misalnya menambahkan Tanggal Perekrutan Karyawan dan Gaji Per Jam untuk semua karyawan.
-- Memastikan hanya administrator yang dapat melihat atribut Gaji Per Jam di profil karyawan.
-- Mengkategorikan ratusan atau ribuan aplikasi untuk membuat inventaris yang dapat difilter dengan mudah untuk keperluan audit.
-- Memberikan akses user ke Azure Storage blobs yang terkait dengan suatu proyek.
+#### Why Use Custom Security Attributes?  
+- Extend user profiles, e.g., add Employee Hire Date and Hourly Wage for all employees.  
+- Ensure only administrators can view Hourly Wage attributes on employee profiles.  
+- Categorize hundreds or thousands of applications to create easily filterable inventories for audit purposes.  
+- Grant user access to Azure Storage blobs related to a project.
 
-#### Apa yang Dapat Dilakukan dengan Atribut Keamanan Kustom?
-- Mendefinisikan informasi spesifik bisnis (atribut) untuk tenant Anda.
-- Menambahkan satu set atribut keamanan kustom pada user, aplikasi, resource Microsoft Entra, atau resource Azure.
-- Mengelola objek Microsoft Entra menggunakan atribut keamanan kustom melalui kueri dan filter.
-- Menyediakan tata kelola atribut sehingga atribut dapat menentukan siapa yang dapat memperoleh akses.
+#### What Can You Do with Custom Security Attributes?  
+- Define business-specific information (attributes) for your tenant.  
+- Add sets of custom security attributes to users, applications, Microsoft Entra resources, or Azure resources.  
+- Manage Microsoft Entra objects using custom security attributes via queries and filters.  
+- Provide attribute governance to control who can gain access based on attributes.
 
-#### Fitur-Fitur Atribut Keamanan Kustom
+#### Features of Custom Security Attributes
 
 ![Docusaurus logo](/img/az104/35.png)
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Opsi untuk membuat user secara otomatis
+## Options for Automatic User Creation
 
-#### Komponen SCIM (System for Cross-Domain Identity Management)
-- **Sistem HCM (Human Capital Management) :**
-Aplikasi dan teknologi yang memungkinkan proses dan praktik Manajemen Modal Manusia, yang mendukung dan mengotomatiskan proses SDM sepanjang siklus hidup karyawan.
+#### SCIM (System for Cross-Domain Identity Management) Components
+- **HCM System (Human Capital Management):**  
+Applications and technologies that enable human capital management processes and automate HR lifecycle activities.
 
-- **Layanan Provisioning Microsoft Entra :**
-Menggunakan protokol SCIM 2.0 untuk provisioning otomatis. Layanan ini terhubung ke endpoint SCIM untuk aplikasi, dan menggunakan skema objek user SCIM serta 
-REST API untuk mengotomatiskan provisioning dan de-provisioning user dan grup.
+- **Microsoft Entra Provisioning Service:**  
+Uses SCIM 2.0 protocol for automatic provisioning. Connects to SCIM endpoints for applications and uses SCIM user object schemas and REST APIs to automate user and group provisioning and de-provisioning.
 
-- **Microsoft Entra ID :**
-Repositori user yang digunakan untuk mengelola siklus hidup identitas dan hak aksesnya.
+- **Microsoft Entra ID:**  
+User repository used to manage identity lifecycle and access rights.
 
-- **Sistem Target :**
-Aplikasi atau sistem yang memiliki endpoint SCIM dan bekerja sama dengan provisioning Microsoft Entra untuk memungkinkan provisioning otomatis user dan grup.
+- **Target System:**  
+Applications or systems with SCIM endpoints that work with Microsoft Entra provisioning to enable automatic user and group provisioning.
 
 ![Docusaurus logo](/img/az104/36.png)
 
-#### Mengapa Menggunakan SCIM?
-**SCIM (System for Cross-Domain Identity Management)** adalah protokol standar terbuka untuk mengotomatiskan pertukaran informasi identitas user antara domain identitas 
-dan sistem TI.
-SCIM memastikan bahwa karyawan yang ditambahkan ke sistem Human Capital Management (HCM) secara otomatis memiliki akun yang dibuat di Microsoft Entra ID atau Windows 
-Server Active Directory.
-Atribut dan profil user disinkronkan antara kedua sistem tersebut, memperbarui atau menghapus user berdasarkan perubahan status atau peran user.
+#### Why Use SCIM?  
+**SCIM** is an open standard protocol that automates identity information exchange between identity domains and IT systems.  
+SCIM ensures employees added to the Human Capital Management system automatically have accounts created in Microsoft Entra ID or Windows Server Active Directory.  
+User attributes and profiles are synchronized between systems, updating or removing users based on their status or role changes.
 
-#### Kunci Utama Penggunaan SCIM
-Menjaga sistem identitas Anda selalu diperbarui.
-Jika seorang user dapat otomatis dihapus dari Microsoft Entra ID segera setelah mereka dihapus dari sistem HR Anda, maka risiko potensi pelanggaran keamanan akan 
-jauh berkurang.
+#### Key Benefit of Using SCIM  
+Keeps your identity systems always up to date.  
+If a user can be automatically removed from Microsoft Entra ID immediately after being deleted from your HR system, the risk of potential security breaches is greatly reduced.
 
-
----------------------------------------------------------------------------------------------------------------------------------------------------
+---

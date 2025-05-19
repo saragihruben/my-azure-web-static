@@ -1,97 +1,102 @@
 ---
 id: AZ-902
-title: Keuntungan menggunakan Cloud Services
+title: Benefits of Using Cloud Services
 ---
 
+## High Availability and Scalability
 
-## High Availability dan Scalability
+When building or deploying applications in the cloud, two key aspects to consider are **High Availability** and **Scalability**.
 
-Saat membangun atau menerapkan aplikasi di cloud, dua aspek utama yang harus dipertimbangkan adalah **High Availability** dan **Scalability**.
-### Ketersediaan Tinggi (High Availability)
-Ketika menerapkan aplikasi atau layanan di cloud, penting untuk memastikan bahwa resources tetap tersedia kapan pun dibutuhkan.
-Microsoft Azure, menyediakan garansi uptime berdasarkan layanan tertentu yang dijelaskan dalam Service-Level Agreement (SLA).
+### High Availability
+When deploying applications or services in the cloud, it is important to ensure that resources are available whenever they are needed.  
+Microsoft Azure provides uptime guarantees for specific services as defined in the Service-Level Agreement (SLA).
 
-### Skalabilitas (Scalability)
-Salah satu manfaat utama cloud computing adalah kemampuan untuk menyesuaikan kapasitas resources sesuai kebutuhan.
-Secara umum, ada dua jenis skalabilitas utama dalam cloud:
-- Skalabilitas Vertikal (Vertical Scaling) → Scale Up / Scale Down : Meningkatkan atau menurunkan kapasitas resources dalam satu sistem.
-- Skalabilitas Horizontal (Horizontal Scaling) → Scale Out / Scale In : Menambah atau mengurangi jumlah resources yang digunakan.
+### Scalability
+One of the main benefits of cloud computing is the ability to adjust resource capacity as needed.  
+There are two main types of scalability in the cloud:
+- **Vertical Scaling (Scale Up / Scale Down):** Increasing or decreasing the capacity of a single system.
+- **Horizontal Scaling (Scale Out / Scale In):** Adding or removing the number of resources used.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Reliability dan Predictability
-Dalam layanan cloud, dua manfaat utama yang meningkatkan kepercayaan dalam penerapan solusi adalah kehandalan (reliability) dan prediktabilitas (predictability).
+## Reliability and Predictability
 
-### Kehandalan dalam Cloud
-kehandalan mengacu pada kemampuan sistem untuk pulih dari kegagalan dan terus beroperasi dengan lancar. 
-Ini adalah salah satu pilar utama dalam **Microsoft Azure Well-Architected Framework**.
-Bagaimana Cloud Memastikan kehandalan : 
+In cloud services, two key benefits that increase confidence in deploying solutions are **reliability** and **predictability**.
 
-- Desain Terdesentralisasi → 
-Cloud dirancang untuk didistribusikan secara global, yang berarti resources tersebar di berbagai wilayah. 
-Jika satu wilayah mengalami gangguan atau bencana, wilayah lain tetap beroperasi tanpa gangguan.
+### Reliability in the Cloud
+Reliability refers to a system’s ability to recover from failure and continue operating smoothly.  
+This is one of the core pillars of the **Microsoft Azure Well-Architected Framework**.
 
-- Failover Otomatis → Beberapa lingkungan cloud secara otomatis mengalihkan beban kerja ke wilayah lain yang tersedia, 
-memastikan waktu henti minimal tanpa perlu intervensi manual.
+**How the Cloud Ensures Reliability:**
+- **Decentralized Design** →  
+  Cloud is globally distributed, meaning resources are spread across multiple regions.  
+  If one region experiences disruption or disaster, other regions continue to operate unaffected.
 
-- Ketahanan → Penyedia cloud seperti Azure menerapkan zona ketersediaan tinggi, replikasi data, dan solusi pencadangan untuk meningkatkan kehandalan sistem.
+- **Automatic Failover** →  
+  Many cloud environments automatically shift workloads to available regions, ensuring minimal downtime without manual intervention.
 
-### Prediktabilitas dalam Cloud
-Prediktabilitas memungkinkan bisnis merencanakan operasi cloud mereka dengan lebih percaya diri. Ini mencakup dua aspek utama:
+- **Resilience** →  
+  Cloud providers like Azure implement high availability zones, data replication, and backup solutions to enhance system reliability.
 
-- Kinerja :
-Memastikan bahwa aplikasi cloud memberikan performa yang konsisten di bawah beban kerja yang beragam.
-Fitur seperti **autoscaling**, **load balancing**, dan **high availability** membantu menjaga stabilitas kinerja.
+### Predictability in the Cloud
+Predictability allows businesses to confidently plan their cloud operations. This includes two main aspects:
 
-- Biaya :
-Perhitungan biaya secara real-time memungkinkan pengguna memantau penggunaan resources dan menghindari pengeluaran yang tidak perlu.
-Alat seperti **Total Cost of Ownership (TCO) Calculator** dan **Pricing Calculator** membantu memperkirakan biaya cloud di awal.
+- **Performance:**  
+  Ensuring cloud applications deliver consistent performance under varying workloads.  
+  Features such as **autoscaling**, **load balancing**, and **high availability** help maintain stable performance.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+- **Cost:**  
+  Real-time cost calculations allow users to monitor resource usage and avoid unnecessary expenses.  
+  Tools like the **Total Cost of Ownership (TCO) Calculator** and **Pricing Calculator** help estimate cloud costs in advance.
+
+---
 
 ## Security and Governance
 
-Baik saat menerapkan Infrastructure as a Service (IaaS) maupun Software as a Service (SaaS), fitur cloud mendukung tata kelola (governance) dan kepatuhan (compliance).
-Tata Kelola dalam Cloud
+Whether using Infrastructure as a Service (IaaS) or Software as a Service (SaaS), cloud features support governance and compliance.
 
-- Standar Kepatuhan Otomatis → Cloud menyediakan template standar yang memastikan semua resources yang diterapkan mematuhi kebijakan perusahaan dan regulasi organisasi.
+### Governance in the Cloud
 
-- Pembaruan Standar yang Mudah → Jika ada perubahan dalam standar atau peraturan, 
-semua resources cloud dapat diperbarui secara otomatis untuk tetap sesuai dengan aturan terbaru.
+- **Automated Compliance Standards** →  
+  The cloud provides standard templates to ensure all deployed resources comply with company policies and regulations.
 
-- Audit Berbasis Cloud → Sistem audit cloud dapat mendeteksi resources yang tidak sesuai standar dan memberikan strategi mitigasi untuk memperbaikinya.
+- **Easy Standard Updates** →  
+  If standards or regulations change, all cloud resources can be updated automatically to remain compliant.
 
-- Patch dan Pembaruan Otomatis → Bergantung pada model operasi yang digunakan, 
-pembaruan perangkat lunak dan patch keamanan dapat diterapkan secara otomatis, meningkatkan efisiensi dan keamanan.
+- **Cloud-Based Auditing** →  
+  Cloud audit systems can detect non-compliant resources and offer mitigation strategies for correction.
 
-- Perlindungan terhadap Serangan Siber
-Penyedia cloud biasanya memiliki sistem keamanan yang kuat untuk menangani ancaman seperti serangan Distributed Denial of Service (DDoS).
+- **Automatic Patch and Software Updates** →  
+  Depending on the operating model used, software updates and security patches can be applied automatically, improving efficiency and security.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+- **Protection Against Cyberattacks**  
+  Cloud providers typically have strong security systems to defend against threats like Distributed Denial of Service (DDoS) attacks.
 
-## Manageability 
+---
 
-Salah satu keuntungan utama komputasi cloud adalah kemudahan pengelolaan (manageability). Dalam cloud computing, terdapat dua aspek utama dalam pengelolaan yang memberikan manfaat signifikan:
+## Manageability
 
-### Pengelolaan resources Cloud (Management of the Cloud)
-Pengelolaan resources di cloud memungkinkan organisasi untuk mengotomatiskan dan mengoptimalkan infrastruktur TI. Manfaatnya antara lain:
-- Skalabilitas Otomatis → resources dapat ditambahkan atau dikurangi secara otomatis berdasarkan kebutuhan.
-- Penerapan resources yang Cepat → Dengan template yang sudah dikonfigurasi sebelumnya, penerapan resources menjadi lebih cepat dan tidak memerlukan konfigurasi manual.
-- Pemantauan Kesehatan resources → Sistem cloud dapat mendeteksi kegagalan dan secara otomatis mengganti resources yang bermasalah.
-- Peringatan Otomatis → Cloud memungkinkan pemantauan real-time dan memberikan peringatan otomatis berdasarkan metrik yang dikonfigurasi, 
-sehingga tim IT selalu mendapatkan informasi terbaru tentang kinerja sistem.
+One of the main advantages of cloud computing is **ease of management**.  
+In cloud computing, two main aspects of management provide significant benefits:
 
-### Pengelolaan Lingkungan Cloud (Management in the Cloud)
+### Management of Cloud Resources
 
-Cloud menyediakan berbagai metode fleksibel untuk mengelola infrastruktur dan layanan yang digunakan, yaitu:
-- Melalui portal web → Antarmuka berbasis web yang intuitif untuk mengelola resources cloud secara visual.
-- Menggunakan Command Line Interface (CLI) → Pengguna dapat mengelola cloud melalui perintah berbasis teks.
-- Menggunakan API (Application Programming Interface) → Memungkinkan integrasi dan otomatisasi dalam pengelolaan cloud.
-- Menggunakan PowerShell → Administrasi cloud dapat dilakukan dengan skrip PowerShell untuk mengotomatisasi tugas manajemen.
+Managing resources in the cloud allows organizations to automate and optimize their IT infrastructure. Benefits include:
+- **Automatic Scaling** → Resources can be added or removed automatically based on demand.
+- **Fast Resource Deployment** → Pre-configured templates allow quick deployment without manual setup.
+- **Resource Health Monitoring** → Cloud systems can detect failures and automatically replace problematic resources.
+- **Automatic Alerts** → Real-time monitoring and automatic alerts based on configured metrics keep IT teams informed of system performance.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+### Management in the Cloud
 
-:::info Informasi Terkait
+The cloud provides various flexible methods for managing infrastructure and services:
+- **Web Portal** → Intuitive, web-based interface for visually managing cloud resources.
+- **Command Line Interface (CLI)** → Manage cloud resources using text-based commands.
+- **Application Programming Interface (API)** → Allows integration and automation of cloud management.
+- **PowerShell** → Cloud administration can be performed using PowerShell scripts to automate management tasks.
+
+---
+
+:::info Related Information
 - [**Build great solutions with the Microsoft Azure Well-Architected Framework**](https://learn.microsoft.com/en-us/learn/paths/azure-well-architected-framework/)
 :::
-

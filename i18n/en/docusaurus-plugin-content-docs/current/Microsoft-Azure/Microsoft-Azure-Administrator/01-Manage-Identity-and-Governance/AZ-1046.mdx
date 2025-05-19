@@ -1,160 +1,155 @@
 ---
 id: AZ-1046
-title: Reset password menggunakan self-service password pada Microsoft Entra
+title: Reset Password Using Self-Service Password Reset (SSPR) in Microsoft Entra
 ---
 
 <br/>
-## Apa itu Self-Service Password Reset (SSPR)
 
-### Skenario
-Sebagai administrator TI di organisasi ritel besar, organisasi ingin mengurangi biaya help desk yang tinggi akibat banyaknya permintaan reset kata sandi. 
-SSPR memungkinkan pengguna untuk mereset kata sandi pengguna tanpa bantuan administrator, sehingga menghemat waktu dan meningkatkan produktivitas.
+## What is Self-Service Password Reset (SSPR)
 
-### Mengapa Menggunakan SSPR?
+### Scenario
+As an IT administrator in a large retail organization, your goal is to reduce high help desk costs due to numerous password reset requests.  
+SSPR allows users to reset their own passwords without administrator assistance, saving time and improving productivity.
 
-- Pengguna dapat **mengatur ulang kata sandi mereka sendiri** jika lupa atau kadaluarsa.
-- Mengurangi beban kerja help desk.
-- Meningkatkan **produktivitas pengguna**.
-- Mendukung Azure, Microsoft 365, dan aplikasi lain yang menggunakan Microsoft Entra ID.
+### Why Use SSPR?
 
+- Users can **reset their own passwords** if forgotten or expired.
+- Reduces help desk workload.
+- Improves **user productivity**.
+- Supports Azure, Microsoft 365, and other applications using Microsoft Entra ID.
 
-### Cara Kerja SSPR
+### How SSPR Works
 
-1. Pengguna mengakses portal reset kata sandi atau klik **"Can't access your account"**.
-2. **Lokalisasi**: Halaman tampil dalam bahasa sesuai pengaturan browser.
-3. **Verifikasi**: Masukkan username dan lewati CAPTCHA.
-4. **Autentikasi**: Verifikasi identitas dengan metode yang dipilih.
-5. **Reset Kata Sandi**: Masukkan kata sandi baru.
-6. **Notifikasi**: Sistem mengirim notifikasi reset ke email pengguna.
+1. User accesses the password reset portal or clicks **"Can't access your account"**.
+2. **Localization**: The page is displayed in the language based on browser settings.
+3. **Verification**: Enter username and pass CAPTCHA.
+4. **Authentication**: Verify identity using selected method(s).
+5. **Password Reset**: Enter a new password.
+6. **Notification**: System sends a reset confirmation to the user's email.
 
+#### Supported Authentication Methods
 
-#### Metode Autentikasi yang Didukung
-
-| Metode | Cara Registrasi | Cara Autentikasi |
-|--------|------------------|------------------|
-| Notifikasi Aplikasi Seluler | Daftarkan di aplikasi Microsoft Authenticator | Terima dan verifikasi notifikasi |
-| Kode Aplikasi Seluler | Sama seperti di atas | Masukkan kode dari aplikasi |
-| Email | Masukkan alamat email eksternal | Masukkan kode dari email |
-| Telepon Seluler | Masukkan nomor ponsel | Terima kode via SMS atau panggilan |
-| Telepon Kantor | Masukkan nomor non-seluler | Terima panggilan dan tekan # |
-| Pertanyaan Keamanan | Pilih dan simpan jawaban | Jawab pertanyaan saat reset |
+| Method | Registration Process | Authentication Process |
+|--------|-----------------------|--------------------------|
+| Mobile App Notification | Register in Microsoft Authenticator app | Approve and verify notification |
+| Mobile App Code | Same as above | Enter code from the app |
+| Email | Provide external email address | Enter code from email |
+| Mobile Phone | Provide mobile number | Receive code via SMS or call |
+| Office Phone | Provide non-mobile number | Receive a call and press # |
+| Security Questions | Choose and save answers | Answer questions during reset |
 
 :::warning
- Catatan: Opsi panggilan telepon tidak tersedia untuk organisasi versi trial.
+Note: Phone call option is not available for trial organizations.
 :::
 
-### Jumlah Minimum Metode
+### Minimum Required Methods
 
-- Minimum 1 atau 2 metode harus dikonfigurasi oleh pengguna.
-- Misalnya, jika tersedia 4 metode: kode aplikasi, email, telepon kantor, dan pertanyaan keamanan → pengguna bisa pilih 2.
-- Untuk **pertanyaan keamanan**, Anda juga dapat atur:
-  - Jumlah pertanyaan minimum saat registrasi.
-  - Jumlah jawaban benar minimum saat reset.
+- Users must configure 1 or 2 methods at minimum.
+- For example, if 4 methods are available: app code, email, office phone, and security questions → user can select 2.
+- For **security questions**, you can also configure:
+  - Minimum number of questions during registration.
+  - Minimum number of correct answers during reset.
 
-### Rekomendasi Penggunaan
+### Recommended Practices
 
-- Gunakan **2 metode atau lebih**.
-- Prioritaskan **aplikasi seluler** sebagai metode utama.
-- Aktifkan **email atau telepon kantor** untuk pengguna tanpa perangkat seluler.
-- Hindari **SMS**, karena rawan manipulasi.
-- Gunakan **pertanyaan keamanan** hanya jika digabung dengan metode lain.
+- Use **2 or more methods**.
+- Prioritize **mobile app** as the primary method.
+- Enable **email or office phone** for users without mobile devices.
+- Avoid **SMS**, as it is vulnerable to manipulation.
+- Use **security questions** only when combined with another method.
 
+### Administrator Accounts
 
-### Akun Administrator
+- Must use **two authentication methods**.
+- **Security questions** are not allowed.
 
-- Wajib menggunakan **dua metode autentikasi**.
-- Tidak diperbolehkan menggunakan metode **pertanyaan keamanan**.
+### Notification Settings
 
+- **Notify users** when they reset their own password.
+- **Notify all admins** when an admin resets another admin's password.
 
-### Pengaturan Notifikasi
+### Licensing Requirements
 
-- **Notifikasi ke pengguna** saat mereka mereset kata sandi sendiri.
-- **Notifikasi ke semua admin** saat admin lain mereset kata sandi.
+- SSPR is available with **Microsoft Entra ID Premium P1 and P2**, and **Microsoft 365 Apps for Business**.
+- All signed-in users can change their passwords.
+- P1/P2 license is required for resets without signing in (forgotten or expired password).
 
+### SSPR Implementation Options
 
-### Persyaratan Lisensi
-
-- SSPR tersedia untuk **Microsoft Entra ID Premium P1 dan P2**, serta **Microsoft 365 Apps for Business**.
-- Semua pengguna yang sudah masuk dapat mengganti kata sandi.
-- Untuk reset tanpa login (lupa atau kadaluarsa), diperlukan lisensi P1/P2.
-
-### Opsi Implementasi SSPR
-
-- **Microsoft Entra Connect**: Untuk pengguna on-premises (Active Directory lokal).
+- **Microsoft Entra Connect**: For on-premises Active Directory users.
 - **Cloud Sync**: 
-    - Untuk pengguna domain baru (misalnya karena merger). 
-    - Lebih andal karena tidak bergantung pada satu instance.
+    - For newly created domains (e.g., due to a merger).
+    - More reliable as it doesn’t rely on a single instance.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Implementasi SSPR pada Microsoft Entra
+## Implementing SSPR in Microsoft Entra
 
-### Prasyarat
-Sebelum mulai mengonfigurasi SSPR, Anda memerlukan:
-- Organisasi Microsoft Entra: Organisasi ini harus memiliki lisensi percobaan P1 atau P2 yang aktif.
-- Akun Microsoft Entra dengan peran Authentication Policy Administrator: Anda akan menggunakan akun ini untuk menyiapkan SSPR.
-- Akun pengguna non-administratif: Digunakan untuk menguji SSPR. Penting agar akun ini bukan akun administrator, 
-karena Microsoft Entra memberikan persyaratan tambahan bagi akun administratif dalam SSPR. Akun ini, dan semua akun pengguna lainnya, harus memiliki lisensi yang valid untuk menggunakan SSPR.
-- Security Group untuk pengujian konfigurasi: Akun pengguna non-admin harus menjadi anggota grup ini. 
-Anda akan menggunakan grup ini untuk membatasi siapa saja yang mendapatkan akses ke SSPR pada tahap awal.
+### Prerequisites
+Before configuring SSPR, you need:
+- A Microsoft Entra organization: Must have an active P1 or P2 trial license.
+- A Microsoft Entra account with the Authentication Policy Administrator role: You'll use this to configure SSPR.
+- A non-administrative user account: Used to test SSPR. This account must not be an administrator,  
+  as Microsoft Entra enforces stricter requirements for admin accounts. All user accounts must have valid licenses to use SSPR.
+- A Security Group for testing configuration: The non-admin test account must be a member.  
+  You'll use this group to limit who has access to SSPR during initial rollout.
 
-### Lingkup Aktivasi SSPR
-Ada tiga pengaturan untuk properti Self-service password reset enabled:
-- **None :**
-Tidak ada pengguna di organisasi Microsoft Entra yang dapat menggunakan SSPR.
-(Ini adalah nilai default).
+### SSPR Activation Scope
+There are three settings for the "Self-service password reset enabled" property:
 
-- **Selected :**
-Hanya anggota dari grup keamanan tertentu yang dapat menggunakan SSPR.
-Anda dapat menggunakan opsi ini untuk mengaktifkan SSPR bagi sekelompok pengguna yang ditargetkan untuk pengujian dan verifikasi. 
-Jika sudah siap untuk implementasi penuh, ubah pengaturan ini menjadi All.
+- **None:**  
+  No users in the Microsoft Entra organization can use SSPR.  
+  (This is the default value.)
 
-- **All :**
-Semua pengguna di organisasi Microsoft Entra dapat menggunakan SSPR.
+- **Selected:**  
+  Only members of a specified security group can use SSPR.  
+  Use this option to enable SSPR for a targeted group during testing.  
+  Change to **All** when ready for full implementation.
 
-### Konfigurasi SSPR
-Berikut adalah langkah-langkah tingkat tinggi untuk mengonfigurasi **Self-Service Password Reset (SSPR)**:
+- **All:**  
+  All users in the Microsoft Entra organization can use SSPR.
 
-1. **Buka Portal Azure**
-Arahkan ke Azure Portal, lalu ke: Microsoft Entra ID > Manage > Password reset.
+### SSPR Configuration
+Here are the high-level steps to configure **Self-Service Password Reset (SSPR)**:
 
-2. **Properti (Properties)**
-- Aktifkan SSPR.
-- Anda bisa mengaktifkannya untuk semua pengguna di organisasi Microsoft Entra, atau hanya untuk pengguna tertentu.
-- Untuk mengaktifkan bagi pengguna tertentu, Anda harus menentukan grup keamanan. Hanya anggota dari grup ini yang dapat menggunakan SSPR.
+1. **Open Azure Portal**  
+Go to Azure Portal, then navigate to: Microsoft Entra ID > Manage > Password reset.
 
-![Docusaurus logo](/img/az104/13.png)
+2. **Properties**  
+- Enable SSPR.
+- Choose whether to enable it for all users or a specific group.
+- To enable for specific users, specify a security group. Only members can use SSPR.
 
-3. **Metode Otentikasi (Authentication Methods)**
-Tentukan apakah Anda ingin mewajibkan satu atau dua metode otentikasi.
+![SSPR Properties](/img/az104/13.png)
 
-Pilih metode otentikasi yang dapat digunakan oleh pengguna.
+3. **Authentication Methods**  
+Decide if you require one or two methods for authentication.  
+Select which methods users can choose from.
 
-![Docusaurus logo](/img/az104/14.png)
+![Authentication Methods](/img/az104/14.png)
 
-4. **Pendaftaran (Registration)**
-Tentukan apakah pengguna diwajibkan untuk mendaftar SSPR saat login berikutnya.
+4. **Registration**  
+Decide whether users are required to register for SSPR at their next login.  
+Set how often users must reconfirm their authentication info.
 
-Tentukan seberapa sering pengguna diminta untuk mengonfirmasi kembali informasi otentikasi mereka.
+![Registration](/img/az104/15.png)
 
-![Docusaurus logo](/img/az104/15.png)
+5. **Notifications**  
+Choose whether to notify users and administrators each time a password reset occurs.
 
-5. **Notifikasi (Notifications)**
-Pilih apakah ingin memberi notifikasi kepada pengguna dan administrator setiap kali terjadi reset kata sandi.
+![Notifications](/img/az104/16.png)
 
-![Docusaurus logo](/img/az104/16.png)
+6. **Customization**  
+Provide an email address or URL where users can get help if they encounter issues.
 
-6. **Kustomisasi (Customization)**
-Sediakan alamat email atau URL halaman web tempat pengguna Anda bisa mendapatkan bantuan jika mengalami kesulitan.
+![Customization](/img/az104/17.png)
 
-![Docusaurus logo](/img/az104/17.png)
+---
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+:::tip Conclusion
 
-:::tip Konklusi
+SSPR allows users to reset their passwords independently, reducing IT workload and improving productivity.
 
-SSPR memungkinkan pengguna untuk mereset kata sandi secara mandiri, mengurangi beban IT, dan meningkatkan produktivitas. 
-
-> **Tips:** Gunakan logo perusahaan di halaman login agar pengguna yakin mereka berada di tempat yang benar untuk reset kata sandi.
+> **Tip:** Use your company logo on the login page to reassure users they are in the right place to reset their password.
 
 :::

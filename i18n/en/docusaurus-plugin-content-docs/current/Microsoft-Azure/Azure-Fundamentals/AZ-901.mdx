@@ -1,111 +1,106 @@
 ---
 id: AZ-901
-title: Definisi Cloud Computing
+title: Definition of Cloud Computing
 ---
 
-## Apa itu Cloud Computing? 
+## What is Cloud Computing?
 
-Cloud Computing adalah penyediaan layanan komputasi pada internet. Layanan komputasi mencakup infrastruktur IT pada umumnya seperti **mesin virtual**, **storage**, **database**, dan **jaringan**. 
-Layanan cloud juga memperluas implementasi infrastruktur IT untuk mencakup hal-hal seperti **Internet of Things (IoT)**, **Machine Learning (ML)**, dan **Artificial Intelligence (AI)**.
+Cloud Computing is the delivery of computing services over the internet. These services typically include IT infrastructure such as **virtual machines**, **storage**, **databases**, and **networking**. Cloud services also extend IT infrastructure implementations to cover areas like the **Internet of Things (IoT)**, **Machine Learning (ML)**, and **Artificial Intelligence (AI)**.
 
-Dalam Cloud Computing terdapat istilah **Shared Responsibility Model** yang membagi layanan cloud kedalam beberapa jenis berdasarkan responsibility antara customer dan penyedia layanan cloud.
+In Cloud Computing, there is a concept known as the **Shared Responsibility Model**, which divides cloud services into types based on the responsibilities shared between the customer and the cloud service provider.
 
-Diagram berikut menggambarkan bagaimana **Shared Responsibility Model** menentukan siapa yang bertanggung jawab atas apa, tergantung pada jenis layanan cloud yang digunakan.
+The following diagram illustrates how the **Shared Responsibility Model** determines who is responsible for what, depending on the type of cloud service used.
 
 ![Docusaurus logo](/img/az900/1.png)
 
-Saat menggunakan penyedia cloud, pengguna selalu bertanggung jawab atas:
-- Informasi dan data yang disimpan di cloud
-- Perangkat yang diizinkan terhubung ke cloud (ponsel, komputer, dan sebagainya)
-- Akun dan identitas orang, layanan, dan perangkat dalam organisasi
+When using a cloud provider, users are always responsible for:
+- Information and data stored in the cloud
+- Devices allowed to connect to the cloud (phones, computers, etc.)
+- Accounts and identities of people, services, and devices in the organization
 
-Penyedia cloud selalu bertanggung jawab atas:
-- Data Center
-- Jaringan Fisik 
-- Host Fisik (Daya Listrik, K3, CCTV, security, etc)
+Cloud providers are always responsible for:
+- Data Centers
+- Physical Network
+- Physical Hosts (Power, Safety, CCTV, Security, etc.)
 
-Model layanan yang pengguna pilih akan menentukan tanggung jawab atas aspek-aspek seperti:
-- Sistem operasi
-- Kontrol jaringan
-- Aplikasi
-- Identitas dan infrastruktur
+The selected service model determines responsibility for aspects such as:
+- Operating system
+- Network controls
+- Applications
+- Identity and infrastructure
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Model Cloud Computing
-Model cloud mendefinisikan jenis penerapan resources cloud. Tiga model utama cloud adalah **private cloud**, **public cloud**, dan **hybrid cloud**.
+## Cloud Computing Models
+
+Cloud models define how cloud resources are deployed. The three main cloud models are **private cloud**, **public cloud**, and **hybrid cloud**.
 
 ### Private Cloud
-Ini adalah cloud yang menyediakan layanan IT melalui internet tetapi hanya di kelola oleh satu entitas atau organisasi. 
-Private cloud memberikan kontrol dalam skala yang luas kepada perusahaan dan departemen IT-nya. 
-Private cloud dapat dihosting di data center lokal (on-premises) atau di data center yang dikelola oleh pihak ketiga yang hanya didedikasikan untuk perusahaan tersebut.
+A private cloud delivers IT services over the internet but is managed by a single entity or organization. It gives a company and its IT department broad control. A private cloud can be hosted in an on-premises data center or in a third-party data center dedicated solely to that company.
 
 ### Public Cloud
-Public cloud dibangun, dikontrol, dan dikelola oleh penyedia cloud pihak ketiga. 
-Dalam model ini, siapa pun yang ingin membeli layanan cloud dapat mengakses dan menggunakan resources yang tersedia.
+A public cloud is built, controlled, and maintained by a third-party cloud provider. In this model, anyone can purchase and use the available cloud services.
 
 ### Hybrid Cloud
-Hybrid cloud adalah layanan cloud yang menggabungkan private cloud dan public cloud dalam satu sistem yang saling terhubung. 
-Model ini juga dapat digunakan untuk meningkatkan keamanan, misalnya dengan menentukan layanan mana yang akan tetap berada di public cloud dan mana yang harus 
-dijalankan di infrastruktur private cloud.
+A hybrid cloud combines both private and public clouds into a single, connected environment. This model enhances security, for instance, by designating which services remain on the public cloud and which should run on a private cloud infrastructure.
 
-Tabel berikut akan membandingkan beberapa aspek utama dari masing-masing model cloud.
+The following table compares key aspects of each cloud model.
 
 ![Docusaurus logo](/img/az900/2.png)
 
 ### Multi-cloud
-Multi-cloud adalah skenario menggunakan lebih dari satu penyedia cloud publik. Ini menjadi semakin umum karena berbagai alasan, seperti:
-- Menggunakan fitur yang berbeda dari berbagai penyedia cloud.
-- Memulai dengan satu penyedia cloud lalu bermigrasi ke penyedia lain.
-- Meningkatkan ketahanan dan menghindari ketergantungan pada satu penyedia cloud saja.
-- Dalam lingkungan multi-cloud, pengguna harus mengelola resources dan keamanan di beberapa penyedia cloud secara bersamaan.
+A multi-cloud setup uses more than one public cloud provider. This approach is increasingly common for reasons such as:
+- Leveraging different features from various cloud providers
+- Starting with one provider and migrating to another
+- Enhancing resilience and avoiding vendor lock-in
+
+In a multi-cloud environment, users must manage resources and security across multiple cloud providers simultaneously.
 
 ### Azure Arc
-Azure Arc adalah tools yang membantu mengelola lingkungan cloud, baik itu:
-- Public cloud yang hanya menggunakan Azure.
-- Private cloud di data center Anda sendiri.
-- Hybrid cloud yang menggabungkan private dan public cloud.
-- Multi-cloud yang menggunakan beberapa penyedia cloud secara bersamaan.
-Azure Arc memberikan kontrol yang lebih besar dan manajemen yang lebih mudah untuk berbagai skenario cloud.
+Azure Arc is a tool that helps manage various cloud environments, including:
+- Public cloud using Azure only
+- Private cloud in your own data center
+- Hybrid cloud combining private and public clouds
+- Multi-cloud using multiple providers at once
 
-### Azure VMware Solution 
-Azure VMware Solution memungkinkan pengguna menjalankan beban kerja VMware di Azure dengan integrasi yang mulus dan skalabilitas yang tinggi.
-Ini membantu perusahaan yang ingin beralih ke cloud tanpa perlu mengubah arsitektur atau infrastruktur yang sudah ada.
+Azure Arc offers greater control and easier management across these cloud scenarios.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+### Azure VMware Solution
+Azure VMware Solution allows users to run VMware workloads in Azure with seamless integration and high scalability. It supports organizations transitioning to the cloud without needing to change existing architecture or infrastructure.
 
-## Consumption-based model
+---
 
-**Perbandingan Model Infrastruktur IT: CapEx vs OpEx**
+## Consumption-Based Model
 
-Dalam membandingkan model infrastruktur TI, terdapat dua jenis pengeluaran yang perlu dipertimbangkan:
-- Capital Expenditure (CapEx) : pengeluaran satu kali yang dilakukan di awal untuk membeli atau mengamankan resources fisik. 
-- Operational Expenditure (OpEx) : pengeluaran untuk layanan atau produk yang dilakukan secara berkala dalam jangka waktu tertentu.
+**IT Infrastructure Model Comparison: CapEx vs. OpEx**
 
-### Cloud Computing dan OpEx
-Cloud computing termasuk dalam kategori OpEx karena cloud beroperasi dengan model berbasis konsumsi (pay-as-you-go). Dalam cloud computing, pengguna tidak perlu membayar untuk:
-- Infrastruktur fisik
-- Listrik
-- Keamanan
-- Pemeliharaan data center
+When comparing IT infrastructure models, there are two types of expenditure to consider:
+- **Capital Expenditure (CapEx):** One-time upfront spending to purchase or secure physical resources
+- **Operational Expenditure (OpEx):** Ongoing costs for services or products over a period of time
 
-### Manfaat Model Berbasis Konsumsi dalam Cloud Computing
-- Tanpa biaya di awal
-- Tidak perlu membeli dan mengelola infrastruktur mahal yang mungkin tidak dimanfaatkan sepenuhnya
-- Dapat menambah reources / layanan saat dibutuhkan
-- Dapat berhenti membayar reources / layanan yang tidak lagi diperlukan
+### Cloud Computing and OpEx
+Cloud computing falls under OpEx because it uses a consumption-based (pay-as-you-go) model. With cloud computing, users don’t need to pay for:
+- Physical infrastructure
+- Electricity
+- Security
+- Data center maintenance
 
-### Perbandingan Model Harga Cloud
-Cloud computing menggunakan model harga *pay-as-you-go*, yang berarti pengguna hanya membayar untuk layanan cloud yang digunakan. Hal ini membantu dalam:
-- Merencanakan dan mengelola biaya operasional
-- Mengoperasikan infrastruktur dengan lebih efisien
-- Menskalakan resources sesuai dengan kebutuhan bisnis
+### Benefits of the Consumption-Based Model in Cloud Computing
+- No upfront costs
+- No need to purchase and maintain expensive infrastructure that might not be fully used
+- Ability to scale up services/resources as needed
+- Ability to stop paying for services/resources no longer in use
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+### Cloud Pricing Model Comparison
+Cloud computing uses a *pay-as-you-go* pricing model, meaning users only pay for the cloud services they consume. This helps with:
+- Planning and managing operational costs
+- Operating infrastructure more efficiently
+- Scaling resources in line with business needs
 
-:::info Informasi Terkait
+---
+
+:::info Related Information
 - [**Shared responsibility in the cloud**](https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility)
-- [**Introduction to Azure VMWare Solution**](https://learn.microsoft.com/en-us/learn/modules/intro-azure-vmware-solution/)
+- [**Introduction to Azure VMware Solution**](https://learn.microsoft.com/en-us/learn/modules/intro-azure-vmware-solution/)
 - [**Introduction to Azure cloud hybrid services**](https://learn.microsoft.com/en-us/learn/modules/intro-to-azure-hybrid-services/)
-
 :::

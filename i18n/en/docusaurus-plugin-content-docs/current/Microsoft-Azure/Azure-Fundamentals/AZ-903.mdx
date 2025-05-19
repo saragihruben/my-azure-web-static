@@ -1,107 +1,97 @@
 ---
 id: AZ-903
-title: Kategori Cloud Services 
+title: Categories of Cloud Services
 ---
 
-## Infrastructure as a Service
+## Infrastructure as a Service (IaaS)
 
-Dengan IaaS, pengguna menyewa perangkat keras di data center cloud, tetapi memiliki kebebasan penuh dalam mengelolanya sesuai kebutuhan.
-Dalam model IaaS, penyedia cloud bertanggung jawab atas:
+With IaaS, users rent hardware in a cloud data center but have full freedom to manage it as needed.  
+In the IaaS model, the cloud provider is responsible for:
 
-- Pemeliharaan perangkat keras (hardware)
-- Konektivitas jaringan ke internet
-- Keamanan fisik data center
+- Hardware maintenance  
+- Network connectivity to the internet  
+- Physical security of the data center  
 
-Sedangkan pengguna bertanggung jawab atas:
+Meanwhile, the user is responsible for:
 
-- Instalasi, konfigurasi, dan pemeliharaan sistem operasi
-- Konfigurasi jaringan
-- Manajemen basis data dan penyimpanan
-- Keamanan aplikasi dan data
+- Installing, configuring, and maintaining the operating system  
+- Network configuration  
+- Managing databases and storage  
+- Application and data security  
 
+### When to Use IaaS?
 
-### Kapan IaaS Digunakan?
+- **Lift-and-Shift Migration**  
+  Moving applications and systems from on-premises data centers to the cloud without major changes.
 
-- **Migrasi "Lift-and-Shift"**
+- **Testing & Development**  
+  Quickly creating and replicating development and testing environments.  
+  Cost-effective because resources can be turned on or off as needed.
 
-Memindahkan aplikasi dan sistem dari data center lokal (on-premises) ke cloud tanpa perlu perubahan besar.
-
-- **Pengujian dan Pengembangan (Testing & Development)**
-- Membuat dan mereplikasi lingkungan pengembangan dan pengujian dengan cepat.
-- Menghemat biaya karena bisa mengaktifkan atau menonaktifkan resources kapan saja.
-
-:::tip Konklusi
-- Fleksibel – Pengguna memiliki kontrol penuh atas sistem operasi, aplikasi, dan konfigurasi.
-- Efisien – Cocok untuk pengujian, pengembangan, dan migrasi ke cloud tanpa perubahan besar.
-- Berbasis Konsumsi – Bayar sesuai pemakaian tanpa perlu investasi perangkat keras sendiri.
+:::tip Conclusion
+- **Flexible** – Users have full control over the OS, apps, and configurations.  
+- **Efficient** – Ideal for testing, development, and cloud migration without major changes.  
+- **Consumption-Based** – Pay-as-you-go without the need to invest in your own hardware.
 :::
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Platform as a Service
+## Platform as a Service (PaaS)
 
-Platform as a Service (PaaS) adalah solusi cloud yang berada di antara **Infrastructure as a Service (IaaS)** dan **Software as a Service (SaaS)**.
+Platform as a Service (PaaS) is a cloud solution that sits between **Infrastructure as a Service (IaaS)** and **Software as a Service (SaaS)**.
 
-Dalam model PaaS, penyedia cloud bertanggung jawab atas:
+In the PaaS model, the cloud provider is responsible for:
 
-- Infrastruktur fisik, keamanan, dan konektivitas ke internet
-- Sistem operasi dan middleware
-- Alat pengembangan (development tools)
-- Layanan analitik dan business intelligence
+- Physical infrastructure, security, and internet connectivity  
+- Operating systems and middleware  
+- Development tools  
+- Analytics and business intelligence services  
 
-Sebagai pengguna, Anda hanya perlu fokus pada pengembangan aplikasi tanpa harus mengelola infrastruktur atau lisensi perangkat lunak.
+As a user, you only need to focus on developing applications without managing infrastructure or software licenses.
 
-### Kapan PaaS Digunakan?
+### When to Use PaaS?
 
-- **Framework Pengembangan (Development Framework)**
+- **Development Frameworks**  
+  Build applications faster using built-in components, similar to creating macros in Excel.  
+  Cloud provides features like scalability and multi-tenancy.
 
-Membangun aplikasi lebih cepat dengan komponen bawaan, seperti membuat macro di Excel.
-Cloud sudah menyediakan fitur seperti skalabilitas dan multi-tenant.
+- **Analytics & Business Intelligence**  
+  Analyze data in real time using cloud-based tools.  
+  Discover patterns and insights to improve business decisions, investments, and product design.
 
-- **Analitik & Business Intelligence**
-
-Menganalisis data secara real-time menggunakan tools yang tersedia di cloud.
-Menemukan pola dan pengetahuan untuk meningkatkan keputusan bisnis, investasi, dan desain produk.
-
-:::tip Konklusi
-- Mengurangi Beban Infrastruktur – Pengguna tidak perlu mengelola server atau sistem operasi.
-- Meningkatkan Produktivitas – Pengembang dapat fokus pada pembuatan aplikasi, bukan pada pengelolaan platform.
-- Fleksibel & Hemat Biaya – Mendukung skalabilitas otomatis dan model pembayaran berdasarkan pemakaian.
+:::tip Conclusion
+- **Reduced Infrastructure Burden** – Users don’t have to manage servers or OS.  
+- **Boosts Productivity** – Developers can focus on application development, not platform management.  
+- **Flexible & Cost-Efficient** – Supports automatic scaling and pay-as-you-go pricing.
 :::
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Software as a Service
+## Software as a Service (SaaS)
 
-Software as a Service (SaaS) adalah model layanan cloud yang paling lengkap dari segi produk. 
-Dalam model ini, pengguna hanya menggunakan aplikasi tanpa perlu memikirkan infrastruktur atau pemeliharaannya.
+Software as a Service (SaaS) is the most complete cloud service model in terms of product delivery.  
+In this model, users simply use the application without worrying about infrastructure or maintenance.
 
-Contoh SaaS:
+**Examples of SaaS:**
 
-- Email (Gmail, Outlook)
-- Aplikasi bisnis (Microsoft 365, Google Workspace)
-- Software keuangan & pelacakan pengeluaran (QuickBooks, Xero)
-- Aplikasi perpesanan (Slack, Microsoft Teams)
+- Email (Gmail, Outlook)  
+- Business applications (Microsoft 365, Google Workspace)  
+- Financial & expense tracking software (QuickBooks, Xero)  
+- Messaging applications (Slack, Microsoft Teams)
 
-### Kapan SaaS Digunakan?
+### When to Use SaaS?
 
-- **Email & Perpesanan**
+- **Email & Messaging**  
+  Services like Gmail, Outlook, and Slack allow communication without managing your own email servers.
 
-Layanan seperti Gmail, Outlook, dan Slack memungkinkan komunikasi tanpa harus mengelola server email sendiri.
+- **Business Productivity Applications**  
+  Microsoft 365 and Google Workspace offer tools like Word, Excel, and Google Docs with no installation or maintenance required.
 
-- **Aplikasi Produktivitas Bisnis**
+- **Finance & Accounting Software**  
+  Apps like QuickBooks and Xero help businesses track finances and expenses.
 
-Microsoft 365 dan Google Workspace menyediakan alat seperti Word, Excel, dan Google Docs tanpa perlu instalasi atau pemeliharaan.
-
-- **Software Keuangan & Akuntansi**
-
-Aplikasi seperti QuickBooks dan Xero membantu perusahaan dalam pelacakan keuangan dan pengeluaran.
-
-
-:::tip Konklusi
-- Paling Mudah Digunakan – Tidak memerlukan keahlian teknis untuk menjalankan SaaS.
-- Minim Pemeliharaan – Penyedia cloud menangani semua pembaruan, keamanan, dan infrastruktur.
-- Akses Fleksibel – Bisa digunakan dari mana saja selama ada koneksi internet.
+:::tip Conclusion
+- **Easiest to Use** – No technical skills needed to operate SaaS.  
+- **Minimal Maintenance** – Cloud providers handle all updates, security, and infrastructure.  
+- **Flexible Access** – Can be accessed from anywhere with an internet connection.
 :::
-
----------------------------------------------------------------------------------------------------------------------------------------------------

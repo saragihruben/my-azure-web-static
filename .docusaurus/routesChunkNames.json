@@ -5,17 +5,17 @@
       "plugin": "c141421f"
     }
   },
-  "/en/docs-0d9": {
+  "/en/docs-974": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/en/docs-d0f": {
+  "/en/docs-5f3": {
     "__comp": "a7bd4aaa",
     "__props": "0abf49b1"
   },
-  "/en/docs-56c": {
+  "/en/docs-a9c": {
     "__comp": "a94703ab"
   },
   "/en/docs/devops-sre-9c4": {
@@ -162,57 +162,29 @@
     "__comp": "17896441",
     "content": "2c1d8d2d"
   },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance-d8e": {
-    "__comp": "17896441",
-    "content": "8ec13e8d"
-  },
   "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041-c6d": {
     "__comp": "17896441",
     "content": "6cc2dbae"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041-f48": {
-    "__comp": "17896441",
-    "content": "4a64b3d7"
   },
   "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042-cbd": {
     "__comp": "17896441",
     "content": "014f8e8a"
   },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042-2c6": {
-    "__comp": "17896441",
-    "content": "7b32e7cc"
-  },
   "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043-7ba": {
     "__comp": "17896441",
     "content": "33cce2d0"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043-854": {
-    "__comp": "17896441",
-    "content": "a9501669"
   },
   "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044-c68": {
     "__comp": "17896441",
     "content": "e9d38644"
   },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044-562": {
-    "__comp": "17896441",
-    "content": "e32a0a0d"
-  },
   "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045-a26": {
     "__comp": "17896441",
     "content": "723eddec"
   },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045-7bd": {
-    "__comp": "17896441",
-    "content": "83d5ddd6"
-  },
   "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046-db3": {
     "__comp": "17896441",
     "content": "4fb69d24"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046-d14": {
-    "__comp": "17896441",
-    "content": "90e8055a"
   },
   "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources-d1c": {
     "__comp": "17896441",
@@ -250,9 +222,9 @@
     "__comp": "17896441",
     "content": "4da917d1"
   },
-  "/en/docs/others-b27": {
+  "/en/docs/others-02c": {
     "__comp": "17896441",
-    "content": "14c75c93"
+    "content": "60ac0754"
   },
   "/en/-d3c": {
     "__comp": "c4f5d8e4",

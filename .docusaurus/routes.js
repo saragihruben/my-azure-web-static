@@ -9,15 +9,15 @@ export default [
   },
   {
     path: '/en/docs',
-    component: ComponentCreator('/en/docs', '0d9'),
+    component: ComponentCreator('/en/docs', '974'),
     routes: [
       {
         path: '/en/docs',
-        component: ComponentCreator('/en/docs', 'd0f'),
+        component: ComponentCreator('/en/docs', '5f3'),
         routes: [
           {
             path: '/en/docs',
-            component: ComponentCreator('/en/docs', '56c'),
+            component: ComponentCreator('/en/docs', 'a9c'),
             routes: [
               {
                 path: '/en/docs/devops-sre',
@@ -236,20 +236,8 @@ export default [
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance',
-                component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance', 'd8e'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
                 path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041',
                 component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041', 'c6d'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041',
-                component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041', 'f48'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
@@ -260,20 +248,8 @@ export default [
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042',
-                component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042', '2c6'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
                 path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043',
                 component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043', '7ba'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043',
-                component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043', '854'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
@@ -284,32 +260,14 @@ export default [
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044',
-                component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044', '562'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
                 path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045',
                 component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045', 'a26'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045',
-                component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045', '7bd'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
                 path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046',
                 component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046', 'db3'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046',
-                component: ComponentCreator('/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046', 'd14'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
@@ -369,7 +327,7 @@ export default [
               },
               {
                 path: '/en/docs/others',
-                component: ComponentCreator('/en/docs/others', 'b27'),
+                component: ComponentCreator('/en/docs/others', '02c'),
                 exact: true,
                 sidebar: "defaultSidebar"
               }
