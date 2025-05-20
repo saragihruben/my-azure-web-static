@@ -4,8 +4,7 @@ title: Azure network and compute services
 ---
 
 ## Azure Virtual Machine
-Azure Virtual Machines (VMs) are an **Infrastructure as a Service (IaaS)** offering that allows users to create and run virtual machines in the cloud.  
-Like physical computers, users can install operating systems, applications, and configure settings as needed.
+Azure Virtual Machines (VMs) are an **Infrastructure as a Service (IaaS)** offering that allows users to create and run virtual machines in the cloud. Like physical computers, users can install operating systems, applications, and configure settings as needed.
 
 #### When to Use Azure VMs?
 Azure VMs are suitable when you need:
@@ -14,8 +13,7 @@ Azure VMs are suitable when you need:
 - Ability to run custom software.
 - Customizable hosting configurations.
 
-With Azure VMs, users get virtualization flexibility without purchasing and maintaining physical hardware,  
-but remain responsible for managing, updating, and maintaining the software running on the VM.
+With Azure VMs, users get virtualization flexibility without purchasing and maintaining physical hardware, but remain responsible for managing, updating, and maintaining the software running on the VM.
 
 ### Azure VMs Scalability
 You can run a single VM for testing or development, or group multiple VMs to achieve **high availability**, **scalability**, and **redundancy**.
@@ -53,7 +51,7 @@ When creating a VM, you can configure aspects such as:
 - Networking (Virtual Network, Public IP, port configuration)
 
 :::tip Conclusion
-Azure VMs provide high flexibility for running applications in the cloud with full control over OS and software. However, since it is an IaaS service,  
+Azure VMs provide high flexibility for running applications in the cloud with full control over OS and software. However, since it is an IaaS service,
 you remain responsible for software maintenance. With scale sets and availability sets, you can ensure VMs remain efficient, scalable, and reliable.
 :::
 
@@ -61,8 +59,7 @@ you remain responsible for software maintenance. With scale sets and availabilit
 
 ## Azure Virtual Desktop
 
-Azure Virtual Desktop (AVD) is a cloud-based desktop and application virtualization service. With AVD,  
-you can access Windows hosted in the cloud from anywhere, on various devices and operating systems.
+Azure Virtual Desktop (AVD) is a cloud-based desktop and application virtualization service. With AVD, you can access Windows hosted in the cloud from anywhere, on various devices and operating systems.
 
 **Advantages of Azure Virtual Desktop**
 
@@ -87,9 +84,8 @@ reduce infrastructure costs, and improve remote work efficiency.
 
 ## Azure Virtual Containers
 
-Azure Containers are lightweight virtualization solutions to run multiple applications on a single physical or virtual host  
-without managing the operating system directly. Compared to virtual machines (VMs), containers are faster,  
-more flexible, and use fewer resources.
+Azure Containers are lightweight virtualization solutions to run multiple applications on a single physical or virtual 
+host without managing the operating system directly. Compared to virtual machines (VMs), containers are faster, more flexible, and use fewer resources.
 
 **What is a Container?**
 
@@ -99,7 +95,15 @@ more flexible, and use fewer resources.
 - Quick failure response, with automatic restart on crashes.
 - **Docker** is one of the most popular container engines supported by Azure.
 
-![Docusaurus logo](/img/az900/5.png)
+
+| Feature            | Virtual Machines (VMs)             | Containers                  |
+|--------------------|------------------------------------|-----------------------------|
+| **OS Management**  | Must be managed manually          | No need to manage           |
+| **Heavy vs Lightweight** | Heavy because it includes the OS | Lightweight because it's just the application |
+| **Startup Speed**  | Slower                             | Very fast                   |
+| **Scalability**    | Possible but more complex         | Easy and fast               |
+| **Isolation**      | Full OS for each VM               | Shared OS but still secure  |
+<br/>
 
 ### Azure Container Services
 
@@ -148,7 +152,12 @@ Azure Functions is an event-driven serverless computing service that allows user
 - Code executes when triggered, without the need to keep resources active.
 - Once finished, Azure automatically releases resources to save costs.
 
-![Docusaurus logo](/img/az900/6.png)
+
+| Azure Function Type              | Characteristics                                                   |
+|-----------------------------------|------------------------------------------------------------------|
+| **Stateless (Default)**           | Functions run as if new each time they are called. Does not retain context. |
+| **Stateful (Durable Functions)** | Can track state and context between function calls. Suitable for complex workflows. |
+<br/>
 
 # When to Use Azure Functions?
 
@@ -195,7 +204,13 @@ Azure Virtual Network (VNet) is a fundamental Azure networking service that enab
 #### 4. Communication with On-Premises
 Several methods connect on-premises networks to Azure:
 
-![Docusaurus logo](/img/az900/7.png)
+
+| Method               | Description                                                          |
+|----------------------|----------------------------------------------------------------------|
+| **Point-to-Site VPN** | Individual computers connect to Azure via VPN. Suitable for remote workers. |
+| **Site-to-Site VPN**  | Connects entire on-premises networks to Azure via VPN gateway.      |
+| **Azure ExpressRoute**| Private connection directly to Azure, bypassing the internet. Higher speed and more secure. |
+<br/>
 
 #### 5. Network Traffic Routing
 - Azure automatically manages routing between subnets, VNets, and the internet.
@@ -250,7 +265,11 @@ It is deployed in a dedicated subnet within a Virtual Network (VNet).
 
 #### VPN Gateway Types
 
-![Docusaurus logo](/img/az900/8.png)
+| VPN Type           | How It Works                                    | When to Use                                         |
+|--------------------|-------------------------------------------------|-----------------------------------------------------|
+| **Policy-Based VPN** | Uses static rules to encrypt traffic.           | Older systems, less flexible.                      |
+| **Route-Based VPN**  | Uses dynamic routing to determine traffic paths. | Recommended for high scalability and flexibility.   |
+<br/>
 
 :::warning
 - Route-Based VPN is recommended due to greater flexibility and support for complex scenarios.
@@ -285,7 +304,7 @@ It is deployed in a dedicated subnet within a Virtual Network (VNet).
 
 ## Azure ExpressRoute
 
-Azure ExpressRoute is a private connection service that allows organizations to extend their on-premises networks to  
+Azure ExpressRoute is a private connection service that allows organizations to extend their on-premises networks to 
 Microsoft Cloud without traversing the public internet. This connection is called an ExpressRoute Circuit and is provided through connectivity providers.
 
 #### Used to connect:
@@ -321,6 +340,23 @@ With ExpressRoute, users can access the following services directly without trav
 3. Any-to-Any (IP VPN)  
     - Connects your organization's WAN networks to Microsoft Cloud via a network provider.
 
+4. ExpressRoute Direct
+    - Direct connection to Microsoft's global network at specific peering locations.
+    - Supports dual 100 Gbps or 10 Gbps, ideal for large-scale Active/Active connections.
+
+#### Dynamic Routing with BGP
+
+ExpressRoute uses the BGP protocol to automatically exchange routes between on-premises networks and Azure. Benefits of BGP:
+
+- More flexible & automatic routing.
+- Supports automatic failover for high reliability.
+
+#### ExpressRoute Security
+
+- Does not traverse the public internet, reducing the risk of hacking & cyber-attacks.
+- Data traffic is more secure and stable compared to traditional VPN.
+- Still requires the internet for DNS queries, certificates, and CDN requests.    
+
 :::tip Conclusion
 - ExpressRoute is a high-performance private connection for extending on-premises infrastructure to Microsoft Cloud.  
 - Ensures fast, secure, and reliable data transfer without exposure to public internet risks.
@@ -328,7 +364,7 @@ With ExpressRoute, users can access the following services directly without trav
 
 ## Azure DNS
 
-Azure DNS is a hosting service for DNS domains that provides domain name resolution using Microsoft Azure’s infrastructure.  
+Azure DNS is a hosting service for DNS domains that provides domain name resolution using Microsoft Azure’s infrastructure. 
 With Azure DNS, you can manage DNS records using the same credentials, APIs, tools, and billing systems as other Azure services.
 
 <br/>

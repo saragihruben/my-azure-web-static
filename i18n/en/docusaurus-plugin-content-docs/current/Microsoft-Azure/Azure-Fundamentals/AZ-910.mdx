@@ -52,17 +52,22 @@ A Bash-based tool with similar functions to Azure PowerShell but uses Bash synta
 
 # Conclusion
 
-![Docusaurus logo](/img/az900/20.png)
+| Tool             | Best For                   | Key Advantages                           |
+|------------------|----------------------------|-------------------------------------------|
+| Azure Portal     | Beginners, visual learners | Graphical UI, easy to use                 |
+| Cloud Shell      | All users                  | Quick access, no installation needed      |
+| Azure PowerShell | Windows admins, DevOps     | PowerShell scripting, automation          |
+| Azure CLI        | Linux users, developers    | Bash syntax, flexible & fast              |
+<br/>
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Azure Arc
 
-**Azure Arc** is Microsoft’s solution for centrally and consistently managing **hybrid** and **multi-cloud** environments,  
+**Azure Arc** is Microsoft’s solution for centrally and consistently managing **hybrid** and **multi-cloud** environments, 
 as if all those resources were inside Azure.
 
-When you have on-premises resources or resources in other clouds (like AWS or Google Cloud),  
-**Azure Arc** lets you connect and manage those resources via **Azure Resource Manager (ARM)**.
+When you have on-premises resources or resources in other clouds (like AWS or Google Cloud), **Azure Arc** lets you connect and manage those resources via **Azure Resource Manager (ARM)**.
 
 #### Benefits of Azure Arc
 
@@ -83,8 +88,7 @@ Currently, Azure Arc supports management of several types of non-Azure resources
 
 ## Azure Resource Manager
 
-**Azure Resource Manager (ARM)** is the management and deployment service for Azure resources.  
-ARM acts as the management layer that handles all requests sent through the Azure portal, CLI, PowerShell, SDK, or API.
+**Azure Resource Manager (ARM)** is the management and deployment service for Azure resources. ARM acts as the management layer that handles all requests sent through the Azure portal, CLI, PowerShell, SDK, or API.
 
 Whenever you create, delete, or update a resource in Azure—all requests go through **ARM**.
 
@@ -97,12 +101,18 @@ Whenever you create, delete, or update a resource in Azure—all requests go thr
 - Monitor costs based on tags or resource groups  
 
 **ARM Template**  
-An ARM Template is a JSON file that declaratively describes the infrastructure.  
-You simply state what you want to create, and Azure handles how to create it.
+An ARM Template is a JSON file that declaratively describes the infrastructure. You simply state what you want to create, and Azure handles how to create it.
 
 ### Advantages of ARM Templates
 
-![Docusaurus logo](/img/az900/21.png)
+| Feature       | Benefit                                                                 |
+|----------------|------------------------------------------------------------------------|
+| ✅ Declarative   | You only need to state the end goal; no need to think about the technical steps |
+| 📄 Reusable      | Templates can be reused for consistent results                        |
+| 🧩 Orchestrated  | Azure will automatically sequence the deployment steps                |
+| 🌱 Modular       | Templates can be divided into small reusable parts                    |
+| 🔁 Flexible      | Can run PowerShell or Bash scripts during deployment                  |
+<br/>
 
 ### Bicep  
 Bicep is a simpler, more concise language compared to ARM JSON templates.  

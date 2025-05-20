@@ -6,12 +6,15 @@ title: Features and Tools on Azure Cloud for Governance and Compliance Implement
 <br/>
 ## Microsoft Purview
 
-Microsoft Purview is a solution for **data governance**, **risk management**, and **compliance**.  
-Its goal is to provide insights into data across on-premises, multi-cloud, and SaaS (such as Microsoft 365).
+Microsoft Purview is a solution for **data governance**, **risk management**, and **compliance**. Its goal is to provide insights into data across on-premises, multi-cloud, and SaaS (such as Microsoft 365).
 
 **Key Features of Microsoft Purview**
 
-![Docusaurus logo](/img/az900/16.png)
+| Feature                        | Function                                                                 |
+|-------------------------------|--------------------------------------------------------------------------|
+| 🔍 Data Discovery Automation   | Automatically discover data sources                                      |
+| 🔐 Sensitive Data Classification | Identify and label sensitive data                                       |
+| 🧬 End-to-End Data Lineage      | Track the origin and flow of data from start to finish (data lineage)   |
 
 <br/>
 ### Two Main Solution Areas of Microsoft Purview:  
@@ -48,7 +51,14 @@ Azure Policy is a service that enables users to:
 
 ### Purpose of Azure Policy
 
-![Docusaurus logo](/img/az900/17.png)
+| 🔐 Azure Policy Function                        | 📋 Description                                                                 |
+|------------------------------------------------|--------------------------------------------------------------------------------|
+| ✅ Ensure configuration compliance of resources | Prevents or flags resources that do not comply with rules                     |
+| 🔴 Prevent creation of non-compliant resources  | Example: prevent creation of certain VM sizes                                 |
+| 🛠️ Automatically remediate non-compliant configurations | Example: automatically add missing tags                              |
+| 🕵️ Monitor & evaluate resources continuously    | Includes resources created before the policy was applied                      |
+| 📦 Integration with Azure DevOps               | Apply policies in CI/CD pipelines                                             |
+<br/>
 
 ### How Azure Policy Works  
 Policies can be applied to:  
@@ -80,7 +90,11 @@ Even with **Azure RBAC**, users with high permissions such as Owner can delete r
 <br/>
 ### Types of Resource Locks
 
-![Docusaurus logo](/img/az900/18.png)
+| 🔒 Lock Type     | 🔧 Function                                                                 |
+|------------------|------------------------------------------------------------------------------|
+| `CanNotDelete`   | Users can read & modify, but **cannot delete** the resource                 |
+| `ReadOnly`       | Users can **only read**. Cannot modify or delete                            |
+<br/>
 
 **Where Can Resource Locks Be Applied?**  
 - Individual Resource  
@@ -128,7 +142,14 @@ This portal helps organizations understand how Microsoft protects data and meets
 
 ### Main Functions of the Service Trust Portal
 
-![Docusaurus logo](/img/az900/19.png)
+| Function                      | Description                                                                                   |
+|------------------------------|-----------------------------------------------------------------------------------------------|
+| 📄 Compliance Document Access | Provides audit reports, certifications, and Microsoft controls (such as ISO, SOC, NIST).     |
+| 🔍 Security Transparency      | Explains how customer data is secured and managed in the Microsoft cloud.                    |
+| 📁 My Library                 | You can save important documents and receive notifications when documents are updated.       |
+| 📥 Download Documents         | All reports can be downloaded for 12 months or until a new version is released.              |
+| 🔐 Privacy & NDA              | Some documents are only accessible after logging in and accepting an NDA (Non-Disclosure Agreement). |
+<br/>
 
 :::info Portal Access  
 - Visit: https://servicetrust.microsoft.com  

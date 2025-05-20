@@ -100,7 +100,15 @@ TCO calculator shows estimated cost difference between:
 
 <br/>  
 ### Pricing Calculator vs TCO Calculator  
-![Docusaurus logo](/img/az900/12.png)  
+
+| Feature             | Pricing Calculator                              | TCO Calculator                                         |
+|---------------------|--------------------------------------------------|--------------------------------------------------------|
+| 🎯 Purpose           | Estimate provisioning costs in Azure            | Compare on-prem vs Azure                              |
+| 🛠️ Required Input    | Type & amount of Azure resources                | Current infrastructure configuration                   |
+| 💎 Actual Cost       | None, simulation only                           | None, simulation only                                  |
+| 🧮 Estimation Focus  | Per resource (VM, storage, etc.)                | Total long-term cost                                   |
+| 📤 Output            | Monthly Azure cost estimate                     | Annual or long-term cost comparison                    |
+<br/>  
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -159,22 +167,37 @@ Set a monthly budget of Rp10 million. When spending hits Rp9 million, system sen
 
 <br/>  
 # Conclusion  
-![Docusaurus logo](/img/az900/13.png)  
+
+| Feature        | Function                                                                 |
+|----------------|--------------------------------------------------------------------------|
+| 🔍 Cost Analysis | Cost visualization based on various parameters                          |
+| 📶 Cost Alerts   | Notifications when spending reaches a certain threshold                  |
+| 💼 Budgets       | Setting spending limits and automatic actions when limits are exceeded  |
+| 📤 Automation    | Can be linked to automatic actions (e.g., disabling a resource)          |
+<br/>
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Using Tags
 
 **What is a Tag?**  
-Tags are additional metadata you can attach to Azure resources. Each tag is a key-value pair.  
+Tags are additional metadata you can attach to Azure resources. Each tag is a key-value pair. 
 Tags are not inherited automatically by resource groups or subscriptions, giving you high flexibility in how you assign them.  
 
 **Why Are Tags Important?**  
-As your cloud usage grows, organized management is key to cost control and efficiency.  
+As your cloud usage grows, organized management is key to cost control and efficiency. 
 Tags make it easier to track, group, and manage resources based on various criteria.  
 
 ### Key Benefits of Tags on Azure Resources  
-![Docusaurus logo](/img/az900/14.png)  
+| Purpose                    | Brief Description                                                                 |
+|----------------------------|------------------------------------------------------------------------------------|
+| 📁 Resource Management      | Find resources based on workload, environment, business unit, or owner            |
+| 💎 Cost Management & Optimization | Group resources for cost reporting, cost center allocation, and cost projection  |
+| ⚙️ Operations & SLA         | Tag resources according to criticality level to define SLAs and service priorities |
+| 🔐 Security                 | Tag data as Public, Confidential, etc. for security classification                 |
+| 📋 Compliance & Governance  | Identify resources based on standards such as ISO 27001, audit controls, etc.     |
+| 🖥️ Workload Automation      | Tag resources based on applications/workloads for DevOps & automation needs        |
+<br/>
 
 <br/>  
 **How to Manage Tags?**  
@@ -191,7 +214,15 @@ Tags can be managed via:
 - Recover missing tags  
 
 ### Example Tag Usage  
-![Docusaurus logo](/img/az900/15.png)  
+
+| 🔑 Name       | 🔑 Example Value                       |
+|--------------|----------------------------------------|
+| AppName      | PayrollApp                             |
+| CostCenter   | CC-1221                                |
+| Owner        | Dewi Prasetyo                          |
+| Environment  | Prod, Dev, Test                        |
+| Impact       | Mission-critical, Low-impact           |
+<br/>
 
 :::warning  
 Not all resources need every tag. For example, only critical resources might have an "Impact" tag.  

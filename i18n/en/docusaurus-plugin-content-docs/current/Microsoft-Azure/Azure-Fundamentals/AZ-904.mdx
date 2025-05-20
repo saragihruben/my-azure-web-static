@@ -6,14 +6,12 @@ title: Azure Cloud Architecture Components
 <br/>
 ## Physical Infrastructure
 
-Azure has a physical infrastructure that includes **datacenters**, **regions**, **availability zones**, and **region pairs**.  
-This infrastructure is designed to provide reliable, fast, and secure cloud services to users.
+Azure has a physical infrastructure that includes **datacenters**, **regions**, **availability zones**, and **region pairs**. This infrastructure is designed to provide reliable, fast, and secure cloud services to users.
 
 <br/>
 ### Azure Regions
 
-A region is a geographic area that contains one or more data centers with low-latency network connectivity.  
-Every resource created in Azure must be placed in a specific region.
+A region is a geographic area that contains one or more data centers with low-latency network connectivity. Every resource created in Azure must be placed in a specific region.
 
 :::info Key Fact:
 Some services are only available in specific regions, such as certain VM types or storage options.  
@@ -23,8 +21,7 @@ Some global Azure services do not require region selection, such as **Microsoft 
 <br/>
 ### Availability Zones
 
-Availability Zones are physically separate data centers within a single Azure region.  
-Each zone has independent power, cooling, and networking, so if one zone fails, others continue to operate.
+Availability Zones are physically separate data centers within a single Azure region. Each zone has independent power, cooling, and networking, so if one zone fails, others continue to operate.
 
 **Availability Zones are useful for:**
 - Enhancing application reliability through data and service replication  
@@ -34,8 +31,7 @@ Each zone has independent power, cooling, and networking, so if one zone fails, 
 <br/>
 ### Region Pairs
 
-Most Azure regions are paired with another region in the same geography (at least 300 miles apart).  
-Main function: Resource replication to reduce the risk of major outages such as natural disasters or power failures.
+Most Azure regions are paired with another region in the same geography (at least 300 miles apart). Main function: Resource replication to reduce the risk of major outages such as natural disasters or power failures.
 
 **Advantages of Region Pairs:**
 - Automatic failover if one region experiences a major disruption  
@@ -84,8 +80,7 @@ Azure resources are the basic building blocks in Azure. Anything created, provis
 <br/>
 ### Resource Groups
 
-A resource group is a container that holds related resources in Azure.  
-When creating resources, users must assign them to a resource group.
+A resource group is a container that holds related resources in Azure. When creating resources, users must assign them to a resource group.
 
 **Key Facts About Resource Groups:**
 - A resource can belong to only one resource group.  
@@ -100,8 +95,7 @@ When creating resources, users must assign them to a resource group.
 <br/>
 ### Azure Subscriptions
 
-Azure subscriptions are used for managing, billing, and scaling resources.  
-Like resource groups, subscriptions help organize both resources and resource groups.
+Azure subscriptions are used for managing, billing, and scaling resources. Like resource groups, subscriptions help organize both resources and resource groups.
 
 To use Azure, a user must have an Azure subscription, which provides authenticated and authorized access to Azure products and services.
 
@@ -123,8 +117,7 @@ To use Azure, a user must have an Azure subscription, which provides authenticat
 
 ![Docusaurus logo](/img/az900/4.png)
 
-If a user has many subscriptions, a more efficient way is needed to manage access, policies, and compliance across them.  
-Azure Management Groups form a hierarchy above subscriptions, allowing broad policy and access control.
+If a user has many subscriptions, a more efficient way is needed to manage access, policies, and compliance across them. Azure Management Groups form a hierarchy above subscriptions, allowing broad policy and access control.
 
 - All subscriptions in a management group automatically inherit its policies and access rules.  
 - Management groups can be nested, allowing grouping by teams, departments, or other specific needs.
