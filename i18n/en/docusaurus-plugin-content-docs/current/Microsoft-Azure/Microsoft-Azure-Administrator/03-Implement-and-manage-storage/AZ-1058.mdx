@@ -39,13 +39,11 @@ while Azure Blob Storage is more flexible for large data storage and apps needin
 
 ## Managing Azure File Shares
 
-Azure Files offers two industry-standard file system protocols for mounting Azure file shares: **Server Message Block (SMB)** and  
-**Network File System (NFS)**. Azure file shares do not support both SMB and NFS protocols on the same file share, though users can  
-create SMB and NFS Azure file shares in the same storage account.
+Azure Files offers two industry-standard file system protocols for mounting Azure file shares: **Server Message Block (SMB)** and 
+**Network File System (NFS)**. Azure file shares do not support both SMB and NFS protocols on the same file share, though users can create SMB and NFS Azure file shares in the same storage account.
 
 ### Types of Azure File Shares
-Azure Files supports two storage tiers: premium and standard. Standard Azure file shares are created in general-purpose v2 (GPv2) storage accounts,  
-while premium file shares are created in FileStorage accounts. Below is a description of both tiers:
+Azure Files supports two storage tiers: premium and standard. Standard Azure file shares are created in general-purpose v2 (GPv2) storage accounts, while premium file shares are created in FileStorage accounts. Below is a description of both tiers:
 
 | **Storage Tier** | **Description** |
 | ---------------- | --------------- |
@@ -64,11 +62,9 @@ There are three main authentication methods supported by Azure Files:
 ### Creating SMB Azure File Shares
 Two important settings to note when creating and configuring SMB Azure file shares:
 
-- **Open port 445**: SMB communicates via TCP port 445. Ensure this port is open and not blocked by firewalls on client machines.  
-If port 445 cannot be opened, users need a VPN or ExpressRoute connection from on-premises to Azure network, with Azure Files exposed via private endpoints.
+- **Open port 445**: SMB communicates via TCP port 445. Ensure this port is open and not blocked by firewalls on client machines. If port 445 cannot be opened, users need a VPN or ExpressRoute connection from on-premises to Azure network, with Azure Files exposed via private endpoints.
 
-- **Enable secure transfer**: The "Secure transfer required" setting enhances storage account security by restricting requests to secure connections only.  
-If users try to access using HTTP while "Secure transfer required" is enabled, the connection will be denied.
+- **Enable secure transfer**: The "Secure transfer required" setting enhances storage account security by restricting requests to secure connections only. If users try to access using HTTP while "Secure transfer required" is enabled, the connection will be denied.
 
 ### Mount SMB Azure File Share on Windows
 Users can seamlessly access Azure file shares on Windows and Windows Server. Configure shares in the Azure portal, select the desired drive letter for mounting, and choose the authentication method. The Azure portal provides PowerShell commands to use once ready to work with the file share.
@@ -205,8 +201,7 @@ Azure Storage Explorer allows users to **link external storage accounts** for ea
 
 ## Using Azure File Sync
 
-**Azure File Sync** allows users to cache multiple **Azure File Shares** on local Windows servers or cloud VMs.  
-This service helps centralize organizational file shares in Azure Files while maintaining flexibility, performance, and compatibility like on-premises file servers.
+**Azure File Sync** allows users to cache multiple **Azure File Shares** on local Windows servers or cloud VMs. This service helps centralize organizational file shares in Azure Files while maintaining flexibility, performance, and compatibility like on-premises file servers.
 
 #### Things to Know About Azure File Sync
 

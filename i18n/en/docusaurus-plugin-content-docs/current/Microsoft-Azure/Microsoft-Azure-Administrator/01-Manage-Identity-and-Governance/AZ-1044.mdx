@@ -170,6 +170,7 @@ Policy definitions use the JSON format.
     }
   }
 }
+```
 
 In the example above, b2cDirectories are excluded from the policy rule because their location field is not a specific region
 (their locations might be listed as "United States," "Europe," "Asia Pacific," or "Australia").
@@ -177,10 +178,8 @@ In the example above, b2cDirectories are excluded from the policy rule because t
 <br/>
 ### Logical Operators and Their Conditions (if blocks)
 
-The first part of the `policyRule` in an Azure Policy definition is the `if` block.  
-This block defines the conditions used by the rule to evaluate resources.  
-A rule definition can contain multiple condition statements. Depending on the evaluation logic used,  
-it may require all statements to be true, or just some of them.
+The first part of the `policyRule` in an Azure Policy definition is the `if` block. This block defines the conditions used by the rule to evaluate resources. 
+A rule definition can contain multiple condition statements. Depending on the evaluation logic used, it may require all statements to be true, or just some of them.
 
 | Operator  | Type                                | Description                                                                                                                                      |
 |-----------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -226,8 +225,7 @@ This policy will deny **(effect: deny)** the deployment if all conditions are me
 
 ### Nested Logical Operators
 
-Logical operations are optional and can be nested to create complex scenarios.  
-The following example shows a **not** operator nested inside an **allOf** operator:
+Logical operations are optional and can be nested to create complex scenarios. The following example shows a **not** operator nested inside an **allOf** operator:
 
 
 ```jsx
@@ -277,8 +275,7 @@ Properties like fields, values, or counts can be evaluated within a condition.
 | **Value**  | A condition that evaluates whether a value meets certain criteria can be formed using a value expression. |
 | **Count**  | A condition that counts how many members of an array meet specific criteria can be formed using a count expression.<br/><br/>**Examples:**<br/>• Number of fields, number of values<br/>• The `current()` function returns the value of the array member being evaluated |
 
-A condition in an Azure Policy evaluates whether the values of properties such as **Fields**, **Value**, or **Count** meet specific criteria.  
-If the result of a function causes an error, the policy will result in a `deny` effect.  
+A condition in an Azure Policy evaluates whether the values of properties such as **Fields**, **Value**, or **Count** meet specific criteria. If the result of a function causes an error, the policy will result in a `deny` effect. 
 This can be avoided during testing by disabling **enforcementMode** on the **assignment**.
 
 | Evaluation Criteria         | Value Type                         |
@@ -307,8 +304,7 @@ This can be avoided during testing by disabling **enforcementMode** on the **ass
 
 ### Policy Functions
 
-Functions can be used to add additional logic to a policy. These functions are resolved within the policy definition  
-and in parameter values assigned to policy initiatives.  
+Functions can be used to add additional logic to a policy. These functions are resolved within the policy definition and in parameter values assigned to policy initiatives. 
 Resource Manager template functions can be used in policies, except some user-defined functions.
 
 The following table explains functions available only in policy rules:
@@ -357,8 +353,7 @@ This block defines the effect that is applied when the policy rule matches a res
 
 ## Evaluating Resources with Azure Policy
 
-One of the main benefits of Azure Policy is the insight and control it provides over resources within a subscription  
-or across a management group of multiple subscriptions. This control can be used to:
+One of the main benefits of Azure Policy is the insight and control it provides over resources within a subscription or across a management group of multiple subscriptions. This control can be used to:
 - Prevent resources from being created in the wrong location
 - Enforce consistent and standardized tagging
 - Audit configuration and settings of existing resources
@@ -376,8 +371,7 @@ Policy or initiative evaluation is triggered by several events, such as:
 
 ### Evaluation Timing
 
-When assigning policies in Azure, it’s important to understand compliance scan behavior and timing,  
-especially in Brownfield scenarios (new policies applied to existing resources):
+When assigning policies in Azure, it’s important to understand compliance scan behavior and timing, especially in Brownfield scenarios (new policies applied to existing resources):
 
 - Full automatic scan: Every 24 hours  
 - Manual scan (Brownfield): Run using `az policy state trigger-scan`  
@@ -405,8 +399,7 @@ After a policy is assigned, Azure Policy identifies relevant resources (excludin
 
 ### Enforcement Mode
 
-**enforcementMode** is a property of a policy assignment used to disable certain effects during testing.  
-It differs from the **disabled** effect, as evaluation still happens, but the effect is not enforced.
+**enforcementMode** is a property of a policy assignment used to disable certain effects during testing. It differs from the **disabled** effect, as evaluation still happens, but the effect is not enforced.
 
 | Mode     | JSON Value     | Logging | Effect Enforced | Manual Remediation | Description                                                      |
 |----------|----------------|---------|------------------|---------------------|------------------------------------------------------------------|

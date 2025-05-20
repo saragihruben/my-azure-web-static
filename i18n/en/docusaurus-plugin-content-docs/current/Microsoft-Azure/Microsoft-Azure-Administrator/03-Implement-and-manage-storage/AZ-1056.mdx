@@ -109,7 +109,13 @@ You can also create a blob container using PowerShell with the **New-AzStorageCo
 Access tiers in Azure Blob Storage offer different features and levels of support to help optimize storage costs. 
 When comparing these options, consider which is most suitable for your needs.
 
-![Docusaurus logo](/img/az104/49.png)
+| Comparison                              | Hot Access Tier | Cool Access Tier | Cold Access Tier | Archive Access Tier |
+|----------------------------------------|-----------------|------------------|------------------|----------------------|
+| Availability                           | 99.9%           | 99%              | 99%              | 99%                  |
+| Availability (RA-GRS reads)            | 99.99%          | 99.9%            | 99.9%            | 99.9%                |
+| Latency (time to first byte)           | milliseconds    | milliseconds     | milliseconds     | hours                |
+| Minimum retention duration             | None            | 30 days          | 90 days          | 180 days             |
+<br/>
 
 ---
 
@@ -204,7 +210,12 @@ Used by Azure Virtual Machines for OS and data disks.
 Blob uploads to Azure storage accounts are commonly done using **Azure Storage Explorer**. 
 However, many other tools are available. Here are some upload options with descriptions:
 
-![Docusaurus logo](/img/az104/53.png)
+| Upload Tool           | Description |
+|------------------------|-------------|
+| **AzCopy**             | A command-line tool that is easy to use on Windows and Linux. Can be used to copy data to and from Blob Storage, between containers, or between storage accounts. |
+| **Azure Data Box Disk**| A service for transferring on-premises data to Blob Storage, suitable for large data or limited network. You can request an SSD from Microsoft, copy your data to the disk, then send it back to Microsoft to upload it to Blob Storage. |
+| **Azure Import/Export**| A service that helps export large amounts of data from your storage account to a hard drive you provide, and Microsoft will return it to you along with your data. |
+<br/>
 
 #### Business Scenario
 

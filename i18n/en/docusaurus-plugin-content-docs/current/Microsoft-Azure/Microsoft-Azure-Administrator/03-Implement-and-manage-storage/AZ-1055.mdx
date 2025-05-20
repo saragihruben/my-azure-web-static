@@ -3,15 +3,19 @@ id: AZ-1055
 title: Configure Storage Account
 ---
 
-**Azure Storage** is a service used to store files, messages, tables, and other types of information.  
-Azure Storage can be used for applications such as file sharing. Developers use Azure Storage for their working data, such as websites, mobile apps, and desktop apps.  
+**Azure Storage** is a service used to store files, messages, tables, and other types of information. Azure Storage can be used for applications such as file sharing. Developers use Azure Storage for their working data, such as websites, mobile apps, and desktop apps.  
 Azure Storage is also used by **IaaS virtual machines** and **PaaS cloud services**.
 
 ## Implementing Azure Storage
 
 Things to Know About Azure Storage: Azure Storage supports three main categories of data:
 
-![Storage support](/img/az104/37.png)
+| Category             | Description                                                                                                                                               | Storage Examples                                                                                                                                                                                                                  |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Virtual machine data | Data for virtual machines includes disks and files. A disk is a persistent block storage for Azure IaaS VMs. A file is a fully managed file share in the cloud. | Virtual machine data storage is provided through **Azure Managed Disks**. Disks are used by VMs to store data such as file databases, static website content, or custom application code. Disk capacity depends on VM size, up to **32,767 GB**. |
+| Unstructured data    | Data that does not have a fixed structure or format. This format is called **non-relational**.                                                            | Unstructured data can be stored using **Azure Blob Storage** and **Azure Data Lake Storage**. Blob Storage is REST-based object storage that is highly scalable. Data Lake Storage is an implementation of **Hadoop Distributed File System (HDFS)**.  |
+| Structured data      | Data stored in a relational format with a consistent schema, usually in table form with rows, columns, and keys.                                          | Structured data can be stored using **Azure Table Storage**, **Azure Cosmos DB**, and **Azure SQL Database**. Cosmos DB is a fully managed global database service. Azure SQL Database is a fully managed SQL database-as-a-service.         |
+<br/>
 
 ### How to Create a Storage Account
 Storage accounts in Azure come in two types:
@@ -85,17 +89,13 @@ Common file share use cases:
 File share access is controlled using storage account credentials, and users mounting the share have full read/write access.
 
 ### Azure Queue Storage
-Azure Queue Storage stores and retrieves messages. Each message can be up to 64 KB, and a queue can hold millions of messages.  
-Used for asynchronous work queues.
+Azure Queue Storage stores and retrieves messages. Each message can be up to 64 KB, and a queue can hold millions of messages. Used for asynchronous work queues.
 
 **Example scenario:**  
-If a customer uploads an image and you want to create a thumbnail, write a message to the queue post-upload.  
-Then an Azure Function reads the queue and generates the thumbnail. Each process component can scale independently.
+If a customer uploads an image and you want to create a thumbnail, write a message to the queue post-upload. Then an Azure Function reads the queue and generates the thumbnail. Each process component can scale independently.
 
 ### Azure Table Storage
-Azure Table Storage stores non-relational structured data (NoSQL) in the cloud using a flexible key/attribute model.  
-It's easy to adapt data over time as the app evolves.
-
+Azure Table Storage stores non-relational structured data (NoSQL) in the cloud using a flexible key/attribute model. It's easy to adapt data over time as the app evolves. 
 Table Storage offers fast, cost-effective access, typically cheaper than traditional SQL at similar data volumes.
 
 In addition to Table Storage, there's **Azure Cosmos DB Table API**, which offers:
@@ -123,7 +123,13 @@ Use Azure Table Storage for structured NoSQL data. Supports global distribution 
 
 ## Storage Account Types
 
-![Storage account types](/img/az104/38.png)
+| Storage Account Type      | Supported Services                                                                 | Recommended Usage                                                                                                                                                                                                                                                                               |
+|---------------------------|--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Standard general-purpose v2 | Blob Storage (including Data Lake Storage), Queue Storage, Table Storage, and Azure Files | Standard storage account for most scenarios, including blobs, file share, queue, table, and disk (page blob).                                                                                                                                                                                    |
+| Premium block blobs        | Blob Storage (including Data Lake Storage)                                          | Premium storage account for **block blobs** and **append blobs**. Recommended for applications with high transaction rates. Use this type if your app works with small objects or requires consistently low storage latency. This type is designed to scale with your application’s needs.       |
+| Premium file shares        | Azure Files                                                                         | Premium storage account specifically for file shares. Recommended for large-scale enterprise-grade applications. Use this type if you need **Server Message Block (SMB)** and **NFS** protocol support for file sharing.                                                                       |
+| Premium page blobs         | Page blobs only                                                                     | High-performance premium storage account for **page blobs** only. Suitable for storing index-based or sparse structured data, such as operating systems, VM disks, and databases.                                                                                                               |
+<br/>
 
 ---
 
@@ -133,8 +139,7 @@ Use Azure Table Storage for structured NoSQL data. Supports global distribution 
 [**Storage redundancy**](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy)
 :::
 
-Azure storage accounts must always replicate data to ensure durability and high availability.  
-Replication copies your data to protect against both planned and unplanned events—from hardware failures and power outages to natural disasters.  
+Azure storage accounts must always replicate data to ensure durability and high availability. Replication copies your data to protect against both planned and unplanned events—from hardware failures and power outages to natural disasters.  
 You can replicate data within the same datacenter, across zones in a region, or across regions.
 
 There are four replication strategies:
@@ -144,8 +149,7 @@ There are four replication strategies:
 - Geo-Zone Redundant Storage (GZRS)
 
 ### Locally Redundant Storage (LRS)
-Local replication within one data center with three copies.  
-LRS is the lowest-cost, lowest-durability option.  
+Local replication within one data center with three copies. LRS is the lowest-cost, lowest-durability option. 
 In a datacenter-level disaster (fire, flood), all copies may be lost or unrecoverable.
 
 ![LRS](/img/az104/39.png)
@@ -160,8 +164,7 @@ Synchronous replication to three availability zones in a region.
 
 ![ZRS](/img/az104/40.png)
 
-ZRS replicates data across three storage clusters in separate zones.  
-You can still access data if one zone fails. Offers high performance and low latency.
+ZRS replicates data across three storage clusters in separate zones. You can still access data if one zone fails. Offers high performance and low latency.
 
 :::warning Note:
 - Not all Azure regions support ZRS.
@@ -171,8 +174,7 @@ You can still access data if one zone fails. Offers high performance and low lat
 ### Geo-Redundant Storage (GRS)
 Replication to a secondary region far from the primary.
 
-GRS replicates data to a secondary region (hundreds of miles away), providing high durability during regional outages.  
-It offers 16 nines (99.99999999999999%) durability.
+GRS replicates data to a secondary region (hundreds of miles away), providing high durability during regional outages. It offers 16 nines (99.99999999999999%) durability.
 
 ![GRS](/img/az104/41.png)
 
@@ -203,7 +205,13 @@ GZRS replicates data to three zones in the primary region and to a secondary reg
 
 #### Replication Strategy Comparison
 
-![Replica strategy comparison](/img/az104/43.png)
+| Condition                                     | LRS | ZRS | GRS | RA-GRS | GZRS | RA-GZRS |
+|----------------------------------------------|-----|-----|-----|--------|------|---------|
+| Node in data center unavailable              | ✅  | ✅  | ✅  | ✅     | ✅   | ✅      |
+| Entire data center unavailable               | ❌  | ✅  | ✅  | ✅     | ✅   | ✅      |
+| Entire region outage                         | ❌  | ❌  | ❌  | ✅     | ✅   | ✅      |
+| Read access during regional outage           | ❌  | ❌  | ❌  | ✅     | ❌   | ✅      |
+<br/>
 
 ---
 
@@ -212,7 +220,13 @@ GZRS replicates data to three zones in the primary region and to a secondary reg
 Each object in Azure Storage has a unique URL. The storage account name is part of the URL subdomain.  
 This combination forms the endpoint for the storage account.
 
-![Endpoint storage](/img/az104/44.png)
+| Service           | Default Endpoint                                      |
+|-------------------|--------------------------------------------------------|
+| Container Service | `//mystorageaccount.blob.core.windows.net`             |
+| Table Service     | `//mystorageaccount.table.core.windows.net`            |
+| Queue Service     | `//mystorageaccount.queue.core.windows.net`            |
+| File Service      | `//mystorageaccount.file.core.windows.net`             |
+<br/>
 
 To access an object, append the object’s path to the endpoint.
 
@@ -229,8 +243,7 @@ https://mystorageaccount.blob.core.windows.net/mycontainer/myblob
 ### Configuring a Custom Domain
 
 You can configure a custom domain to access blobs.  
-Default endpoint:  
-**(account-name).blob.core.windows.net**
+Default endpoint: **(account-name).blob.core.windows.net**
 
 To map a custom domain/subdomain like www.contoso.com:
 
@@ -257,8 +270,7 @@ Example mapping:
 
 In the Azure portal, every service needs configuration for endpoint and network access.
 
-Use the **Firewalls and virtual networks** settings.  
-You can add virtual networks or public IPs allowed to access the storage account.
+Use the **Firewalls and virtual networks** settings. You can add virtual networks or public IPs allowed to access the storage account.
 
 ![Storage account](/img/az104/45.png)
 

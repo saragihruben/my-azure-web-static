@@ -13,20 +13,18 @@ Microsoft Entra ID is a cloud-based directory service managed by **Microsoft (Pa
 
 :::info
 
-**AD DS (Active Directory Domain Services)** is a directory service that provides methods to store directory data such as user accounts and passwords,  
-and allows this data to be accessed by network users and administrators.
+**AD DS (Active Directory Domain Services)** is a directory service that provides methods to store directory data such as user accounts and passwords, and allows this data to be accessed by network users and administrators.
 
 :::
 
-Unlike AD DS, Microsoft Entra ID is designed as multi-tenant and  
-specifically implemented to ensure isolation between organizational/tenant directories.
+Unlike AD DS, Microsoft Entra ID is designed as multi-tenant and specifically implemented to ensure isolation between organizational/tenant directories.
 
 **Microsoft Entra Tenant:**
 - Created for multi-tenancy and provides isolation between tenant directories.
 - Each Azure subscription can only be associated with one Microsoft Entra tenant.
 - Tenants can be used to manage resources using RBAC.
 
-Each Microsoft Entra tenant is assigned a default Domain Name System (DNS) domain name, which consists of a prefix derived from the Microsoft account name  
+Each Microsoft Entra tenant is assigned a default Domain Name System (DNS) domain name, which consists of a prefix derived from the Microsoft account name 
 used to create the Azure subscription or explicitly provided when creating the Microsoft Entra tenant, followed by the suffix **onmicrosoft.com**.
 
 ### Microsoft Entra Schema:
@@ -36,7 +34,20 @@ used to create the Azure subscription or explicitly provided when creating the M
 
 ## Comparison Between Microsoft Entra ID and Active Directory Domain Services
 
-![Docusaurus logo](/img/az104/1.png)
+| Characteristic           | Active Directory Domain Services (AD DS)                                        | Microsoft Entra ID                                                                   |
+|--------------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| Main Function            | Traditional directory service for on-premises applications                     | Identity solution for cloud-based applications                                       |
+| Directory Structure      | Hierarchical with X.500                                                         | Flat structure (no OUs or GPOs)                                                      |
+| Authentication Protocol  | Uses Kerberos                                                                   | Uses protocols like SAML, WS-Federation, OpenID Connect                             |
+| Access Protocol          | Uses LDAP for queries and management                                            | Uses REST API via HTTP/HTTPS                                                         |
+| Domain Management        | Uses OUs and GPOs for management                                                | No OUs or GPOs                                                                       |
+| Directory Type           | Single-tenant, each domain has its own directory                                | Multi-tenant, multiple organizations can share one directory                         |
+| Authentication           | Uses Kerberos protocol for authentication                                       | Uses OAuth for authorization and supports various authentication protocols          |
+| Federation Services      | Does not support Federation Services directly                                   | Supports Federation Services (e.g., Facebook, third-party identity providers)        |
+| Computer Objects         | Joins computer objects to the domain                                            | Does not support computer management or domain join                                  |
+| Deployment               | Can be deployed on Azure VM for scalability and availability                    | Cloud-based, no need for local VMs                                                   |
+| DNS                      | Uses DNS to locate resources like domain controllers                            | Provides default DNS for the tenant, but custom domains can be added                 |
+<br/>
 
 :::info Key Differences:
 - AD DS focuses on identity management for on-premises applications, while Microsoft Entra ID is designed for cloud applications.
@@ -62,12 +73,10 @@ used to create the Azure subscription or explicitly provided when creating the M
 
 ## Microsoft Entra Domain Services
 
-Microsoft offers Microsoft Entra Domain Services as an alternative.  
-Domain services such as Group Policy management, domain join, and Kerberos authentication are provided to Microsoft Entra tenants and are fully compatible  
+Microsoft offers Microsoft Entra Domain Services as an alternative. Domain services such as Group Policy management, domain join, and Kerberos authentication are provided to Microsoft Entra tenants and are fully compatible 
 with on-premises AD DS, without having to deploy and manage additional domain controllers in the cloud.
 
-It can be deployed with Microsoft Entra Connect, allowing users to use their organizational credentials in both AD DS  
-and Microsoft Entra Domain Services.
+It can be deployed with Microsoft Entra Connect, allowing users to use their organizational credentials in both AD DS and Microsoft Entra Domain Services.
 
 **Integration with On-Premises AD DS**
 - Uses Microsoft Entra Connect.

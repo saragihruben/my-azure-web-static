@@ -9,7 +9,7 @@ title: Creation, Configuration, and Management of Identities
 User accounts contain all the information needed to authenticate users during the sign-in process. Once authenticated, Microsoft Entra ID issues access tokens to authorize users and determine which resources they can access and what actions they can perform on those resources.
 
 ### Viewing Users
-To view Microsoft Entra users, select the Users entry under Identity, then open the All Users view.  
+To view Microsoft Entra users, select the Users entry under Identity, then open the All Users view. 
 Note the User Type column to see members and guests, as shown in the following image.
 
 ![Docusaurus logo](/img/az104/18.png)
@@ -17,9 +17,9 @@ Note the User Type column to see members and guests, as shown in the following i
 Typically, Microsoft Entra ID defines users in three ways:
 - **Cloud identities** – These users exist only in Microsoft Entra ID. Examples include administrator and regular user accounts.  
 Their source is Microsoft Entra ID or an external Microsoft Entra directory if the user is defined in another Microsoft Entra tenant but needs access to resources controlled by this directory.
-- **Synchronized identities** – These users exist in the on-premises Active Directory.  
+- **Synchronized identities** – These users exist in the on-premises Active Directory. 
 Synchronization activities performed through Microsoft Entra Connect bring these users to Azure. Their source is Windows Server AD.
-- **Guest users** – These users exist outside Azure. Examples include accounts from other cloud providers and Microsoft accounts like Xbox LIVE accounts.  
+- **Guest users** – These users exist outside Azure. Examples include accounts from other cloud providers and Microsoft accounts like Xbox LIVE accounts. 
 Their source is Invited User. This account type is useful when external vendors or contractors require access to Azure resources.
 
 ---
@@ -34,7 +34,14 @@ To create users in Microsoft Entra, you must have a User Administrator account.
 3. On the Users page, in the menu, select + New user and then Create new user.
 4. Create the user using the following information:
 
-![Docusaurus logo](/img/az104/19.png)
+|           Configuration             |               Value               |
+|-------------------------------------|-----------------------------------|
+| User principal name                 |  ChrisG                           |
+| Name                                |  Chris Green                      |
+| First Name                          |  Chris                            |
+| Last Name                           |  Green                            |
+| Password                            |  Create a unique password         | 
+<br/>
 
 5. After completion, verify that the account Chris Green appears in the All Users list.
 
@@ -44,7 +51,14 @@ To create users in Microsoft Entra, you must have a User Administrator account.
 3. On the Groups page, in the menu, select New group.
 4. Create the group with the following information:
 
-![Docusaurus logo](/img/az104/20.png)
+|           Configuration             |               Value               |
+|-------------------------------------|-----------------------------------|
+| Group type                          |  Security                         |
+| Group Name                          |  Marketing                        |
+| Membership type                     |  Assigned                         |
+| Owners                              |  Administrator                    |                            
+| Members                             |  Chris Green                      | 
+<br/>
 
 5. After completion, verify that the group named Marketing appears in the All groups list.
 
@@ -64,8 +78,7 @@ To create users in Microsoft Entra, you must have a User Administrator account.
 13. You will receive a confirmation that the license has been successfully assigned.
 
 #### Recovering or Deleting Recently Deleted Users in Microsoft Entra ID
-After you delete a user, the account remains in a suspended state for 30 days.  
-During this 30-day period, the user account and all its properties can be recovered.  
+After you delete a user, the account remains in a suspended state for 30 days. During this 30-day period, the user account and all its properties can be recovered. 
 After the period ends, permanent deletion begins automatically.
 
 :::warning Important:
@@ -84,8 +97,7 @@ Neither you nor Microsoft Support can recover users who have been permanently de
 
 ## Restoring or Deleting Users
 
-This exercise assumes you have a basic Microsoft Entra tenant with at least User Administrator rights.  
-You can get a free trial subscription at Try Azure for Free.
+This exercise assumes you have a basic Microsoft Entra tenant with at least User Administrator rights. You can get a free trial subscription at Try Azure for Free.
 
 ### Deleting a User from Microsoft Entra ID
 1. Open the Microsoft Entra admin center.
@@ -120,8 +132,8 @@ By default, deleted user accounts are permanently removed from Microsoft Entra I
 
 ## Creation, Configuration, and Management of Groups
 
-A Microsoft Entra group helps organize users, making it easier to manage access permissions.  
-By using groups, resource owners (or Microsoft Entra directory owners) can assign a set of access permissions to all group members at once, rather than granting access rights individually.  
+A Microsoft Entra group helps organize users, making it easier to manage access permissions. 
+By using groups, resource owners (or Microsoft Entra directory owners) can assign a set of access permissions to all group members at once, rather than granting access rights individually. 
 Groups enable defining security boundaries and then adding or removing specific users to grant or revoke access with minimal effort.
 
 :::info
@@ -131,18 +143,15 @@ Microsoft Entra ID supports membership rules—such as by department or job role
 ### Types of Groups in Microsoft Entra ID
 Microsoft Entra ID allows you to define two types of groups:
 
-**1. Security groups** – The most common type used to manage member and device access to shared resources.  
-For example, you can create security groups for specific security policies.  
-This way, you assign a set of permissions to all members at once rather than individually.  
+**1. Security groups** – The most common type used to manage member and device access to shared resources. 
+For example, you can create security groups for specific security policies. This way, you assign a set of permissions to all members at once rather than individually. 
 This option requires a Microsoft Entra administrator.
 
-**2. Microsoft 365 groups** – These groups enable collaboration by giving members access to shared mailboxes, calendars, files, SharePoint sites, and more.  
-They also allow access to people outside your organization.  
-This option is available for regular users and admins.
+**2. Microsoft 365 groups** – These groups enable collaboration by giving members access to shared mailboxes, calendars, files, SharePoint sites, and more. 
+They also allow access to people outside your organization. This option is available for regular users and admins.
 
 #### Viewing Available Groups
-You can view all groups via the Groups item under Identity in the Microsoft Entra admin center.  
-A new Microsoft Entra ID deployment usually starts with no groups defined.
+You can view all groups via the Groups item under Identity in the Microsoft Entra admin center. A new Microsoft Entra ID deployment usually starts with no groups defined.
 
 ![Docusaurus logo](/img/az104/22.png)
 
@@ -152,10 +161,8 @@ The second characteristic to know about a group is Membership Type, which determ
 - **Dynamic** – Members are added based on rules, forming a Dynamic Group. Dynamic groups are either security or Microsoft 365 groups whose membership is controlled by rules.
 
 ### Dynamic Groups
-The last group type is dynamic groups, where membership is determined by a formula each time the group is evaluated.  
-A dynamic group includes all recipients in Active Directory whose attribute values match the specified filter.  
-If a recipient’s properties change to meet the filter, they automatically become members and start receiving messages sent to the group.  
-Well-defined and consistent account provisioning reduces potential issues.
+The last group type is dynamic groups, where membership is determined by a formula each time the group is evaluated. A dynamic group includes all recipients in Active Directory whose attribute values match the specified filter. 
+If a recipient’s properties change to meet the filter, they automatically become members and start receiving messages sent to the group. Well-defined and consistent account provisioning reduces potential issues.
 
 ![Docusaurus logo](/img/az104/23.png)
 
@@ -180,16 +187,22 @@ Creating a Microsoft 365 Group in Microsoft Entra ID
 
 ## Device Registration Configuration and Management
 
-To protect assets, IT staff must first manage device identities.  
-They can then build management using tools like **Microsoft Intune** to ensure security standards and compliance are met.  
-**Microsoft Entra ID** enables **single sign-on (SSO)** to devices, applications, and services from anywhere.  
+To protect assets, IT staff must first manage device identities. They can then build management using tools like **Microsoft Intune** to ensure security standards and compliance are met. **Microsoft Entra ID** enables **single sign-on (SSO)** to devices, applications, and services from anywhere.  
 - Users can access organizational assets they need.  
 - IT staff have the control required to secure the organization.
 
-The goal of devices registered in Microsoft Entra is to support bring-your-own-device (BYOD) or mobile device scenarios.  
-In these cases, users can access resources controlled by Microsoft Entra ID using their personal devices.
+The goal of devices registered in Microsoft Entra is to support bring-your-own-device (BYOD) or mobile device scenarios. In these cases, users can access resources controlled by Microsoft Entra ID using their personal devices.
 
-![Docusaurus logo](/img/az104/25.png)
+| Microsoft Entra Registered | Description                                                                 |
+|-----------------------------|-----------------------------------------------------------------------------|
+| Definition                  | Registered to Microsoft Entra ID without requiring an organizational account to sign in to the device |
+| Primary Audience            | Suitable for BYOD scenarios and mobile devices                             |
+| Device Ownership            | User or Organization                                                       |
+| Operating System            | Windows 10, Windows 11, iOS, Android, and macOS                            |
+| Device Sign-in Options      | User local credentials, Password, Windows Hello, PIN, Biometric            |
+| Device Management           | Mobile Device Management (e.g., Microsoft Intune)                          |
+| Key Features                | SSO to cloud resources, Conditional Access                                 |
+<br/>
 
 ![Docusaurus logo](/img/az104/26.png)
 
@@ -205,13 +218,19 @@ Microsoft Entra ID registration can happen when first accessing a work app or ma
 
 ### Devices Joined to Microsoft Entra
 
-Microsoft Entra Join is aimed at organizations adopting cloud-first or cloud-only strategies.  
-Organizations can access cloud and on-premises apps and resources.
+Microsoft Entra Join is aimed at organizations adopting cloud-first or cloud-only strategies. Organizations can access cloud and on-premises apps and resources.
 
-![Docusaurus logo](/img/az104/27.png)
+| Microsoft Entra Joined      | Description                                                                                      |
+|----------------------------|--------------------------------------------------------------------------------------------------|
+| Definition                 | Only joined to Microsoft Entra ID and requires an organizational account to sign in to the device |
+| Primary Audience           | Suitable for cloud-only and hybrid organizations                                                 |
+| Device Ownership           | Organization                                                                                     |
+| Operating System           | All Windows 10 & 11 (except Windows Home)                                                        |
+| Device Management          | MDM such as Microsoft Intune                                                                     |
+| Key Features               | SSO to cloud and on-premises resources, Conditional Access, Windows Hello PIN Reset, Self-service Password Reset |
+<br/>
 
-Devices joined to Microsoft Entra sign in with organizational Microsoft Entra accounts.  
-Access to organizational resources can be further restricted based on the Microsoft Entra account and Conditional Access policies applied to device identities.
+Devices joined to Microsoft Entra sign in with organizational Microsoft Entra accounts. Access to organizational resources can be further restricted based on the Microsoft Entra account and Conditional Access policies applied to device identities.
 
 Administrators can secure and control Microsoft Entra joined devices using Mobile Device Management (MDM) like Microsoft Intune or, in co-management scenarios, Microsoft Endpoint Configuration Manager.  
 These tools enable applying organizationally required configurations such as:
@@ -220,20 +239,16 @@ These tools enable applying organizationally required configurations such as:
 - Software installation,
 - Software updates.
 
-Administrators can also deploy organizational apps to Microsoft Entra joined devices using Configuration Manager.
+Administrators can also deploy organizational apps to Microsoft Entra joined devices using Configuration Manager. Microsoft Entra Join can be done via self-service options like Out of Box Experience (OOBE), bulk enrollment, or Windows Autopilot.
 
-Microsoft Entra Join can be done via self-service options like Out of Box Experience (OOBE), bulk enrollment, or Windows Autopilot.
-
-Microsoft Entra joined devices retain single sign-on (SSO) access to on-premises resources when on the organization's network.  
-These devices can authenticate to on-premises servers for file sharing, printing, and other applications.
+Microsoft Entra joined devices retain single sign-on (SSO) access to on-premises resources when on the organization's network. These devices can authenticate to on-premises servers for file sharing, printing, and other applications.
 
 #### Scenarios for Joined Devices
 Although Microsoft Entra Join is mainly for organizations **without on-premises Windows Server Active Directory infrastructure**, you can use it if:
 - You want to move to cloud-based infrastructure using **Microsoft Entra ID** and **MDM** like **Intune**.
 - You cannot use on-premises domain join, e.g., managing mobile devices like tablets and phones.
 - Your users primarily access Microsoft 365 or SaaS apps integrated with **Microsoft Entra ID**.
-- You want to manage users in **Microsoft Entra ID** instead of **Active Directory**.  
-  This applies for seasonal workers, contractors, or students.
+- You want to manage users in **Microsoft Entra ID** instead of **Active Directory**. This applies for seasonal workers, contractors, or students.
 - You want to enable branch office workers with limited on-premises infrastructure to join devices.
 
 ![Docusaurus logo](/img/az104/28.png)
@@ -252,10 +267,19 @@ For over a decade, many organizations have used domain join to their on-premises
 
 Typically, organizations with on-premises infrastructure rely on imaging for device setup and often use Configuration Manager or Group Policy (GP) for management.
 
-If your environment has on-premises AD infrastructure and you want benefits from Microsoft Entra ID, you can implement hybrid Microsoft Entra Join devices.  
+If your environment has on-premises AD infrastructure and you want benefits from Microsoft Entra ID, you can implement hybrid Microsoft Entra Join devices. 
 These devices are joined to your on-premises Active Directory and registered with your Microsoft Entra directory.
 
-![Docusaurus logo](/img/az104/29.png)
+| Description              | Detail                                                                                                  |
+|--------------------------|----------------------------------------------------------------------------------------------------------|
+| Definition               | Joined to on-premises AD and Microsoft Entra ID, requiring an organizational account to sign in         |
+| Primary Audience         | Suitable for hybrid organizations with existing on-premises AD infrastructure                           |
+| Device Ownership         | Organization                                                                                             |
+| Operating System         | Windows 11, 10, 8.1, and 7, as well as Windows Server 2008/R2, 2012/R2, 2016, and 2019                   |
+| Sign-in Options          | Password or Windows Hello for Business                                                                   |
+| Device Management        | Group Policy, standalone Configuration Manager, or co-management with Microsoft Intune                  |
+| Key Capabilities         | SSO to cloud and on-premises resources, Conditional Access, Self-service Password Reset, Windows Hello PIN reset |
+<br/>
 
 ![Docusaurus logo](/img/az104/30.png)
 
@@ -267,9 +291,8 @@ Use hybrid Microsoft Entra joined devices if:
 - You need to support Windows 7 and 8.1 devices, in addition to Windows 10.
 
 #### Device Writeback
-In a cloud-based Microsoft Entra ID configuration, devices are registered only in Microsoft Entra ID. Your on-premises AD does not have visibility of these devices.  
-This makes cloud conditional access easy to configure and maintain.  
-However, for hybrid scenarios with Microsoft Entra Connect, how do you perform on-premises conditional access if the device exists only in Microsoft Entra ID? Device writeback helps track Microsoft Entra ID-registered devices in AD by creating a copy of the device object in the "Registered Devices" container.
+In a cloud-based Microsoft Entra ID configuration, devices are registered only in Microsoft Entra ID. Your on-premises AD does not have visibility of these devices. 
+This makes cloud conditional access easy to configure and maintain. However, for hybrid scenarios with Microsoft Entra Connect, how do you perform on-premises conditional access if the device exists only in Microsoft Entra ID? Device writeback helps track Microsoft Entra ID-registered devices in AD by creating a copy of the device object in the "Registered Devices" container.
 
 **Scenario:** You have apps that should grant access only if users come from registered devices.  
 - **Cloud:** You can write Conditional Access policies for apps integrated with Microsoft Entra based on whether the device is joined to Microsoft Entra ID or not.  
@@ -281,8 +304,7 @@ Windows Hello For Business (WHFB) requires device writeback to function in Hybri
 
 ## License Management
 
-Microsoft 365, EMS, Dynamics 365, and other Microsoft cloud services require licenses for each user.  
-Previously, licenses could only be assigned per user; now group-based license assignment is available.
+Microsoft 365, EMS, Dynamics 365, and other Microsoft cloud services require licenses for each user. Previously, licenses could only be assigned per user; now group-based license assignment is available.
 
 #### Benefits of Group-Based License Assignment
 - Simplifies license management at scale.  
@@ -299,7 +321,17 @@ You must have one of the following:
 <br/>
 #### Key Features
 
-![Docusaurus logo](/img/az104/31.png)
+| Feature                  | Description                                                                                                     |
+|--------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Assignment to Security Group | Groups can come from on-premises (synced via Entra Connect) or created directly in the cloud (Entra ID).         |
+| Disable Services         | Admins can disable specific services within a product during license assignment.                              |
+| Service Support          | Applies to Microsoft 365, EMS, and Dynamics 365.                                                               |
+| Portal                   | Currently only available via **Azure Portal** (coming soon to Microsoft Entra Admin Center).                   |
+| Automatic Management     | Licenses are automatically updated when group membership changes.                                              |
+| License Combination      | Users can receive licenses from multiple groups or direct assignments, but are counted only once.              |
+| Assignment Failure       | If assignment fails (due to quota limits or service conflicts), admins can view affected users for troubleshooting. |
+| Usage Location           | A location must be set to ensure region-specific licensing; it can inherit from the directory if not specified.|
+<br/>
 
 ---
 
@@ -369,7 +401,15 @@ These attributes can be used to store information, categorize objects, or enforc
 
 #### Features of Custom Security Attributes
 
-![Docusaurus logo](/img/az104/35.png)
+| Feature                                                                 | Description                                                                 |
+|------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Applies across all tenants                                             | Attributes can be used across all tenants.                                 |
+| Includes description                                                   | Each attribute can have a description.                                     |
+| Supports various data types                                            | Boolean, integer, string.                                                  |
+| Supports single or multiple values                                     | Can have one or several values for a single attribute.                     |
+| Supports free-form values or predefined values                         | Can use free-form input or choose from a predefined list.                  |
+| Can be set for users synchronized from local Active Directory          | Support for hybrid users (local and cloud).                                |
+<br/>
 
 ---
 
@@ -391,12 +431,12 @@ Applications or systems with SCIM endpoints that work with Microsoft Entra provi
 ![Docusaurus logo](/img/az104/36.png)
 
 #### Why Use SCIM?  
-**SCIM** is an open standard protocol that automates identity information exchange between identity domains and IT systems.  
-SCIM ensures employees added to the Human Capital Management system automatically have accounts created in Microsoft Entra ID or Windows Server Active Directory.  
+**SCIM** is an open standard protocol that automates identity information exchange between identity domains and IT systems. 
+SCIM ensures employees added to the Human Capital Management system automatically have accounts created in Microsoft Entra ID or Windows Server Active Directory. 
 User attributes and profiles are synchronized between systems, updating or removing users based on their status or role changes.
 
 #### Key Benefit of Using SCIM  
-Keeps your identity systems always up to date.  
-If a user can be automatically removed from Microsoft Entra ID immediately after being deleted from your HR system, the risk of potential security breaches is greatly reduced.
+Keeps your identity systems always up to date. If a user can be automatically removed from Microsoft Entra ID immediately after 
+being deleted from your HR system, the risk of potential security breaches is greatly reduced.
 
 ---
