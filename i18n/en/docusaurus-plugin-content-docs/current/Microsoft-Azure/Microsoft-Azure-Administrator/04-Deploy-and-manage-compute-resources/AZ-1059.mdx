@@ -3,12 +3,281 @@ id: AZ-1059
 title: Introduction to Azure Virtual Machines
 ---
 
+Migrating on-premises servers to Azure requires planning and attention. You can move everything at once, but it's typically done in phases or even one by one. 
+Before creating a VM, you need to map out your current infrastructure and how it aligns with the cloud model.
+
+---
+
+## Resources Related to VMs in Azure
+
+VMs in Azure involve several key components:
+
+- Disks for storage  
+- Virtual networks  
+- Network interfaces  
+- Network Security Groups (NSG)  
+- IP addresses (public, private, or both)
+
 :::info
-
-Additional topics will be added to the wiki over time. Please stay tuned for updates.
-
+Azure will create these resources if needed, or you can use existing ones.  
+Azure will use the VM name as the base for automatically naming associated resources during VM creation.
 :::
 
-:::warning
+---
 
-Some of the materials or topics presented may cover foundational concepts. Your understanding is appreciated.
+## VM Resource Details
+
+---
+
+### Networking
+
+> VNets (Virtual Networks) in Azure are used for private connectivity between VMs and other Azure services.
+
+- Define **address space** and **subnets**
+- Avoid overlaps with your on-premises network
+- Use private IP ranges like:
+  - `10.0.0.0/8`
+  - `172.16.0.0/12`
+  - `192.168.0.0/16`
+
+### Subnetting
+
+**Example:**
+- `10.1.0.0` for VMs  
+- `10.2.0.0` for backend  
+- `10.3.0.0` for SQL Server  
+
+> Note: Azure reserves the first 4 and last IP address in each subnet.
+
+### Security
+
+Use NSG (Network Security Group) to:
+
+- Control **inbound** and **outbound** traffic  
+- Restrict access to specific ports  
+
+---
+
+## VM Planning
+
+### VM Naming
+
+The VM name is used as the computer name:
+
+- **Linux:** up to 64 characters  
+- **Windows:** up to 15 characters  
+
+**Use naming conventions:**
+
+| Element     | Example      | Notes                      |
+|-------------|--------------|----------------------------|
+| Environment | dev, prod, QA | Indicates environment      |
+| Location    | eus, jw       | Azure region               |
+| Instance    | 01, 02        | If multiple VMs            |
+| Service     | service       | Application/product name   |
+| Role        | sql, web      | VM function                |
+
+**Example:** `deveus-webvm01` → First web server for dev in East US.
+
+### VM Location
+
+Choose an **Azure region** (e.g., West US, Southeast Asia)
+
+Consider:
+- Proximity to users  
+- Legal or tax regulations  
+- Performance  
+- Pricing (varies by region)  
+
+---
+
+## Choose VM Size
+
+Azure offers a variety of VM sizes based on workload needs:
+
+| Type                   | Description                                                                |
+|------------------------|----------------------------------------------------------------------------|
+| General purpose        | Balanced CPU-to-memory ratio. For dev/test, small DBs, light web servers   |
+| Compute optimized      | High CPU. Suitable for medium web servers, batch jobs, network appliances  |
+| Memory optimized       | High memory. Great for relational DBs, caching, in-memory analytics        |
+| Storage optimized      | High disk throughput. Ideal for large DBs                                  |
+| GPU                    | Graphics rendering, AI training & inference                                |
+| High performance compute | Fastest CPUs, high network throughput                                    |
+
+> Note: Resizing is possible, but the VM will **reboot**.
+
+---
+
+## VM Components and Cost
+
+| Resource         | Description                              | Cost                         |
+|------------------|------------------------------------------|------------------------------|
+| Virtual Network   | For VM communication                    | VNet pricing applies         |
+| NIC              | Connects to VNet                         | Free (with limits)           |
+| IP Address       | Public or private                        | IP pricing applies           |
+| NSG              | Software-based firewall                  | Free                         |
+| OS & Data Disks  | Separate data from OS                    | Depends on disk type         |
+| OS License       | Windows/Linux                            | Discounted with Hybrid Benefit |
+
+> 💡 **Tip:** Stopped and **deallocated** VMs are only charged for **storage**, not **compute**.
+
+---
+
+## Azure Pricing Models
+
+### Compute Cost
+
+- Billed per **hour**, charged per **minute**
+- No charges if VM is **deallocated**
+
+**Payment Options:**
+
+| Option             | Description                                            |
+|--------------------|--------------------------------------------------------|
+| Pay as you go      | Flexible, per-second billing, no commitment            |
+| Reserved Instance  | 1 or 3-year commitment, up to 72% cost savings         |
+
+### Storage Cost
+
+- Charged even when VM is shut down
+- Separate data disks for independent management
+- Max number of disks depends on **vCPU count**
+
+**Disk Types:**
+
+| Disk Type        | Use Case                    | Max IOPS | Throughput | OS Disk? |
+|------------------|-----------------------------|----------|------------|----------|
+| Ultra Disk       | High IO load (SAP, SQL)     | 160,000  | 4,000 MB/s | ❌       |
+| Premium SSD v2   | Performance-sensitive apps  | 80,000   | 1,200 MB/s | ❌       |
+| Premium SSD      | Production use              | 20,000   | 900 MB/s   | ✅       |
+| Standard SSD     | Web server, dev/test        | 6,000    | 750 MB/s   | ✅       |
+| Standard HDD     | Backup, infrequent access   | 2,000    | 500 MB/s   | ✅       |
+
+---
+
+## Choose Operating System
+
+Azure provides a wide range of **OS images**, including Linux and Windows.
+
+- Pricing can be affected by OS
+- Use the **Marketplace** for ready-made images (e.g., WordPress stack)
+- Or create a **custom image** stored in the **Azure Compute Gallery**
+
+---
+
+:::info Info
+
+This checklist helps you design a VM in Azure considering:
+
+✅ Networking  
+✅ VM Size  
+✅ Location  
+✅ Operating System  
+✅ Pricing Model  
+
+So your solution fits both **technical needs** and **budget**.
+:::
+
+---
+
+## Options to Create and Manage Azure Virtual Machines
+
+Azure provides multiple ways to create and manage VMs. Here are popular methods:
+
+### Azure Portal
+
+The most beginner-friendly way to create a VM. However, it becomes inefficient for complex scenarios or bulk VM creation.
+
+### Azure Resource Manager (ARM) Templates
+
+ARM templates are JSON files that define needed resources. You can export from an existing VM, edit, and reuse them.
+
+- Ideal for consistent environments (staging, production)
+- Supports parameters (VM name, network name, etc.)
+
+> See: [Quickstart: Create Linux VM using ARM Template](https://learn.microsoft.com/azure/virtual-machines/linux/quick-create-template)
+
+### Azure CLI
+
+Azure CLI is Microsoft’s cross-platform command-line tool.
+
+Example:
+
+```bash
+az vm create   --resource-group TestResourceGroup   --name test-wp1-eus-vm   --image Ubuntu2204   --admin-username azureuser   --generate-ssh-keys
+```
+
+> See: [Quickstart: Create Linux VM using CLI](https://learn.microsoft.com/azure/virtual-machines/linux/quick-create-cli)
+
+### Azure PowerShell
+
+Great for interactive tasks or automation.
+
+Example:
+
+```powershell
+New-AzVm `
+  -ResourceGroupName "TestResourceGroup" `
+  -Name "test-wp1-eus-vm" `
+  -Location "East US" `
+  -Image Debian11 `
+  -VirtualNetworkName "test-wp1-eus-network" `
+  -SubnetName "default" `
+  -SecurityGroupName "test-wp1-eus-nsg" `
+  -PublicIpAddressName "test-wp1-eus-pubip" `
+  -GenerateSshKey `
+  -SshKeyName myPSKey `
+  -OpenPorts 22
+```
+
+> See: [Quickstart: Create Linux VM using PowerShell](https://learn.microsoft.com/azure/virtual-machines/linux/quick-create-powershell)
+
+### Terraform
+
+Terraform allows you to define, preview, and deploy cloud infrastructure using HCL configuration files.
+
+> See: [Azure Terraform Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+
+### Azure REST API
+
+Provides programmatic control over Azure resources, including VMs.
+
+- HTTP methods: GET, PUT, POST, DELETE, PATCH
+- Use for complex scenarios within your applications
+
+> See: [Azure VM REST API Reference](https://learn.microsoft.com/rest/api/compute/virtual-machines)
+
+### Azure Client SDKs
+
+Azure SDKs simplify interaction with REST APIs and are available for:
+
+- C# / .NET  
+- Java  
+- Python  
+- Node.js  
+- PHP  
+- Go  
+
+## Azure VM Extensions
+
+VM extensions are small apps that help configure and automate post-deployment tasks on VMs.
+
+> See: [Azure VM Extensions Overview](https://learn.microsoft.com/azure/virtual-machines/extensions/overview)
+
+## Azure Automation
+
+Automation services reduce error and improve efficiency:
+
+- **Process Automation** – Trigger tasks on events  
+- **Configuration Management** – Monitor & manage software configs  
+- **Update Management** – Schedule and control OS updates  
+
+> See: [Azure Automation Overview](https://learn.microsoft.com/azure/automation/automation-intro)
+
+## Auto-shutdown
+
+This feature lets you schedule automatic shutdown of VMs to save costs.
+
+- Available in the Azure VM portal → "Operations" → "Auto-shutdown"
+
+> See: [Azure VM Auto-shutdown](https://learn.microsoft.com/azure/virtual-machines/windows/scheduled-events#auto-shutdown)

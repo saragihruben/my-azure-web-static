@@ -3,12 +3,286 @@ id: AZ-1059
 title: Pengenalan Azure Virtual Machine
 ---
 
+Melakukan migrasi server on-premises ke Azure memerlukan perencanaan dan perhatian. Pengguna bisa memindahkan semuanya sekaligus, 
+namun biasanya dilakukan secara bertahap atau bahkan satu per satu.
+Sebelum membuat sebuah VM, penguna perlu memetakan infrastruktur saat ini dan bagaimana mencocokkannya dengan model cloud.
+
+---
+
+## Resource yang terkait dengan VM pada Azure
+
+VM pada azure memiliki beberapa elemen penting:
+
+- Disk untuk penyimpanan
+- Jaringan virtual
+- Network interface
+- Network Security Group (NSG)
+- Alamat IP (public, private, atau keduanya)
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+Azure akan membuat resource-resource ini jika diperlukan, atau pengguna dapat menggunakan yang sudah ada.  
+Azure akan menggunakan nama VM sebagai dasar penamaan otomatis pada resource yang terasosiasi saat pembuatan VM.
 :::
 
-:::warning
+---
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+## Detail resources pada VM
+
+---
+
+### Jaringan
+
+> VNets (Virtual Networks) di Azure digunakan untuk konektivitas private antar VM dan layanan Azure lainnya.
+
+- Tentukan **address space** dan **subnet**
+- Hindari overlap dengan jaringan on-premises
+- Gunakan IP privat seperti:
+  - `10.0.0.0/8`
+  - `172.16.0.0/12`
+  - `192.168.0.0/16`
+
+### Subneting
+
+**Contoh:**
+- `10.1.0.0` untuk VM
+- `10.2.0.0` untuk backend
+- `10.3.0.0` untuk SQL Server
+
+> Catatan: Azure menyimpan 4 alamat pertama dan 1 terakhir dari setiap subnet.
+
+### Keamanan
+
+Gunakan NSG (*Network Security Group*) untuk:
+
+- Mengontrol lalu lintas **inbound** dan **outbound**
+- Membatasi akses ke port tertentu
+
+---
+
+## Rencana Pembuatan VM
+
+### Nama VM
+
+Nama VM digunakan sebagai nama komputer:
+
+- **Linux:** hingga 64 karakter
+- **Windows:** hingga 15 karakter
+
+**Gunakan konvensi penamaan:**
+
+| Elemen      | Contoh     | Catatan                |
+|-------------|------------|------------------------|
+| Environment | dev, prod, QA | Menandakan lingkungan |
+| Lokasi      | eus, jw    | Lokasi Azure           |
+| Instance    | 01, 02     | Jika VM lebih dari satu|
+| Layanan     | service    | Aplikasi/produk        |
+| Peran       | sql, web   | Fungsi VM              |
+
+**Contoh:** `deveus-webvm01` → web server pertama untuk dev di East US.
+
+### Lokasi VM
+
+Pilih **region Azure** (misal: West US, Southeast Asia)
+
+Pertimbangkan:
+- Kedekatan dengan pengguna
+- Regulasi hukum atau pajak
+- Performa
+- Harga (berbeda tiap region)
+
+---
+
+## Tentukan Ukuran VM
+
+Azure menawarkan berbagai ukuran VM berdasarkan kebutuhan workload:
+
+| Tipe                | Deskripsi                                                                 |
+|---------------------|---------------------------------------------------------------------------|
+| General purpose      | Rasio CPU-ke-memory seimbang. Dev/test, database kecil, web server ringan |
+| Compute optimized    | CPU tinggi. Untuk web server menengah, batch job, appliance jaringan     |
+| Memory optimized     | Memori tinggi. Cocok untuk database relasional, cache, analitik in-memory |
+| Storage optimized    | Disk throughput tinggi. Cocok untuk VM dengan database besar              |
+| GPU                  | Rendering grafis berat, pelatihan & inferensi AI                         |
+| High performance compute | CPU tercepat, jaringan throughput tinggi                               |
+
+> Catatan: Resize dimungkinkan, tapi VM akan **reboot**.
+
+---
+
+## Komponen VM dan Biaya
+
+| Resource         | Deskripsi                                      | Biaya                        |
+|------------------|------------------------------------------------|------------------------------|
+| Virtual Network   | Untuk komunikasi antar VM                     | Berdasarkan harga VNet       |
+| NIC              | Untuk koneksi ke VNet                          | Gratis, ada batas            |
+| IP Address       | Publik atau privat                             | Berdasarkan harga IP         |
+| NSG              | Firewall berbasis software                     | Gratis                       |
+| Disk OS dan Data | Pisahkan data dari OS                          | Tergantung jenis disk        |
+| Lisensi OS       | Windows/Linux                                  | Bisa dikurangi dengan Hybrid Benefit |
+
+> 💡 **Tip:** VM yang dihentikan dan di-*deallocated* hanya dikenai biaya **storage**, bukan **compute**.
+
+---
+
+## Model Harga Azure
+
+### Compute Cost (biaya komputasi)
+
+- Dihitung per **jam**, ditagih per **menit**
+- Tidak dikenakan biaya jika VM di-*deallocate*
+
+**Opsi pembayaran:**
+
+| Opsi               | Deskripsi                                                        |
+|--------------------|------------------------------------------------------------------|
+| Pay as you go      | Fleksibel, bayar per detik, tanpa komitmen                      |
+| Reserved Instance  | Komitmen 1 atau 3 tahun, hingga 72% lebih murah                 |
+
+### Storage Cost (biaya penyimpanan)
+
+- Dikenakan meski VM dimatikan
+- Pisahkan disk data untuk manajemen independen
+- Maks disk per VM tergantung **vCPU**
+
+**Jenis Disk:**
+
+| Tipe Disk         | Skenario                     | Max IOPS | Throughput | Bisa OS Disk |
+|-------------------|------------------------------|----------|------------|---------------|
+| Ultra Disk        | Beban IO tinggi (SAP, SQL)   | 160,000  | 4,000 MB/s | ❌            |
+| Premium SSD v2    | Beban sensitif performa      | 80,000   | 1,200 MB/s | ❌            |
+| Premium SSD       | Produksi                     | 20,000   | 900 MB/s   | ✅            |
+| Standard SSD      | Web server, dev/test         | 6,000    | 750 MB/s   | ✅            |
+| Standard HDD      | Backup, akses jarang         | 2,000    | 500 MB/s   | ✅            |
+
+---
+
+## Pilih Sistem Operasi
+
+Azure menyediakan berbagai **image OS**, termasuk Linux dan Windows.
+
+- Harga bisa dipengaruhi oleh OS
+- Gunakan **Marketplace** untuk image lengkap (misal WordPress stack)
+- Atau buat **image kustom** dan simpan di **Azure Compute Gallery**
+
+---
+
+:::info Info
+
+Checklist ini membantu Anda merancang VM di Azure dengan mempertimbangkan:
+
+✅ Jaringan  
+✅ Ukuran VM  
+✅ Lokasi  
+✅ Sistem Operasi  
+✅ Model Harga  
+
+Agar solusi Anda sesuai dengan **kebutuhan teknis** dan **anggaran**.
+:::
+---
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Opsi untuk Membuat dan Mengelola Azure Virtual Machine
+
+Azure menyediakan berbagai cara untuk membuat dan mengelola Virtual Machine (VM). Berikut adalah beberapa metode populer:
+
+### Portal Azure
+
+Portal Azure adalah cara paling mudah untuk membuat VM, terutama saat baru memulai. Namun, untuk skenario kompleks atau pembuatan VM dalam jumlah besar, metode ini bisa menjadi tidak efisien.
+
+### Template Azure Resource Manager (ARM)
+
+Template ARM adalah file JSON yang mendefinisikan sumber daya yang diperlukan. Anda bisa mengekspor template dari VM yang sudah ada, mengeditnya, dan menggunakannya kembali untuk membuat VM baru dengan konfigurasi yang sama atau disesuaikan.
+
+- Cocok untuk membuat lingkungan yang konsisten (staging, production).
+- Dapat diparameterisasi (nama VM, nama jaringan, dsb).
+
+> Lihat: [Quickstart: Membuat VM Linux dengan ARM Template](https://learn.microsoft.com/azure/virtual-machines/linux/quick-create-template)
+
+### Azure CLI
+
+Azure CLI adalah alat baris perintah lintas platform dari Microsoft.
+
+Contoh:
+
+```bash
+az vm create   --resource-group TestResourceGroup   --name test-wp1-eus-vm   --image Ubuntu2204   --admin-username azureuser   --generate-ssh-keys
+```
+
+> Lihat: [Quickstart: Membuat VM Linux dengan CLI](https://learn.microsoft.com/azure/virtual-machines/linux/quick-create-cli)
+
+### Azure PowerShell
+
+Azure PowerShell cocok untuk tugas interaktif atau otomatisasi.
+
+Contoh:
+
+```powershell
+New-AzVm `
+  -ResourceGroupName "TestResourceGroup" `
+  -Name "test-wp1-eus-vm" `
+  -Location "East US" `
+  -Image Debian11 `
+  -VirtualNetworkName "test-wp1-eus-network" `
+  -SubnetName "default" `
+  -SecurityGroupName "test-wp1-eus-nsg" `
+  -PublicIpAddressName "test-wp1-eus-pubip" `
+  -GenerateSshKey `
+  -SshKeyName myPSKey `
+  -OpenPorts 22
+```
+
+> Lihat: [Quickstart: Membuat VM Linux dengan PowerShell](https://learn.microsoft.com/azure/virtual-machines/linux/quick-create-powershell)
+
+### Terraform
+
+Terraform memungkinkan Anda mendefinisikan, melihat pratinjau, dan menerapkan infrastruktur cloud menggunakan file konfigurasi HCL.
+
+> Lihat: [Azure Terraform Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+
+### API REST Azure
+
+API REST menyediakan kontrol programatik atas semua sumber daya Azure, termasuk VM.
+
+- Metode HTTP: GET, PUT, POST, DELETE, PATCH.
+- Gunakan untuk skenario kompleks dalam aplikasi Anda.
+
+> Lihat: [Referensi REST API Azure VM](https://learn.microsoft.com/rest/api/compute/virtual-machines)
+
+### Azure Client SDK
+
+SDK Azure menyederhanakan interaksi dengan API REST dan tersedia untuk:
+
+- C# / .NET
+- Java
+- Python
+- Node.js
+- PHP
+- Go
+
+## Ekstensi VM Azure
+
+Ekstensi VM adalah aplikasi kecil untuk mengkonfigurasi dan mengotomatisasi tugas pasca-deploy pada VM.
+
+> Lihat: [Fitur dan Ekstensi VM Azure](https://learn.microsoft.com/azure/virtual-machines/extensions/overview)
+
+## Azure Automation
+
+Layanan otomatisasi untuk mengurangi kesalahan dan meningkatkan efisiensi:
+
+- **Process Automation** – Jalankan tugas saat event terjadi.
+- **Configuration Management** – Kelola dan pantau konfigurasi perangkat lunak.
+- **Update Management** – Kelola dan jadwalkan pembaruan.
+
+> Lihat: [Azure Automation Overview](https://learn.microsoft.com/azure/automation/automation-intro)
+
+## Auto-shutdown
+
+Fitur Auto-shutdown memungkinkan Anda menjadwalkan VM untuk mati otomatis guna menghemat biaya.
+
+- Tersedia di portal VM Azure → "Operations" → "Auto-shutdown".
+
+👉 Lihat: [Auto-shutdown untuk VM Azure](https://learn.microsoft.com/azure/virtual-machines/windows/scheduled-events#auto-shutdown)
+
+---
+
