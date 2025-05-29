@@ -3,12 +3,229 @@ id: AZ-1063
 title: Konfigurasi Azure Container Instance
 ---
 
-:::info
+<br/>
+## Perbandingan container dengan virtual machine
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Virtualisasi perangkat keras memungkinkan menjalankan beberapa instance sistem operasi yang terisolasi secara bersamaan di perangkat keras fisik yang sama.
+Container adalah tahap selanjutnya dalam virtualisasi sumber daya komputasi.
 
+Virtualisasi berbasis container memungkinkan virtualisasi sistem operasi. Pendekatan ini memungkinkan Pengguna menjalankan beberapa aplikasi dalam satu instance sistem operasi,
+sambil tetap mempertahankan isolasi antar aplikasi. Container di dalam mesin virtual menyediakan fungsi serupa seperti mesin virtual di dalam server fisik.
+
+### Hal yang Perlu Diketahui tentang Container vs Mesin Virtual
+
+Untuk lebih memahami virtualisasi berbasis container, mari bandingkan container dan mesin virtual.
+
+![compare container to vm](/img/az104/78.png)
+
+| **Perbandingan**        | **Container** | **Mesin Virtual** |
+|-------------------------|---------------|--------------------|
+| **Isolasi**             | Memberikan isolasi ringan dari host dan container lain, namun tidak sekuat batas keamanan yang disediakan mesin virtual. | Memberikan isolasi penuh dari sistem operasi host dan mesin virtual lainnya. Cocok saat dibutuhkan batas keamanan yang kuat, seperti menjalankan aplikasi dari perusahaan berbeda dalam server atau klaster yang sama. |
+| **Sistem Operasi**      | Menjalankan bagian user mode dari sistem operasi dan hanya memuat layanan yang dibutuhkan aplikasi. Lebih hemat sumber daya sistem. | Menjalankan sistem operasi lengkap termasuk kernel, memerlukan lebih banyak sumber daya (CPU, memori, dan penyimpanan). |
+| **Penerapan (Deployment)** | Dapat dijalankan menggunakan Docker via command line. Untuk banyak container, gunakan orchestrator seperti Azure Kubernetes Service. | Dapat dijalankan menggunakan Windows Admin Center atau Hyper-V Manager. Untuk banyak mesin virtual, gunakan PowerShell atau System Center Virtual Machine Manager. |
+| **Penyimpanan Persisten** | Gunakan Azure Disks untuk penyimpanan lokal node tunggal, atau Azure Files (SMB share) untuk penyimpanan bersama antar node/server. | Gunakan virtual hard disk (VHD) untuk penyimpanan lokal satu mesin, atau SMB file share untuk penyimpanan bersama antar server. |
+| **Toleransi Kesalahan** | Jika sebuah node klaster gagal, orchestrator di node lain akan segera membuat ulang container yang sebelumnya berjalan di node tersebut. | Mesin virtual dapat beralih (failover) ke server lain di klaster, dan sistem operasinya akan dimulai ulang di server baru. |
+
+### Pertimbangan Saat Menggunakan Container
+
+Container menawarkan beberapa keuntungan dibanding mesin fisik atau virtual. Pertimbangkan manfaat berikut dan bagaimana Pengguna dapat menerapkan container untuk aplikasi internal perusahaan:
+
+- **Fleksibilitas dan Kecepatan**  
+  Dapatkan fleksibilitas dan kecepatan lebih tinggi dalam pengembangan dan distribusi kode aplikasi yang ter-containerisasi.
+
+- **Pengujian**  
+  Gunakan container untuk mempermudah proses pengujian aplikasi.
+
+- **Penerapan Aplikasi**  
+  Gunakan container untuk mempercepat dan menyederhanakan proses deployment aplikasi.
+
+- **Kepadatan Beban Kerja**  
+  Dukung kepadatan beban kerja yang lebih tinggi dan tingkatkan pemanfaatan sumber daya dengan menggunakan container.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Review Azure Container Instances
+
+
+Container kini menjadi cara pilihan untuk mengemas, menerapkan, dan mengelola aplikasi cloud. Di Azure, terdapat banyak opsi untuk membangun dan menjalankan aplikasi native cloud dan berbasis container. Salah satu opsi paling sederhana dan cepat adalah **Azure Container Instances (ACI)**.
+
+### Apa itu Azure Container Instances?
+
+**Azure Container Instances** menawarkan cara tercepat dan termudah untuk menjalankan container di Azure tanpa perlu mengelola mesin virtual atau menggunakan layanan dengan tingkat kompleksitas lebih tinggi. ACI sangat cocok untuk skenario yang dapat dijalankan dalam container terisolasi.
+
+#### Memahami Container Image
+
+Semua container dibuat dari **container image**, yaitu paket perangkat lunak ringan, mandiri, dan dapat dieksekusi yang mencakup semua yang diperlukan untuk menjalankan aplikasi, yaitu:
+
+- **Kode:** Source code dari aplikasi.
+- **Runtime:** Lingkungan yang dibutuhkan untuk menjalankan aplikasi.
+- **Alat sistem:** Utilitas penting yang diperlukan aplikasi.
+- **Library sistem:** Library bersama yang digunakan aplikasi.
+- **Pengaturan:** Parameter konfigurasi khusus aplikasi.
+
+Setelah dibuat, container image menjadi unit portabel yang dapat dijalankan secara konsisten di berbagai lingkungan komputasi.
+
+![aci](/img/az104/79.png)
+
+### Keunggulan Azure Container Instances
+
+Berikut adalah manfaat utama menggunakan Azure Container Instances untuk aplikasi internal Anda:
+
+- **Waktu mulai yang cepat**  
+  Container dapat berjalan dalam hitungan detik tanpa perlu menyebarkan atau mengelola VM.
+
+- **Konektivitas IP publik dan DNS**  
+  Container dapat diekspos langsung ke internet menggunakan alamat IP dan **FQDN** (Fully Qualified Domain Name).
+
+- **Ukuran yang dapat disesuaikan**  
+  Resource container dapat diskalakan secara dinamis sesuai kebutuhan aplikasi.
+
+- **Penyimpanan persisten**  
+  ACI mendukung mount langsung ke **Azure Files** untuk penyimpanan data secara persisten.
+
+- **Dukungan untuk Linux dan Windows**  
+  ACI dapat menjalankan container berbasis Linux maupun Windows. Tentukan tipe sistem operasi saat membuat container group.
+
+- **Grup bersamaan (coscheduled)**  
+  Mendukung penjadwalan grup multi-container yang berbagi sumber daya mesin host yang sama.
+
+- **Penerapan ke Virtual Network**  
+  Container dapat dijalankan di dalam **jaringan virtual Azure**, memungkinkan kontrol jaringan dan keamanan yang lebih baik.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Implementasi container groups
+
+**Container Group** adalah sumber daya tingkat atas di **Azure Container Instances (ACI)**. Ini adalah kumpulan container yang dijadwalkan untuk berjalan pada host machine yang sama. Container dalam satu group berbagi:
+
+- Siklus hidup (lifecycle)
+- Sumber daya (CPU, memori, GPU)
+- Jaringan lokal
+- Volume penyimpanan
+
+### Hal yang Perlu Diketahui Tentang Container Groups
+
+- Container group mirip dengan **pod** dalam Kubernetes.
+- Container dalam satu group bisa saling berbagi sumber daya terkait.
+- Azure akan menjumlahkan kebutuhan sumber daya dari semua container dalam satu grup untuk mengalokasikannya.
+- Terdapat dua cara umum untuk menerapkan multi-container group:
+  - **ARM Template**: Cocok saat juga ingin menyertakan resource Azure lainnya (contoh: Azure Files).
+  - **YAML File**: Lebih ringkas dan cocok untuk deployment container saja.
+
+#### Konektivitas dan IP
+
+- Container group bisa berbagi alamat IP publik dan port, serta label DNS dengan **FQDN**.
+- Untuk akses dari luar, Anda harus mengekspos port baik di IP maupun container.
+- **Port mapping tidak didukung**, karena semua container berbagi namespace port.
+- Saat container group dihapus, IP dan FQDN juga dilepaskan.
+
+
+#### Contoh Konfigurasi Container Group
+
+Skenario multi-container group dengan 2 container:
+
+- Berjalan di 1 host machine.
+- Mendapat label DNS dan 1 alamat IP publik.
+- Container 1: Mendengarkan pada port 80 (web app).
+- Container 2: Mendengarkan pada port 1433 (database).
+- Masing-masing container me-mount satu **Azure Files share** untuk penyimpanan persisten.
+
+![configuration example](/img/az104/80.png)
+
+### Pertimbangan Saat Menggunakan Container Groups
+
+Container group berguna saat Anda ingin membagi satu fungsi aplikasi menjadi beberapa container. Misalnya:
+
+#### 1. **Pembaruan Aplikasi Web**
+- Gunakan satu container untuk menyajikan web app.
+- Container kedua menarik konten terbaru dari sistem kontrol versi (source control).
+
+#### 2. **Pengumpulan Log**
+- Aplikasi menulis log ke output standar.
+- Container logging membaca output tersebut dan menyimpannya ke penyimpanan jangka panjang.
+
+#### 3. **Pemantauan Aplikasi**
+- Container monitoring mengakses container aplikasi secara berkala.
+- Jika ada masalah, container monitoring mengirim alert.
+
+#### 4. **Dukungan Front-end dan Back-end**
+- Container front-end menyajikan UI web.
+- Container back-end menyediakan layanan data atau API.
+
+:::tip Konklusi
+Dengan menggunakan **container group** di ACI, Anda bisa mengatur container yang saling berhubungan dalam satu unit deployment yang efisien, fleksibel, dan dapat diskalakan. 
+Cocok untuk berbagai arsitektur modern berbasis microservices dan kebutuhan dev/test cepat di cloud.
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Review Azure Container Apps
+
+**Azure Container Apps (ACA)** adalah platform **serverless** untuk menjalankan aplikasi container tanpa harus mengelola infrastruktur server, orkestrasi container, 
+atau proses deployment yang kompleks.
+
+Dengan ACA, Anda dapat fokus membangun dan menjalankan aplikasi **cloud-native** tanpa perlu konfigurasi Kubernetes langsung.
+
+#### Kegunaan Umum Azure Container Apps
+
+- Menyediakan endpoint API
+- Menjalankan job latar belakang (background processing)
+- Menangani pemrosesan berbasis event
+- Menjalankan arsitektur microservices
+
+#### Kemampuan Skalabilitas
+
+Azure Container Apps dapat melakukan scaling otomatis berdasarkan:
+
+- **Traffic HTTP**
+- **Event-driven processing**
+- **Beban CPU atau memori**
+- **Scaler yang didukung KEDA (Kubernetes-based Event Driven Autoscaler)**
+
+### Fitur Unggulan ACA
+
+- **Dibangun di atas Kubernetes**, tetapi tanpa perlu mengelola Kubernetes secara langsung.
+- Menggunakan teknologi **open-source** seperti:
+  - **Dapr** (untuk microservices)
+  - **KEDA** (untuk autoscaling berbasis event)
+  - **Envoy** (untuk proxy dan service mesh)
+- Mendukung arsitektur **event-driven** dan **microservices**.
+- Mendukung berbagai jenis job:
+  - **On-demand jobs**
+  - **Scheduled jobs**
+  - **Event-driven jobs**
+- **Skala hingga nol (scale to zero)** saat tidak ada beban.
+- Tidak memberi akses langsung ke API Kubernetes — cocok bagi tim yang ingin pengalaman Kubernetes tanpa kompleksitasnya.
+
+---
+
+### Perbandingan: Azure Container Apps vs Azure Kubernetes Service
+
+| Fitur         | Azure Container Apps (ACA)                                                                 | Azure Kubernetes Service (AKS)                                                                 |
+|---------------|---------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| **Gambaran Umum** | Platform serverless untuk microservices, menyembunyikan infrastruktur di balik layar.     | Layanan Kubernetes terkelola yang menyediakan kontrol penuh atas kluster.                      |
+| **Deployment**    | Pengalaman PaaS yang cepat dan mudah.                                                     | Kontrol penuh dan opsi kustomisasi tinggi. Cocok untuk aplikasi kompleks.                      |
+| **Manajemen**     | Lebih sederhana karena dibangun di atas AKS.                                              | Memberikan kontrol detail untuk tim dengan keahlian Kubernetes.                                |
+| **Skalabilitas**  | Autoscaling berbasis HTTP dan event. Cocok untuk beban dinamis.                           | Mendukung Horizontal Pod Autoscaler dan Cluster Autoscaler.                                   |
+| **Use Case**      | Microservices dan aplikasi serverless dengan kebutuhan scaling cepat dan manajemen mudah.| Aplikasi kompleks yang berjalan lama dan memerlukan fitur Kubernetes secara penuh.            |
+| **Integrasi**     | Terintegrasi dengan Logic Apps, Event Grid, dan Azure Functions.                         | Integrasi penuh dengan Azure Policy, Azure Monitor, dan Azure Defender untuk Kubernetes.       |
+
+---
+
+### Kapan Menggunakan Azure Container Apps?
+
+Gunakan ACA jika Anda:
+
+- Ingin membangun microservices tanpa kompleksitas Kubernetes.
+- Membutuhkan aplikasi yang **autoscale berdasarkan event**.
+- Fokus pada **time-to-market** dan ingin mengurangi beban operasional.
+- Ingin menggabungkan ACA dengan **fungsi Azure lainnya** seperti Event Grid atau Logic Apps.
+
+---
+
+:::tip Konklusi
+**Azure Container Apps** menyederhanakan penerapan container modern dan microservices di cloud. 
+Cocok untuk tim yang ingin manfaat Kubernetes tanpa kompleksitasnya. 
+ACA menyediakan cara mudah untuk menjalankan aplikasi container yang **efisien, scalable, dan event-driven**, ideal untuk solusi berbasis cloud masa kini.
 :::
 
-:::warning
-
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -2,13 +2,414 @@
 id: AZ-1062
 title: Konfigurasi Azure App Services
 ---
+<br/>
+## Membuat sebuah app dengan App Service
 
-:::info
+Pengguna dapat menggunakan fitur **Web Apps**, **Mobile Apps**, atau **API Apps** dari Azure App Service untuk membuat aplikasi sendiri melalui portal Azure.
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+### Hal yang Perlu Diketahui tentang Pengaturan Konfigurasi
 
+Mari kita lihat beberapa pengaturan dasar yang di perlukan untuk membuat aplikasi dengan App Service.
+
+| **Pengaturan**        | **Deskripsi**                                                                                                                                                                                                                                                                             |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Name (Nama)**       | Nama aplikasi harus unik. Nama ini digunakan untuk mengidentifikasi dan menemukan aplikasi di Azure. Contoh nama: `webappces1.azurewebsites.net`. Pengguna juga dapat memetakan ke nama domain khusus jika diinginkan.                                                           |
+| **Publish**           | App Service menerbitkan aplikasi sebagai kode atau sebagai **Docker Container**.                                                                                                                                                                                                    |
+| **Runtime stack**     | App Service menggunakan stack perangkat lunak untuk menjalankan aplikasi, termasuk bahasa dan versi SDK. Untuk aplikasi Linux dan container kustom, Pengguna dapat menetapkan perintah atau file startup opsional. Stack yang tersedia: .NET Core, .NET Framework, Node.js, PHP, Python, Ruby. |
+| **Operating system**  | Sistem operasi untuk stack runtime aplikasi dapat berupa **Linux** atau **Windows**.                                                                                                                                                                                                 |
+| **Region**            | Lokasi regional yang di pilih untuk aplikasi akan memengaruhi ketersediaan App Service plan.                                                                                                                                                                                            |
+| **Pricing plans**     | Aplikasi perlu dikaitkan dengan **Azure App Service Plan** untuk menentukan sumber daya, fitur, dan kapasitas yang tersedia. Pengguna dapat memilih dari berbagai tingkatan harga berdasarkan region yang dipilih.                                                                       |
+
+### Pengaturan Setelah Aplikasi Dibuat
+
+Setelah aplikasi dibuat, pengaturan konfigurasi tambahan tersedia di portal Azure, termasuk opsi deployment aplikasi dan pemetaan path.
+
+![app service post creation](/img/az104/71.png)
+
+Beberapa pengaturan tambahan dapat disertakan dalam kode pengembang, sementara yang lain dapat dikonfigurasi langsung dalam aplikasi. 
+Berikut adalah beberapa pengaturan aplikasi tambahan:
+
+- **Always On**: Menjaga aplikasi tetap aktif meskipun tidak ada trafik. Wajib diaktifkan untuk **WebJobs** berkelanjutan atau yang dipicu menggunakan ekspresi **CRON**.
+- **Session affinity**: Dalam penerapan multi-instance, Anda dapat memastikan klien aplikasi diarahkan ke instance yang sama selama sesi.
+- **HTTPS Only**: Saat diaktifkan, semua trafik HTTP akan dialihkan ke HTTPS.
+
+:::tip Tips 
+> Coba praktik langsung dengan latihan [**Membuat aplikasi web di portal Azure**](https://learn.microsoft.com/en-us/training/modules/host-a-web-app-with-azure-app-service/3-exercise-create-a-web-app-in-the-azure-portal?pivots=csharp). Latihan ini menyediakan sandbox untuk mencoba tanpa risiko.
 :::
 
-:::warning
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+## Sekilas CI/CD pada App Service
+
+Portal Azure menyediakan integrasi dan penerapan berkelanjutan secara langsung (**out-of-the-box**) dengan layanan Azure DevOps, GitHub, Bitbucket, FTP, atau repositori 
+Git lokal. Pengguna dapat menghubungkan aplikasi web dengan salah satu sumber tersebut, dan App Service akan menangani sisanya. 
+App Service akan secara otomatis menyinkronkan kode dan perubahan di masa depan ke dalam aplikasi web.
+
+Dengan layanan Azure DevOps, Pengguna juga dapat menentukan proses build dan release sendiri: kompilasi kode sumber, jalankan pengujian, dan bangun serta terapkan 
+rilis ke dalam aplikasi web setiap kali Pengguna melakukan commit. Semua operasi ini dilakukan secara otomatis tanpa perlu campur tangan manusia.
+
+![azure app service cd](/img/az104/72.png)
+
+### Hal yang Perlu Diketahui tentang Penerapan Berkelanjutan dan Manual
+
+Saat membuat aplikasi web dengan App Service, Pengguna dapat memilih metode **penerapan berkelanjutan** atau **manual**. 
+Pertimbangkan metode mana yang paling sesuai untuk aplikasi App Service. Kedua opsi ini dapat diatur melalui **Deployment Center**.
+
+![settings deployment center](/img/az104/73.png)
+
+### Penerapan Berkelanjutan (CI/CD)
+
+CI/CD adalah proses untuk menerapkan fitur baru dan perbaikan bug secara cepat dan berulang dengan dampak minimal pada pengguna akhir. 
+Azure mendukung penerapan otomatis langsung dari beberapa sumber:
+
+- **GitHub**: Azure mendukung penerapan otomatis langsung dari GitHub. Ketika menghubungkan repositori GitHub ke Azure, setiap perubahan yang di push ke branch 
+produksi akan otomatis diterapkan ke aplikasi web.
+- **Bitbucket**: Seperti GitHub, Bitbucket dapat dikonfigurasi untuk penerapan otomatis.
+- **Git Lokal**: Fitur Web Apps dari App Service menyediakan URL lokal yang dapat di tambahkan sebagai repositori.
+- **Azure Repos**: Azure Repos adalah kumpulan alat kontrol versi (version control) yang dapat di gunakan untuk mengelola kode. Baik proyek perangkat lunak kecil maupun besar, 
+menggunakan kontrol versi sejak dini adalah keputusan yang baik.
+
+### Penerapan Manual
+
+Penerapan manual memungkinkan Penngguna untuk mendorong (**push**) kode secara langsung ke Azure. Beberapa opsi untuk menerapkan kode secara manual antara lain:
+
+- **Git Remote**: Fitur Web Apps dari App Service menyediakan URL Git yang dapat di tambahkan sebagai repositori remote. Push ke repositori ini akan menerapkan aplikasi.
+- **OneDrive**: Layanan penyimpanan milik Microsoft yang memungkinkan Pengguna menyimpan dan berbagi file secara online menggunakan akun Microsoft.
+- **Dropbox**: Layanan hosting file yang memungkinkan Pengguna menyimpan dan berbagi file secara daring.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat slot deployment
+
+Saat menerapkan aplikasi web, aplikasi web di Linux, backend mobile, atau aplikasi API ke Azure App Service, 
+Pengguna dapat menggunakan **deployment slot** terpisah sebagai alternatif dari slot produksi bawaan.
+
+### Hal yang Perlu Diketahui tentang Deployment Slot
+
+Mari kita lihat lebih dekat karakteristik dari deployment slot:
+
+- Deployment slot adalah aplikasi **aktif** yang memiliki hostname sendiri.
+- Deployment slot tersedia di **App Service Plan** tingkat **Standard**, **Premium**, dan **Isolated**. 
+Aplikasi harus berjalan di salah satu tier ini untuk menggunakan deployment slot.
+- Setiap tier (Standard, Premium, dan Isolated) menawarkan jumlah deployment slot yang berbeda.
+- **Konten aplikasi** dan **elemen konfigurasi** dapat dipertukarkan (swap) antar deployment slot, termasuk dengan slot produksi.
+
+![deployment slot](/img/az104/74.png)
+
+### Hal yang Perlu Dipertimbangkan saat Menggunakan Deployment Slot
+
+Penggunaan deployment slot memberikan berbagai keuntungan bagi aplikasi App Service. 
+Tinjau keuntungan berikut dan pertimbangkan bagaimana penerapannya dapat mendukung implementasi:
+
+#### 1. Validasi Perubahan
+
+Pengguna dapat **memvalidasi perubahan** aplikasi di deployment slot **staging** sebelum menukarnya dengan konten di slot produksi.
+
+#### 2. Mengurangi Downtime
+
+Dengan menerapkan aplikasi ke slot terlebih dahulu dan kemudian menukarnya ke produksi, 
+Pengguna memastikan bahwa semua instance aplikasi sudah siap. Pendekatan ini **menghilangkan downtime** saat penerapan. Pengalihan trafik berlangsung mulus, 
+dan tidak ada permintaan yang hilang karena proses swap. Proses ini dapat sepenuhnya otomatis dengan mengaktifkan **Auto swap**, jika validasi sebelum swap tidak diperlukan.
+
+#### 3. Pemulihan ke Versi Stabil Sebelumnya
+
+Setelah swap dilakukan, slot yang sebelumnya digunakan untuk staging sekarang berisi versi produksi sebelumnya. 
+Jika perubahan yang baru saja dipindahkan ke produksi tidak sesuai harapan, Pengguna dapat langsung melakukan **swap kembali** untuk mengembalikan ke **versi stabil terakhir**.
+
+#### 4. Menggunakan Auto Swap
+
+**Auto swap** menyederhanakan skenario **Azure Pipeline** saat ingin melakukan penerapan secara terus-menerus (**continuous deployment**) tanpa cold start dan tanpa downtime 
+bagi pengguna.  
+
+Ketika Auto swap diaktifkan dari suatu slot ke produksi, setiap kali push perubahan kode ke slot tersebut, App Service secara otomatis melakukan swap ke produksi setelah 
+aplikasi siap dijalankan di slot sumber.  
+
+:::warning
+> Auto swap saat ini **tidak didukung** untuk Web Apps di Linux.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menambahkan slot deployment
+
+Deployment slot dikonfigurasi melalui portal Azure. Pengguna dapat **menukar konten aplikasi dan elemen konfigurasi** antar slot, termasuk slot produksi.
+
+#### Hal yang Perlu Diketahui tentang Pembuatan Deployment Slot
+
+Berikut adalah beberapa hal penting terkait konfigurasi deployment slot:
+
+- Slot deployment baru dapat berupa **kosong** atau **hasil kloning** dari slot lain.
+- Pengaturan slot dikelompokkan dalam tiga kategori:
+    1. **App settings dan connection strings spesifik slot** (jika berlaku).
+    2. **Pengaturan continuous deployment** (jika diaktifkan).
+    3. **Pengaturan autentikasi Azure App Service** (jika diaktifkan).
+
+> Saat Pengguna mengkloning konfigurasi dari slot lain, konfigurasi yang dikloning dapat diedit. Beberapa elemen konfigurasi ikut berpindah saat dilakukan swap, 
+sedangkan pengaturan spesifik slot tetap berada di slot asal.
+
+#### Pengaturan yang Dipertukarkan vs. Pengaturan Khusus Slot
+
+Tabel berikut menunjukkan pengaturan mana yang ikut berpindah saat dilakukan **swap**, dan mana yang tetap khusus pada slot asal:
+
+| **Pengaturan yang Dipertukarkan**                             | **Pengaturan Khusus Slot**                         |
+|---------------------------------------------------------------|-----------------------------------------------------|
+| Stack bahasa & versinya, 32/64-bit                            | Nama domain kustom                                  |
+| App settings *                                                | Sertifikat non-publik dan pengaturan TLS/SSL       |
+| Connection strings *                                          | Pengaturan skala                                    |
+| Akun penyimpanan yang dimount *                               | Always On                                           |
+| Sertifikat publik                                              | Pembatasan IP                                       |
+| Konten WebJobs                                                 | Penjadwal WebJobs                                   |
+| Hybrid connections **                                          | Pengaturan diagnostik                               |
+| Service endpoints **                                           | CORS (Cross-origin resource sharing)                |
+| Azure CDN **                                                   | Integrasi virtual network                           |
+| Path mapping                                                   | Identitas terkelola (managed identities)            |
+
+> \* *Beberapa pengaturan dapat dikonfigurasi sebagai **slot-specific***  
+> \*\* *Fitur ini **belum tersedia saat ini***
+
+Deployment slot memungkinkan Penngguna menerapkan aplikasi dengan lebih fleksibel, melakukan validasi perubahan, dan meminimalkan downtime selama proses rilis. 
+Pastikan untuk meninjau pengaturan yang berlaku bagi kebutuhan aplikasi.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Mengamankan App Service
+
+Azure App Service menyediakan dukungan autentikasi dan otorisasi bawaan. 
+Pengguna dapat mengaktifkan login pengguna dan mengakses data dengan **sedikit atau tanpa penulisan kode** di aplikasi web, API, backend mobile, 
+dan bahkan di aplikasi Azure Functions.
+
+#### Keamanan Autentikasi dan Otorisasi
+
+Autentikasi dan otorisasi yang aman membutuhkan pemahaman mendalam tentang keamanan — termasuk federasi, enkripsi, manajemen JSON Web Token (JWT), tipe grant, dan sebagainya. 
+App Service menyediakan utilitas ini sehingga Pengguna bisa lebih fokus memberikan **nilai bisnis** kepada pelanggan.
+
+:::warning **Catatan:**  
+> Pengguna **tidak diwajibkan** menggunakan Azure App Service untuk autentikasi dan otorisasi. 
+Banyak framework web sudah menyertakan fitur keamanan, dan Pengguna bebas menggunakan layanan pilihan.
+:::
+
+### Hal yang Perlu Diketahui tentang Keamanan App Service
+
+Berikut mekanisme bagaimana App Service membantu menyediakan keamanan aplikasi:
+
+- **Modul keamanan** autentikasi dan otorisasi di App Service berjalan di lingkungan yang sama dengan kode aplikasi, tetapi **secara terpisah**.
+- Modul ini dikonfigurasi melalui **pengaturan aplikasi (app settings)** — **tanpa perlu SDK**, bahasa pemrograman khusus, atau perubahan pada kode.
+- Modul keamanan ini menangani berbagai tugas:
+
+  - Mengautentikasi pengguna dengan penyedia yang ditentukan.
+  - Memvalidasi, menyimpan, dan menyegarkan token.
+  - Mengelola sesi autentikasi.
+  - Menyisipkan informasi identitas ke dalam header permintaan.
+
+### Hal yang Perlu Dipertimbangkan saat Menggunakan App Service untuk Keamanan
+
+Konfigurasi autentikasi dan otorisasi dilakukan melalui Azure Portal. Berikut opsi-opsi yang dapat di gunakan:
+
+#### - Izinkan Permintaan Anonim
+
+- Tidak ada tindakan otorisasi dari App Service.
+- App Service hanya **meneruskan informasi autentikasi** dalam header HTTP untuk permintaan yang diautentikasi.
+- Cocok untuk fleksibilitas tinggi — misalnya jika Anda ingin **menyediakan beberapa opsi login** untuk pengguna.
+
+#### - Hanya Izinkan Permintaan Terautentikasi
+
+- Semua permintaan anonim akan diarahkan ke: `/.auth/login/(provider)`
+- Efektif sama seperti **"Login dengan (provider)"**.
+- Jika permintaan anonim berasal dari aplikasi mobile native, akan dibalas dengan **HTTP 401 Unauthorized**.
+- **Tidak perlu menulis kode autentikasi** di aplikasi.
+
+:::warning **Penting:**  
+> Opsi ini **membatasi akses ke semua endpoint** aplikasi . Jika membutuhkan halaman publik seperti beranda, pertimbangkan implikasinya terlebih dahulu — terutama untuk aplikasi SPA (single-page application).
+:::
+
+#### - Logging dan Tracing
+
+- Pengguna dapat melihat log autentikasi dan otorisasi secara langsung di **log file aplikasi**.
+- Jika terjadi kesalahan autentikasi yang tidak diharapkan, Pengguna dapat **melihat detail lengkapnya** di log aplikasi.
+- Dengan mengaktifkan **failed request tracing**, Pengguna dapat melihat bagaimana modul keamanan berperan dalam permintaan yang gagal.
+- Cari referensi ke modul `EasyAuthModule_32/64` dalam **trace logs** untuk mengetahui rincian lebih lanjut.
+
+Azure App Service mempermudah penerapan keamanan tingkat lanjut tanpa perlu banyak pengkodean, memungkinkan Pengguna untuk lebih cepat membangun aplikasi yang andal dan aman.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat custom domain name
+
+**Domain kustom** adalah nama domain yang Pengguna miliki dan konfigurasikan untuk mengarah ke aplikasi yang dihosting di Azure, menggantikan domain default Azure.
+
+**Contoh:**
+
+- Domain Azure default: `myapp-00000.westus.azurewebsites.net`
+- Domain kustom: `www.contoso.com`
+
+#### Keuntungan Menggunakan Domain Kustom
+
+- Menyediakan **alamat web bermerek** dan mudah diingat.
+- Meningkatkan **kepercayaan dan kredibilitas** dengan pelanggan.
+- Memungkinkan pengelolaan dan pengamanan lalu lintas aplikasi.
+
+#### Langkah-Langkah Membuat Nama Domain Kustom
+
+Membuat domain kustom membutuhkan informasi tentang penyedia domain, pengamanan, dan penamaan.
+
+![add custom domain](/img/az104/75.png)
+
+#### 1. Cadangkan Nama Domain
+
+Cara termudah adalah dengan **membeli domain langsung di portal Azure**. Nama ini bukan dalam format `*.azurewebsites.net`. 
+Keuntungannya adalah Pengguna dapat **mengelola domain** langsung dari portal Azure, tanpa harus pergi ke situs pihak ketiga.
+
+#### 2. Buat Rekaman DNS
+
+DNS (Domain Name System) menggunakan **rekaman data** untuk memetakan nama domain ke alamat IP. Untuk aplikasi web bisa menggunakan:
+
+- **A record**: Memetakan nama domain ke **alamat IP** langsung.
+- **CNAME record**: Memetakan nama domain ke **nama domain lain**.
+
+> 📝 Contoh:  
+> Pengguna dapat memetakan `www.contoso.com` ke `webapp.azurewebsites.net`.
+
+:::warning **Catatan penting:**
+- Jika alamat IP berubah, **CNAME tetap valid**, sedangkan **A record harus diperbarui**.
+- Beberapa registrar tidak mengizinkan **CNAME untuk root domain** (contoh: `contoso.com`). Dalam kasus ini, Pengguna **harus menggunakan A record**.
+:::
+
+#### 3. Aktifkan Domain Kustom
+
+Setelah Pengguna memiliki domain dan membuat rekaman DNS:
+
+- Gunakan portal Azure untuk **memvalidasi** domain kustom.
+- Tambahkan domain tersebut ke aplikasi web.
+- Pastikan untuk **menguji domain** sebelum mempublikasikan aplikasi. 
+Dengan domain kustom, Pengguna dapat menghadirkan tampilan profesional dan meningkatkan pengalaman pengguna aplikasi di Azure App Service.
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Backup dan restore App Service
+
+Fitur **Backup and Restore** di Azure App Service memungkinkan Pengguna membuat cadangan aplikasi secara manual atau terjadwal.
+Cadangan ini dapat disimpan untuk jangka waktu tertentu atau tanpa batas. Pengguna juga dapat memulihkan aplikasi ke kondisi sebelumnya dengan menimpa konten yang ada atau memulihkannya ke aplikasi atau situs lain.
+
+![app service backup](/img/az104/76.png)
+
+### Hal-hal yang Perlu Diketahui tentang Backup dan Restore
+
+Berikut beberapa poin penting terkait fitur Backup and Restore di Azure App Service:
+
+- Fitur ini hanya tersedia pada **App Service Plan tingkat Standard atau Premium**.
+- Pengguna memerlukan **akun penyimpanan Azure dan kontainer** dalam langganan yang sama dengan aplikasi.
+- Informasi yang dapat dicadangkan:
+  - **Pengaturan konfigurasi aplikasi**
+  - **Konten file**
+  - **Database yang terhubung** (misalnya Azure SQL, Azure Database for MySQL, PostgreSQL, MySQL in-app)
+
+#### - Format File Cadangan
+
+Setiap cadangan mencakup:
+
+- **File `.zip`**: berisi data yang dicadangkan.
+- **File `.xml`**: manifest atau daftar isi dari file `.zip`.
+
+#### - Jenis Cadangan
+
+- **Cadangan penuh (default)**: semua file, pengaturan, dan database.
+- **Cadangan parsial**: Pengguna dapat menentukan file/folder yang dikecualikan dari cadangan.
+
+#### - Kapasitas Cadangan
+
+- Ukuran maksimum untuk setiap cadangan adalah **10 GB**, termasuk file aplikasi dan database.
+
+#### - Akses Cadangan
+
+- Cadangan dapat dilihat di halaman **Containers** di akun penyimpanan melalui portal Azure.
+
+### Hal yang Perlu Dipertimbangkan
+
+#### 1. Gunakan Cadangan Penuh
+Melakukan **cadangan penuh** memastikan semua pengaturan, file, dan database dicadangkan. 
+Saat memulihkan, seluruh konten situs akan diganti dengan data dari cadangan. File yang tidak ada dalam cadangan akan dihapus.
+
+#### 2. Gunakan Cadangan Parsial
+Jika Pengguna hanya ingin mencadangkan bagian tertentu dari aplikasi, Pengguna bisa menggunakan **cadangan parsial**. 
+File/folder yang dikecualikan tidak akan ikut dicadangkan, dan tidak akan terpengaruh saat pemulihan.
+
+#### 3. Telusuri File Cadangan
+Pengguna dapat membuka file `.zip` dan `.xml` secara manual untuk **meninjau isi cadangan** tanpa harus memulihkan aplikasi.
+
+#### 4. Periksa Firewall pada Tujuan Cadangan
+Jika akun penyimpanan Pengguna menggunakan firewall, maka **tidak bisa digunakan sebagai tujuan cadangan**.
+
+:::info 
+Dengan fitur Backup and Restore, Pengguna bisa menjaga keandalan dan keamanan aplikasi dari kegagalan sistem atau kesalahan pengguna, 
+serta mengembalikannya dengan mudah ke kondisi sebelumnya.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menggunakan Azure Application Insight
+
+![application insight](/img/az104/77.png)
+
+**Azure Application Insights** adalah fitur dari **Azure Monitor** yang memungkinkan Pengguna memantau aplikasi yang sedang berjalan (live).
+Pengguna dapat mengintegrasikan Application Insights dengan **Azure App Service** untuk secara otomatis mendeteksi anomali performa pada aplikasi.
+
+Fitur ini dirancang untuk membantu Pengguna terus meningkatkan performa dan kegunaan aplikasi.
+Application Insights menyediakan alat analitik yang kuat untuk mendiagnosis masalah dan memahami bagaimana pengguna menggunakan aplikasi.
+
+:::info
+> 📊 Diagram menunjukkan Azure Application Insights menerima informasi dari halaman web, aplikasi klien, dan layanan web, 
+yang kemudian dikirim ke Alerts, Power BI, dan Visual Studio.
+:::
+
+### Hal-hal yang Perlu Diketahui tentang Application Insights
+
+Berikut beberapa karakteristik dari Application Insights:
+
+- Mendukung berbagai platform seperti **.NET, Node.js, dan Java EE**.
+- Dapat digunakan untuk aplikasi yang dihosting **on-premises**, **hybrid**, maupun di **cloud publik**.
+- Terintegrasi dengan proses **Azure Pipeline** dan mendukung banyak alat pengembangan.
+- Bisa memantau dan menganalisis data dari aplikasi mobile melalui integrasi dengan **Visual Studio App Center**.
+
+
+### Pertimbangan saat Menggunakan Application Insights
+
+Application Insights sangat ideal untuk mendukung tim pengembangan . Fitur ini membantu dalam memahami performa dan penggunaan aplikasi. 
+Berikut beberapa metrik yang dapat dipantau:
+
+| **Metrik**                           | **Deskripsi** |
+|-------------------------------------|---------------|
+| **Tingkat Permintaan, Waktu Respons, dan Tingkat Kegagalan** | Ketahui halaman paling populer, waktu akses terbanyak, dan lokasi pengguna. Identifikasi masalah jika waktu respons/kegagalan meningkat saat permintaan tinggi. |
+| **Ketergantungan Layanan Eksternal** | Pantau tingkat ketergantungan dan kegagalan layanan pihak ketiga yang mempengaruhi performa aplikasi. |
+| **Pengecualian (Exceptions)**       | Analisis statistik agregat atau tinjau kasus spesifik dengan stack trace. Tangkap pengecualian dari sisi server dan browser. |
+| **Tampilan Halaman dan Kinerja Pemuatannya** | Kumpulkan jumlah tampilan halaman dan performa pemuatan dari browser pengguna. |
+| **Jumlah Pengguna dan Sesi**        | Lacak jumlah pengguna dan sesi aktif yang terkoneksi ke aplikasi. |
+| **Counter Performa**                | Tambahkan performance counters dari server Windows/Linux untuk memantau CPU, memori, dan penggunaan jaringan. |
+| **Diagnostik Host**                 | Integrasikan diagnostik dari Docker atau Azure langsung ke Application Insights. |
+| **Log Jejak Diagnostik**            | Gunakan trace log untuk menghubungkan kejadian dengan permintaan dan mendiagnosis masalah. |
+| **Event dan Metrik Kustom**         | Tulis event/metrik kustom di sisi klien/server. Contoh: jumlah barang terjual, jumlah kemenangan game, dll. |
+
+
+:::tip **Tips**: 
+Pertimbangkan untuk memperdalam pembelajaran dengan modul pelatihan [**Troubleshoot solutions menggunakan Application Insights**](https://learn.microsoft.com/en-us/training/paths/az-204-instrument-solutions-support-monitoring-logging/) di Microsoft Learn.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Keuntungan menggunakan Azure App Service
+
+Terdapat banyak keuntungan dalam menggunakan **App Service** untuk mengembangkan dan menerapkan aplikasi web, mobile, dan API. 
+Tinjau tabel berikut dan pertimbangkan fitur-fitur yang dapat membantu Pengguna menghosting instance App Service.
+
+| **Keuntungan**                            | **Deskripsi**                                                                                                                                                                                                                                                                                  |
+|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Banyak bahasa dan kerangka kerja          | App Service memiliki dukungan kelas satu untuk ASP.NET, Java, Node.js, PHP, dan Python. Pengguna juga dapat menjalankan skrip PowerShell dan skrip atau executable lainnya sebagai layanan latar belakang.                                                                                         |
+| Optimasi DevOps                           | App Service mendukung integrasi dan penerapan berkelanjutan dengan Azure DevOps, GitHub, BitBucket, Docker Hub, dan Azure Container Registry. Pengguna dapat mempromosikan pembaruan melalui lingkungan pengujian dan staging. Kelola aplikasi Pengguna dengan Azure PowerShell atau CLI lintas platform. |
+| Skalabilitas global dengan ketersediaan tinggi | App Service membantu Pengguna melakukan penskalaan secara manual atau otomatis, baik vertikal maupun horizontal. Pengguna dapat menghosting aplikasi di mana saja dalam infrastruktur pusat data global Microsoft, dan SLA App Service menawarkan ketersediaan tinggi.                             |
+| Koneksi ke platform SaaS dan data lokal   | App Service memungkinkan Pengguna memilih dari lebih dari 50 konektor untuk sistem perusahaan (seperti SAP), layanan SaaS (seperti Salesforce), dan layanan internet (seperti Facebook). Pengguna dapat mengakses data lokal menggunakan Hybrid Connections dan Azure Virtual Networks.              |
+| Keamanan dan kepatuhan                    | App Service telah sesuai standar ISO, SOC, dan PCI. Pengguna dapat mengautentikasi pengguna dengan Microsoft Entra ID atau login sosial seperti Google, Facebook, Twitter, atau Microsoft. Buat pembatasan alamat IP dan kelola identitas layanan.                                                 |
+| Template aplikasi                         | Pilih dari daftar template aplikasi yang luas di Azure Marketplace, seperti WordPress, Joomla, dan Drupal.                                                                                                                                                                                   |
+| Integrasi Visual Studio                   | App Service menyediakan alat khusus di Visual Studio untuk membantu menyederhanakan pekerjaan pembuatan, penerapan, dan debugging aplikasi.                                                                                                                                                   |
+| Fitur API dan mobile                      | App Service menyediakan dukungan CORS siap pakai untuk skenario API RESTful. Pengguna dapat menyederhanakan skenario aplikasi mobile dengan mengaktifkan autentikasi, sinkronisasi data offline, notifikasi push, dan lainnya.                                                                 |
+| Kode tanpa server (serverless)            | App Service memungkinkan Pengguna menjalankan potongan kode atau skrip sesuai permintaan tanpa harus secara eksplisit menyediakan atau mengelola infrastruktur. Pengguna hanya membayar waktu komputasi yang benar-benar digunakan oleh kode Pengguna.                                                    |
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

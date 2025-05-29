@@ -3,12 +3,277 @@ id: AZ-1061
 title: Konfigurasi perencanaan Azure App Services 
 ---
 
-:::info
+## Implementasi perencanaan Azure App Service 
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Dalam **Azure App Service**, sebuah aplikasi berjalan di dalam **Azure App Service Plan**. App Service Plan mendefinisikan sekumpulan sumber daya komputasi untuk menjalankan 
+aplikasi web. Sumber daya komputasi ini mirip dengan server farm dalam hosting web konvensional. Satu atau lebih aplikasi dapat dikonfigurasi untuk berjalan pada sumber daya 
+komputasi yang sama (atau dalam App Service Plan yang sama).
 
+### Hal-Hal yang Perlu Diketahui tentang App Service Plan
+
+Ketika membuat App Service Plan di sebuah wilayah, satu set sumber daya komputasi dibuat untuk plan tersebut di wilayah yang ditentukan. 
+Aplikasi apa pun yang di tempatkan ke dalam plan akan berjalan di sumber daya komputasi yang didefinisikan oleh plan tersebut.
+
+Setiap App Service Plan mendefinisikan pengaturan berikut:
+
+- **Sistem Operasi**: Linux atau Windows.  
+- **Wilayah (Region)**: Wilayah untuk App Service Plan, seperti West US, Central India, North Europe, dan sebagainya.  
+- **Tingkat Harga (Pricing Tier)**: Menentukan fitur App Service yang Anda dapatkan dan berapa biaya yang harus dibayar untuk plan tersebut. 
+Tingkat harga yang tersedia tergantung pada sistem operasi yang dipilih saat pembuatan.  
+- **Jumlah Instances VM**: Saat ini berkisar antara tiga hingga 30.  
+- **Ukuran Instances VM**: Didefinisikan berdasarkan CPU, memori, dan penyimpanan jarak jauh.
+
+Pengguna dapat terus menambahkan aplikasi baru ke plan yang sudah ada selama plan tersebut memiliki cukup sumber daya untuk menangani beban yang meningkat.
+
+### Hal-Hal yang Perlu Dipertimbangkan saat Menggunakan App Service Plan
+
+Tinjau pertimbangan berikut mengenai penggunaan Azure App Service Plan untuk menjalankan dan melakukan scaling aplikasi. 
+Pikirkan kondisi apa yang mungkin berlaku untuk menjalankan dan melakukan scaling situs web hotel.
+
+#### Pertimbangkan Penghematan Biaya
+
+Karena membayar untuk sumber daya komputasi yang dialokasikan oleh App Service Plan, pengguna dapat menghemat biaya dengan menempatkan beberapa aplikasi ke dalam 
+App Service Plan yang sama.
+
+#### Pertimbangkan Banyak Aplikasi dalam Satu Plan
+
+Buat satu plan untuk mendukung beberapa aplikasi guna memudahkan konfigurasi dan pemeliharaan instances mesin virtual bersama. 
+Karena aplikasi berbagi mesin virtual yang sama, pengguna perlu mengelola sumber daya dan kapasitas plan dengan hati-hati.
+
+#### Pertimbangkan Kapasitas Plan
+
+Sebelum menambahkan aplikasi baru ke dalam plan yang sudah ada, tentukan kebutuhan sumber daya untuk aplikasi baru dan identifikasi kapasitas yang tersisa dalam plan.
+
+:::warning **Penting:**  
+> Membebani App Service Plan dapat menyebabkan waktu henti (downtime) untuk aplikasi baru dan yang sudah ada.
 :::
 
-:::warning
+#### Pertimbangkan Isolasi Aplikasi
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Isolasikan aplikasi ke dalam App Service Plan baru jika:
+
+- Aplikasi tersebut membutuhkan banyak sumber daya.  
+- Ingin melakukan scaling aplikasi secara independen dari aplikasi lain dalam plan yang sama.  
+- Aplikasi memerlukan sumber daya di wilayah geografis yang berbeda.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menetapkan pricing pada perencanaan Azure App Service
+
+Tingkat harga (pricing tier) dari **Azure App Service Plan** menentukan fitur App Service yang Anda dapatkan dan berapa biaya yang harus dibayar untuk plan tersebut. Contoh tingkat harga: **Free**, **Shared**, **Basic**, **Standard**, **Premium**, **PremiumV2**, **PremiumV3**, **Isolated**, dan **IsolatedV2**.
+
+#### Cara Aplikasi Berjalan dan Diskalakan
+
+Azure App Service Plan adalah unit skala untuk aplikasi App Service. Cara aplikasi dijalankan dan diskalakan tergantung pada tier harga:
+
+- Jika plan dikonfigurasi dengan 5 instances VM, semua aplikasi berjalan di kelima instances tersebut.
+- Jika plan menggunakan **autoscaling**, maka semua aplikasi diskalakan bersama berdasarkan pengaturan autoscale.
+
+### Kategori Tingkat Harga
+
+#### 1. **Shared Compute**
+- Tier: **Free**, **Shared**
+- Aplikasi berjalan di VM Azure yang sama dengan aplikasi dari pelanggan lain.
+- CPU dialokasikan per aplikasi, tidak dapat scale out.
+- **Hanya untuk pengembangan dan pengujian**.
+- **Tidak ada SLA**.
+
+#### 2. **Dedicated Compute**
+- Tier: **Basic**, **Standard**, **Premium**, **PremiumV2**, **PremiumV3**
+- Aplikasi berjalan di VM Azure khusus.
+- Hanya aplikasi dalam plan yang sama yang berbagi sumber daya.
+- Dapat diskalakan berdasarkan jumlah instance VM.
+
+#### 3. **Isolated**
+- Tier: **Isolated**, **IsolatedV2**
+- Aplikasi berjalan di VM Azure khusus dalam **virtual network** khusus.
+- Menyediakan isolasi jaringan dan performa maksimum.
+- Dapat diskalakan hingga **100+ instances**.
+
+### Perbandingan Contoh Plan
+
+| Fitur             | Free F1      | Basic B1           | Standard S1         | Premium P1V3              |
+|------------------|--------------|--------------------|----------------------|---------------------------|
+| Penggunaan        | Dev & Test   | Dev & Test         | Produksi             | Skala & performa tinggi   |
+| Staging Slot      | N/A          | N/A                | 5                    | 20                        |
+| Autoscale         | N/A          | Manual             | Aturan               | Aturan, Elastis           |
+| Instances Skala     | N/A          | 3                  | 10                   | 30                        |
+| Backup Harian     | N/A          | N/A                | 10                   | 50                        |
+
+### Ringkasan Tier
+
+#### Free dan Shared
+- Digunakan untuk **pengembangan dan pengujian**.
+- Berbagi VM dengan aplikasi pelanggan lain.
+- Tanpa SLA dan tidak mendukung skalabilitas.
+
+#### Basic
+- Untuk aplikasi dengan kebutuhan trafik rendah.
+- Tanpa autoscale lanjutan.
+- Mendukung **Web App for Containers** (Linux).
+
+#### Standard
+- Untuk menjalankan beban kerja produksi.
+- Mendukung **autoscale** dan **Web App for Containers** (Linux).
+- Load balancing bawaan.
+
+#### Premium & PremiumV2/V3
+- Performa lebih tinggi untuk aplikasi produksi.
+- PremiumV2 menggunakan **VM Dv2-series** (prosesor cepat, SSD, RAM tinggi).
+- Mendukung **skala lebih besar** dan fitur lanjutan.
+
+#### Isolated & IsolatedV2
+- Untuk **beban kerja kritikal** di lingkungan privat.
+- Berjalan di **App Service Environment** dengan isolasi jaringan penuh.
+- Dapat diskalakan hingga lebih dari 100 instances.
+
+#### Memilih App Service Plan
+
+1. Buka portal Azure dan cari **App Service plans**.
+2. Buat **App Service plan baru**.
+3. Pilih **Explore pricing plans** untuk melihat semua pilihan plan.
+4. Pilih berdasarkan kebutuhan **hardware** (CPU, memori, instances) dan **fitur** (backup, staging slot, redundansi zona).
+
+:::tip **Tips:**  
+> Saat memilih service plan, pertimbangkan baik kebutuhan hardware **maupun** fitur.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Scale up dan Scale out pada perencanaan Azure App Service
+
+#### Dua Metode Scaling di Azure App Service
+
+Azure App Service mendukung dua metode scaling:
+
+- **Skala Naik (Scale Up)**: Menambah kapasitas CPU, memori, dan ruang disk.
+- **Skala Keluar (Scale Out)**: Menambah jumlah mesin virtual (VM) yang menjalankan aplikasi.
+
+Scaling dapat dilakukan **secara manual** atau **otomatis (autoscale)**.
+
+### Penjelasan Scaling
+
+#### 1. Skala Naik (Scale Up)
+
+- Menambah **CPU, memori, dan ruang disk**.
+- Mendapatkan fitur tambahan seperti:
+  - Mesin virtual khusus
+  - Domain dan sertifikat kustom
+  - Staging slot
+  - Autoscaling
+- Dilakukan dengan **mengubah pricing tier** dari App Service Plan.
+
+#### 2. Skala Keluar (Scale Out)
+
+- Menambah **jumlah VM** yang menjalankan aplikasi .
+- Maksimum 30 VM tergantung pada **tier harga**.
+- Menggunakan **App Service Environment (Isolated tier)** memungkinkan hingga **100 instances**.
+- Dapat dilakukan secara:
+  - **Manual**
+  - **Otomatis (Autoscale)** dengan aturan dan jadwal tertentu.
+
+:::warning
+> Pengguna bisa menentukan **skala naik dan turun kapan saja** hanya dengan mengubah tier harga App Service Plan.
+:::
+
+### Pertimbangan Saat Melakukan Scaling
+
+#### Pertimbangkan Penyesuaian Manual
+
+- Mulai dari tier rendah (misal: Free) dan naikkan tier seiring bertambahnya kebutuhan.
+- Turunkan tier saat fitur tertentu tidak lagi diperlukan untuk menghemat biaya.
+
+**Contoh skenario**:
+1. Mulai dari **Free** untuk pengujian awal.
+2. Naik ke **Shared** untuk mendukung nama domain kustom.
+3. Naik ke **Basic** untuk kebutuhan SSL.
+4. Naik ke **Standard** untuk staging environment.
+5. Tambah ukuran VM di tier yang sama bila dibutuhkan.
+
+#### Pertimbangkan Autoscale
+
+- Jaga kinerja aplikasi saat trafik tinggi.
+- Autoscale memungkinkan instance bertambah atau berkurang secara otomatis sesuai **aturan dan kondisi**.
+- Menghemat biaya saat trafik rendah karena otomatis mengurangi sumber daya.
+
+#### Tidak Perlu Redeploy
+
+- Mengubah pengaturan skala **tidak memerlukan perubahan kode atau redeploy** aplikasi.
+- Perubahan skala hanya memakan waktu beberapa detik dan berlaku untuk semua aplikasi dalam App Service Plan.
+
+#### Skala untuk Layanan Azure Lainnya
+
+- Jika aplikasi menggunakan layanan Azure lain seperti:
+  - **Azure SQL Database**
+  - **Azure Storage**
+- Pengguna dapat **menskalakan layanan tersebut secara terpisah**, karena App Service Plan tidak mengelola sumber daya ini secara langsung.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Konfigurasi autoscale Azure App Service
+
+Autoscale memungkinkan pengguna menyesuaikan jumlah sumber daya (VM Instance) yang berjalan sesuai beban aplikasi:
+- Menambah instance saat beban meningkat.
+- Mengurangi instance saat beban rendah untuk menghemat biaya.
+
+### Cara Kerja Autoscale
+
+- Pengguna menentukan **jumlah minimum dan maksimum instance**.
+- Berdasarkan **aturan dan kondisi**, autoscale akan **secara otomatis menyesuaikan** jumlah instance yang berjalan.
+- Pengaturan autoscale dikelompokkan dalam **profil**.
+- Autoscale bekerja berdasarkan **aturan** (rules) yang berisi:
+  - **Trigger** (pemicu)
+  - **Aksi penskalaan** (masuk atau keluar / in or out)
+
+<br/>
+#### Jenis Trigger Autoscale
+
+![autoscaling](/img/az104/70.png)
+
+1. **Berbasis Metrik**  
+   - Memicu penskalaan saat metrik tertentu melampaui ambang batas.
+   - Contoh metrik:
+     - Penggunaan CPU
+     - Rata-rata waktu respons
+     - Jumlah permintaan
+
+2. **Berbasis Waktu (Schedule-based)**  
+   - Memicu penskalaan berdasarkan pola waktu.
+   - Contoh:
+     - Tambah instance setiap Sabtu jam 8:00 pagi pada zona waktu tertentu.
+
+#### Notifikasi Autoscale
+
+- Pengguna bisa mengatur notifikasi untuk dikirim melalui:
+  - Email
+  - Webhook
+- Notifikasi dikirim saat kondisi autoscale terpenuhi.
+
+### Pertimbangan Saat Mengatur Autoscale
+
+- **Jumlah Minimum Instance**  
+  Jaga agar aplikasi selalu berjalan, bahkan saat beban rendah.
+
+- **Jumlah Maksimum Instance**  
+  Batasi biaya maksimum per jam.
+
+- **Margin Skala yang Memadai**  
+  Pastikan nilai minimum dan maksimum **berbeda** dan memiliki jarak memadai.
+
+- **Aturan Skala Kombinasi**  
+  Selalu buat aturan **skala naik (out)** dan **skala turun (in)** agar aplikasi tetap stabil dan efisien biaya.
+
+- **Statistik Metrik yang Sesuai**  
+  Pilih statistik metrik yang relevan: Rata-rata, Minimum, Maksimum, atau Total.
+
+- **Jumlah Instance Default**  
+  Tentukan nilai default yang aman saat metrik tidak tersedia.
+
+- **Aktifkan Notifikasi Autoscale**  
+  Pantau performa aplikasi saat terjadi perubahan beban.
+
+:::warning
+> Tanpa konfigurasi yang tepat, autoscale bisa menyebabkan kinerja aplikasi menurun atau biaya berlebihan.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
