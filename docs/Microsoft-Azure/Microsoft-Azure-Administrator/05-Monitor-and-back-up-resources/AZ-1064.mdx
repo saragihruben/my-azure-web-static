@@ -3,12 +3,337 @@ id: AZ-1064
 title: Pengenalan Azure Backup
 ---
 
-:::info
+## Azure Backup
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Pekerja di bidang teknologi informasi memahami pentingnya data bagi organisasi. Kebutuhan untuk melindungi data tersebut mendorong pengambilan keputusan terkait 
+penyimpanan, pencadangan, dan keamanan. Banyak perusahaan menerapkan kebijakan yang mengatur spesifikasi pencadangan, seperti frekuensi, durasi penyimpanan backup, 
+dan kebijakan pemulihan.
 
-:::
+#### Solusi Pencadangan On-Premises
+
+Untuk skenario on-premises, solusi backup mungkin mencakup:
+
+- Penyimpanan redundan lokal
+- Penyimpanan di lokasi luar (off-site)
+- Backup ke tape drive dan disimpan di luar lokasi
+
+Namun, solusi seperti backup ke tape drive memerlukan waktu tambahan dalam proses pemulihan, karena tape drive harus dikembalikan secara fisik ke ruang server 
+dan dilakukan proses restore. Hal ini dapat menyebabkan downtime yang cukup signifikan.
+
+### Tantangan pada Solusi Backup Tradisional
+
+Solusi pencadangan tradisional mungkin tidak selalu menangani beberapa pertimbangan penting seperti:
+
+- Keamanan backup
+- Risiko serangan ransomware
+- Kesalahan manusia dalam proses backup dan restore
+
+Solusi yang ideal harus:
+
+- Efisien dari sisi biaya
+- Mudah digunakan
+- Aman
+
+Di sinilah **Azure Backup** menjadi solusi yang tepat.
+
+![azure backup ilustration](/img/az104/81.png)
+
+#### Contoh Skenario
+
+![azure backup ilustration](/img/az104/82.png)
+
+Pengguna menjalankan aplikasi yang menggunakan SQL Server. Basis data berjalan dalam **Always-On Availability Group** di tiga Azure VM. 
+Pengguna ingin mencadangkan database menggunakan layanan backup asli dari Azure.
+
+Tujuan:
+
+- Menyimpan backup selama **10 tahun** dalam penyimpanan berbiaya rendah untuk kebutuhan audit dan kepatuhan
+- Memantau pekerjaan backup setiap hari untuk semua database tersebut
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Apa itu Azure Backup
+
+Layanan **Azure Backup** menyediakan solusi pencadangan data yang **sederhana**, **aman**, dan **efisien dari sisi biaya** untuk mencadangkan dan 
+memulihkan data dari cloud Microsoft Azure.
+
+![azure backup ilustration](/img/az104/83.png)
+Diagram layanan Azure Backup yang mengimplementasikan agen backup di lingkungan on-premises ke cloud. Bagian tengah menampilkan komponen Azure Backup untuk 
+keamanan dan skalabilitas dengan baris manajemen terpusat di bawahnya.
+
+#### Pengertian Azure Backup
+
+Azure Backup adalah layanan dari Azure yang menyediakan solusi backup **tanpa infrastruktur**, **aman**, dan **hemat biaya** untuk semua aset data yang dikelola oleh Azure.
+
+Antarmuka manajemen terpusat memudahkan Pengguna untuk membuat kebijakan pencadangan dan melindungi berbagai beban kerja perusahaan, termasuk 
+Azure Virtual Machines, Azure Disks, database SQL dan SAP, file share Azure, serta Azure Blobs.
+
+![azure backup ilustration](/img/az104/84.png)
+Diagram arsitektur Azure Backup yang menunjukkan beban kerja di bagian bawah, mengarah ke data plane, dan terhubung dengan management plane. 
+Manajemen mencakup kebijakan backup, Azure Policy, Azure Monitor, dan Azure Lighthouse.
+
+
+Azure Backup dapat memberikan layanan backup untuk aset data berikut:
+
+- File, folder, dan sistem operasi on-premises
+- Azure Virtual Machines (VM)
+- Azure Managed Disks
+- Azure File Shares
+- SQL Server dalam Azure VMs
+- Basis data SAP HANA dalam Azure VMs
+- Azure Database for PostgreSQL servers
+- Azure Blobs
+- Azure Database for PostgreSQL – Flexible Servers
+- Azure Database for MySQL – Flexible Servers
+- Azure Kubernetes Cluster
+
+![azure backup](/img/az104/85.png)
+
+---
+
+### Fitur Utama
+
+Berikut merupakan beberapa fitur utama dari Azure Backup.
+
+| Fitur                        | Deskripsi                                                                                   | Penggunaan |
+|-----------------------------|----------------------------------------------------------------------------------------------|------------|
+| **Solusi tanpa infrastruktur** | Tidak seperti solusi backup konvensional, tidak diperlukan server atau infrastruktur backup. Azure Backup secara otomatis mengelola dan menskalakan penyimpanan. | Mengurangi biaya modal dan operasional, serta mempermudah penggunaan dengan otomatisasi manajemen penyimpanan. |
+| **Manajemen skala besar**      | Mengelola seluruh backup dari konsol terpusat bernama Backup Center. Gunakan API, PowerShell, dan Azure CLI untuk otomatisasi. | Menyederhanakan manajemen perlindungan data skala besar dan meningkatkan efisiensi operasional. |
+| **Keamanan**                  | Azure Backup menyediakan keamanan bawaan baik saat data dalam perjalanan maupun saat diam, termasuk enkripsi, private endpoint, dan sistem peringatan. | Backup aman dari ransomware, admin jahat, dan penghapusan tidak disengaja. |
+
+---
+
+### Bagaimana Cara Kerja RTO dan RPO?
+
+**Recovery Time Objective (RTO)** adalah waktu target di mana proses bisnis harus dipulihkan setelah terjadi bencana untuk menghindari konsekuensi yang tidak dapat diterima.  
+> Contoh: Jika aplikasi kritikal mengalami kegagalan dan maksimal waktu toleransi downtime adalah 4 jam, maka RTO-nya adalah 4 jam.
+
+**Recovery Point Objective (RPO)** adalah jumlah maksimum kehilangan data yang dapat diterima, diukur berdasarkan waktu.
+
+#### Contoh Skenario RTO dan RPO
+
+Perusahaan memiliki **RPO 1 jam** untuk basis data pelanggan, artinya dapat melakukan backup setiap jam. Jika terjadi kehilangan data, 
+Pengguna akan kehilangan maksimal 1 jam data.
+
+Jika Pengguna menetapkan **RTO 3 jam**, maka ketika terjadi kegagalan sistem, Pengguna menargetkan pemulihan akses ke database dalam waktu maksimal 3 
+jam untuk meminimalkan dampak terhadap operasional.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Bagaimana Azure Backup bekerja
+
+Mari kita lihat bagaimana Azure Backup bekerja untuk memberikan perlindungan data yang Pengguna butuhkan. 
+Secara khusus, mari kita pahami bagaimana berbagai aspek dari layanan backup ini mempermudah pencadangan berbagai jenis data dan bagaimana 
+Azure Backup menjaga keamanan cadangan.
+
+Dalam unit ini, kita membahas:
+
+- **Lapisan integrasi beban kerja – Backup Extension:** Integrasi dengan beban kerja aktual, seperti Azure Virtual Machines (VM) atau Azure Blobs.
+- **Data Plane – Tingkat Akses:** Terdapat tiga tingkat penyimpanan cadangan:
+  - Snapshot tier
+  - Standard tier
+  - Archive tier
+- **Data Plane – Ketersediaan dan Keamanan:** Data backup direplikasi lintas zona atau region sesuai redundansi yang dipilih pengguna.
+- **Management Plane – Recovery Services Vault/Backup Vault dan Backup Center**
+
+### Apa yang Dicadangkan dan Bagaimana Caranya?
+
+Azure Backup mencadangkan data, status mesin, dan beban kerja yang berjalan pada mesin on-premises serta instance VM ke cloud Azure. 
+Data yang dicadangkan disimpan di dalam **Recovery Services Vault** atau **Backup Vault**.
+
+#### On-Premises
+
+- Untuk mesin Windows on-premises, Pengguna bisa mencadangkan langsung ke Azure menggunakan **Microsoft Azure Recovery Services (MARS) agent**.
+- Atau, Pengguna dapat mencadangkan ke server backup seperti **System Center DPM** atau **Microsoft Azure Backup Server (MABS)**, lalu server tersebut dicadangkan ke Azure Vault.
+
+#### Azure VM
+
+- Jika menggunakan Azure VM, Pengguna dapat mencadangkan langsung.
+- Azure Backup menginstal **backup extension** ke dalam agen VM untuk mencadangkan seluruh VM.
+- Jika hanya ingin mencadangkan file/folder, gunakan **MARS agent**.
+
+### Vault dan Jenis Cadangan yang Didukung
+
+**Vault** adalah entitas penyimpanan daring di Azure untuk menyimpan salinan cadangan, titik pemulihan, dan kebijakan backup.
+
+#### Jenis Backup:
+
+| Jenis                  | Deskripsi | Penggunaan |
+|------------------------|-----------|------------|
+| **Full**               | Cadangan menyeluruh dari database. Termasuk semua data dan log yang dibutuhkan untuk pemulihan. | Maksimal satu kali per hari. Bisa harian atau mingguan. |
+| **Differential**       | Berdasarkan cadangan penuh terakhir. Hanya data yang berubah yang dicadangkan. | Maksimal satu kali per hari. Tidak dapat dijalankan bersamaan dengan full backup. |
+| **Beberapa kali per hari** | Backup VM Azure secara berkala (minimal RPO 4 jam, maksimal 24 jam). | Gunakan Enhanced Backup Policy. |
+| **Selective Disk Backup** | Cadangkan subset disk dalam VM. | Hemat biaya dengan mencadangkan hanya disk penting. |
+| **Transaction Log**    | Backup log transaksi, memungkinkan pemulihan hingga detik tertentu. | Maksimal setiap 15 menit. |
+
+#### Lapisan Integrasi Beban Kerja – Backup Extension
+
+Backup extension spesifik diinstal di VM sumber atau worker VM. Pada waktu backup, extension akan menghasilkan cadangan:
+
+- **Penyimpanan:** Snapshot untuk Azure VM/Azure Files.
+- **Stream Backup:** Untuk database seperti SQL dan HANA.
+
+Data kemudian ditransfer ke penyimpanan Azure Backup menggunakan jaringan aman: NSG, firewall, atau private endpoint.
+
+### Data Plane – Tingkat Akses
+
+Tiga tingkat penyimpanan data cadangan:
+
+#### 1. Snapshot Tier
+
+- Snapshot VM disimpan bersama dengan disk.
+- Restorasi lebih cepat karena snapshot tersedia lokal di grup sumber daya pelanggan.
+
+#### 2. Vault-Standard Tier
+
+- Data backup disimpan dalam vault yang dikelola oleh Azure.
+- Menyediakan salinan terisolasi yang aman bahkan jika sumber data asli hilang.
+
+#### 3. Archive Tier
+
+- Penyimpanan jangka panjang untuk kebutuhan kepatuhan.
+- Backup lama jarang diakses, disimpan untuk arsip.
+
+> Setiap tier memiliki **Recovery Time Objective (RTO)** berbeda dan harga berbeda.
+
+![azure backup](/img/az104/86.png)
+
+### Data Plane – Ketersediaan dan Keamanan
+
+Backup direplikasi berdasarkan pilihan:
+
+- **LRS:** Local Redundant Storage  
+- **GRS:** Geo-Redundant Storage  
+- **ZRS:** Zone-Redundant Storage
+
+**Keamanan:**
+
+- Enkripsi data (saat transit dan diam)
+- Azure RBAC – kontrol siapa yang dapat melakukan operasi backup/restore
+- **Soft-delete:** Backup yang terhapus disimpan 14 hari tanpa biaya untuk pemulihan
+
+Azure Backup juga mendukung **lifecycle management** untuk memenuhi kebijakan retensi.
+
+![azure backup](/img/az104/87.png)
+
+### Management Plane – Vault & Backup Center
+
+Azure Backup menggunakan:
+
+![azure backup](/img/az104/88.png)
+
+- **Recovery Services Vault** dan **Backup Vault** untuk mengatur dan menyimpan data backup
+- **Backup Policy** untuk menentukan jadwal dan durasi backup
+- **Backup Center** untuk mengelola backup dalam skala besar
+
+#### Backup Center
+
+![azure backup](/img/az104/89.png)
+
+- Antarmuka tunggal untuk mengelola semua pekerjaan backup.
+- Dirancang untuk lingkungan Azure besar dan terdistribusi.
+- Mendukung lintas jenis beban kerja, vault, langganan, region, dan Azure Lighthouse tenants.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Kapan menggunakan Azure Backup
+
+Dalam bagian ini, kita akan membahas bagaimana Pengguna dapat menentukan apakah **Azure Backup** adalah pilihan yang tepat untuk kebutuhan perlindungan data. 
+Skenario umum backup di mana Azure Backup memberikan manfaat, seperti:
+
+- Menjamin ketersediaan data 
+- Melindungi beban kerja Azure  
+- Mengamankan data 
+
+### Kriteria Pengambilan Keputusan
+
+Azure Backup adalah layanan Azure yang menyediakan solusi pencadangan tanpa infrastruktur dan aman untuk seluruh aset data yang dikelola oleh Azure. 
+Azure Backup melindungi berbagai beban kerja perusahaan, termasuk Azure Virtual Machines, Azure Disks, database SQL dan SAP, serta Azure File Shares dan Blobs.
+
+Berikut adalah kriteria utama untuk mengevaluasi Azure Backup:
+
+| Kriteria              | Pertimbangan |
+|-----------------------|--------------|
+| **Beban kerja Azure** | Azure VM, Azure Disks, SQL Server atau SAP HANA di Azure VM, Azure Blobs, Azure Database for PostgreSQL |
+| **Kepatuhan**         | Kebijakan backup yang ditentukan pelanggan dengan retensi jangka panjang lintas zona atau region |
+| **Pemulihan operasional** | Backup dan restore mandiri memungkinkan admin aplikasi menangani penghapusan tidak sengaja atau kerusakan data |
+
+#### Menerapkan Kriteria
+
+Sebagai contoh, organisasi memiliki aplikasi yang bergantung pada database SQL Server di tiga Azure VM. Data tersebut perlu disimpan hingga 10 tahun 
+untuk memenuhi persyaratan kepatuhan. Pengguna juga ingin memantau backup yang dilakukan. 
 
 :::warning
+Jika ketiga Azure VM dideploy di beberapa langganan (subscription) atau wilayah (region) yang berbeda, perlu diketahui bahwa Azure Backup 
+tidak mendukung pencadangan lintas region untuk sebagian besar beban kerja. Namun, layanan ini mendukung pemulihan lintas region di region sekunder 
+yang berpasangan (paired secondary region).
+:::
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+### Apakah Azure Backup dapat melindungi VM Azure yang menjalankan SQL Server?
+
+**Ya.** Azure Backup dapat mencadangkan seluruh Windows atau Linux VM menggunakan **backup extension**. Pengguna dapat:
+
+- Mencadangkan seluruh VM, atau  
+- Menggunakan **MARS agent** untuk mencadangkan hanya file, folder, dan system state.
+
+Jika Pengguna hanya ingin mencadangkan data SQL Server:
+
+- Azure Backup menyediakan **solusi khusus berbasis stream** untuk SQL Server di Azure VM, yang menawarkan:
+  - Cadangan full, differential, dan log
+  - RPO 15 menit dengan backup log yang sering
+  - **Point-in-time recovery** hingga detik tertentu
+  - Backup dan restore per database
+
+![azure backup](/img/az104/90.png)
+
+
+### Apakah Azure Backup membantu compliance?
+
+**Ya.** Pengguna dapat mengatur kontrol akses untuk cadangan. Vault (Recovery Services atau Backup Vault):
+
+- Memberikan kemampuan manajemen melalui Portal Azure, Backup Center, dashboard vault, SDK, CLI, dan REST API.
+- Merupakan batas kontrol berbasis peran (Azure RBAC) – hanya admin backup yang diberi izin dapat mengakses.
+
+**Retensi:**
+
+- Retensi jangka pendek: menit atau harian  
+- Retensi jangka panjang: mingguan, bulanan, atau tahunan  
+
+#### Dua jenis retensi jangka panjang:
+
+1. **Planned:** Data diketahui harus disimpan bertahun-tahun (misalnya, karena peraturan).
+2. **Unplanned:** Backup sesuai permintaan dengan pengaturan retensi khusus (tidak terpengaruh oleh kebijakan backup yang dijadwalkan).
+
+#### Backup Sesuai Permintaan:
+
+- Digunakan saat backup tidak sesuai jadwal.
+- Cocok untuk backup granular (misal: beberapa backup IaaS VM per hari).
+- Retensi backup ini **tidak mengikuti kebijakan backup** terjadwal.
+
+:::info
+Azure Backup Policies memungkinkan pengelolaan waktu pencadangan dan durasi retensi, serta bisa diterapkan lintas banyak item.
+:::
+
+### Apakah Azure Backup Menyederhanakan Pemantauan dan Administrasi?
+
+**Ya.** Untuk **monitoring dan reporting**, Azure Backup terintegrasi dengan **Log Analytics** dan dapat menampilkan laporan via **Workbooks**.
+
+#### Kemampuan Monitoring:
+
+- Monitoring pekerjaan built-in untuk konfigurasi, backup, restore, penghapusan, dll.  
+- Terbatas pada skala **vault tunggal**, cocok untuk lingkungan kecil.
+
+#### Pemantauan Skala Besar:
+
+Gunakan **Backup Explorer**:
+
+- Tampilan agregat dari seluruh backup estate.
+- **Azure Monitor Workbook** built-in.
+- Menyediakan analisis detail lintas:
+  - Tenants
+  - Lokasi
+  - Langganan
+  - Resource group
+  - Vault
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

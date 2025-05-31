@@ -3,12 +3,222 @@ id: AZ-1068
 title: Analisa Azure Infrastucture menggunakan Azure monitor logs
 ---
 
+<br/>
+## Fitur dari Azure Monitor logs
+
+**Azure Monitor** adalah layanan untuk mengumpulkan dan menganalisis *telemetri*. Layanan ini membantu mendapatkan performa dan ketersediaan maksimum untuk 
+aplikasi cloud maupun resources dan aplikasi lokal (*on-premises*). Azure Monitor menunjukkan bagaimana performa aplikasi dan mengidentifikasi masalah yang terjadi.
+
+### Pengumpulan Data di Azure Monitor
+
+Azure Monitor mengumpulkan dua jenis data utama:
+
+- **Metrik**: Memberikan informasi tentang performa suatu resources dan konsumsi resources lainnya.
+- **Log**: Berisi catatan peristiwa seperti kapan suatu resources dibuat atau dimodifikasi.
+
+![Azure Monitor](/img/az104/100.png)
+
+> Diagram tingkat tinggi dari arsitektur Azure Monitor menunjukkan:
+> - **Kiri**: Sumber data pemantauan (Azure, sistem operasi, dan sumber kustom)  
+> - **Tengah**: Penyimpanan data untuk metrik dan log  
+> - **Kanan**: Fungsi seperti analisis, peringatan (*alerting*), dan streaming data
+
+#### - Azure Monitor mengumpulkan data secara otomatis dari berbagai komponen, termasuk:
+
+- **Data aplikasi**: Informasi dari kode aplikasi kustom
+- **Data sistem operasi**: Dari VM Windows atau Linux yang menjalankan aplikasi
+- **Data resources Azure**: Misalnya web app, load balancer
+- **Data langganan Azure**: Termasuk data ketersediaan dan status kesehatan Azure
+- **Data penyewa (tenant) Azure**: Layanan tingkat organisasi, seperti Microsoft Entra ID
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+Karena sistem ini bekerja otomatis, Azure Monitor mulai mengumpulkan data sejak Pengguna membuat resources seperti **VM** dan **web app**.
 :::
 
-:::warning
+#### - Memperluas Pengumpulan Data
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Pengguna dapat memperluas cakupan data dengan:
+
+- **Mengaktifkan diagnostik**: Misalnya pada Azure SQL Database agar informasi penuh tersedia
+- **Menambahkan agen**: Instal Log Analytics agent di VM untuk mengirim data ke Log Analytics Workspace
+
+#### - Mengirim Data dari Aplikasi Kustom
+
+Developer dapat mengirim data dari aplikasi kustom (misalnya web app, Azure Function, atau mobile app) ke Azure Monitor dengan memanggil **Data Collector API** 
+(REST API melalui HTTP). API ini kompatibel dengan berbagai framework seperti:
+
+- .NET Framework
+- Node.js
+- Python
+
+#### - Log
+
+**Log** menyimpan informasi bertanda waktu tentang perubahan resources. Setiap log diatur dalam bentuk catatan dengan atribut yang berbeda-beda, tergantung sumbernya. 
+Log bisa berisi:
+
+- Nilai numerik (misalnya metrik Azure Monitor)
+- Data teks (lebih umum)
+
+Jenis log paling umum adalah catatan peristiwa (*event*)—yang bisa terjadi secara acak. Aplikasi dan layanan yang menciptakan event juga memberikan konteksnya.
+
+> Pengguna dapat menyimpan log di **Log Analytics Workspace**, yang menyediakan:
+> - Mesin analisis canggih
+> - Bahasa kueri yang kuat untuk eksplorasi data
+
+Log berguna untuk menemukan akar penyebab masalah (*root cause analysis*).
+
+![Kueri Log di Azure Monitor](/img/az104/101.png)
+
+#### - Metrik
+
+**Metrik** adalah nilai numerik yang menggambarkan kondisi sistem pada titik waktu tertentu. Fitur Azure Monitor:
+
+- Menangkap metrik hampir secara real-time
+- Mengumpulkan metrik pada interval tetap
+- Sangat berguna untuk peringatan (*alerting*) karena frekuensinya tinggi
+
+Metrik disimpan dalam **basis data time-series**, yang cocok untuk:
+
+- Analisis data berbasis waktu
+- Deteksi cepat terhadap anomali atau masalah sistem
+
+Metrik juga bisa dikombinasikan dengan log untuk analisis mendalam.
+
+![Metric CPU rata-rata](/img/az104/102.png)
+
+### Menganalisis Log dengan Kusto
+
+Untuk mengambil dan menganalisis data, Pengguna dapat menulis kueri menggunakan **Kusto Query Language (KQL)**, yang juga digunakan oleh **Azure Data Explorer**.
+
+#### - Fitur:
+
+- Uji kueri secara interaktif di portal Azure
+- Mulai dari kueri dasar hingga kueri kompleks
+- Hasil kueri bisa ditampilkan dalam grafik, tabel, dan disematkan ke **dashboard kustom**
+
+> Azure Monitor menyediakan **tile dashboard** untuk menampilkan hasil kueri secara visual.
+
+Contoh penggunaan: Tim operasi dapat mengonsolidasikan data pemantauan ke dalam **grafik dan tabel** untuk pelaporan lintas tim.
+
+#### - Dashboard Azure
+
+Dashboard Azure memungkinkan:
+
+- Menggabungkan log dan metrik ke satu tampilan
+- Menambahkan **tile** seperti:
+  - Grafik metrik
+  - Tabel log aktivitas
+  - Output kueri Kusto
+  - Elemen visual lainnya
+
+Dashboard ini berguna untuk menyampaikan informasi pemantauan ke berbagai audiens secara efektif dan terintegrasi dalam satu layar di portal Azure.
+Dengan memahami log, metrik, dan kemampuan kueri di Azure Monitor, Pengguna dapat membangun solusi pemantauan yang **kuat**, **adaptif**, dan **terotomatisasi**.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat basic Azure Monitor log kueri
+
+Anda dapat menggunakan **kueri log Azure Monitor** untuk mengekstrak informasi dari data log. 
+Proses kueri ini merupakan bagian penting dalam menganalisis data log yang dikumpulkan oleh Azure Monitor.
+
+> **Contoh Skenario:**  
+> Tim operasional menggunakan kueri log Azure Monitor untuk memeriksa kesehatan sistem mereka.
+
+### Menulis Kueri Log Azure Monitor dengan Log Analytics
+
+Anda dapat menemukan alat **Log Analytics** di portal Azure dan menggunakannya untuk menjalankan kueri sampel atau membuat kueri sendiri.
+
+#### Langkah-langkah:
+
+1. Di portal Azure, di panel menu sebelah kiri, pilih **Monitor**.
+2. Halaman Azure Monitor akan muncul, dengan beberapa opsi seperti:
+   - *Activity Log*
+   - *Alerts*
+   - *Metrics*
+   - *Logs*
+3. Pilih **Logs**.
+4. Anda sekarang bisa memasukkan kueri dan melihat hasilnya.
+
+![Tab Kueri](/img/az104/103.png)
+
+### Menulis Kueri dengan Bahasa Kusto
+
+Anda dapat menggunakan **Kusto Query Language (KQL)** untuk menjalankan kueri terhadap data log dari layanan Azure Anda.
+
+> Kueri Kusto adalah permintaan baca-saja (*read-only*) yang memproses data dan mengembalikan hasilnya.
+
+##### Ciri-ciri KQL:
+
+- Ditulis dalam *plain text*
+- Menggunakan model aliran data yang mudah dibaca dan diotomatisasi
+- Menggunakan entitas skema seperti: **database**, **tabel**, dan **kolom**
+- Kueri dipisahkan dengan tanda titik koma (`;`)
+- Minimal satu pernyataan adalah *tabular expression statement* (pernyataan ekspresi tabular)
+
+### Struktur Kueri Ekspresi Tabular
+
+Kueri ekspresi tabular mengalirkan data dari satu operator ke operator lainnya, dimulai dari **sumber data**, seperti:
+
+- Tabel dalam database
+- Operator yang menghasilkan data
+
+Data kemudian dialirkan melalui serangkaian operator transformasi data, yang dihubungkan dengan simbol **pipe (`|`)**.
+
+#### Contoh Kueri Sederhana
+
+```kusto
+Events
+| where StartTime > ago(1h)
+| where State == "Error"
+| count
+```
+
+Penjelasan:
+
+- `Events`: tabel sumber
+- `where`: menyaring berdasarkan kolom `StartTime` dan `State`
+- `count`: menghitung jumlah baris hasil filter
+
+### Sumber Data Log Tambahan
+
+**Events** dari log komputer yang dipantau hanyalah salah satu jenis sumber data. Azure Monitor mendukung banyak jenis sumber data lainnya, misalnya:
+
+- **Heartbeat**: Menyediakan status kesehatan semua komputer yang melapor ke Log Analytics Workspace
+- **Performance counters**
+- **Update management records**
+
+#### Contoh Kueri Heartbeat
+
+Kueri berikut mengambil catatan *heartbeat* terbaru untuk setiap komputer berdasarkan alamat IP-nya:
+
+```kusto
+Heartbeat
+| summarize arg_max(TimeGenerated, *) by ComputerIP
+```
+
+Penjelasan:
+
+- `summarize arg_max`: Mengambil nilai maksimum dari kolom `TimeGenerated` untuk setiap `ComputerIP`
+- Menghasilkan satu catatan *heartbeat* terbaru per alamat IP komputer
+
+Dengan memahami dasar-dasar **penulisan kueri KQL**, Pengguna dapat mulai mengeksplorasi log dan metrik di Azure untuk mendapatkan wawasan penting 
+tentang performa dan kesehatan sistem.
+
+### Contoh Kueri Kusto
+
+Sebagai contoh, kueri Kusto berikut memiliki satu pernyataan ekspresi tabular. Pernyataan ini dimulai dengan referensi ke tabel bernama `Events`. 
+Basis data yang menjadi host tabel ini bersifat implisit di sini, dan merupakan bagian dari informasi koneksi. Data untuk tabel tersebut, yang disimpan dalam baris, 
+difilter berdasarkan nilai dari kolom `StartTime`. Data kemudian difilter lebih lanjut oleh nilai dari kolom `State`. Kueri kemudian mengembalikan jumlah baris yang dihasilkan.
+
+```kusto
+Events
+| where StartTime >= datetime(2018-11-01) and StartTime < datetime(2018-12-01)
+| where State == "FLORIDA"  
+| count
+```
+
+:::info
+Bahasa kueri Kusto yang digunakan oleh Azure Monitor bersifat case-sensitive. Kata kunci bahasa biasanya ditulis dalam huruf kecil. Saat Anda menggunakan nama tabel atau kolom dalam kueri, pastikan menggunakan huruf besar dan kecil yang benar.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

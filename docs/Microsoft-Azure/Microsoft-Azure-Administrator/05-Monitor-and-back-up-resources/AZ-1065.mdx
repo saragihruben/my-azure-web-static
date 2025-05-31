@@ -3,12 +3,183 @@ id: AZ-1065
 title: Perlindungan VM menggunakan Azure Backup
 ---
 
-:::info
+## Fitur dan skenario Azure backup
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Rencana kelangsungan bisnis dan pemulihan bencana (BCDR) perusahaan memerlukan kemampuan pencadangan dan pemulihan penuh untuk semua server berisiko tinggi.
+Pengguna diminta untuk mengaktifkan dan menguji fungsionalitas backup dan restore untuk aset Windows dan Linux yang krusial ini.
 
+### Azure Backup vs Azure Site Recovery
+
+Baik Azure Backup maupun Azure Site Recovery bertujuan untuk meningkatkan ketahanan sistem terhadap gangguan dan kegagalan, namun pendekatan yang digunakan berbeda.
+
+- **Azure Backup** bertujuan untuk mempertahankan salinan data berstatus tetap yang memungkinkan kembali ke titik waktu sebelumnya.
+- **Azure Site Recovery** mereplikasi data secara hampir real-time dan memungkinkan proses failover.
+
+Gunakan **Site Recovery** untuk bencana besar (seperti bencana alam) dan **Backup** untuk kehilangan data secara tidak sengaja, korupsi data, atau serangan ransomware.
+
+Pilihan pendekatan pemulihan tergantung pada:
+- Tingkat kritikalitas aplikasi,
+- Recovery Point Objective (RPO) dan Recovery Time Objective (RTO),
+- Implikasi biaya.
+
+### Mengapa menggunakan Azure Backup?
+
+Backup tradisional (seperti disk dan tape) tidak memiliki integrasi mendalam dengan solusi berbasis cloud. **Azure Backup** menawarkan banyak keunggulan 
+dibandingkan solusi tradisional:
+
+#### Pencadangan tanpa infrastruktur
+Tidak perlu membangun atau mengelola infrastruktur backup. Tidak ada beban dalam mengelola server backup atau menyesuaikan kapasitas penyimpanan.
+
+#### Retensi jangka panjang
+Penuhi kebutuhan kepatuhan dan audit dengan mempertahankan backup selama bertahun-tahun. Lifecycle management akan memangkas titik pemulihan secara otomatis sesuai kebijakan.
+
+#### Keamanan
+Azure Backup melindungi data saat **transit** dan saat **diam (at rest)**:
+
+- **Azure Role-Based Access Control (RBAC)**: Memberikan akses hanya kepada pengguna yang berwenang.
+- **Enkripsi backup**: Data backup dienkripsi otomatis dengan kunci yang dikelola Microsoft, atau Pengguna bisa menggunakan **Customer-Managed Key (CMK)** dari Azure Key Vault.
+- **Tanpa koneksi internet**: Transfer data hanya melalui backbone Azure, tidak perlu IP publik atau FQDN.
+- **Soft delete & Enhanced soft delete**: Backup yang dihapus tetap disimpan selama 14 hari dan dapat dipulihkan.
+
+#### Ketersediaan tinggi
+Azure Backup menyediakan tiga jenis replikasi:
+- **LRS (Locally Redundant Storage)** – perlindungan dasar.
+- **GRS (Geo-Redundant Storage)** – failover ke region sekunder.
+- **ZRS (Zone-Redundant Storage)** – replikasi sinkron lintas tiga zona Azure.
+
+#### Pemantauan dan manajemen terpusat
+Azure Backup menyediakan **pemantauan dan pemberitahuan bawaan** melalui Recovery Services Vault, tanpa perlu infrastruktur tambahan.
+
+### Skenario yang didukung Azure Backup
+
+Azure Backup mendukung skenario berikut:
+
+| Skenario                                | Deskripsi                                                                                                                                                             |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Azure VMs**                           | - Backup untuk VM Windows dan Linux di Azure.<br/>- Backup tersimpan di Recovery Services Vault dengan manajemen recovery point bawaan.                                     |
+| **On-premises**                         | - Backup file, folder, dan system state menggunakan MARS agent.<br/>- Backup VM lokal (Hyper-V dan VMware) menggunakan MABS atau DPM.                                       |
+| **Azure Files Shares**                  | - Azure Backup menyediakan pengelolaan snapshot untuk Azure Files.                                                                                                       |
+| **SQL Server dan SAP HANA di Azure VMs**| - Solusi khusus berbasis stream untuk pencadangan SQL Server dan SAP HANA.<br/>- Mendukung backup full, differential, dan log.<br/>- Mendukung RPO 15 menit dan point-in-time recovery. |
+
+:::tip Konklusi
+Azure Backup memungkinkan Pengguna untuk mengamankan data secara efisien dan terintegrasi penuh dengan platform Azure. 
+Solusi ini ideal untuk organisasi yang menginginkan manajemen backup modern, hemat biaya, dan sesuai dengan standar kepatuhan global.
 :::
 
-:::warning
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+## Backup Azure VM menggunakan Azure Backup
+
+Pengguna ingin memastikan bahwa pekerjaan backup dan pemulihan yang di siapkan menyediakan cara untuk memulihkan server perusahaan. 
+Dengan persyaratan ini, Pengguna ingin menyelidiki cara terbaik untuk menerapkan backup untuk mesin virtual (VM).
+
+VM yang dihosting di Azure dapat memanfaatkan Azure Backup. Pengguna dapat dengan mudah mencadangkan dan memulihkan mesin tanpa menginstal perangkat lunak tambahan.
+
+### Cara Kerja Azure Backup pada VM
+
+Azure VM dicadangkan dengan mengambil **snapshot disk** pada interval yang ditentukan pengguna, lalu mentransfer snapshot tersebut ke 
+**Recovery Services Vault** sesuai dengan kebijakan yang ditentukan pelanggan.
+
+#### Recovery Services Vault
+
+![azure backup](/img/az104/91.png)
+
+Azure Backup menggunakan **Recovery Services Vault** untuk mengelola dan menyimpan data backup. Vault adalah entitas manajemen penyimpanan yang memberikan 
+pengalaman sederhana untuk melakukan dan memantau operasi backup dan restore.
+
+:::warning
+Pengguna tidak perlu mengelola akun penyimpanan sendiri. Hanya perlu menentukan vault tujuan backup VM. Data backup ditransfer ke akun penyimpanan 
+Azure Backup (di fault domain terpisah) secara otomatis.
+:::
+
+Vault juga bertindak sebagai batas kontrol akses berbasis peran (RBAC) untuk memastikan akses yang aman ke data.
+
+#### Snapshot
+
+Snapshot adalah cadangan titik-waktu dari semua disk pada VM. Untuk Azure VM, Azure Backup menggunakan ekstensi yang berbeda berdasarkan sistem operasi:
+
+| Ekstensi             | OS      | Deskripsi                                                                 |
+|----------------------|---------|---------------------------------------------------------------------------|
+| VM Snapshot          | Windows | Bekerja dengan Volume Shadow Copy Service (VSS) untuk mencadangkan disk dan memori. |
+| VM SnapshotLinux     | Linux   | Mengambil salinan dari seluruh disk.                                      |
+
+#### Tingkat Konsistensi Snapshot
+
+- **Application consistent**: Menangkap memori dan I/O tertunda. Untuk Linux, perlu skrip khusus.
+- **File system consistent**: Jika VSS atau skrip gagal, sistem file tetap utuh.
+- **Crash consistent**: Terjadi jika VM dalam keadaan mati saat backup. Tidak menjamin konsistensi data.
+
+### Kebijakan Backup
+
+Pengguna dapat menentukan **frekuensi backup** dan **durasi retensi**. Backup dapat dijadwalkan harian atau mingguan dan disimpan selama bertahun-tahun.
+Azure Backup mendukung dua tingkat akses data:
+
+- **Snapshot tier**: Snapshot lokal disimpan maksimal 5 hari untuk pemulihan cepat (instant restore).
+- **Vault tier**: Snapshot disalin ke vault untuk keamanan dan retensi jangka panjang.
+
+> Dengan **Enhanced Policy**, Pengguna bisa mengaktifkan backup per jam dan melakukan **Selective Disk Backup**, yaitu mencadangkan hanya sebagian disk penting dari VM.
+
+### Proses Backup Azure VM
+
+![azure backup](/img/az104/92.png)
+
+Langkah-langkah backup oleh Azure Backup:
+
+1. Backup job dijalankan sesuai frekuensi dalam kebijakan backup.
+2. Jika VM aktif:
+   - Ekstensi backup diinstal (VM Snapshot atau VM SnapshotLinux).
+3. Snapshot diambil dan disimpan lokal.
+4. Data ditransfer ke vault secara paralel per disk.
+5. Hanya **blok data yang berubah** (delta) yang dikirim.
+6. Proses transfer snapshot ke vault bisa memakan waktu beberapa jam, namun total backup harian kurang dari 24 jam.
+
+#### Keamanan Tambahan
+
+- **Vault Encryption**: Aktifkan enkripsi vault dengan **Customer-Managed Keys (CMK)**.
+- **Enhanced Soft Delete**: Melindungi backup dari penghapusan tidak disengaja atau serangan malware, bahkan dengan opsi “selalu aktif”.
+
+Dengan Azure Backup, Pengguna mendapatkan solusi pencadangan VM yang **terotomatisasi, aman, dan hemat biaya** tanpa perlu infrastruktur tambahan.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Memulihkan data pada VM
+
+Perusahaan yang memiliki rencana *Business Continuity and Disaster Recovery* (BCDR) biasanya menjadwalkan uji coba untuk memastikan bisnis dapat pulih dari bencana. 
+
+### Jenis Pemulihan
+
+Azure Backup menyediakan berbagai cara untuk memulihkan VM. Pengguna dapat melakukan pemulihan instan dari *snapshot tier* (optimal untuk pemulihan operasional) atau dari 
+*vault tier*.
+
+| Opsi Pemulihan         | Rincian |
+|------------------------|---------|
+| **Buat VM baru**        | Membuat dan menjalankan VM baru dari *restore point* secara cepat. VM baru harus dibuat di wilayah (region) yang sama dengan VM sumber. |
+| **Pulihkan disk**       | Memulihkan disk VM yang kemudian dapat digunakan untuk membuat VM baru. Disk disalin ke *resource group* yang di tentukan. Azure Backup menyediakan *template* untuk membantu membuat VM. Pengguna juga bisa attach disk ke VM yang sudah ada. |
+| **Ganti yang ada**      | Memulihkan disk untuk menggantikan disk pada VM yang sudah ada. Azure Backup mengambil snapshot VM sebelum penggantian, dan menyimpannya di lokasi staging yang di tentukan. Tidak tersedia jika VM sudah dihapus. |
+| **Pemulihan lintas region (secondary region)** | Memulihkan VM di wilayah sekunder (Azure paired region). Mendukung opsi "Buat VM" dan "Pulihkan Disk", tetapi tidak mendukung "Ganti yang ada". |
+| **Pemulihan Lintas Langganan** | Memungkinkan pemulihan VM atau disk ke langganan berbeda dalam tenant yang sama. Hanya diaktifkan jika properti ini diaktifkan pada *Recovery Services Vault*. Didukung untuk VM dengan *Managed System Identities (MSI)*. Tidak didukung untuk titik pemulihan snapshot, VM unmanaged, atau VM terenkripsi dengan Advanced Digital Encryption (ADE). |
+| **Pemulihan Lintas Zona (Cross Zonal Restore)** | Memulihkan VM atau disk ke zona Azure berbeda. Hanya didukung untuk VM terkelola (*managed VM*) dengan Zonal Redundant Storage (ZRS) diaktifkan. Tidak berlaku untuk titik pemulihan snapshot atau VM terenkripsi. |
+| **Backup Disk Selektif** | Memungkinkan pencadangan dan pemulihan sebagian disk VM melalui Enhanced Policy. Pengguna bisa mencadangkan subset disk penting dan memulihkannya dari snapshot atau vault tier. |
+
+#### Pemulihan Berkas dari Backup
+
+Pengguna dapat memulihkan file individual dari *recovery point* dengan melakukan *mount* snapshot pada mesin target menggunakan *iSCSI initiator*.
+
+:::info
+Pelajari lebih lanjut di dokumentasi: [Pulihkan file dari backup VM Azure](https://learn.microsoft.com/azure/backup/backup-azure-restore-files-from-vm)
+:::
+
+### Memulihkan Mesin Virtual Terenkripsi
+
+Azure Backup mendukung backup dan pemulihan VM yang dienkripsi menggunakan **Azure Disk Encryption**. Enkripsi ini bekerja dengan **Azure Key Vault** 
+untuk mengelola *secrets* yang terkait.
+
+#### Batasan untuk VM Terenkripsi:
+
+- Hanya mendukung *standalone key encryption*. Kunci dalam sertifikat belum didukung.
+- Pemulihan file atau folder individual tidak didukung. Pengguna harus memulihkan seluruh VM lalu menyalin file secara manual.
+- Opsi **Ganti yang ada** tidak tersedia untuk VM terenkripsi.
+
+Dengan memahami berbagai opsi ini, Pengguna dapat menyesuaikan strategi pemulihan VM sesuai kebutuhan bisnis dan skenario bencana.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

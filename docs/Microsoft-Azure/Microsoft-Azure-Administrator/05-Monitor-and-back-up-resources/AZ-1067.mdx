@@ -3,12 +3,344 @@ id: AZ-1067
 title: Meningkatkan incident response dengan Azure Monitor alerts
 ---
 
-:::info
+<br/>
+## Menjelajahi berbagai jenis alert yang di dukung oleh Azure Monitor
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Azure Monitor adalah alat pelaporan dan analitik yang kuat. Pengguna dapat menggunakannya untuk mendapatkan wawasan tentang perilaku dan operasional lingkungan serta aplikasi. 
+Pengguna kemudian dapat merespons secara proaktif terhadap gangguan dalam sistem.
 
+Setelah waktu henti yang dialami customer, Pengguna menetapkan pemantauan pada resources utama di Azure. Dengan pemantauan yang sudah diaktifkan, 
+Pengguna ingin memastikan bahwa orang yang tepat mendapatkan peringatan pada tingkat yang sesuai.
+
+Dalam unit ini, Pengguna akan mempelajari bagaimana Azure Monitor menerima data resources, apa saja komponen dari sebuah peringatan, serta bagaimana dan 
+kapan menggunakan peringatan. Terakhir, Pengguna akan belajar cara membuat dan mengelola peringatan milik sendiri.
+
+### Jenis Data dalam Azure Monitor
+
+Azure Monitor menerima data dari resources target seperti aplikasi, sistem operasi, Azure resources, Azure subscription, dan Azure rent. 
+Jenis resources menentukan jenis data yang tersedia. Jenis data dapat berupa metrik, log, atau keduanya:
+
+- **Metrik** berfokus pada nilai numerik yang sensitif terhadap waktu dan mewakili aspek tertentu dari resources target.
+- **Log** berfokus pada kueri terhadap data konten dalam file log berbasis rekaman yang terstruktur.
+
+![Azure Monitor](/img/az104/104.png)
+> Diagram yang mewakili resources target yang mengalirkan data ke Azure Monitor dan dua jenis sinyal utama: metrik dan log.
+
+#### Tiga Jenis Sinyal
+
+1. **Peringatan metrik** memberikan pemicu peringatan saat ambang batas tertentu terlampaui. Contoh: penggunaan CPU lebih dari 95%.
+2. **Peringatan log aktivitas** memberi tahu saat resources Azure berubah status. Contoh: resources dihapus.
+3. **Peringatan log** berdasarkan data yang tertulis dalam file log. Contoh: server web mengembalikan terlalu banyak respons 404 atau 500.
+
+#### Komposisi Aturan Peringatan
+
+Setiap peringatan di Azure Monitor berasal dari sebuah aturan:
+
+| Komponen        | Deskripsi                                                                                                                                                                                                 |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **RESOURCE**    | - Resources target untuk aturan peringatan. Pengguna dapat menetapkan beberapa resources target ke satu aturan peringatan. Jenis resources menentukan tipe sinyal yang tersedia.                          |
+| **CONDITION**   | - Tipe sinyal yang digunakan untuk mengevaluasi aturan. Tipe sinyal bisa berupa metrik, log aktivitas, atau log lainnya. Ada tipe lain, tetapi tidak dibahas dalam modul ini. <br/> - Logika peringatan diterapkan pada data yang dikirim melalui tipe sinyal. Struktur logika peringatan akan berubah tergantung tipe sinyalnya. |
+| **ACTIONS**     | - Tindakan yang dilakukan, seperti mengirim email, pesan SMS (Short Message Service), atau menggunakan webhook. <br/> - Grup tindakan, yang biasanya berisi satu set penerima unik untuk tindakan tersebut.    |
+| **ALERT DETAILS** | - Nama peringatan dan deskripsi peringatan yang menentukan tujuan peringatan tersebut. <br/> - Tingkat keparahan peringatan jika kriteria atau logika mengembalikan nilai benar. Lima tingkat keparahan: <br/> 0: Kritis <br/> 1: Error <br/> 2: Peringatan <br/> 3: Informasional <br/> 4: Verbose |
+
+
+![Create an alert rule](/img/az104/105.png)
+
+### Cakupan Aturan Peringatan
+
+Azure Monitor memungkinkan Pengguna membuat aturan peringatan untuk berbagai hal, seperti:
+
+- Nilai metrik
+- Kueri pencarian log
+- Peristiwa log aktivitas
+- Kesehatan platform Azure
+- Pengujian ketersediaan situs web
+
+#### Mengelola Aturan Peringatan
+
+Tidak semua aturan peringatan harus berjalan selamanya. Pengguna bisa mengaktifkan atau menonaktifkannya sesuai kebutuhan. Praktik umum adalah mengaktifkan peringatan 
+sebelum perubahan aplikasi dan menonaktifkannya setelah penyebaran berhasil.
+
+#### Tampilan Ringkasan Peringatan
+
+Halaman peringatan menunjukkan ringkasan semua peringatan. Pengguna bisa memfilter tampilan berdasarkan:
+
+- Subscription
+- Kondisi peringatan
+- Tingkat keparahan
+- Rentang waktu
+
+![Monitor Alerts](/img/az104/106.png)
+
+### Kondisi Peringatan
+
+Sistem menetapkan kondisi peringatan secara otomatis:
+
+- Saat peringatan aktif: kondisi pemantauan adalah **Fired**
+- Setelah kondisi penyebabnya hilang: kondisi berubah menjadi **Resolved**
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menggunakan alerts metric untuk memperingatkan isu performa pada Azure environment
+
+Sebagai seorang solution architect, kita ingin menerapkan pemantauan ambang batas secara rutin untuk banyak resources dan instance target. 
+Pemantauan membantu mencegah potensi masalah sebelum berdampak pada pelanggan.
+
+### Kapan Pengguna Menggunakan Peringatan Metrik?
+
+Di Azure Monitor, Pengguna dapat menggunakan peringatan metrik untuk melakukan pemantauan ambang batas secara rutin terhadap resources Azure. 
+Azure Monitor menjalankan kondisi pemicu peringatan metrik pada interval waktu tertentu. Ketika evaluasi terpenuhi, Azure Monitor mengirimkan notifikasi. 
+Peringatan metrik bersifat *stateful*, dan Azure Monitor hanya mengirimkan notifikasi jika kondisi awal terpenuhi.
+
+:::info Contoh 
+Peringatan metrik berguna, misalnya, jika Pengguna perlu mengetahui saat penggunaan CPU server mencapai ambang batas kritis 90 persen. 
+Pengguna juga dapat menerima peringatan ketika penyimpanan database hampir habis, atau saat latensi jaringan mendekati tingkat yang tidak dapat diterima.
 :::
 
-:::warning
+### Komposisi Peringatan Metrik
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Untuk peringatan metrik, ada satu faktor tambahan yang perlu didefinisikan: **jenis kondisi**, yang dapat bersifat *static* (statis) atau *dynamic* (dinamis).
+
+Pengguna harus menentukan jenis analisis statistik yang digunakan, baik untuk peringatan metrik statis maupun dinamis. 
+Contoh jenis analisis termasuk: minimum, maksimum, rata-rata, dan total. Misalnya, Pengguna mendefinisikan periode data yang akan dievaluasi: 
+10 menit terakhir. Terakhir, Pengguna menetapkan frekuensi pemeriksaan kondisi peringatan: setiap dua menit.
+
+#### Gunakan Peringatan Metrik dengan Ambang Batas Statis
+
+Peringatan metrik statis didasarkan pada kondisi dan ambang batas sederhana yang di tentukan. Dengan metrik statis, Pengguna menetapkan ambang batas 
+yang digunakan untuk memicu peringatan atau notifikasi.
+
+| Aspek                        | Penjelasan |
+|-----------------------------|------------|
+| Jenis                       | Statis |
+| Deskripsi                   | Didasarkan pada kondisi dan ambang batas sederhana yang ditentukan pengguna. |
+| Penetapan Ambang Batas      | Pengguna menetapkan nilai ambang batas secara manual. |
+| Contoh Kasus                | Ambang batas penggunaan CPU ditetapkan sebesar 85%. |
+| Frekuensi Evaluasi          | Setiap 2 menit. |
+| Periode Data yang Dievaluasi| 10 menit terakhir. |
+| Tindakan Setelah Evaluasi   | Jika penggunaan melebihi ambang batas, peringatan akan memicu tindakan yang ditentukan dalam *action group*. |
+
+
+#### Gunakan Peringatan Metrik dengan Ambang Batas Dinamis
+
+Peringatan metrik dinamis menggunakan alat pembelajaran mesin (*machine learning*) yang disediakan oleh Azure untuk secara otomatis meningkatkan akurasi ambang 
+batas yang ditentukan oleh aturan awal.
+
+| Aspek                        | Penjelasan |
+|-----------------------------|------------|
+| Jenis                       | Dinamis |
+| Deskripsi                   | Menggunakan *machine learning* dari Azure untuk menetapkan ambang batas secara otomatis berdasarkan pola historis. |
+| Penetapan Ambang Batas      | Tidak ada ambang tetap; ditentukan secara dinamis oleh sistem. |
+| Parameter Tambahan          | - **Periode *look-back***: Jumlah periode sebelumnya yang dievaluasi (misalnya 3 periode = 30 menit).<br/>- **Jumlah pelanggaran**: Berapa kali penyimpangan harus terjadi sebelum peringatan dikirimkan (misalnya 2 pelanggaran). |
+| Keunggulan                  | Adaptif terhadap perubahan pola dan lebih akurat dalam deteksi anomali. |
+
+#### Pahami Dimensi
+
+Sampai titik ini, peringatan metrik yang kita bahas hanya berfokus pada satu instance target. Azure Monitor mendukung **dimensi**, yang memungkinkan data pemantauan 
+dikumpulkan dari banyak instance target.
+Misalnya, Pengguna dapat memantau penggunaan CPU di semua server yang menjalankan aplikasi.
+Kemudian Pengguna akan menerima notifikasi individual untuk setiap instance server ketika kondisi aturan terpenuhi.
+
+:::info
+Pengguna dapat mendefinisikan dimensi dengan menyebutkan setiap instance target secara spesifik, atau menggunakan karakter wildcard asterisk (`*`), 
+yang berarti semua instance yang tersedia.
+:::
+
+#### Skalakan Peringatan Metrik
+
+Azure Monitor mendukung pembuatan peringatan metrik yang, seperti dimensi, memantau banyak resources. Saat ini, skala terbatas pada mesin virtual Azure. 
+Namun, satu peringatan metrik dapat memantau resources dalam satu region Azure.
+
+Seperti dimensi, peringatan metrik berskala tetap spesifik pada resources yang memicunya.
+
+:::warning **Catatan:**  
+Untuk pemantauan yang efektif, pastikan Pengguna mendesain aturan metrik dengan mempertimbangkan skenario nyata dan kebutuhan operasional. 
+Kombinasikan ambang batas statis dan dinamis sesuai kebutuhan untuk mendapatkan hasil terbaik.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menggunakan pencarian log alerts untuk memperingatkan events pada aplikasi
+
+Pengguna dapat menggunakan Azure Monitor untuk menangkap informasi penting dari file log. Aplikasi, sistem operasi, perangkat keras lainnya, 
+atau layanan Azure dapat menghasilkan file log ini.
+
+Sebagai seorang solution architect, kita ingin mengeksplorasi bagaimana pemantauan data log dapat mendeteksi masalah sebelum menjadi gangguan bagi pelanggan. 
+
+#### Kapan Menggunakan Peringatan Pencarian Log
+
+Peringatan pencarian log menggunakan data log untuk mengevaluasi logika aturan dan, jika perlu, memicu peringatan. 
+Data ini dapat berasal dari sumber Azure mana pun: **log server**, **log server aplikasi**, atau **log aplikasi**.
+
+Secara alami, data log bersifat historis, sehingga penggunaannya difokuskan untuk analisis dan tren.
+
+Pengguna dapat menggunakan log jenis ini untuk menilai apakah ada server yang melebihi ambang batas penggunaan CPU dalam 30 menit terakhir. Atau, 
+Pengguna dapat mengevaluasi kode respons yang dikeluarkan oleh server aplikasi web dalam satu jam terakhir.
+
+#### Cara Kerja Peringatan Pencarian Log
+
+Peringatan pencarian log berperilaku sedikit berbeda dibandingkan mekanisme peringatan lainnya. Bagian pertama dari peringatan pencarian log 
+mendefinisikan aturan pencarian log. Aturan ini menentukan seberapa sering dijalankan, periode waktu yang dievaluasi, dan kueri yang akan dijalankan.
+
+Saat hasil pencarian log memenuhi kondisi, sistem akan membuat catatan peringatan dan memicu tindakan yang terkait.
+
+### Komposisi Aturan Pencarian Log
+
+Setiap peringatan pencarian log memiliki aturan pencarian log yang terdiri dari:
+
+- **Kueri log**: Kueri yang dijalankan setiap kali aturan dipicu.
+- **Periode waktu**: Rentang waktu untuk kueri.
+- **Frekuensi**: Seberapa sering kueri dijalankan.
+- **Ambang batas (Threshold)**: Titik pemicu untuk membuat peringatan.
+
+Hasil pencarian log terbagi menjadi dua jenis:
+
+| Jenis Pencarian Log       | Deskripsi                                                                                                                                                                                                                                                                      | Kriteria                                                                                                                                                       | Contoh                                                                                                                                                                     |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Jumlah Catatan**        | Digunakan saat bekerja dengan data berbasis peristiwa seperti `syslog` atau respons aplikasi web.                                                                                                                                        | - Ambang batas ditentukan berdasarkan jumlah baris hasil pencarian.<br/>- Memicu peringatan jika jumlah baris ≥ threshold.                                      | Jika ambang batas ditentukan ≥ 5, maka kueri harus menghasilkan minimal 5 baris data untuk memicu peringatan.                                                              |
+| **Pengukuran Metrik**     | Menawarkan fungsionalitas serupa dengan peringatan metrik, namun dengan kemampuan analisis lebih lanjut melalui fungsi agregat dan pengelompokan.                                                                                       | - **Fungsi agregat**: `count`, `average`, dll.<br/>- **Field pengelompokan**: Contoh, berdasarkan komputer.<br/>- **Interval**: Misalnya 10 menit.<br/>- **Threshold**: Berdasarkan nilai agregat dan jumlah pelanggaran. | Jika jumlah pelanggaran ditentukan 5, dan server melebihi 85% CPU > 5 kali dalam waktu tertentu, maka peringatan akan dipicu.                                             |
+
+:::warning
+Penggunaan pengukuran metrik secara signifikan mengurangi volume peringatan yang dihasilkan. Namun, tetap berhati-hatilah dalam menetapkan ambang batas untuk 
+menghindari kehilangan peringatan penting.
+:::
+
+:::info Sifat Stateless dari Peringatan Pencarian Log
+
+- Salah satu pertimbangan utama dalam menggunakan peringatan pencarian log adalah sifatnya yang **stateless** 
+(*peringatan pencarian log dengan status stateful saat ini masih dalam pratinjau*). 
+- Peringatan pencarian log stateless akan **selalu menghasilkan peringatan baru** setiap kali kriteria aturan terpenuhi, **terlepas dari apakah peringatan yang 
+sama sudah pernah terjadi sebelumnya**.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menggunakan log aktivitas alerts untuk memperingatkan event pada infrastruktur
+
+Peringatan log aktivitas memungkinkan Pengguna menerima notifikasi ketika peristiwa tertentu terjadi pada resources Azure. 
+Misalnya, Pengguna bisa menerima pemberitahuan saat seseorang membuat mesin virtual (VM) baru dalam sebuah subscription.
+
+Log aktivitas juga dapat mencakup peringatan untuk Service Health. 
+Sebuah perusahaan bisa mendapatkan notifikasi ketika terjadi masalah layanan atau pemeliharaan terencana pada platform Azure. 
+Hal ini dapat meningkatkan respons tim dan stabilitas sistem seperti mengirim email atau membuat tiket dukungan IT Service Management (ITSM).
+
+#### Kapan Menggunakan Peringatan Log Aktivitas
+
+**Peringatan log aktivitas** dirancang untuk bekerja dengan resources Azure. 
+Umumnya, peringatan ini digunakan untuk menerima notifikasi saat terjadi perubahan spesifik pada suatu resources dalam subscription.
+
+### Dua Jenis Peringatan Log Aktivitas:
+1. **Operasi Spesifik**: Berlaku untuk resources dalam subscription, seringkali pada level resources atau grup resources. 
+Contoh: Pengguna ingin menerima peringatan jika sebuah VM dihapus atau jika peran baru diberikan ke pengguna.
+2. **Peristiwa Service Health** (*Service Health Events*): Termasuk notifikasi insiden dan pemeliharaan pada resources target.
+
+### Komposisi Peringatan Log Aktivitas
+
+Penting untuk dicatat bahwa peringatan log aktivitas hanya memantau peristiwa di subscription tempat peringatan tersebut dibuat.
+
+Peringatan log aktivitas didasarkan pada peristiwa (*events*). Cara terbaik untuk mendefinisikannya adalah dengan menggunakan Azure Monitor 
+untuk memfilter seluruh peristiwa dalam subscription Pengguna hingga menemukan yang diinginkan. Kemudian klik **Add activity log alert**.
+
+Seperti jenis peringatan sebelumnya, peringatan log aktivitas memiliki atribut khusus:
+
+- **Kategori**: Administratif, *service health*, *autoscale*, *policy*, atau *recommendation*
+- **Lingkup (Scope)**: Tingkat resources, grup resources, atau subscription
+- **Grup resources**: Tempat aturan peringatan disimpan
+- **Tipe resources**: *Namespace* untuk target peringatan
+- **Nama operasi**: Nama dari operasi
+- **Tingkat keparahan (Level)**: *Verbose*, informatif, peringatan, kesalahan, atau kritis
+- **Status**: Dimulai, gagal, atau berhasil
+- **Pemicu oleh**: Alamat email atau pengenal Microsoft Entra (sebelumnya dikenal sebagai "caller")
+
+### Membuat Peringatan Log Spesifik untuk Resources
+
+Saat membuat peringatan log aktivitas, Pengguna memilih **Activity Log** sebagai jenis sinyal (*signal type*). Kemudian Pengguna akan melihat 
+seluruh peringatan yang tersedia untuk resources yang dipilih.
+
+> Contoh: Pengguna dapat mengatur peringatan agar dipicu ketika sebuah VM dimatikan.
+
+![Signal logic](/img/az104/107.png)
+
+Dengan mengganti layanan pemantauan, Pengguna dapat memperkecil daftar pilihan. Jika memilih kategori **Administrative**, maka hanya sinyal terkait admin yang akan ditampilkan.
+
+### Membuat Peringatan Service Health
+
+Peringatan Service Health sedikit berbeda dari jenis peringatan lain yang telah dipelajari sejauh ini.
+
+Untuk membuat peringatan ini:
+1. Cari dan pilih **Service Health** di portal Azure.
+2. Pilih **Health alerts**.
+3. Klik **Create service health alert**.
+
+Langkah-langkah selanjutnya mirip dengan proses pembuatan peringatan lainnya.
+
+![Service health](/img/az104/108.png)
+
+> Perbedaannya: Pengguna tidak perlu memilih resources tertentu karena peringatan ini berlaku untuk seluruh region Azure.
+
+Yang bisa Pengguna pilih adalah jenis peristiwa kesehatan yang ingin diawasi:
+- Masalah layanan (*service issues*)
+- Pemeliharaan terencana (*planned maintenance*)
+- Penasihat kesehatan (*health advisories*)
+- Atau memilih semua jenis peristiwa tersebut
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menggunakan action groups dan alert processing rules untuk mengirimkan notifikasi
+
+Azure Monitor, Azure Service Health, dan Azure Advisor menggunakan **action group** untuk memberi tahu pengguna tentang peringatan dan mengambil tindakan saat peringatan dipicu.  
+**Action group** adalah kumpulan preferensi notifikasi dan tindakan yang dijalankan ketika peringatan aktif. 
+Pengguna dapat menjalankan satu atau lebih tindakan untuk setiap peringatan yang dipicu.
+
+### Tindakan yang Didukung oleh Azure Monitor
+
+Azure Monitor dapat melakukan tindakan berikut:
+
+- Mengirim email
+- Mengirim pesan SMS (*Short Message Service*)
+- Membuat notifikasi *push* untuk aplikasi Azure
+- Melakukan panggilan suara ke nomor telepon
+- Memanggil fungsi Azure (*Azure Function*)
+- Menjalankan *logic app*
+- Mengirim notifikasi ke webhook
+- Membuat tiket IT Service Management (ITSM)
+- Menjalankan *runbook* (misalnya untuk me-*restart* VM atau melakukan *scale up/down*)
+
+Setelah membuat sebuah **action group**, Pengguna bisa menggunakannya kembali kapan pun.  
+Contoh: Setelah Pengguna membuat action group untuk mengirim email ke tim operasi perusahaan, Pengguna bisa menambahkan action group tersebut ke semua peristiwa *service health*.
+
+Saat Pengguna membuat aturan peringatan (*alert rule*), Pengguna bisa:
+- Membuat **action group** baru
+- Menambahkan **action group** yang sudah ada ke dalam aturan peringatan
+- Mengedit aturan peringatan yang sudah ada untuk menambahkan action group
+
+<br/>
+#### Aturan Pemrosesan Peringatan (Alert Processing Rules)
+
+Gunakan **alert processing rules** untuk **mengubah perilaku normal** dari peringatan yang dipicu, dengan **menambahkan** atau **menyembunyikan (suppress)** action group.  
+
+Aturan ini berbeda dari *alert rule*. Jika *alert rule* digunakan untuk memicu peringatan saat kondisi tertentu terpenuhi pada resources yang dipantau, 
+**alert processing rule** digunakan untuk **memodifikasi** peringatan **saat sedang dipicu**.
+
+<br/>
+### Fungsi Alert Processing Rules
+
+Pengguna dapat menggunakan alert processing rules untuk:
+
+- Menyembunyikan notifikasi selama jendela pemeliharaan terjadwal
+- Menerapkan manajemen dalam skala besar dengan logika umum pada satu aturan, alih-alih menambahkan logika yang sama ke semua aturan peringatan
+- Menambahkan action group ke semua jenis peringatan
+
+Aturan ini dapat diterapkan pada berbagai **lingkup resources**, mulai dari satu resource saja hingga seluruh Azure subscription.
+Pengguna juga bisa menambahkan **filter** atau menjadwalkan kapan aturan ini akan aktif.
+
+#### Pengaturan Waktu Berlakunya Aturan
+
+Secara bawaan, aturan ini **selalu aktif**, namun Pengguna juga dapat:
+
+- Menetapkan jangka waktu satu kali (*one-time window*)
+- Menjadwalkan aturan untuk berulang, misalnya setiap minggu (*weekly recurrence*)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+

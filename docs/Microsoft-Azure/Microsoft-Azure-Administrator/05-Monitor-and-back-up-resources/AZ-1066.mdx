@@ -3,12 +3,333 @@ id: AZ-1066
 title: Pengenalan Azure Monitor
 ---
 
-:::info
+## Monitoring dan Azure Monitor
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Tujuan pemantauan antara lain:
 
-:::
+- Memastikan aplikasi dan lingkungan berjalan secara optimal, aman, dan andal.
+- Mendeteksi serta membantu menangani masalah yang muncul.
 
-:::warning
+#### Aktivitas utama dalam pemantauan:
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+- **Pengumpulan data**: Metrik, log, dan *log trace* yang memberikan wawasan terhadap fungsi dan performa komponen yang dipantau.
+- **Analisis data**: Memahami kondisi saat ini, memprediksi potensi masalah, serta mengidentifikasi pola, tren, dan anomali.
+- **Peringatan (*alerts*)**: Dipicu ketika kondisi tertentu terpenuhi, misalnya penggunaan CPU tinggi atau ruang disk rendah.
+- **Visualisasi**: Menyajikan data dalam format visual yang mudah dipahami agar admin dapat dengan cepat mengevaluasi sistem.
+- **Diagnostik dan pemecahan masalah**: Membantu mengidentifikasi akar penyebab masalah dan pengambilan keputusan untuk mengatasinya.
+
+#### Manfaat pemantauan:
+
+- **Optimasi performa dan biaya**: Mengidentifikasi hambatan performa dan peluang peningkatan efisiensi.
+- **Manajemen proaktif**: Mencegah gangguan sebelum terjadi.
+- **Keandalan**: Pemulihan cepat saat terjadi masalah.
+- **Perencanaan kapasitas**: Menganalisis pola penggunaan historis untuk membantu perencanaan dan skalabilitas.
+- **Pemantauan keamanan**: Mendeteksi ancaman dan aktivitas mencurigakan.
+- **Kepatuhan dan tata kelola**: Memastikan kesesuaian terhadap standar dan regulasi.
+
+### Overiew Azure Monitor
+
+Saat Pengguna menjalankan aplikasi berbasis berbagai layanan dan resources, hal penting dalam pemantauan adalah kemampuan untuk menghubungkan performa dan kesehatan 
+aplikasi dengan komponen penyusunnya. Observabilitas ini memungkinkan analisis dan pemecahan masalah secara efektif.
+
+**Azure Monitor** menyediakan fitur dan alat untuk mengumpulkan, mengelola, dan menganalisis data TI dari seluruh resources Azure, layanan cloud lainnya, 
+maupun resources lokal (*on-premises*).
+
+![azure monitor](/img/az104/93.png)
+
+### Pengumpulan dan Penyimpanan Data
+
+Begitu Pengguna menambahkan resources ke langganan Azure, Azure Monitor mulai mengumpulkan data. Fitur-fitur utama Azure Monitor dalam pengumpulan dan 
+pengelolaan data meliputi:
+
+- Pemantauan asli untuk seluruh implementasi Azure.
+- Agen pengumpulan data dan API untuk semua lapisan stack (aplikasi dan infrastruktur, di dalam maupun luar Azure).
+- Integrasi dengan layanan *data streaming* Azure Event Hubs.
+- Transformasi data saat masuk untuk memfilter data yang tidak dibutuhkan.
+- Konfigurasi masa retensi data, pengarsipan, dan opsi pemulihan.
+- Diskon harga berdasarkan volume data.
+- Paket *Basic logs* berbiaya rendah untuk log volume besar (debugging, audit, troubleshooting) — bukan untuk analisis atau alert.
+
+#### Analisis Data dan Respons
+
+Azure Monitor menyediakan berbagai alat untuk menganalisis dan mendapatkan wawasan dari data pemantauan, termasuk:
+
+- Antarmuka portal yang mudah digunakan untuk melihat, memfilter, dan memanipulasi data pemantauan.
+- **Kusto Query Language (KQL)** — bahasa kueri yang dioptimalkan untuk analisis cepat dan eksplorasi data dari berbagai sumber.
+- Alat untuk kustomisasi analisis, visualisasi, notifikasi, dan tindakan respons.
+- Alert yang direkomendasikan secara bawaan.
+- Pengalaman pemantauan siap pakai dengan analisis dan visualisasi lanjutan.
+- **Autoscale** untuk menyesuaikan jumlah resources berdasarkan beban aplikasi.
+- Kemampuan **AI dan pembelajaran mesin** bawaan untuk mendeteksi dan merespons anomali.
+
+### Peringatan, Workbook, dan Visualisasi
+
+Pemantauan interaktif adalah salah satu cara untuk memantau aplikasi Pengguna. Opsi lainnya adalah mengonfigurasi **alert** untuk mengirim pesan teks atau email 
+ke tim untuk investigasi lebih lanjut. Pengguna juga bisa memicu tindakan respons otomatis.
+
+![alert workbook visualization](/img/az104/94.png)
+
+#### Workbooks
+
+Azure Monitor menyediakan **workbook**, yaitu kanvas fleksibel untuk menganalisis data dan membuat laporan visual yang kaya dalam portal Azure. 
+Workbook dapat mengakses berbagai sumber data Azure dan menggabungkannya dalam tampilan interaktif terpadu.
+
+Pengguna dapat:
+
+- Menggunakan workbook bawaan dari Azure Monitor.
+- Membuat workbook baru berdasarkan template yang tersedia.
+
+![workbook](/img/az104/95.png)
+
+Visualisasi yang Pengguna buat dalam Azure Monitor dapat ditambahkan ke **dashboard Azure**, yang memungkinkan Pengguna menggabungkan berbagai data ke 
+dalam satu tampilan terpadu dalam portal Azure.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Metrics dan Logs
+
+### Metrik
+
+**Metrik** adalah pengukuran kuantitatif yang menunjukkan *snapshot* dari performa aplikasi atau resources. Metrik biasanya berupa nilai numerik 
+yang dapat diukur dari waktu ke waktu.
+
+Metrik memberikan pemahaman tentang berbagai aspek aplikasi atau resources, seperti:
+
+- Pemanfaatan resources
+- Waktu respons
+- Tingkat kesalahan
+- *Throughput*
+
+Contoh metrik umum meliputi:
+
+- Penggunaan CPU
+- Penggunaan memori
+- Latensi jaringan
+- Tingkat transaksi
+
+#### Mengakses Metrik
+
+Untuk setiap tipe resources dalam langganan Azure, tersedia daftar metrik spesifik secara otomatis.
+
+Pengguna dapat menggunakan **Azure Monitor Metrics Explorer** untuk:
+
+- Menganalisis data metrik secara interaktif
+- Membuat grafik nilai metrik dari waktu ke waktu
+
+Di portal Azure:
+
+1. Buka halaman resources.
+2. Pilih **Metrics** di bawah bagian *Monitoring*.
+3. Pilih metrik yang ingin ditampilkan dari menu dropdown.
+4. Sematkan grafik ke dasbor jika perlu.
+
+> **Contoh**: Grafik garis metrik *Requests* yang menunjukkan agregasi jumlah permintaan untuk aplikasi Contoso-web-sales.
+
+![alert workbook visualization](/img/az104/96.png)
+
+#### Jenis Metrik di Azure Monitor
+
+Azure Monitor dapat mengumpulkan beberapa jenis metrik, termasuk:
+
+- **Metrik platform Azure**: Dikumpulkan secara otomatis saat resources ditambahkan ke langganan Azure.
+- **Metrik kustom**: Dapat berasal dari aplikasi atau agen di VM. Dikirim melalui Azure Monitor Agent, ekstensi, atau REST API.
+- **Metrik Prometheus**: Layanan terkelola Azure Monitor untuk Prometheus mengumpulkan metrik dari AKS atau klaster Kubernetes lainnya. 
+Metrik ini mendukung integrasi dengan alat open-source seperti PromQL dan Grafana.
+
+Metrik sangat cocok untuk pemantauan **real-time** dan dapat digunakan untuk memicu *alert* saat nilai ambang tertentu tercapai.
+
+### Log
+
+**Log** adalah catatan tekstual dari peristiwa, aksi, dan pesan yang terjadi dalam suatu resources atau aplikasi.
+
+Berbeda dengan metrik yang bersifat numerik, log bisa mencakup:
+
+- **Teks**: Entri teks yang bisa dibaca manusia, memberi konteks dan deskripsi peristiwa.
+- **Data tidak terstruktur**: Entri dalam format yang tidak standar.
+- **Informasi kontekstual**: Memberi wawasan tentang kondisi saat kejadian terjadi — penting untuk analisis akar masalah.
+
+Log dapat mencatat:
+
+- Kesalahan (*errors*)
+- Peringatan (*warnings*)
+- Tindakan pengguna
+- Perubahan status aplikasi
+
+Log sangat penting untuk:
+
+- *Troubleshooting*
+- *Debugging*
+- Analisis peristiwa secara retrospektif
+
+### Azure Monitor Logs
+
+**Azure Monitor Logs** adalah fitur dalam Azure Monitor yang memungkinkan menyimpan, mengelola, dan menganalisis data log dan performa dari resources yang dipantau.
+
+#### Workspace Log Analytics
+
+Untuk mulai menggunakan log:
+
+1. Buat workspace bernama **Log Analytics workspace**.
+2. Konfigurasi resources agar mengirim data ke workspace tersebut.
+
+Setelah data mulai terkumpul, Pengguna dapat menjelajahi dan menganalisis data log melalui antarmuka pengguna **Log Analytics** secara interaktif.
+
+### Penggunaan Kueri Log
+
+Pengguna dapat menggunakan **kueri log** untuk berbagai skenario:
+
+- Menjawab pertanyaan umum menggunakan kueri dasar
+- Melakukan analisis data kompleks untuk menemukan pola kritis
+- Menggunakan kueri dalam aturan alert untuk notifikasi proaktif
+- Menampilkan hasil kueri dalam workbook atau dashboard
+
+Dengan pemahaman tentang **metrik dan log**, Pengguna dapat lebih efektif memantau aplikasi dan infrastruktur secara real-time maupun historis, 
+serta melakukan respons secara proaktif terhadap masalah yang muncul.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Azure Monitor Insights, visualizations, dan actions
+
+Beberapa penyedia resources Azure menyediakan visualisasi khusus yang memberikan pengalaman pemantauan yang dipersonalisasi dengan konfigurasi minimal. 
+*Insights* adalah visualisasi berskala besar dan terkurasi.
+
+![alert workbook visualization](/img/az104/97.png)
+
+### Jenis Insights di Azure Monitor
+
+Di portal Azure, pilih **Insights Hub** pada navigasi Azure Monitor untuk melihat semua jenis Insights yang tersedia.
+
+#### a. Application Insights
+
+**Application Insights** adalah fitur dari Azure Monitor untuk pemantauan performa aplikasi (APM) dari pengembangan, pengujian, hingga produksi. Dengan ini, Pengguna dapat:
+
+- Memantau performa aplikasi secara proaktif.
+- Meninjau data eksekusi aplikasi secara reaktif untuk menemukan penyebab insiden.
+
+**Fitur utama Application Insights**:
+
+- **Pengumpulan metrik & telemetri**: Menyimpan data aktivitas dan kesehatan aplikasi.
+- **Trace logging**: Merekam jejak log aplikasi untuk analisis mendalam.
+- **Distributed tracing**: Melacak alur transaksi dari awal hingga akhir di aplikasi terdistribusi atau berbasis mikroservis.
+- **Live metrics**: Melihat aktivitas aplikasi secara real-time tanpa dampak pada lingkungan host.
+- **Availability monitoring**: Memantau endpoint eksternal aplikasi (transaksi sintetis).
+- **Usage monitoring**: Mengetahui fitur favorit pengguna dan interaksi mereka.
+- **Smart detection**: Deteksi otomatis terhadap kegagalan dan anomali.
+- **Application Map**: Tampilan arsitektur aplikasi dari atas ke bawah secara visual.
+
+#### b. Container Insights
+
+**Container Insights** memberikan visibilitas performa untuk workload container di **Azure Kubernetes Service (AKS)** atau **Azure Container Instances**. 
+Metrik dan log dikumpulkan dari node, controller, dan container melalui Metrics API, menggunakan agen Log Analytics yang berjalan dalam container.
+
+#### c. VM Insights
+
+**VM Insights** memantau performa dan kesehatan VM Windows & Linux di Azure, serta VM on-premises atau dari cloud lain. Mengidentifikasi proses VM, 
+ketergantungan aplikasi, dan proses eksternal terkait.
+
+#### d. Network Insights
+
+**Network Insights** memberikan representasi visual menyeluruh tentang kesehatan dan metrik resources jaringan yang telah dideploy. Menyediakan fitur seperti:
+
+- Connection Monitor
+- Log aliran NSG
+- Traffic Analytics
+- Fitur diagnostik jaringan lainnya
+
+#### e. Visualisasi
+
+Visualisasi seperti grafik dan tabel merupakan alat efektif untuk meringkas data pemantauan. Azure Monitor memiliki fitur visualisasi bawaan dan integrasi 
+dengan layanan lain untuk menyajikan data ke berbagai audiens.
+
+![alert workbook visualization](/img/az104/98.png)
+
+#### f. Workbooks
+
+**Workbooks** adalah kanvas fleksibel untuk:
+
+- Menganalisis data
+- Membuat laporan visual yang kaya
+- Menggabungkan data dari berbagai sumber ke satu tampilan
+
+Workbooks bersifat **interaktif** dan dapat diperbarui secara real-time serta dibagikan antar tim. Pengguna dapat menggunakan:
+
+- Workbooks bawaan dari Azure Monitor Insights
+- Template dari pustaka workbook
+- Workbooks kustom buatan sendiri
+
+#### g. Dashboards
+
+**Dashboards** memungkinkan Pengguna menggabungkan berbagai jenis data ke dalam satu tampilan di portal Azure. Pengguna bisa menambahkan:
+
+- Output kueri log
+- Grafik metrik
+- Data dari Application Insights
+
+Dan berbagi dengan pengguna Azure lainnya.
+
+#### h. Power BI
+
+**Power BI** adalah layanan analitik bisnis yang menyediakan visualisasi interaktif. Pengguna bisa mengatur Power BI untuk mengimpor data log dari 
+Azure Monitor secara otomatis, cocok untuk membagikan data ke pihak internal maupun eksternal organisasi.
+
+#### i. Grafana
+
+**Grafana** adalah platform terbuka untuk *operational dashboards*. Azure Monitor memiliki plugin sumber data Grafana bawaan. **Azure Managed Grafana** 
+dioptimalkan untuk data dari Azure Monitor & Azure Data Explorer.
+
+Grafana juga mendukung plugin dari alat pihak ketiga seperti:
+
+- Dynatrace
+- New Relic
+- AppDynamics
+- AWS CloudWatch
+- GCP BigQuery
+
+<br/>
+### Tindakan (*Actions*)
+
+Solusi pemantauan yang efektif dapat merespons kejadian kritis secara otomatis, tanpa perlu intervensi manual. Respon dapat berupa:
+
+- Notifikasi via SMS/email
+- Proses otomatis yang memperbaiki kondisi kesalahan
+
+![alert workbook visualization](/img/az104/99.png)
+
+#### a. AIOps (Artificial Intelligence for IT Operations)
+
+**AIOps** adalah penerapan AI dan ML untuk meningkatkan dan mengotomatisasi operasi IT. Azure Monitor menggunakan AI untuk:
+
+- Memprediksi penggunaan kapasitas
+- Mengidentifikasi masalah performa
+- Mendeteksi anomali
+
+Pengguna tanpa keahlian ML tetap dapat memanfaatkan fitur ini. Jika memiliki keahlian ML, Pengguna bisa menggunakan **Azure Machine Learning** untuk 
+menganalisis data lebih lanjut.
+
+#### b. Azure Monitor Alerts
+
+*Alert* memberitahu kondisi kritis dan dapat mengambil tindakan korektif. Jenis aturan *alert*:
+
+- **Metrik alert**: Hampir real-time.
+- **Log alert**: Mendukung logika kompleks dari berbagai sumber data.
+
+Alert menggunakan **action groups** untuk tindakan, seperti:
+
+- Email atau SMS
+- Webhooks untuk proses eksternal
+- Integrasi dengan alat manajemen layanan TI (ITSM)
+
+Action group bisa digunakan ulang di banyak aturan.
+
+#### c. Autoscale
+
+**Autoscale** secara dinamis menyesuaikan jumlah resources sesuai beban aplikasi. Pengguna bisa mengatur:
+
+- Minimum dan maksimum instance
+- Logika kapan menambah/mengurangi resources
+- Penghematan biaya atau peningkatan performa berdasarkan metrik Azure Monitor
+
+Dengan memahami *Insights*, *visualisasi*, dan *actions* dari Azure Monitor, Pengguna bisa menciptakan sistem pemantauan aplikasi yang **proaktif**, 
+**terintegrasi**, dan **efisien**.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
