@@ -3,12 +3,264 @@ id: AZ-1054
 title: Pengenalan Azure Network Watcher
 ---
 
+<br/>
+## Azure Network Watcher
+
+**Azure Network Watcher** menyediakan rangkaian alat untuk memantau, mendiagnosis, melihat metrik, serta mengaktifkan atau 
+menonaktifkan log untuk resources Azure IaaS (Infrastructure-as-a-Service). Network Watcher memungkinkan Pengguna memantau dan 
+memperbaiki kesehatan jaringan dari produk IaaS seperti virtual machine (VM), virtual network (VNet), application gateway, load balancer, dan lainnya. 
+Network Watcher **tidak dirancang untuk pemantauan PaaS atau analitik web**.
+
+#### Fitur Utama Azure Network Watcher
+
+Network Watcher terdiri dari tiga kelompok utama alat dan kapabilitas:
+
+- **Monitoring**
+- **Diagnostik Jaringan**
+- **Lalu Lintas (Traffic)**
+
+![network watcher](/img/az104/147.png)
+
+#### Tabel Fitur Utama Azure Network Watcher
+
+| Kategori                | Nama Alat              | Deskripsi                                                                                                                        |
+|-------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| **Monitoring**          | **Topology**           | Visualisasi interaktif dari seluruh konfigurasi jaringan, mencakup resource antar subscription, resource group, dan lokasi.     |
+|                         | **Connection Monitor** | Pemantauan koneksi menyeluruh antara endpoint Azure dan hybrid, untuk memahami performa komunikasi jaringan.                    |
+| **Diagnostik Jaringan** | **IP Flow Verify**     | Memeriksa apakah trafik diizinkan atau ditolak ke/dari alamat IP tertentu, serta menampilkan aturan keamanan yang relevan.     |
+|                         | **NSG Diagnostics**    | Diagnostik aturan NSG untuk VM, VMSS, dan application gateway, serta penambahan aturan baru jika diperlukan.                    |
+|                         | **Next Hop**           | Menentukan rute lalu lintas dan memberikan detail next hop, alamat IP, dan ID tabel rute.                                       |
+|                         | **Effective Security Rules** | Menampilkan aturan keamanan gabungan yang berlaku pada network interface dan subnet terkait.                               |
+|                         | **Connection Troubleshoot** | Menguji koneksi langsung antara resource Azure seperti VM atau URI untuk pemecahan masalah secara instan.               |
+|                         | **Packet Capture**     | Merekam lalu lintas jaringan secara remote dari dan ke VM/VMSS untuk analisis mendalam.                                         |
+|                         | **VPN Troubleshoot**   | Diagnostik dan pemecahan masalah pada koneksi virtual network gateway.                                                          |
+| **Traffic**             | **Flow Logs**          | Mencatat lalu lintas IP melalui NSG atau VNet, dan menyimpan data di Azure Storage.                                             |
+|                         | **Traffic Analytics**  | Visualisasi lanjutan dari flow log untuk memahami performa dan pola lalu lintas jaringan.                                       |
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Cara kerja Azure Network Watcher
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+Azure Network Watcher akan otomatis tersedia saat Pengguna membuat **virtual network** di suatu region Azure. 
+Pengguna bisa mengakses Network Watcher langsung melalui portal Azure dengan mencari "Network Watcher" di bilah pencarian.
 :::
 
-:::warning
+![search network watcher](/img/az104/148.png)
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+### Alat Topology Azure Network Watcher
+
+Fitur Topology dari Azure Network Watcher memungkinkan Pengguna melihat semua resource dalam sebuah virtual network, termasuk hubungan antar resource tersebut. 
+Beberapa jenis resource yang ditampilkan antara lain:
+
+- Subnet
+- Network Interface
+- Network Security Group (NSG)
+- Load Balancer
+- Health Probe Load Balancer
+- Public IP Address
+- Virtual Network Peering
+- Virtual Network Gateway
+- Koneksi VPN Gateway
+- Virtual Machine
+- Virtual Machine Scale Set
+
+Setiap resource dalam topology memiliki properti berikut:
+
+- **Name**: Nama resource
+- **Id**: URI dari resource
+- **Location**: Region Azure tempat resource berada
+- **Associations**: Daftar asosiasi dengan objek lain, dengan properti:
+  - `AssociationType`: Jenis hubungan (Contains atau Associated)
+  - `Name`: Nama resource terkait
+  - `ResourceId`: URI dari resource terkait
+
+<br/>
+### Connection Monitor
+
+**Connection Monitor** menyediakan pemantauan koneksi menyeluruh (end-to-end) antara resource di Azure dan lingkungan hybrid. Beberapa kegunaan utama:
+
+- Mengukur latensi antar resource
+- Mendeteksi perubahan konfigurasi jaringan atau NSG yang memengaruhi konektivitas
+- Menjadwalkan pemeriksaan berkala terhadap VM untuk mendeteksi kegagalan
+- Memberikan diagnosa dan langkah-langkah perbaikan atas masalah yang ditemukan
+
+![connection monitor](/img/az104/149.png)
+
+> Untuk menggunakan Connection Monitor, Pengguna perlu menginstal agen monitoring di setiap host yang dipantau:
+>
+> - Di Azure VM: Gunakan **Network Watcher Agent VM**
+> - Di server on-premises: Gunakan **Log Analytics Agent**
+
+<br/>
+### IP Flow Verify
+
+**IP Flow Verify** menggunakan parameter paket 5-tuple (protokol, port lokal, port remote, IP lokal, dan IP remote) untuk memverifikasi apakah lalu lintas ke/dari 
+sebuah VM diizinkan atau ditolak. Pengguna dapat menentukan port, protokol (TCP/UDP), IP lokal dan remote, serta VM dan network adapter yang digunakan.
+
+<br/>
+### Next Hop
+
+**Next Hop** menentukan rute lalu lintas dari VM menuju destinasi berdasarkan tabel rute efektif dari NIC (Network Interface). Fitur ini membantu memastikan 
+apakah lalu lintas diarahkan ke destinasi yang benar.
+
+Jika rute yang digunakan merupakan **User Defined Route (UDR)**, maka rute tersebut ditampilkan. Jika tidak, maka rute sistem bawaan (System Route) yang ditampilkan.
+
+<br/>
+### Effective Security Rules
+
+**Effective Security Rules** menampilkan kumpulan aturan keamanan yang berlaku untuk sebuah network interface. Alat ini membantu mengidentifikasi 
+kenapa lalu lintas diizinkan atau diblokir oleh NSG (Network Security Group) yang diterapkan pada VM, subnet, atau resource lainnya.
+
+<br/>
+### Packet Capture
+
+**Packet Capture** adalah ekstensi VM yang dijalankan secara remote melalui Network Watcher untuk merekam lalu lintas jaringan ke/dari VM tertentu. Beberapa fitur:
+
+- Bisa dijalankan melalui portal, PowerShell, Azure CLI, atau REST API
+- Mendukung filter berbasis 5-tuple
+- Data hasil capture disimpan di disk lokal atau Azure Blob Storage
+
+<br/>
+### Connection Troubleshoot
+
+**Connection Troubleshoot** memeriksa konektivitas TCP antara dua VM atau endpoint lainnya. Endpoint tujuan bisa berupa:
+
+- FQDN
+- URI
+- Alamat IP
+
+Hasil pengujian yang berhasil meliputi:
+
+- Latensi dalam milidetik
+- Jumlah paket probe yang dikirim
+- Jumlah hop (lompatan) menuju tujuan
+
+Jika gagal, detail kesalahan ditampilkan, contohnya:
+
+- **CPU**: Penggunaan CPU tinggi
+- **Memory**: Penggunaan memori tinggi
+- **GuestFirewall**: Firewall non-Azure memblokir koneksi
+- **DNSResolution**: Nama domain tidak bisa di-resolve
+- **NetworkSecurityRule**: NSG memblokir koneksi
+- **UserDefinedRoute**: Rute pengguna salah konfigurasi
+
+<br/>
+### VPN Troubleshoot
+
+Network Watcher menyediakan kemampuan untuk mendiagnosis koneksi dan gateway VPN. Alat ini dapat diakses via:
+
+- Azure Portal
+- PowerShell
+- Azure CLI
+- REST API
+
+Hasil troubleshooting VPN mencakup:
+
+- `startTime`: Waktu mulai diagnosis
+- `endTime`: Waktu akhir diagnosis
+- `code`: Status hasil (misal: `UnHealthy` jika ada masalah)
+- `results`: Hasil dari gateway atau koneksi
+    - `id`: Jenis kesalahan
+    - `summary`: Ringkasan kesalahan
+    - `detailed`: Detail kesalahan
+    - `recommendedActions`: Daftar saran tindakan
+    - `actionText`: Penjelasan tindakan
+    - `actionUri`: Tautan dokumentasi
+    - `actionUriText`: Deskripsi singkat dari tautan tindakan
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Kapan menggunakan Azure Network Watcher
+
+:::info
+**Azure Network Watcher** berguna saat mencoba memecahkan masalah jaringan yang berkaitan dengan produk Azure IaaS. 
+Pengguna dapat menggunakan berbagai alat di dalam Network Watcher dalam skenario berikut:
+
+- Menyelesaikan masalah konektivitas terkait VM IaaS
+- Melakukan troubleshoot koneksi VPN
+- Menentukan latensi jaringan antar region
+:::
+
+### Menyelesaikan Masalah Konektivitas VM IaaS
+
+Baru-baru ini, sebuah VM Windows Server IaaS dideploy ke Azure. Namun, developer tidak dapat melakukan sesi PowerShell jarak jauh dari VM IaaS lain yang berada di virtual network yang sama.
+
+Pengguna bisa menyelesaikan masalah ini dengan alat **IP Flow Verify**. Alat ini memungkinkan untuk dapat menentukan:
+
+- Port lokal dan remote
+- Protokol (TCP/UDP)
+- IP lokal dan remote
+- Arah koneksi (inbound atau outbound)
+
+Alat ini menjalankan pengujian logis terhadap aturan NSG yang berlaku di jaringan.
+
+**Contoh penggunaan:**
+
+- Masukkan alamat IP VM target
+- Masukkan port TCP 5986 (digunakan oleh PowerShell melalui HTTPS)
+- Masukkan alamat IP dan port dari VM remote
+- Pilih protokol TCP, lalu klik **Check**
+
+Jika ada aturan NSG yang memblokir trafik, alat ini akan menunjukkan aturan spesifik yang menyebabkan blokir.
+
+<br/>
+### Troubleshoot Koneksi VPN
+
+Sebuah VM IaaS di-deploy ke virtual network Azure. Koneksi dari server on-premises dilakukan melalui koneksi VPN site-to-site.
+
+Gunakan alat **VPN Troubleshoot** dari Azure Network Watcher untuk:
+
+- Menjalankan diagnosa terhadap koneksi gateway virtual network
+- Menampilkan status kesehatan koneksi VPN
+
+Pengguna dapat menjalankan alat ini melalui:
+
+- Azure Portal
+- PowerShell
+- Azure CLI
+
+Alat ini memeriksa masalah umum pada gateway dan mengembalikan diagnosa lengkap. Jika koneksi VPN tidak berfungsi, alat ini juga menyarankan langkah perbaikan yang dapat diambil.
+
+<br/>
+### Menentukan Latensi Jaringan Antar Region
+
+Gunakan alat Network Watcher untuk mengukur latensi jaringan lintas region, membantu menentukan lokasi optimal penempatan resource IaaS.
+
+**Contoh:**
+
+- Deploy VM IaaS di beberapa region Azure
+- Lakukan ping antar VM secara berkala
+- Catat latensi jaringan antar region
+
+Informasi ini bisa membantu memutuskan apakah:
+
+- Semua VM perlu berada di satu region
+- Atau, apakah lebih baik menyebarkan VM di beberapa region untuk mendukung arsitektur aplikasi tertentu
+
+Jika memiliki aplikasi hybrid on-premises dan aplikasi IaaS di Azure yang mengakses storage endpoint yang sama, Pengguna bisa membandingkan latensinya:
+
+- Jika latensi on-premises tinggi → pertimbangkan migrasi ke Azure
+- Jika latensi VM Azure tinggi → pertimbangkan pindahkan VM ke region dengan latensi lebih rendah
+
+<br/>
+### Kapan Tidak Menggunakan Network Watcher
+
+:::warning
+Alat Network Watcher menyediakan **diagnostik jaringan tingkat menengah**. Mereka tidak menawarkan fitur lanjutan yang tersedia di beberapa alat pihak ketiga.
+:::
+
+Jika organisasi memerlukan fitur yang lebih canggih, Pengguna mungkin perlu menggunakan alat pihak ketiga untuk memenuhi kebutuhan diagnostik.
+
+**Batasan penting:**
+
+- Network Watcher hanya untuk resource IaaS dalam virtual network Azure
+- Tidak dapat digunakan untuk mendiagnosis masalah konektivitas pada layanan **PaaS** atau **Web Analytics**
+- Untuk masalah pada layanan tersebut, gunakan:
+  - Azure Status Page
+  - Azure Service Health Dashboard
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+

@@ -3,12 +3,239 @@ id: AZ-1053
 title: Pengenalan Azure Application Gateway
 ---
 
-:::info
+<br/>
+## Azure Application Gateway
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Azure Application Gateway mengelola permintaan yang dikirim oleh aplikasi klien ke aplikasi web yang dihosting di kumpulan server web.
+Kumpulan server web ini dapat berupa mesin virtual Azure, Azure Virtual Machine Scale Sets, Azure App Service, dan bahkan server lokal (on-premises).
 
+Application Gateway menyediakan fitur-fitur seperti load balancing lalu lintas HTTP dan firewall aplikasi web (Web Application Firewall/WAF). 
+Layanan ini juga mendukung enkripsi TLS/SSL untuk lalu lintas antara pengguna dan application gateway serta antara server aplikasi dan application gateway.
+
+![application gw ilustration](/img/az104/142.png)
+
+Application Gateway menggunakan proses round-robin untuk menyeimbangkan beban permintaan ke server di setiap kumpulan back-end. **Session stickiness** memastikan 
+permintaan klien dalam sesi yang sama diarahkan ke server back-end yang sama. Session stickiness sangat penting untuk aplikasi e-commerce di mana transaksi tidak boleh 
+terganggu karena load balancer mengalihkan permintaan ke server back-end yang berbeda.
+
+Azure Application Gateway mencakup fitur-fitur berikut:
+
+- Dukungan untuk protokol HTTP, HTTPS, HTTP/2, dan WebSocket.  
+- Firewall aplikasi web untuk melindungi dari kerentanan aplikasi web.  
+- Enkripsi permintaan dari end-to-end.
+- Autoscaling untuk menyesuaikan kapasitas secara dinamis saat lalu lintas web berubah.
+- Connection draining untuk menghapus anggota back-end pool secara bertahap selama pemeliharaan layanan terjadwal.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Cara kerja Azure Application Gateway
+
+Azure Application Gateway memiliki serangkaian komponen yang bekerja bersama untuk secara aman mengarahkan dan menyeimbangkan beban permintaan ke kumpulan server web. 
+Application Gateway mencakup komponen-komponen berikut:
+
+![application gw ilustration](/img/az104/143.png)
+
+#### 1. Alamat IP Front-end
+
+Permintaan klien diterima melalui alamat IP front-end. Pengguna dapat mengonfigurasi Application Gateway untuk memiliki alamat IP publik, alamat IP privat, atau keduanya. 
+Application Gateway tidak dapat memiliki lebih dari satu alamat IP publik dan satu alamat IP privat.
+
+#### 2. Listener
+
+Application Gateway menggunakan satu atau lebih **listener** untuk menerima permintaan masuk. 
+Listener menerima lalu lintas berdasarkan kombinasi protokol, port, host, dan alamat IP yang ditentukan. 
+Setiap listener mengarahkan permintaan ke kumpulan back-end sesuai aturan routing yang di tentukan.
+
+- **Basic Listener** hanya mengarahkan berdasarkan path dalam URL.
+- **Multi-site Listener** juga bisa mengarahkan berdasarkan elemen hostname dari URL.
+
+Listener juga menangani sertifikat TLS/SSL untuk mengamankan komunikasi antara pengguna dan Application Gateway.
+
+#### 3. Aturan Routing
+
+Aturan routing menghubungkan listener ke kumpulan back-end. Aturan menentukan bagaimana hostname dan path pada URL ditafsirkan dan diarahkan ke kumpulan back-end yang sesuai. 
+Aturan juga memiliki pengaturan HTTP terkait, seperti:
+
+- Protokol
+- Session stickiness
+- Connection draining
+- Batas waktu permintaan
+- Health probes
+- Pengaturan enkripsi lalu lintas antara Application Gateway dan server back-end
+
+<br/>
+### Penyeimbangan Beban (Load Balancing)
+
+Application Gateway menggunakan mekanisme **round-robin** untuk menyeimbangkan permintaan ke server dalam back-end pool. 
+Penyeimbangan ini bekerja pada **OSI Layer 7**, artinya gateway mempertimbangkan parameter seperti hostname dan path.
+
+Sebagai perbandingan, **Azure Load Balancer** bekerja pada **OSI Layer 4**, yang hanya mempertimbangkan alamat IP tujuan.
+
+Jika diperlukan, Pengguna dapat mengaktifkan **session stickiness** untuk memastikan semua permintaan dalam sesi yang sama diarahkan ke server yang sama.
+
+<br/>
+### Web Application Firewall (WAF)
+
+**WAF** adalah komponen opsional yang memproses permintaan sebelum mencapai listener. WAF memeriksa permintaan terhadap ancaman umum berdasarkan standar dari **OWASP**, seperti:
+
+- SQL Injection
+- Cross-site scripting (XSS)
+- Command injection
+- HTTP request smuggling
+- Remote file inclusion
+- Bot, crawler, dan scanner
+- Pelanggaran dan anomali protokol HTTP
+
+WAF mendukung empat versi aturan (CRS): 3.2, 3.1 (default), 3.0, dan 2.2.9. 
+Pengguna dapat memilih aturan tertentu dan menyesuaikan firewall untuk memeriksa elemen tertentu dalam permintaan dan membatasi ukuran pesan.
+
+<br/>
+### Kumpulan Back-end
+
+Kumpulan back-end adalah sekumpulan server web yang dapat terdiri dari:
+
+- VM tetap
+- Virtual Machine Scale Set
+- Aplikasi di Azure App Service
+- Server lokal (on-premises)
+
+Setiap back-end pool memiliki penyeimbang beban tersendiri. Jika menggunakan TLS/SSL, Pengguna dapat menyertakan sertifikat untuk enkripsi ulang lalu lintas. 
+Untuk Azure App Service, sertifikat tidak perlu diinstal secara manual — semua komunikasi sudah terenkripsi dan dipercaya oleh Application Gateway.
+
+<br/>
+### Routing Application Gateway
+
+Routing permintaan klien ke server web dalam back-end pool didasarkan pada dua metode utama:
+
+#### Path-Based Routing
+
+Permintaan dengan jalur URL tertentu diarahkan ke kumpulan server yang berbeda. Contoh:
+
+- `/video/*` → server khusus video
+- `/images/*` → server khusus gambar
+
+![path-based routing](/img/az104/144.png)
+
+#### Multiple-Site Routing
+
+Menjalankan beberapa aplikasi web pada satu instance Application Gateway. Konfigurasi ini menggunakan beberapa nama domain (CNAME), listener, dan aturan berbeda. Contoh:
+
+- `http://contoso.com` → satu back-end pool  
+- `http://fabrikam.com` → pool yang lain
+
+![multple-site-routing](/img/az104/145.png)
+
+Multi-site routing berguna untuk aplikasi multitenant, di mana tiap tenant memiliki VM atau resource masing-masing.
+
+Fitur routing lainnya:
+
+- **Redirection:** Arahkan ke situs lain, atau HTTP ke HTTPS.
+- **Rewrite HTTP headers:** Modifikasi header permintaan dan respons.
+- **Custom error pages:** Tampilkan halaman error khusus dengan branding.
+
+<br/>
+### Terminasi TLS/SSL
+
+Terminasi TLS/SSL dilakukan oleh Application Gateway untuk mengurangi beban CPU server. Tidak perlu lagi mengatur TLS/SSL di server backend.
+
+Untuk enkripsi ujung ke ujung, Application Gateway dapat:
+
+1. Mendekripsi lalu lintas menggunakan private key.
+2. Mengenkripsi ulang menggunakan public key dari server backend.
+
+Permintaan masuk melalui port front-end dan diproses oleh listener berdasarkan host, port, dan IP. Listener kemudian menerapkan aturan routing untuk mengarahkan ke back-end pool.
+
+![tls ssl termination](/img/az104/146.png)
+
+Membuka website melalui Application Gateway juga mengurangi **attack surface** karena hanya port 80 atau 443 yang terbuka ke internet, bukan ke server langsung.
+
+<br/>
+### Health Probes
+
+Health probes digunakan untuk menentukan server mana yang sehat dan bisa menerima lalu lintas. Jika tidak dikonfigurasi, 
+probe default akan digunakan (menunggu 30 detik untuk menentukan apakah server gagal).
+
+Server dianggap sehat jika merespons dengan status HTTP antara 200–399.
+
+<br/>
+### Autoscaling
+
+Application Gateway mendukung **autoscaling**, yang memungkinkan kapasitas otomatis naik atau turun sesuai beban lalu lintas. 
+Pengguna tidak perlu lagi memilih ukuran atau jumlah instance saat penyediaan.
+
+<br/>
+### Dukungan WebSocket dan HTTP/2
+
+Application Gateway secara native mendukung protokol **WebSocket** dan **HTTP/2**, yang memungkinkan komunikasi dua arah penuh antara server dan 
+klien melalui koneksi TCP jangka panjang.
+
+Manfaatnya:
+
+- Lebih interaktif dan efisien
+- Tidak memerlukan polling seperti HTTP
+- Bekerja melalui port standar 80 dan 443
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Kapan menggunakan Azure Application Gateway
+
+Azure Application Gateway dapat memenuhi kebutuhan organisasi dengan alasan berikut:
+
+- **Routing Azure Application Gateway** memungkinkan lalu lintas diarahkan dari endpoint di Azure ke kumpulan back-end yang 
+terdiri dari server yang berjalan di data center lokal (on-premise). Fitur **health probe** memastikan lalu lintas tidak diarahkan ke server yang tidak tersedia.
+
+- **Fungsi terminasi TLS** di Azure Application Gateway mengurangi penggunaan kapasitas CPU pada server dalam back-end pool untuk operasi enkripsi dan dekripsi.
+
+- **Web Application Firewall (WAF)** memungkinkan Adatum memblokir lalu lintas yang mengandung serangan cross-site scripting (XSS) dan SQL injection 
+sebelum mencapai server di back-end pool.
+
+- Azure Application Gateway mendukung **session affinity**. Dukungan ini penting karena beberapa aplikasi web yang digunakan untuk menyimpan 
+status sesi pengguna secara lokal di setiap server back-end.
+
+<br/>
+:::info Kapan Tidak Menggunakan Azure Application Gateway
+
+Azure Application Gateway **tidak cocok** digunakan jika Pengguna memiliki aplikasi web yang tidak membutuhkan penyeimbangan beban (load balancing). 
+Misalnya, jika Pengguna memiliki aplikasi web dengan lalu lintas rendah dan infrastruktur yang ada sudah cukup menangani beban tersebut, 
+maka tidak perlu menerapkan back-end pool atau menggunakan Application Gateway.
 :::
 
-:::warning
+Azure juga menyediakan solusi penyeimbangan beban lainnya, seperti **Azure Front Door**, **Azure Traffic Manager**, dan **Azure Load Balancer**. 
+Berikut adalah perbedaannya:
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+### Azure Front Door
+
+Azure Front Door adalah jaringan pengiriman aplikasi **(application delivery network)** yang menyediakan **penyeimbangan beban global** dan **percepatan situs** untuk aplikasi web. 
+Fitur yang ditawarkan:
+
+- Load balancing Layer 7  
+- Terminasi TLS/SSL  
+- Routing berbasis path  
+- Failover cepat  
+- Web Application Firewall  
+- Caching untuk meningkatkan performa dan ketersediaan
+
+**Gunakan Front Door** untuk skenario seperti penyeimbangan beban aplikasi web yang dideploy di beberapa region Azure.
+
+<br/>
+### Azure Traffic Manager
+
+Azure Traffic Manager adalah penyeimbang beban berbasis DNS yang memungkinkan Pengguna mendistribusikan lalu lintas secara optimal ke layanan di berbagai region Azure, 
+sambil tetap menjaga **ketersediaan tinggi** dan **responsivitas**.
+
+Karena berbasis DNS, Traffic Manager hanya bekerja di level domain, sehingga **failover** tidak secepat Front Door karena masalah umum seperti **DNS caching** 
+dan **TTL** yang tidak terdapat pada Traffic Manager.
+
+<br/>
+### Azure Load Balancer 
+
+Azure Load Balancer adalah layanan load balance **Layer 4** berperforma tinggi dan latensi sangat rendah, untuk semua protokol **UDP** dan **TCP**.
+
+Fitur utama:
+
+- Mampu menangani jutaan permintaan per detik  
+- Tahan terhadap kegagalan (zone-redundant)  
+- Mendukung penyeimbangan lalu lintas masuk dan keluar  
+- Bekerja di dalam satu region (bukan global)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
