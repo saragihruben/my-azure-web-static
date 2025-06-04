@@ -1,236 +1,279 @@
 {
-  "/en/search-5d6": {
-    "__comp": "1a4e3797",
+  "/__docusaurus/debug-5ff": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
     "__context": {
-      "plugin": "c141421f"
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/en/docs-974": {
-    "__comp": "5e95c892",
+  "/__docusaurus/debug/config-5ba": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
     "__context": {
-      "plugin": "aba21aa0"
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/en/docs-5f3": {
-    "__comp": "a7bd4aaa",
-    "__props": "0abf49b1"
-  },
-  "/en/docs-a9c": {
-    "__comp": "a94703ab"
-  },
-  "/en/docs/devops-sre-9c4": {
-    "__comp": "17896441",
-    "content": "6dc5c9d6"
-  },
-  "/en/docs/Getting-started/introduction-234": {
-    "__comp": "17896441",
-    "content": "aeb22be7"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals-65b": {
-    "__comp": "17896441",
-    "content": "c6a3994d"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-901-756": {
-    "__comp": "17896441",
-    "content": "3d9f52f0"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-902-163": {
-    "__comp": "17896441",
-    "content": "344c978c"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-903-d99": {
-    "__comp": "17896441",
-    "content": "9593f838"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904-78c": {
-    "__comp": "17896441",
-    "content": "c6b3654a"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-905-0f5": {
-    "__comp": "17896441",
-    "content": "267c70f3"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-906-d95": {
-    "__comp": "17896441",
-    "content": "92fed5af"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-907-bb4": {
-    "__comp": "17896441",
-    "content": "9de669c0"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-908-911": {
-    "__comp": "17896441",
-    "content": "55512834"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-909-2c9": {
-    "__comp": "17896441",
-    "content": "02784b00"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-910-f4d": {
-    "__comp": "17896441",
-    "content": "0244aca8"
-  },
-  "/en/docs/Microsoft-Azure/Azure-Fundamentals/AZ-911-14e": {
-    "__comp": "17896441",
-    "content": "4f06178d"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator-578": {
-    "__comp": "17896441",
-    "content": "a3bab576"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks-e5a": {
-    "__comp": "17896441",
-    "content": "b3192715"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1047-cbc": {
-    "__comp": "17896441",
-    "content": "264cdc03"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1048-592": {
-    "__comp": "17896441",
-    "content": "3c759f85"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1049-c00": {
-    "__comp": "17896441",
-    "content": "ac2894a3"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1050-c55": {
-    "__comp": "17896441",
-    "content": "71948904"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1051-d0b": {
-    "__comp": "17896441",
-    "content": "5d5b439d"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1052-13d": {
-    "__comp": "17896441",
-    "content": "f0c31ddf"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1053-fa1": {
-    "__comp": "17896441",
-    "content": "4aab639e"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1054-d05": {
-    "__comp": "17896441",
-    "content": "4e4a0278"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources-a83": {
-    "__comp": "17896441",
-    "content": "708c2bd1"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1059-340": {
-    "__comp": "17896441",
-    "content": "86c9ed34"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060-35b": {
-    "__comp": "17896441",
-    "content": "dc7bee96"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061-158": {
-    "__comp": "17896441",
-    "content": "d09212fc"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1062-8bc": {
-    "__comp": "17896441",
-    "content": "b245dcbd"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063-f59": {
-    "__comp": "17896441",
-    "content": "58588151"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage-584": {
-    "__comp": "17896441",
-    "content": "a15c5b30"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1055-ecf": {
-    "__comp": "17896441",
-    "content": "0afb53a8"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1056-fd6": {
-    "__comp": "17896441",
-    "content": "6bb4a45a"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1057-cb5": {
-    "__comp": "17896441",
-    "content": "b83f9944"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058-32e": {
-    "__comp": "17896441",
-    "content": "cdcd48d0"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance-077": {
-    "__comp": "17896441",
-    "content": "2c1d8d2d"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041-c6d": {
-    "__comp": "17896441",
-    "content": "6cc2dbae"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042-cbd": {
-    "__comp": "17896441",
-    "content": "014f8e8a"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043-7ba": {
-    "__comp": "17896441",
-    "content": "33cce2d0"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044-c68": {
-    "__comp": "17896441",
-    "content": "e9d38644"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045-a26": {
-    "__comp": "17896441",
-    "content": "723eddec"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046-db3": {
-    "__comp": "17896441",
-    "content": "4fb69d24"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources-d1c": {
-    "__comp": "17896441",
-    "content": "5ec40b4e"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1064-96b": {
-    "__comp": "17896441",
-    "content": "8a5d46da"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1065-f93": {
-    "__comp": "17896441",
-    "content": "334864d6"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1066-fd1": {
-    "__comp": "17896441",
-    "content": "f4688560"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1067-91c": {
-    "__comp": "17896441",
-    "content": "08a04cb7"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068-4cb": {
-    "__comp": "17896441",
-    "content": "1dad9535"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Hands-On-2b6": {
-    "__comp": "17896441",
-    "content": "8ff86471"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 1-f43": {
-    "__comp": "17896441",
-    "content": "fbd3ae94"
-  },
-  "/en/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 2-7ae": {
-    "__comp": "17896441",
-    "content": "4da917d1"
-  },
-  "/en/docs/others-02c": {
-    "__comp": "17896441",
-    "content": "60ac0754"
-  },
-  "/en/-d3c": {
-    "__comp": "c4f5d8e4",
+  "/__docusaurus/debug/content-a2b": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
     "__context": {
-      "plugin": "a7456010"
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
     },
-    "config": "5e9f5e1a"
+    "__props": "__props---docusaurus-debug-content-3-c-0-be2"
+  },
+  "/__docusaurus/debug/globalData-c3c": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/metadata-156": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/registry-88c": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/routes-000": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/search-5de": {
+    "__comp": "__comp---theme-search-page-1-a-4-d6f",
+    "__context": {
+      "plugin": "plugin---searchc-14-0ea"
+    }
+  },
+  "/docs-200": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---docsaba-d7c"
+    }
+  },
+  "/docs-116": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---docs-005-788"
+  },
+  "/docs-7dc": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/docs/devops-sre-024": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-devops-srec-36-9e1"
+  },
+  "/docs/Getting-started/introduction-3d5": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-getting-started-introduction-426-488"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals-8cd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-8-c-0-2aa"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-901-78f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-901802-90b"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-902-22d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-902-e-42-aee"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-903-35b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-90331-f-ec4"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-904-308": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-9042-f-7-e66"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-905-a4a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-905-dce-6d9"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-906-115": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-906326-ac9"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-907-70d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-907397-556"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-908-474": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-908658-149"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-909-7d1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-909108-6ad"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-910-001": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-91025-c-a65"
+  },
+  "/docs/Microsoft-Azure/Azure-Fundamentals/AZ-911-47e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-azure-fundamentals-az-911-a-3-b-9b1"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator-ec2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administratorf-45-0b6"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks-817": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-62-e-b54"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1047-637": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-10474-af-003"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1048-0dd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-10480-a-6-8d7"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1049-8a7": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-10495-a-2-c0d"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1050-234": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-1050252-e99"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1051-64d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-10517-e-1-a0e"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1052-612": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-105261-d-a5b"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1053-d58": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-1053-c-39-45a"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Configure-and-manage-virtual-networks/AZ-1054-835": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-configure-and-manage-virtual-networks-az-10546-fe-ccd"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources-98c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resourcesd-9-d-db7"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1059-129": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-10591-b-4-a5a"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1060-32d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-10608-cf-d6c"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1061-679": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-1061-eb-1-eff"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1062-c19": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-1062-dd-0-5c1"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Deploy-and-manage-compute-resources/AZ-1063-f40": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-deploy-and-manage-compute-resources-az-10633-a-2-82d"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage-1e1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-7-b-9-103"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1055-f63": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-az-1055-a-99-44e"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1056-74d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-az-105650-a-597"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1057-424": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-az-105793-f-80e"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Implement-and-manage-storage/AZ-1058-5b8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-implement-and-manage-storage-az-1058-aef-9f0"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance-e88": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-manage-identity-and-governanceed-4-da0"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1041-f04": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-manage-identity-and-governance-az-1041-f-0-c-e03"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1042-1a1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-manage-identity-and-governance-az-1042-cdc-d47"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1043-d88": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-manage-identity-and-governance-az-104392-b-d24"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1044-aff": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-manage-identity-and-governance-az-10440-f-2-45f"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1045-f4c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-manage-identity-and-governance-az-1045-ff-1-d50"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Manage-Identity-and-Governance/AZ-1046-042": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-manage-identity-and-governance-az-104643-f-816"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources-a33": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-monitor-and-back-up-resources-61-a-380"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1064-d83": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-monitor-and-back-up-resources-az-1064-fb-1-e17"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1065-89f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-monitor-and-back-up-resources-az-106513-d-8db"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1066-596": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-monitor-and-back-up-resources-az-1066-a-89-615"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1067-e16": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-monitor-and-back-up-resources-az-1067518-bf0"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Administrator/Monitor-and-back-up-resources/AZ-1068-017": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-administrator-monitor-and-back-up-resources-az-10687-e-3-764"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On-f67": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-hands-on-2-bb-e5b"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 1-777": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-hands-on-coming-soon-1-efa-4f9"
+  },
+  "/docs/Microsoft-Azure/Microsoft-Azure-Hands-On/Coming Soon 2-99d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-microsoft-azure-microsoft-azure-hands-on-coming-soon-2-ee-1-b04"
+  },
+  "/docs/others-8ee": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-others-14-c-9fb"
+  },
+  "/-2e1": {
+    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
+    "__context": {
+      "plugin": "plugin---a-74-9d6"
+    },
+    "config": "config---5-e-9-4f3"
   }
 }

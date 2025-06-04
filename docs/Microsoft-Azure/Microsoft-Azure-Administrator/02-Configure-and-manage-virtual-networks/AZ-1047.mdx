@@ -3,12 +3,271 @@ id: AZ-1047
 title: Konfigurasi Virtual Network
 ---
 
+<br/>
+## Perencanaan virtual network
+
+Salah satu benefit utama dalam mengadopsi solusi cloud seperti Azure adalah memungkinkan departemen teknologi informasi untuk mentransisikan resources server ke cloud. 
+Memindahkan resources ke cloud dapat menghemat biaya dan menyederhanakan operasi administratif. 
+
+Relokasi resources menghilangkan kebutuhan untuk memelihara 
+data center yang mahal dengan catu daya tak terputus, generator, banyak sistem cadangan, atau server database terkluster.
+
+### Hal yang Perlu Diketahui tentang Jaringan Virtual Azure
+
+Pengguna dapat menerapkan Azure Virtual Network untuk membuat representasi virtual dari jaringan di cloud. Berikut beberapa karakteristik dari jaringan 
+virtual di Azure.
+
+- Jaringan virtual Azure adalah isolasi logis (logical isolation) dari resources cloud Azure.
+- Pengguna dapat menggunakan jaringan virtual untuk menyediakan dan mengelola jaringan privat virtual (VPN) di Azure.
+- Setiap jaringan virtual memiliki blok Classless Inter-Domain Routing (CIDR) sendiri dan dapat dihubungkan ke jaringan virtual lain serta jaringan lokal (on-premises).
+- Pengguna dapat menghubungkan jaringan virtual dengan infrastruktur lokal (on-premises) untuk membuat solusi hybrid atau lintas lokasi, selama blok CIDR dari jaringan yang 
+terhubung tidak tumpang tindih.
+- Pengguna mengontrol pengaturan server DNS untuk jaringan virtual, dan segmentasi jaringan virtual ke dalam subnet.
+
+Ilustrasi berikut menggambarkan jaringan virtual yang memiliki subnet yang berisi dua mesin virtual. Jaringan virtual tersebut memiliki koneksi ke infrastruktur 
+lokal dan jaringan virtual terpisah.
+
+![Virtual Network](/img/az104/109.png)
+
+#### Hal yang Perlu Dipertimbangkan saat Menggunakan Jaringan Virtual
+
+Jaringan virtual dapat digunakan dalam berbagai cara. Saat mempertimbangkan rencana konfigurasi untuk jaringan virtual dan subnet, perhatikan skenario berikut:
+
+| Skenario | Deskripsi |
+|---------|-----------|
+| **Buat jaringan virtual privat khusus di cloud saja** | Terkadang Pengguna tidak memerlukan konfigurasi lintas lokasi untuk solusi. Saat membuat jaringan virtual, layanan dan mesin virtual dalam jaringan virtual dapat berkomunikasi langsung dan dengan aman satu sama lain di cloud. Pengguna masih dapat mengonfigurasi koneksi endpoint untuk mesin virtual dan layanan yang memerlukan komunikasi internet, sebagai bagian dari solusi. |
+| **Perluas data center secara aman dengan jaringan virtual** | Pengguna dapat membangun VPN site-to-site tradisional untuk memperluas kapasitas data center secara aman. VPN site-to-site menggunakan IPSEC untuk menyediakan koneksi yang aman antara gateway VPN perusahaan dan Azure. |
+| **Aktifkan skenario hybrid cloud** | Jaringan virtual memberi fleksibilitas untuk mendukung berbagai skenario hybrid cloud. Pengguna dapat menghubungkan aplikasi berbasis cloud secara aman ke sistem lokal apa pun, seperti mainframe dan Unix. |
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat subnet
+
+Ada beberapa ketentuan terkait alamat IP dalam jaringan virtual saat menerapkan segmentasi menggunakan subnet:
+
+- Setiap subnet berisi rentang alamat IP yang termasuk dalam alokasi alamat jaringan virtual.
+- Rentang alamat untuk sebuah subnet harus unik dalam alokasi alamat jaringan virtual.
+- Rentang alamat untuk satu subnet tidak boleh tumpang tindih dengan rentang alamat IP subnet lainnya dalam jaringan virtual yang sama.
+- Alokasi alamat IP untuk subnet harus ditentukan menggunakan notasi CIDR.
+
+Pengguna dapat membagi jaringan virtual menjadi satu atau lebih subnet melalui portal Azure. Berikut adalah beberapa karakteristik terkait alamat IP untuk subnet:
+
+![Subnet](/img/az104/110.png)
+
+#### Alamat yang dikhususkan
+
+Untuk setiap subnet, Azure mengkhususkan lima alamat IP yaitu empat alamat pertama dan satu alamat terakhir.
+
+Mari kita tinjau alamat yang dikhususkan dalam rentang IP `192.168.1.0/24`:
+
+| Alamat yang Dikhususkan | Alasan |
+|-------------------------|--------|
+| `192.168.1.0` | Alamat ini mengidentifikasi alamat jaringan virtual. |
+| `192.168.1.1` | Azure mengonfigurasi alamat ini sebagai default gateway. |
+| `192.168.1.2` dan `192.168.1.3` | Azure memetakan alamat IP DNS Azure ini ke jaringan virtual. |
+| `192.168.1.255` | Alamat ini digunakan sebagai alamat broadcast jaringan virtual. |
+
+### Hal yang Perlu Dipertimbangkan saat Menggunakan Subnet
+
+Saat Pengguna merencanakan untuk menambahkan segmen subnet dalam jaringan virtual, ada beberapa faktor yang perlu dipertimbangkan:
+
+#### Pertimbangkan Kebutuhan Layanan
+
+Sebuah layanan mungkin memerlukan atau membuat subnet-nya sendiri. Harus ada cukup aloksi untuk memenuhi kebutuhan layanan. 
+Misalnya, jika Pengguna menghubungkan jaringan virtual ke jaringan lokal menggunakan Azure VPN Gateway, maka jaringan virtual harus memiliki subnet khusus untuk gateway tersebut.
+
+#### Pertimbangkan Perangkat Virtual Jaringan
+
+Secara default, Azure merutekan lalu lintas jaringan antara semua subnet dalam jaringan virtual. Pengguna dapat menimpa routing default Azure untuk mencegah Azure merutekan 
+lalu lintas antar subnet. Pengguna juga dapat menimpa pengaturan default untuk merutekan lalu lintas antar subnet melalui **network virtual appliance**. 
+
+#### Pertimbangkan Network Security Group (NSG)
+
+Pengguna dapat mengaitkan nol atau satu *network security group* ke setiap subnet dalam jaringan virtual. Pengguna dapat menggunakan NSG yang sama atau berbeda untuk 
+setiap subnet. Setiap NSG berisi aturan yang mengizinkan atau menolak lalu lintas ke dan dari sumber serta tujuan tertentu.
+
+#### Pertimbangkan Private Link
+
+Azure Private Link menyediakan konektivitas privat dari jaringan virtual ke layanan platform Azure (PaaS), layanan milik pelanggan, atau layanan mitra Microsoft. 
+Private Link menyederhanakan arsitektur jaringan dan mengamankan koneksi antar endpoint di Azure. Layanan ini menghilangkan paparan data ke internet publik
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat virtual network
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+Pengguna dapat membuat jaringan virtual baru kapan saja. Pengguna juga bisa menambahkan jaringan virtual saat membuat mesin virtual.
 :::
 
-:::warning
+#### Hal yang Perlu Diketahui tentang Pembuatan Jaringan Virtual
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Tinjau persyaratan berikut saat membuat jaringan virtual:
+
+| No | Persyaratan                                                                                             |
+|----|----------------------------------------------------------------------------------------------------------|
+| 1  | Saat Pengguna membuat jaringan virtual, Pengguna perlu mendefinisikan alokasi alamat IP untuk jaringan tersebut. |
+| 2  | Rencanakan untuk menggunakan alokasi alamat IP yang belum digunakan di organisasi.                      |
+| 3  | Alokasikan alamat untuk jaringan dapat berada di lokasi lokal (*on-premises*) atau di cloud, tetapi tidak keduanya sekaligus. |
+| 4  | Setelah Pengguna membuat alokasi alamat IP, alokasi tersebut tidak dapat diubah. Jika merencanakan alokasi alamat untuk jaringan virtual hanya di cloud, mungkin di kemudian hari ingin menghubungkan situs lokal. |
+| 5  | Untuk membuat jaringan virtual, Pengguna harus mendefinisikan setidaknya satu subnet.                   |
+| 6  | Setiap subnet berisi rentang alamat IP yang termasuk dalam alokasi alamat jaringan virtual.             |
+| 7  | Rentang alamat untuk setiap subnet harus unik dalam alokasi alamat jaringan virtual.                    |
+| 8  | Rentang dari satu subnet tidak boleh tumpang tindih dengan rentang alamat IP subnet lain dalam jaringan virtual yang sama. |
+| 9  | Pengguna dapat membuat jaringan virtual melalui portal Azure. Tentukan langganan Azure, grup resources (*resource group*), nama jaringan virtual, dan wilayah layanan untuk jaringan tersebut. |
+
+
+![Create vnet](/img/az104/111.png)
+
+:::warning **Catatan:**  
+Batasan default pada resources jaringan Azure dapat berubah secara berkala. 
+Pastikan untuk merujuk ke [Azure networking documentation](https://learn.microsoft.com/en-us/azure/networking/) untuk informasi terbaru.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Perencanaan pengalamatan IP
+
+Pengguna dapat menetapkan alamat IP ke resources Azure untuk berkomunikasi dengan resources Azure lainnya, jaringan lokal (*on-premises*), dan internet. 
+
+- **Alamat IP privat** memungkinkan komunikasi di dalam jaringan virtual Azure dan jaringan lokal. 
+Pengguna membuat alamat IP privat untuk resources saat menggunakan *VPN gateway* atau *Azure ExpressRoute circuit* untuk memperluas jaringan ke Azure.
+- **Alamat IP publik** memungkinkan resources berkomunikasi dengan internet. 
+Pengguna dapat membuat alamat IP publik untuk terhubung dengan layanan Azure yang dapat diakses publik.
+
+> Ilustrasi berikut menunjukkan sebuah resources mesin virtual yang memiliki alamat IP privat dan alamat IP publik.
+
+![design ip](/img/az104/112.png)
+
+#### Hal yang Perlu Diketahui tentang Alamat IP
+
+- Alamat IP dapat ditetapkan secara **statis** atau **dinamis**.
+- Pengguna dapat memisahkan resources IP yang ditetapkan secara dinamis dan statis ke dalam subnet yang berbeda.
+- Alamat IP statis tidak berubah dan cocok untuk situasi tertentu, seperti:
+
+| Kebutuhan                                                                                   | Penjelasan |
+|---------------------------------------------------------------------------------------------|------------|
+| Resolusi nama DNS                                                                           | Perubahan pada alamat IP memerlukan pembaruan pada catatan host. |
+| Model keamanan berbasis alamat IP                                                           | Aplikasi atau layanan memerlukan alamat IP yang tetap. |
+| Sertifikat TLS/SSL yang terhubung ke alamat IP                                              | Sertifikat tidak bisa digunakan jika alamat IP berubah. |
+| Aturan firewall yang mengizinkan atau menolak lalu lintas berdasarkan rentang alamat IP     | Membutuhkan IP yang tetap *(static)*. |
+| Mesin virtual berbasis peran seperti **Domain Controller** dan **DNS Server**               | Sangat direkomendasikan menggunakan IP statis. |
+
+:::info **Tip:**  
+> Perluas pembelajaran dengan modul pelatihan 
+[**"Design an IP addressing schema for your Azure deployment"**](https://learn.microsoft.com/en-us/training/modules/design-ip-addressing-for-azure/). 
+Modul ini memiliki *sandbox* tempat unntuk mencoba latihan praktis.
+:::
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat pengalamatan IP Public
+
+#### Hal yang Perlu Dipertimbangkan saat Membuat Alamat IP Publik
+
+![Create ip pub](/img/az104/113.png)
+
+Untuk membuat alamat IP publik, konfigurasikan pengaturan berikut:
+
+| Pengaturan               | Deskripsi |
+|--------------------------|-----------|
+| **Versi IP**             | Pilih apakah ingin membuat alamat **IPv4**, **IPv6**, atau **Keduanya**. |
+| **SKU**                  | Pilih SKU untuk alamat IP publik, termasuk **Basic** atau **Standard**. Nilai SKU harus sesuai dengan SKU dari **Azure Load Balancer** yang digunakan dengan alamat tersebut. |
+| **Nama**                 | Masukkan nama untuk mengidentifikasi alamat IP. Nama harus unik dalam grup resources (*resource group*) yang dipilih. |
+| **Penetapan Alamat IP**  | Tentukan jenis penetapan alamat IP yang ingin digunakan: **Dinamis** atau **Statis**. |
+
+#### Penjelasan Tipe Penetapan Alamat IP
+
+- **Alamat Dinamis**
+  - Dialokasikan setelah alamat IP publik dikaitkan ke resources Azure dan resources tersebut dijalankan untuk pertama kali.
+  - Alamat dapat berubah jika resources seperti mesin virtual dihentikan (*deallocated*) lalu dijalankan ulang melalui Azure.
+  - Alamat **tetap sama** jika mesin virtual hanya di-*reboot* atau dihentikan dari dalam sistem operasi tamu.
+  - Jika alamat IP publik dihapus dari resources, alamat dinamis akan **dilepaskan**.
+
+- **Alamat Statis**
+  - Dialokasikan saat alamat IP publik dibuat.
+  - Alamat tidak akan dilepaskan sampai resources alamat IP publik dihapus.
+  - Jika alamat belum terasosiasi dengan resources, Pengguna **dapat mengubah metode penetapannya** setelah dibuat.
+  - Jika alamat sudah terasosiasi dengan resources, Pengguna **mungkin tidak bisa mengubah metode penetapannya**.
+
+:::info **Catatan:**  
+> Jika Pengguna memilih **IPv6** sebagai versi IP, metode penetapan harus **Dinamis** untuk SKU **Basic**.  
+> Untuk SKU **Standard**, alamat selalu bersifat **Statis** baik untuk **IPv4** maupun **IPv6**.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Asosiasi pengalamatan IP public
+
+Resources alamat IP publik dapat diasosiasikan dengan antarmuka jaringan mesin virtual, *load balancer* yang menghadap internet, *VPN gateway*, dan *application gateway*.
+Pengguna dapat mengasosiasikan resources dengan alamat IP publik **dinamis** maupun **statis**.
+
+#### Hal yang Perlu Dipertimbangkan saat Mengasosiasikan Alamat IP Publik
+
+Tabel berikut merangkum cara agar dapat mengasosiasikan alamat IP publik ke berbagai jenis resources:
+
+| Resource           | Asosiasi Alamat IP Publik             | Alamat IP Dinamis | Alamat IP Statis |
+|-----------------------|----------------------------------------|-------------------|------------------|
+| Mesin Virtual         | NIC (Network Interface Card)          | Ya                | Ya               |
+| Load Balancer         | Konfigurasi Front-end                 | Ya                | Ya               |
+| VPN Gateway           | Konfigurasi IP VPN Gateway            | Ya                | Ya *             |
+| Application Gateway   | Konfigurasi Front-end                 | Ya                | Ya *             |
+
+> *Alamat IP statis hanya tersedia untuk SKU tertentu.
+
+### SKU Alamat IP Publik
+
+Saat membuat alamat IP publik, Pengguna dapat memilih **SKU Basic** atau **SKU Standard**.
+Pilihan SKU memengaruhi metode penetapan IP, keamanan, jenis resources yang tersedia, dan opsi redundansi.
+
+Tabel berikut merangkum perbedaan antara jenis SKU untuk alamat IP publik:
+
+| Fitur             | SKU Basic                            | SKU Standard                                     |
+|-------------------|----------------------------------------|--------------------------------------------------|
+| Penetapan IP      | Statis atau Dinamis                   | Statis                                           |
+| Keamanan          | Terbuka secara default                | Aman secara default, tertutup untuk lalu lintas masuk |
+| Resources       | NIC, VPN Gateway, Application Gateway, dan Load Balancer publik | NIC atau Load Balancer publik dengan SKU Standard |
+| Redundansi        | Tidak mendukung zona redundan         | Zona redundan secara default                     |
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Alokasi atau penetapan pengalamatan IP privat
+
+Resource alamat IP privat dapat diasosiasikan dengan antarmuka jaringan mesin virtual, *internal load balancer*, dan *application gateway*.  
+Azure dapat menyediakan alamat IP secara **dinamis**, atau dapat menetapkan alamat IP secara **statis**.
+
+#### Hal yang Perlu Dipertimbangkan saat Mengasosiasikan Alamat IP Privat
+
+Tabel berikut merangkum bagaimana cara mengasosiasikan alamat IP privat ke berbagai jenis resources:
+
+| Resource               | Asosiasi Alamat IP Privat    | Alamat IP Dinamis | Alamat IP Statis |
+|--------------------------|------------------------------|-------------------|------------------|
+| Mesin Virtual            | NIC (Network Interface Card) | Ya                | Ya               |
+| Internal Load Balancer   | Konfigurasi Front-end        | Ya                | Ya               |
+| Application Gateway      | Konfigurasi Front-end        | Ya                | Ya               |
+
+<br/>
+#### Penetapan Alamat IP Privat
+
+Alamat IP privat dialokasikan dari rentang alamat subnet jaringan virtual tempat resources dideploy. Terdapat dua opsi penetapan alamat:
+
+#### Dinamis
+
+Azure secara otomatis menetapkan alamat IP **berikutnya yang belum digunakan atau belum dicadangkan** dalam rentang alamat subnet.  
+Penetapan dinamis adalah metode alokasi default.
+
+> **Contoh:**  
+Jika alamat `10.0.0.4` hingga `10.0.0.9` sudah digunakan oleh resources lain, maka Azure akan menetapkan alamat `10.0.0.10` untuk resources baru berikutnya.
+
+#### Statis
+
+Pengguna dapat memilih dan menetapkan alamat IP **apa pun yang belum digunakan atau belum dicadangkan** dalam rentang alamat subnet.
+
+> **Contoh:**  
+Jika rentang alamat sebuah subnet adalah `10.0.0.0/16`, dan alamat `10.0.0.4` hingga `10.0.0.9` sudah digunakan, 
+maka Pengguna dapat menetapkan alamat apa pun mulai dari `10.0.0.10` hingga `10.0.255.254`.
+
+:::info **Tip:**  
+Untuk peninjauan lebih menyeluruh tentang jaringan virtual, pertimbangkan modul pelatihan 
+[*Introduction to Virtual Networks*](https://learn.microsoft.com/en-us/training/modules/introduction-to-azure-virtual-networks/).
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

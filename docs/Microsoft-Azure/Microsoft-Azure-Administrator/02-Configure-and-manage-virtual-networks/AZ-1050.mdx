@@ -3,12 +3,142 @@ id: AZ-1050
 title: Konfigurasi Azure Virtual Network peering
 ---
 
+<br/>
+## Penggunaan Azure Virtual Network Peering
+
+Mungkin cara paling sederhana dan cepat untuk menghubungkan **jaringan virtual (virtual network)** adalah dengan menggunakan **Azure Virtual Network peering**. 
+Virtual Network peering memungkinkan Pengguna untuk menghubungkan dua jaringan virtual Azure secara singkat. Setelah jaringan tersebut dipeering, 
+kedua jaringan virtual tersebut beroperasi sebagai satu jaringan untuk keperluan konektivitas.
+
+### Hal-hal yang perlu diketahui tentang Azure Virtual Network Peering  
+Berikut beberapa karakteristik utama dari Azure Virtual Network peering.
+
+Terdapat dua jenis Azure Virtual Network peering: regional dan global.
+
+![vnet peering ilustration](/img/az104/128.png)
+
+- **Regional virtual network peering** menghubungkan jaringan virtual Azure yang berada di wilayah (region) yang sama.
+- **Global virtual network peering** menghubungkan jaringan virtual Azure yang berada di wilayah (region) berbeda.
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+- Pengguna dapat membuat peering regional untuk jaringan virtual di wilayah cloud publik Azure yang sama, atau di wilayah cloud China yang sama, 
+atau di wilayah cloud Microsoft Azure Government yang sama.
+- Pengguna dapat membuat peering global untuk jaringan virtual di wilayah cloud publik Azure manapun, atau di wilayah cloud China manapun.
+- Peering global untuk jaringan virtual di wilayah Azure Government yang berbeda **tidak diperbolehkan**.
+- Setelah Pengguna membuat peering antar jaringan virtual, jaringan virtual tersebut tetap dikelola sebagai resource yang terpisah.
+- Jaringan virtual dapat dipeering antar langganan (subscription) dan tenant.
 :::
 
-:::warning
+<br/>
+### Hal-hal yang perlu dipertimbangkan saat menggunakan Azure Virtual Network Peering  
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+| Manfaat                | Deskripsi                                                                                                           |
+|------------------------|---------------------------------------------------------------------------------------------------------------------|
+| Koneksi jaringan privat | Saat Pengguna mengimplementasikan Azure Virtual Network peering, lalu lintas jaringan antar jaringan virtual yang dipeering bersifat privat. Lalu lintas tersebut tetap berada di jaringan tulang punggung Microsoft Azure. Tidak diperlukan internet publik, gateway, atau enkripsi dalam komunikasi antar jaringan virtual. |
+| Performa kuat          | Karena Azure Virtual Network peering menggunakan infrastruktur Azure, Pengguna mendapatkan koneksi berlatensi rendah dan bandwidth tinggi antar resource di jaringan virtual berbeda. |
+| Komunikasi yang disederhanakan | Azure Virtual Network peering memungkinkan resource di satu jaringan virtual berkomunikasi dengan resource di jaringan virtual lain setelah jaringan virtual dipeering. |
+| Transfer data mulus    | Pengguna dapat membuat konfigurasi Azure Virtual Network peering untuk mentransfer data antar langganan Azure, model deployment, dan wilayah Azure. |
+| Tanpa gangguan resource | Azure Virtual Network peering tidak memerlukan waktu henti (downtime) untuk resource di kedua jaringan virtual saat membuat peering atau setelah peering dibuat. |
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menjelaskan gateway transit dan konektivitasnya
+
+Saat jaringan virtual dipeering, Pengguna dapat mengonfigurasi Azure VPN Gateway di jaringan virtual yang dipeering sebagai titik transit. 
+Dalam skenario ini, jaringan virtual yang dipeering menggunakan gateway VPN jarak jauh untuk mendapatkan akses ke resource lain.
+
+### Penggunaan Transit dan Konektivitas  
+Pertimbangkan skenario di mana tiga jaringan virtual di wilayah yang sama terhubung melalui virtual network peering. 
+Jaringan virtual A dan jaringan virtual B masing-masing dipeering dengan jaringan virtual hub. Jaringan virtual hub berisi beberapa resource, 
+termasuk subnet gateway dan Azure VPN gateway. VPN gateway dikonfigurasi untuk mengizinkan VPN gateway transit. 
+Jaringan virtual B mengakses resource di hub, termasuk subnet gateway, dengan menggunakan VPN gateway jarak jauh.
+
+> Diagram peering jaringan virtual regional. Satu jaringan mengizinkan VPN gateway transit dan menggunakan VPN gateway jarak jauh untuk mengakses 
+resource di jaringan virtual hub.
+
+![vnet peering ilustration](/img/az104/129.png)
+
+Portal Azure tidak secara eksplisit menyebutkan gateway transit dan konektivitas. Sebagai gantinya, Pengguna diberikan pilihan untuk mengizinkan dan 
+meneruskan lalu lintas jaringan. Apakah Pengguna dapat membedakan perbedaan pilihan tersebut?
+
+![vnet peering ilustration](/img/az104/130.png)
+
+### Hal-hal yang perlu diketahui tentang Azure VPN Gateway  
+Mari kita lihat lebih dekat bagaimana Azure VPN Gateway diimplementasikan dengan Azure Virtual Network peering.
+
+| Hal yang Perlu Diketahui Tentang Azure VPN Gateway | Penjelasan                                                                                          |
+|----------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| Satu VPN Gateway per Jaringan Virtual               | Sebuah jaringan virtual hanya dapat memiliki satu VPN gateway.                                    |
+| Dukungan Gateway Transit                            | Gateway transit didukung untuk peering jaringan virtual regional maupun global.                   |
+| Komunikasi ke Resource di Luar Peering             | Saat mengizinkan VPN gateway transit, jaringan virtual dapat berkomunikasi dengan resource di luar peering. |
+| Contoh Tugas Gateway Subnet di Jaringan Hub        | - Menggunakan VPN site-to-site untuk menghubungkan ke jaringan on-premises.                       |
+|                                                    | - Menggunakan koneksi vnet-to-vnet ke jaringan virtual lain.                                      |
+|                                                    | - Menggunakan VPN point-to-site untuk menghubungkan ke klien.                                    |
+| Berbagi Gateway melalui Gateway Transit             | Gateway transit memungkinkan jaringan virtual yang dipeering untuk berbagi gateway dan mengakses resource eksternal. Dengan ini, tidak perlu memasang VPN gateway di jaringan yang dipeering. |
+| Pengaturan Network Security Groups (NSG)           | Pengguna dapat menerapkan NSG untuk memblokir atau mengizinkan akses antar jaringan virtual atau subnet. Saat peering, Pengguna bisa membuka atau menutup aturan NSG antar jaringan virtual. |
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat virtual network peering
+
+Azure Virtual Network peering dapat dikonfigurasi untuk jaringan virtual menggunakan PowerShell, Azure CLI, dan di portal Azure. 
+Dalam modul ini, kita akan mempelajari langkah-langkah membuat peering di portal Azure untuk jaringan virtual yang dideploy melalui Azure Resource Manager.
+
+### Hal-hal yang perlu diketahui tentang membuat virtual network peering  
+Beberapa hal penting yang perlu diperhatikan sebelum kita melihat cara membuat peering di portal Azure:
+
+- Untuk mengimplementasikan virtual network peering, akun Azure Pengguna harus memiliki peran Network Contributor. 
+Alternatifnya, akun Pengguna dapat diberikan peran kustom yang dapat melakukan aksi peering yang diperlukan. 
+Untuk detailnya, lihat [Permissions](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-peering?tabs=peering-portal#permissions).
+
+- Untuk membuat peering, Pengguna membutuhkan dua jaringan virtual.
+
+- Jaringan virtual kedua dalam peering disebut jaringan remote.
+
+- Awalnya, mesin virtual di jaringan virtual Pengguna tidak dapat berkomunikasi satu sama lain. Setelah peering dibuat, 
+mesin-mesin tersebut dapat saling berkomunikasi dalam jaringan yang dipeering berdasarkan pengaturan konfigurasi.
+
+### Cara memeriksa status peering
+Di portal Azure, Pengguna dapat memeriksa status konektivitas jaringan virtual dalam peering virtual network. Status ini tergantung pada bagaimana jaringan virtual dideploy.
+
+:::warning **Penting**  
+> Peering Pengguna tidak dianggap berhasil sampai kedua jaringan virtual dalam peering memiliki status **Connected**.
+:::
+
+- Untuk deployment dengan Azure Resource Manager, dua kondisi status utama adalah **Initiated** dan **Connected**. Untuk model deployment klasik, 
+kondisi status **Updating** juga digunakan.
+
+- Ketika Pengguna membuat peering awal ke jaringan virtual kedua (remote) dari jaringan virtual pertama, status peering pada jaringan virtual pertama adalah **Initiated**.
+
+- Ketika Pengguna membuat peering berikutnya dari jaringan virtual kedua ke jaringan virtual pertama, status peering untuk kedua 
+jaringan virtual (pertama dan remote) menjadi **Connected**. Di portal Azure, Pengguna dapat melihat status jaringan virtual pertama berubah 
+dari **Initiated** menjadi **Connected**.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Memperluas peering dengan User-Defined Routes (UDR) dan service chaining
+
+Virtual network peering bersifat nontransitif. Kemampuan komunikasi dalam peering hanya tersedia untuk jaringan virtual dan sumber daya yang ada dalam peering tersebut. 
+Mekanisme lain harus digunakan untuk memungkinkan lalu lintas ke dan dari sumber daya serta jaringan di luar jaringan peering privat.
+
+Misalnya Pengguna memiliki tiga jaringan virtual: A, B, dan C. Pengguna membuat virtual network peering antara jaringan A dan B, serta antara jaringan B dan C. 
+Namun Pengguna tidak membuat peering antara jaringan A dan C. Kemampuan peering yang di buat antara jaringan B dan C tidak secara otomatis memungkinkan komunikasi peering 
+antara jaringan A dan C.
+
+### Hal-hal yang perlu diketahui tentang memperluas peering  
+Ada beberapa cara untuk memperluas kemampuan peering Pengguna untuk sumber daya dan jaringan virtual di luar jaringan peering.
+
+| Mekanisme            | Deskripsi                                                                                                                                              |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Hub and spoke network | Ketika Pengguna menerapkan jaringan hub-and-spoke, jaringan virtual hub dapat menampung komponen infrastruktur seperti network virtual appliance (NVA) atau Azure VPN gateway. Semua jaringan spoke kemudian dapat melakukan peering dengan jaringan virtual hub. Lalu lintas dapat mengalir melalui NVA atau VPN gateway di jaringan hub.  |
+| User-defined route (UDR) | Virtual network peering memungkinkan next hop dalam user-defined route menjadi alamat IP dari mesin virtual di jaringan virtual yang dipeering, atau VPN gateway.                                       |
+| Service chaining     | Service chaining digunakan untuk mengarahkan lalu lintas dari satu jaringan virtual ke virtual appliance atau gateway. Untuk mengaktifkan service chaining, konfigurasikan UDR yang menunjuk ke mesin virtual di jaringan virtual peering sebagai next hop IP address. UDR juga bisa menunjuk ke virtual network gateway untuk memungkinkan service chaining. |
+
+Diagram berikut menunjukkan jaringan virtual hub and spoke dengan NVA dan VPN gateway. 
+
+![vnet peering ilustration](/img/az104/131.png)
+
+Jaringan hub and spoke ini dapat diakses oleh jaringan virtual lain melalui user-defined routes dan service chaining.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -3,12 +3,313 @@ id: AZ-1049
 title: Penggunaan domain pada Azure DNS
 ---
 
-:::info
+<br/>
+## Azure DNS
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+**Azure DNS** adalah layanan hosting untuk domain **Domain Name System (DNS)** yang menyediakan resolusi nama dengan menggunakan infrastruktur Microsoft Azure.
 
-:::
+#### Apa itu DNS?
 
-:::warning
+**DNS (Domain Name System)** adalah protokol dalam stPenggunar TCP/IP. DNS berfungsi untuk menerjemahkan nama domain yang mudah dibaca manusia 
+— misalnya: `www.wideworldimports.com` — menjadi alamat IP yang dikenal. Alamat IP memungkinkan komputer dan perangkat jaringan untuk saling 
+mengidentifikasi dan merutekan permintaan satu sama lain.
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+DNS menggunakan direktori global yang dihosting pada server di seluruh dunia. Microsoft merupakan bagian dari jaringan yang menyediakan layanan DNS melalui **Azure DNS**.
+
+> DNS server juga dikenal sebagai **DNS name server** atau cukup disebut **name server**.
+
+<br/>
+#### Bagaimana Cara Kerja DNS?
+
+Sebuah server DNS menjalankan dua fungsi utama:
+1. **Menyimpan cache lokal** untuk nama domain yang baru-baru ini diakses dan alamat IP-nya. Cache ini memberikan respon lebih cepat untuk permintaan domain lokal. 
+Jika domain tidak ditemukan di cache, permintaan diteruskan ke server DNS lain.
+2. **Menyimpan database pasangan kunci-nilai** berupa alamat IP dan host/subdomain yang menjadi kewenangannya. 
+Fungsi ini biasanya berkaitan dengan layanan internet seperti email dan web.
+
+<br/>
+#### Penetapan Server DNS
+
+Agar komputer, server, atau perangkat jaringan dapat mengakses resource berbasis web, perangkat tersebut harus merujuk ke **server DNS**.
+
+- Saat menggunakan jaringan lokal (on-premises), pengaturan DNS berasal dari server lokal.
+- Saat menggunakan jaringan eksternal seperti di hotel, pengaturan DNS berasal dari penyedia layanan internet (ISP).
+
+<br/>
+#### Proses Lookup Domain
+
+Berikut adalah gambaran sederhana bagaimana server DNS menyelesaikan permintaan pencarian nama domain:
+
+1. Jika nama domain ada di cache, DNS menyelesaikan permintaan dengan cepat.
+2. Jika tidak ada di cache, server DNS menghubungi server DNS lain untuk mencari kecocokan. Jika ditemukan, cache diperbarui dan permintaan diselesaikan.
+3. Jika tidak ditemukan setelah beberapa percobaan, server merespon dengan kesalahan **domain tidak ditemukan**.
+
+<br/>
+#### IPv4 dan IPv6
+
+Setiap perangkat jaringan memiliki alamat IP yang **unik** di dalam domain-nya.
+
+- **IPv4**: Empat set angka antara 0-255, dipisahkan dengan titik, contoh: `127.0.0.1`. Saat ini adalah stPenggunar yang paling banyak digunakan.
+- **IPv6**: StPenggunar baru yang menggantikan IPv4, terdiri dari delapan kelompok angka heksadesimal, contoh: `fe80:11a1:ac15:e9gf:e884:edb0:ddee:fea3`.
+
+Banyak perangkat sekarang menggunakan **alamat IPv4 dan IPv6** secara bersamaan. Server DNS dapat memetakan nama domain ke kedua versi alamat IP ini.
+
+#### Pengaturan DNS untuk Domain
+
+Baik server DNS dihosting oleh pihak ketiga atau dikelola sendiri, Pengguna harus mengonfigurasinya untuk setiap jenis host (web, email, dll).
+
+Sebagai administrator, Pengguna dapat mengatur DNS server dengan **Azure DNS**. Dalam hal ini, DNS server bertindak sebagai **Start of Authority (SOA)** untuk domain.
+
+<br/>
+#### Jenis Rekam DNS
+
+Informasi konfigurasi DNS disimpan dalam file di dalam **zona DNS**. Setiap file disebut sebagai **record**. Jenis record umum:
+
+- **A**: Rekam host, memetakan nama domain ke alamat IP.
+- **CNAME**: Canonical Name, alias dari satu domain ke domain lain.
+- **MX**: Mail Exchange, untuk pemetaan email ke server email.
+- **TXT**: Rekam teks, untuk mengaitkan string teks ke nama domain (digunakan untuk verifikasi domain oleh Azure & Microsoft 365).
+
+Jenis lainnya:
+
+- **Wildcard**
+- **CAA** (Certificate Authority Authorization)
+- **NS** (Name Server)
+- **SOA** (Start of Authority)
+- **SPF** (Sender Policy Framework)
+- **SRV** (Service Location)
+
+> Rekam **SOA** dan **NS** dibuat otomatis saat membuat zona DNS menggunakan Azure DNS.
+
+<br/>
+#### Record Sets
+
+Beberapa jenis record mendukung **record sets**, memungkinkan beberapa entri untuk satu domain. Contoh:
+
+```
+www.wideworldimports.com. 3600 IN A 127.0.0.1
+www.wideworldimports.com. 3600 IN A 127.0.0.2
+```
+
+> Rekam **SOA** dan **CNAME** **tidak dapat** menggunakan record set.
+
+---
+
+<br/>
+#### Apa itu Azure DNS?
+
+**Azure DNS** memungkinkan Pengguna menghosting dan mengelola domain dengan infrastruktur name-server global Microsoft. 
+Pengguna dapat mengelola semua domain menggunakan kredensial Azure yang sudah di miliki.
+
+- Azure DNS bertindak sebagai **SOA** untuk domain.
+- Azure DNS **tidak** bisa digunakan untuk mendaftarkan domain. Pengguna harus menggunakan registrar pihak ketiga.
+
+### Mengapa Menggunakan Azure DNS?
+
+Azure DNS dibangun di atas layanan **Azure Resource Manager**, dengan keuntungan:
+
+- Keamanan yang ditingkatkan
+- Kemudahan penggunaan
+- Dukungan **Private DNS**
+- Dukungan **Alias Record Sets**
+
+> Azure DNS **tidak mendukung** DNSSEC (Domain Name System Security Extensions). Jika diperlukan, gunakan penyedia pihak ketiga.
+
+### Fitur Keamanan
+
+Azure DNS menyediakan fitur berikut:
+
+- **Role-Based Access Control (RBAC)**: Pengaturan akses granular ke resource Azure.
+- **Activity Logs**: Untuk melacak perubahan pada resource dan mengidentifikasi kesalahan.
+- **Resource Locking**: Kontrol untuk mencegah perubahan pada resource penting.
+
+#### Kemudahan Penggunaan
+
+Azure DNS dapat mengelola DNS untuk layanan Azure maupun resource eksternal, dan menggunakan:
+
+- Azure Portal
+- Azure PowerShell
+- Azure CLI
+- REST API / SDK untuk aplikasi yang memerlukan otomatisasi
+
+### Private DNS Zones
+
+Azure DNS memungkinkan pembuatan zona DNS privat untuk VM dalam virtual network (VNet) tanpa solusi DNS khusus.
+
+Keuntungan zona privat:
+
+- Tidak memerlukan solusi DNS terpisah.
+- Mendukung semua jenis record: A, CNAME, TXT, MX, SOA, AAAA, PTR, SRV.
+- Nama host VM dalam VNet dipelihara otomatis.
+- Mendukung **Split-horizon DNS**: Nama domain bisa ada di zona publik dan privat, dan akan diarahkan berdasarkan asal permintaan.
+
+### Alias Record Sets
+
+Alias record bisa mengarah ke resource Azure, seperti:
+
+- Alamat IP publik Azure
+- Profil Azure Traffic Manager
+- Endpoint Azure CDN
+
+Alias didukung oleh jenis record:
+
+- **A**
+- **AAAA**
+- **CNAME**
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Konfigurasi Azure DNS
+
+### Mengonfigurasi zona DNS publik
+
+Pengguna menggunakan zona DNS untuk menyimpan catatan DNS untuk sebuah domain, misalnya `wideworldimports.com`.
+
+#### - Langkah 1: Buat zona DNS di Azure
+
+Pengguna telah mendaftarkan domain `wideworldimports.com` melalui registrar domain pihak ketiga. Saat ini domain tersebut belum mengarah ke situs web organisasi.
+
+Untuk menyediakan nama domain dengan Azure DNS, Pengguna harus terlebih dahulu membuat zona DNS untuk domain tersebut. Zona DNS menyimpan semua entri DNS untuk domain.
+
+Saat membuat zona DNS, Pengguna harus menyediakan:
+
+- **Langganan (Subscription)**: Langganan yang akan digunakan.
+- **Grup resource (Resource group)**: Nama grup untuk menyimpan domain. Buat grup jika belum ada untuk manajemen yang lebih baik.
+- **Nama (Name)**: Nama domain, misalnya `wideworldimports.com`.
+- **Lokasi grup resource**: Lokasi ini akan mengikuti lokasi dari resource group.
+
+![dns creation](/img/az104/123.png)
+
+#### - Langkah 2: Dapatkan name server Azure DNS
+
+Setelah membuat zona DNS, ambil detail name server dari catatan NS (name server). Gunakan detail ini untuk memperbarui pengaturan registrar domain agar menunjuk ke zona Azure DNS.
+
+![dns creation](/img/az104/124.png)
+
+#### - Langkah 3: Perbarui pengaturan registrar domain
+
+Sebagai pemilik domain, masuk ke aplikasi manajemen domain milik registrar. Edit catatan NS dan ubah dengan detail name server dari Azure DNS.
+
+Tindakan ini disebut **delegasi domain**. Pengguna harus menggunakan keempat name server yang disediakan oleh Azure DNS.
+
+#### - Langkah 4: Verifikasi delegasi layanan nama domain
+
+Langkah berikutnya adalah memverifikasi bahwa domain yang didelegasikan kini mengarah ke zona DNS Azure yang di buat. 
+Proses ini dapat memakan waktu beberapa menit hingga lebih lama.
+
+Untuk memverifikasi, lakukan query terhadap catatan SOA (Start of Authority) dengan alat seperti `nslookup`:
+
+```
+nslookup -type=SOA wideworldimports.com
+
+```
+
+Catatan SOA dibuat secara otomatis saat zona DNS Azure dikonfigurasi dan menjadi referensi saat DNS lain mencari domain Pengguna di internet.
+
+#### Langkah 5: Konfigurasikan pengaturan DNS kustom
+
+Nama domain yang digunakan adalah `wideworldimports.com`. Saat digunakan di browser, domain tersebut diarahkan ke situs web. 
+Namun, jika Pengguna memiliki server web tambahan atau load balancer, Pengguna perlu menambahkan entri A atau CNAME untuk setiap resource tersebut.
+
+#### Catatan A
+
+Untuk catatan A, Pengguna harus memberikan:
+
+- **Nama**: Nama domain kustom, misalnya `webserver1`.
+- **Tipe**: A
+- **TTL**: Waktu hidup dalam detik. Misalnya, 1 berarti 1 detik.
+- **Alamat IP**: Alamat IP yang dituju.
+
+#### Catatan CNAME
+
+Catatan CNAME adalah nama kanonik atau alias dari catatan A. Gunakan CNAME jika Pengguna memiliki domain berbeda yang mengarah ke situs yang sama.
+
+Contoh catatan CNAME dalam zona `wideworldimports.com`:
+
+- **Nama**: `www`
+- **TTL**: `600` detik
+- **Tipe catatan**: CNAME
+
+Jika Pengguna mengekspos fungsi web Azure, Pengguna juga bisa membuat catatan CNAME yang mengarah ke fungsi tersebut.
+
+<br/>
+### Mengonfigurasi zona DNS privat
+
+Tipe zona DNS lain yang dapat Pengguna buat dan kelola di Azure adalah zona DNS privat. Zona privat tidak terlihat di internet dan tidak memerlukan registrar domain. 
+Zona ini digunakan untuk menetapkan nama DNS ke mesin virtual (VM) di jaringan virtual Azure.
+
+#### - Langkah 1: Buat zona DNS privat
+
+Di portal Azure, cari **private DNS zones**. Saat membuat zona, masukkan grup resource dan nama zona, contohnya `private.wideworldimports.com`.
+
+![dns creation](/img/az104/125.png)
+
+#### - Langkah 2: Identifikasi jaringan virtual
+
+Misalnya VM dan jaringan virtual sudah dibuat. Identifikasi jaringan virtual mana yang perlu menggunakan resolusi nama DNS. 
+Pengguna memerlukan nama jaringan virtual untuk menghubungkannya ke zona DNS privat.
+
+#### - Langkah 3: Hubungkan jaringan virtual ke zona DNS privat
+
+Untuk menghubungkan zona DNS privat ke jaringan virtual, Pengguna harus membuat **tautan jaringan virtual** (*virtual network link*).
+
+Di portal Azure, buka zona privat dan pilih **Virtual network links**.
+
+![dns creation](/img/az104/126.png)
+
+Klik **Add** untuk memilih jaringan virtual yang akan ditautkan ke zona privat.
+
+![dns creation](/img/az104/127.png)
+
+Tambahkan satu entri tautan jaringan virtual untuk setiap jaringan virtual yang memerlukan dukungan resolusi nama privat.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Resolve resource name secara dinamis menggunakan alias record
+
+### Apa itu Domain Apex?
+
+Domain apex adalah tingkat tertinggi dari domain. Dalam kasus ini, yaitu `wideworldimports.com`. Domain apex juga dikenal sebagai *zone apex* atau *root apex*. 
+Simbol `@` sering digunakan untuk mewakili domain apex dalam catatan zona DNS.
+
+Jika Pengguna memeriksa zona DNS untuk `wideworldimports.com`, Pengguna akan melihat ada dua catatan domain apex: `NS` dan `SOA`. Catatan `NS` dan `SOA` 
+dibuat secara otomatis saat Pengguna membuat zona DNS.
+
+*Record* CNAME yang mungkin Pengguna perlukan untuk profil Azure Traffic Manager atau endpoint Azure Content Delivery Network tidak didukung pada tingkat domain apex. 
+Namun, jenis alias record lainnya didukung pada tingkat ini.
+
+### Apa itu Alias Record?
+
+Alias record di Azure memungkinkan domain apex merujuk ke resource Azure lain dari dalam zona DNS. Pengguna tidak perlu membuat kebijakan pengalihan kompleks. 
+Pengguna juga bisa menggunakan alias Azure untuk mengarahkan semua lalu lintas melalui Traffic Manager.
+
+Alias record Azure dapat menunjuk ke resource Azure berikut:
+
+- Profil Traffic Manager
+- Endpoint Azure Content Delivery Network
+- Resource IP publik
+- Profil Azure Front Door
+
+Alias record menyediakan pelacakan siklus hidup dari resource target, memastikan bahwa setiap perubahan pada resource target secara otomatis diterapkan ke zona DNS. 
+Alias record juga mendukung aplikasi dengan *load balancer* di domain apex.
+
+Jenis catatan zona DNS yang didukung oleh *alias record set* adalah:
+
+- `A`: Catatan pemetaan nama domain ke IPv4.
+- `AAAA`: Catatan pemetaan nama domain ke IPv6.
+- `CNAME`: Alias domain, yang mengarah ke catatan A.
+
+### Kegunaan Alias Record
+
+Berikut adalah beberapa keuntungan dari penggunaan alias record:
+
+- **Mencegah catatan DNS yang menggantung**: Alias record mencegah referensi yang menggantung dengan mengaitkan siklus hidup DNS record secara erat dengan resource Azure.
+- **Memperbarui set catatan DNS secara otomatis ketika alamat IP berubah**: Jika alamat IP dari suatu layanan atau aplikasi berubah, alias record memastikan DNS diperbarui 
+secara otomatis.
+- **Menghosting aplikasi load-balanced pada domain apex**: Alias record memungkinkan routing resource apex ke Traffic Manager.
+- **Mengarah ke endpoint Azure Content Delivery Network**: Dengan alias record, Pengguna bisa langsung merujuk ke instance Azure CDN.
+
+Alias record memungkinkan Pengguna untuk menghubungkan apex domain (`wideworldimports.com`) ke load balancer. Ini menciptakan tautan ke resource Azure, 
+bukan koneksi berdasarkan alamat IP langsung. Jadi, jika alamat IP load balancer berubah, catatan domain apex tetap berfungsi.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+

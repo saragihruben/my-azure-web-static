@@ -3,12 +3,286 @@ id: AZ-1048
 title: Konfigurasi Network Security Group
 ---
 
+## Implementasi network security groups
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+- Pengguna dapat membatasi lalu lintas jaringan ke resources dalam jaringan virtual dengan menggunakan **Network Security Group (NSG)**.  
+- Pengguna dapat menetapkan NSG ke **subnet** atau **antarmuka jaringan (NIC)**, lalu mendefinisikan aturan keamanan di dalam grup untuk mengontrol lalu lintas jaringan.
 :::
 
-:::warning
+#### Hal yang Perlu Diketahui tentang Network Security Groups
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Mari kita lihat karakteristik dari Network Security Group:
+
+- NSG berisi daftar **aturan keamanan** yang mengizinkan atau menolak lalu lintas jaringan **masuk (inbound)** dan **keluar (outbound)**.
+- NSG dapat diasosiasikan dengan **subnet** atau **network interface (NIC)**.
+- Sebuah NSG dapat digunakan di **lebih dari satu asosiasi**.
+- Pengguna dapat membuat NSG dan mendefinisikan aturannya melalui **Azure Portal**.
+- Halaman *Overview* (Ringkasan) untuk mesin virtual memberikan informasi tentang NSG yang diasosiasikan, termasuk:
+  - Subnet yang ditetapkan
+  - NIC yang ditetapkan
+  - Aturan keamanan yang telah ditentukan
+
+![nsg](/img/az104/114.png)
+
+##### NSG dan Subnet
+
+- Pengguna dapat menetapkan NSG ke sebuah **subnet** dan menciptakan **subnet terlindung** (juga dikenal sebagai **Demilitarized Zone** atau **DMZ**).
+- DMZ bertindak sebagai buffer antara resources dalam jaringan virtual dan internet.
+- Gunakan NSG untuk **membatasi aliran lalu lintas** ke semua mesin yang berada dalam subnet tersebut.
+- Setiap subnet hanya dapat memiliki **maksimal satu NSG** yang diasosiasikan.
+
+<br/>
+#### NSG dan Network Interface (NIC)
+
+- Pengguna juga dapat menetapkan NSG ke sebuah **network interface card (NIC)**.
+- Aturan NSG akan mengontrol semua lalu lintas yang **melewati NIC tersebut**.
+- Setiap NIC yang ada di dalam sebuah subnet dapat memiliki **nol atau satu NSG** yang diasosiasikan.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Menjelaskan rules dari network security groups
+
+Aturan keamanan dalam **Network Security Group (NSG)** memungkinkan Pengguna untuk memfilter lalu lintas jaringan.
+Pengguna dapat mendefinisikan aturan untuk mengontrol alur lalu lintas masuk dan keluar dari **subnet jaringan virtual** dan **antarmuka jaringan (NIC)**.
+
+#### Hal yang Perlu Diketahui tentang Aturan Keamanan
+
+Mari kita tinjau karakteristik aturan keamanan dalam NSG:
+
+- Azure secara otomatis membuat beberapa **aturan keamanan bawaan** dalam setiap NSG, termasuk untuk lalu lintas masuk dan keluar.  
+  Contoh aturan bawaan termasuk:
+  - `DenyAllInbound` (Menolak semua lalu lintas masuk)
+  - `AllowInternetOutbound` (Mengizinkan lalu lintas keluar ke internet)
+- Aturan bawaan dibuat setiap kali membuat NSG baru.
+- Pengguna dapat menambahkan **aturan keamanan tambahan** dengan menentukan kondisi tertentu.
+
+Berikut adalah daftar pengaturan dan nilai umum untuk aturan keamanan:
+
+| Pengaturan            | Nilai                                                                 |
+|------------------------|----------------------------------------------------------------------|
+| **Source**             | Any, IP Addresses, My IP address, Service Tag, Application Security Group |
+| **Source port ranges** | Tentukan port di mana aturan akan mengizinkan atau menolak lalu lintas |
+| **Destination**        | Any, IP Addresses, Service Tag, Application Security Group            |
+| **Protocol**           | TCP, UDP, ICMP, atau Any (semua protokol)                             |
+| **Action**             | Allow atau Deny                                                       |
+| **Priority**           | Nilai antara 100 hingga 4096 yang unik untuk setiap aturan dalam NSG  |
+
+- Setiap aturan keamanan memiliki **nilai Prioritas**.
+- Semua aturan diproses berdasarkan **urutan prioritas** — semakin kecil nilainya, semakin tinggi prioritas aturan tersebut.
+- Pengguna **tidak dapat menghapus aturan bawaan**, tetapi dapat **menggantinya** dengan aturan lain yang memiliki prioritas lebih tinggi.
+
+### Aturan Lalu Lintas Masuk (*Inbound*)
+
+Azure mendefinisikan **tiga aturan bawaan untuk lalu lintas masuk** pada NSG:
+
+- Aturan ini **menolak semua lalu lintas masuk**, kecuali:
+  - Lalu lintas dari **jaringan virtual**
+  - Lalu lintas dari **Azure Load Balancer**
+
+![inbound](/img/az104/115.png)
+
+### Aturan Lalu Lintas Keluar (*Outbound*)
+
+Azure juga mendefinisikan **tiga aturan bawaan untuk lalu lintas keluar**:
+
+- Aturan ini hanya mengizinkan lalu lintas keluar ke:
+  - **Internet**
+  - **Jaringan virtual sendiri**
+
+![outbound](/img/az104/116.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Effective rules dari network security groups
+
+Setiap *network security group* (NSG) dan aturan keamanannya dievaluasi secara independen. 
+Azure memproses kondisi dalam setiap aturan yang telah ditentukan untuk setiap mesin virtual dalam konfigurasi.
+
+- Untuk **lalu lintas masuk (inbound)**, Azure terlebih dahulu memproses aturan NSG yang terkait dengan **subnet**, 
+kemudian aturan NSG yang terkait dengan **antarmuka jaringan (NIC)**.
+- Untuk **lalu lintas keluar (outbound)**, prosesnya dibalik: Azure memproses aturan NSG yang terkait dengan **NIC** terlebih dahulu, lalu **subnet**.
+- Untuk evaluasi baik inbound maupun outbound, Azure juga mengevaluasi penerapan aturan untuk **lalu lintas intra-subnet** — 
+yaitu lalu lintas antara mesin virtual dalam **subnet yang sama**.
+
+Cara Azure menerapkan aturan keamanan yang di tetapkan terhadap mesin virtual akan menentukan **seberapa efektif** aturan-aturan tersebut.
+
+### Evaluasi Network Security Group
+
+Jika Pengguna menerapkan NSG pada **subnet** dan **NIC**, masing-masing NSG akan dievaluasi secara independen. 
+Aturan inbound dan outbound diproses berdasarkan **urutan prioritas**.
+
+![nsg evaluation](/img/az104/117.png)
+
+### Hal yang Perlu Dipertimbangkan saat Membuat Aturan Efektif
+
+Tinjau pertimbangan berikut saat membuat aturan keamanan yang efektif untuk mesin-mesin virtual di jaringan:
+
+#### Pertimbangkan untuk Mengizinkan Semua Lalu Lintas
+- Jika Pengguna menempatkan mesin virtual dalam sebuah subnet atau menggunakan NIC **tanpa mengasosiasikan NSG**, 
+maka semua lalu lintas akan diizinkan sesuai dengan aturan default Azure.  
+- Jika Pengguna tidak perlu mengontrol lalu lintas secara ketat, **tidak perlu** menautkan NSG pada subnet atau NIC.
+
+#### Pentingnya Aturan Allow
+- Saat membuat NSG, Pengguna **harus membuat aturan yang mengizinkan (allow)** baik untuk **subnet** maupun **NIC**.  
+- Jika NSG hanya menyediakan aturan allow pada salah satu tingkat (misalnya hanya subnet), maka lalu lintas tetap **ditolak** pada tingkat lain (misalnya NIC) jika tidak ada aturan allow di sana.
+
+#### Pertimbangkan Lalu Lintas Intra-Subnet
+- NSG yang diterapkan pada subnet juga mempengaruhi lalu lintas antar mesin virtual dalam subnet yang sama.  
+- Pengguna dapat **melarang lalu lintas intra-subnet** dengan mendefinisikan aturan untuk **menolak semua lalu lintas masuk dan keluar**.  
+- Hal ini mencegah komunikasi antar mesin virtual di subnet yang sama.
+
+#### Pertimbangkan Prioritas Aturan
+- Aturan dalam NSG diproses berdasarkan **prioritas** — semakin rendah nilai prioritasnya, semakin tinggi urutannya dalam pemrosesan.  
+- Gunakan skema penomoran prioritas seperti **100, 200, 300**, dan seterusnya untuk **memberi ruang** dalam menambahkan aturan baru di kemudian hari **tanpa mengubah aturan yang sudah ada**.
+
+<br/>
+### Melihat Aturan Keamanan yang Efektif
+
+Jika Pengguna memiliki banyak NSG dan tidak yakin aturan mana yang sedang diterapkan, gunakan tautan **Effective security rules** di portal Azure.
+
+Tautan ini akan membantu dalam memverifikasi aturan-aturan yang aktif pada:
+
+- Mesin virtual
+- Subnet
+- Network interface (NIC)
+
+![effective rule](/img/az104/118.png)
+
+:::info **Catatan:**  
+> Azure **Network Watcher** menyediakan tampilan gabungan dari semua aturan infrastruktur jaringan.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Membuat network security group rules
+
+Sangat mudah untuk menambahkan aturan keamanan guna mengontrol lalu lintas **inbound** dan **outbound** melalui portal Azure. 
+Pengguna dapat mengonfigurasi pengaturan aturan *network security group* (NSG) di jaringan virtual, 
+dan memilih dari berbagai layanan komunikasi, termasuk **HTTPS**, **RDP**, **FTP**, dan **DNS**.
+
+### Hal yang Perlu Diketahui Saat Mengonfigurasi Aturan Keamanan
+
+Berikut adalah beberapa properti yang perlu di tentukan saat membuat aturan keamanan. Saat meninjau pengaturan ini, pikirkan tentang aturan lalu lintas yang 
+Pengguna perlukan dan layanan apa yang sesuai dengan kebutuhan jaringan.
+
+![nsg creation](/img/az104/119.png)
+
+#### Sumber (*Source*)
+Menentukan bagaimana aturan keamanan mengontrol **lalu lintas masuk (inbound)**. Nilainya menunjukkan rentang alamat IP sumber tertentu yang akan **diizinkan** atau **ditolak**.
+Filter sumber dapat berupa:
+
+- Resources apapun
+- Rentang alamat IP
+- *Application security group*
+- *Default tag*
+
+#### Tujuan (*Destination*)
+Menentukan bagaimana aturan keamanan mengontrol **lalu lintas keluar (outbound)**. Nilainya menunjukkan rentang alamat IP tujuan tertentu yang akan **diizinkan** atau **ditolak**. 
+Filter tujuan mirip dengan filter sumber dan dapat berupa:
+
+- Resources apapun
+- Rentang alamat IP
+- *Application security group*
+- *Default tag*
+
+#### Layanan (*Service*)
+Menentukan **protokol dan rentang port tujuan** untuk aturan keamanan. Pengguna dapat memilih layanan yang telah ditentukan sebelumnya seperti:
+
+- RDP
+- SSH
+- HTTPS
+
+Atau menentukan rentang port kustom sesuai kebutuhan. Tersedia berbagai pilihan layanan yang dapat di sesuaikan.
+
+![nsg creation service](/img/az104/120.png)
+
+#### Prioritas (*Priority*)
+Menentukan urutan prioritas untuk aturan keamanan. Semua aturan dalam sebuah NSG — baik di tingkat subnet maupun NIC — diproses berdasarkan **nilai prioritas** ini.
+
+- Semakin rendah nilai prioritas, semakin **tinggi** urutan pemrosesan aturan.
+- Pastikan tidak ada dua aturan dengan prioritas yang sama.
+
+![nsg creation priority](/img/az104/121.png)
+
+:::tip
+> Tingkatkan pembelajaran dengan modul pelatihan [**Secure and isolate access to Azure resources by using network security groups and service endpoints**](https://learn.microsoft.com/en-us/training/modules/secure-and-isolate-with-nsg-and-service-endpoints/).
+Modul ini mencakup **sandbox** interaktif untuk praktik langsung.
+:::
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Implementasi aplikasi security groups
+
+Pengguna dapat menerapkan **Application Security Groups (ASG)** di jaringan virtual Azure untuk mengelompokkan mesin virtual secara logis berdasarkan beban kerja. 
+Pengguna kemudian dapat mendefinisikan aturan *network security group* berdasarkan ASG tersebut.
+
+#### Hal yang Perlu Diketahui Tentang Penggunaan Application Security Groups
+
+ASG bekerja mirip dengan Network Security Group (NSG), namun memberikan pendekatan yang berfokus pada aplikasi untuk mengelola infrastruktur. 
+Pengguna menggabungkan mesin virtual ke dalam ASG, lalu menggunakan ASG sebagai **sumber** atau **tujuan** dalam aturan NSG.
+
+Mari kita lihat bagaimana cara menerapkan ASG dengan membuat konfigurasi untuk sebuah toko online. Dalam skenario ini, 
+kita perlu mengontrol lalu lintas jaringan ke mesin virtual yang tergabung dalam ASG.
+
+![application security group](/img/az104/121.png)
+
+#### Kebutuhan Skenario
+
+Berikut adalah kebutuhan untuk konfigurasi contoh kita:
+
+- Dalam skenario ini, terdapat dua tier: **web server** dan **application server**.
+- Web server menangani lalu lintas internet melalui HTTP dan HTTPS.
+- Application server memproses permintaan SQL dari web server.
+
+
+#### Solusi
+
+Untuk skenario ini, kita perlu membuat konfigurasi sebagai berikut:
+
+1. **Buat ASG untuk setiap tier.**
+2. **Untuk setiap mesin virtual, tetapkan antarmuka jaringannya ke ASG yang sesuai.**
+3. **Buat NSG dan aturan keamanannya.**
+
+<br/>
+**Aturan 1**:  
+- Prioritas: `100`  
+- Izinkan akses dari internet ke mesin web server melalui port **HTTP (80)** dan **HTTPS (443)**.  
+- Ini adalah aturan dengan prioritas terendah (angka terkecil), sehingga akan diproses terlebih dahulu.  
+- Akses pelanggan ke katalog online merupakan prioritas utama.
+
+**Aturan 2**:  
+- Prioritas: `110`  
+- Izinkan akses dari web server ke application server melalui **port 1433 (SQL melalui HTTPS)**.
+
+**Aturan 3**:  
+- Prioritas: `120`  
+- Tolak semua akses dari luar ke mesin application server melalui **port 1433**.
+
+Gabungan antara Aturan 2 dan 3 memastikan bahwa hanya web server yang dapat mengakses database server. Konfigurasi ini melindungi basis data inventaris dari serangan luar.
+
+<br/>
+### Hal yang Perlu Dipertimbangkan Saat Menggunakan ASG
+
+Berikut beberapa keuntungan dari penerapan ASG dalam jaringan virtual:
+
+#### Pertimbangan Pemeliharaan Alamat IP  
+- Dengan menggunakan ASG, Pengguna tidak perlu mengatur lalu lintas masuk dan keluar untuk setiap alamat IP tertentu.  
+- Jika Pengguna memiliki banyak VM, mengelola alamat IP satu per satu bisa rumit dan tidak efisien.
+
+#### Tidak Bergantung pada Subnet  
+- Pengguna tidak perlu menyebarkan server ke dalam subnet tertentu.  
+- Sebagai gantinya, Pengguna bisa mengelompokkan server berdasarkan **fungsi dan aplikasi** untuk menciptakan pengelompokan logis.
+
+#### Aturan yang Lebih Sederhana  
+- Dengan ASG, Pengguna tidak perlu membuat aturan terpisah untuk setiap mesin virtual.  
+- Aturan baru secara otomatis diterapkan ke semua VM dalam grup aplikasi tersebut.
+
+#### Mendukung Beban Kerja  
+- Konfigurasi berbasis ASG mudah untuk dipahami dan dikelola karena pengelompokannya berdasarkan **penggunaan aplikasi atau layanan**.
+
+#### Gunakan Bersama Service Tags  
+- **Service Tags** mewakili grup alamat IP dari layanan Azure tertentu dan menyederhanakan pengelolaan aturan keamanan jaringan.  
+- Jika **Service Tags** digunakan untuk layanan Azure, **ASG** digunakan untuk mengelompokkan VM dan menerapkan kebijakan keamanan berdasarkan grup tersebut.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

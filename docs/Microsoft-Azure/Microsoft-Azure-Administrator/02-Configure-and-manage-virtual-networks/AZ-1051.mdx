@@ -3,12 +3,211 @@ id: AZ-1051
 title: Manajemen dan kontrol alur trafik pada Azure deployment menggunakan route
 ---
 
-:::info
+<br/>
+## Identifikasi kemampuan routing pada Azure Virtual Network
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+Untuk mengontrol alur lalu lintas dalam jaringan virtual, Pengguna perlu memahami tujuan dan manfaat dari custom route. 
+Pengguna juga perlu tahu cara mengkonfigurasi route untuk mengarahkan lalu lintas melalui **network virtual appliance (NVA)**.
 
+### Routing di Azure
+
+Lalu lintas jaringan di Azure secara otomatis dirutekan di seluruh subnet Azure, jaringan virtual, dan jaringan lokal. 
+System route mengontrol perutean ini dan ditetapkan secara default ke setiap subnet dalam jaringan virtual.
+
+Dengan system route, mesin virtual Azure mana pun yang dideploy dalam jaringan virtual dapat berkomunikasi satu sama lain, 
+dan juga dapat diakses dari jaringan lokal (hybrid) atau internet.
+
+:::warning 
+Pengguna tidak bisa membuat atau menghapus system route, tetapi dapat **menimpa** dengan menambahkan **custom route** 
+untuk mengontrol alur lalu lintas ke next hop berikutnya.
 :::
 
-:::warning
+#### Default system route pada Setiap Subnet:
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+| **Prefiks Alamat**     | **Tipe Next Hop**     |
+|------------------------|------------------------|
+| Unik untuk VNet        | Virtual network        |
+| 0.0.0.0/0              | Internet               |
+| 10.0.0.0/8             | None                   |
+| 172.16.0.0/12          | None                   |
+| 192.168.0.0/16         | None                   |
+| 100.64.0.0/10          | None                   |
+
+**Tipe Next Hop** menunjukkan jalur yang diambil oleh lalu lintas untuk setiap prefiks alamat:
+
+- **Virtual network**: Rute dibuat untuk setiap rentang alamat di level jaringan virtual.
+- **Internet**: Default system route `0.0.0.0/0` mengarahkan semua alamat ke internet, kecuali ditimpa oleh custom route.
+- **None**: Lalu lintas ke alamat ini **dibuang**. Alamat pribadi IPv4 seperti `10.0.0.0/8`, `172.16.0.0/12`, dan `192.168.0.0/16` secara default diblokir.
+
+![overview system route](/img/az104/132.png)
+
+### System route Tambahan
+
+Azure membuat route tambahan jika fitur berikut diaktifkan:
+
+- **Virtual network peering**
+- **Service chaining**
+- **Virtual network gateway**
+- **Virtual network service endpoint**
+
+#### - Peering Jaringan Virtual dan Service Chaining
+
+Peering memungkinkan komunikasi antar VNet di region yang sama maupun berbeda. Service chaining memungkinkan **menimpa** rute dengan 
+rute yang didefinisikan pengguna (user-defined).
+
+![vnet peering and service chaining](/img/az104/133.png)
+
+#### - Virtual Network Gateway
+
+Digunakan untuk mengirim lalu lintas terenkripsi antara Azure dan on-premises melalui internet, atau antara dua jaringan Azure.
+
+![vnet gateway](/img/az104/134.png)
+
+#### - Virtual Network Service Endpoint
+
+Endpoint layanan memperluas alamat privat dan memungkinkan koneksi langsung ke layanan Azure tertentu, seperti storage, tanpa melewati internet publik.
+
+<br/>
+### Custom Route
+
+Meskipun system route sudah cukup, sering kali Pengguna ingin **mengontrol** alur lalu lintas secara lebih spesifik, misalnya melalui firewall atau NVA.
+
+#### - Opsi Custom Route
+
+1. **User-defined route (UDR)**: Pengguna buat sendiri
+2. **Border Gateway Protocol (BGP)**: Pertukaran rute otomatis antara Azure dan jaringan lokal
+
+#### - User-defined Routes
+
+Dengan UDR, Pengguna bisa menimpa system route agar lalu lintas diarahkan melalui:
+
+- **Virtual appliance**: Biasanya firewall, ditentukan dengan IP privat dari NIC VM atau internal load balancer.
+- **Virtual network gateway**: Untuk rute menuju VPN.
+- **Virtual network**: Menimpa rute default dalam VNet.
+- **Internet**: Mengarahkan lalu lintas ke internet.
+- **None**: Membuang lalu lintas ke alamat tertentu.
+
+:::warning
+❌ Pengguna **tidak dapat** menggunakan `VirtualNetworkServiceEndpoint` sebagai next hop pada UDR.
+:::
+
+#### - Tag Layanan untuk Custom Route
+
+Pengguna dapat menggunakan **service tag** sebagai pengganti IP langsung. Tag ini mewakili grup prefiks IP dari layanan Azure tertentu. 
+Microsoft secara otomatis memperbarui tag ini sehingga tidak perlu mengatur ulang secara manual saat IP berubah.
+
+<br/>
+### Border Gateway Protocol (BGP)
+
+BGP adalah protokol standar untuk pertukaran rute antar jaringan. Digunakan bersama dengan:
+
+- **Azure ExpressRoute**
+- **VPN site-to-site**
+
+![bgp](/img/az104/135.png)
+
+BGP memberi stabilitas karena router dapat dengan cepat memilih jalur alternatif jika jalur utama gagal.
+
+#### - Pemilihan dan Prioritas Rute
+
+Jika beberapa rute tersedia, Azure memilih:
+
+- **Rute dengan prefiks terpanjang** (paling spesifik).  
+  Misalnya: `10.0.0.0/24` akan dipilih daripada `10.0.0.0/16`.
+
+- Jika ada beberapa rute dengan prefiks yang sama, urutan prioritas adalah:
+
+  1. **User-defined routes**
+  2. **BGP routes**
+  3. **System routes**
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Network Virtual Appliance
+
+**Network Virtual Appliance (NVA)** adalah perangkat virtual yang terdiri dari berbagai lapisan, seperti:
+
+- Firewall  
+- WAN optimizer  
+- Application-delivery controller  
+- Router  
+- Load balancer  
+- IDS/IPS  
+- Proxy  
+
+Pengguna bisa mendepoy NVA pilihan dari penyedia yang tersedia di **Azure Marketplace**, seperti Fortigate, Cisco, Check Point, Barracuda, Sophos, WatchGuard, dan SonicWall.
+
+NVA dapat digunakan untuk:
+
+- Menyaring lalu lintas masuk ke jaringan virtual  
+- Memblokir permintaan berbahaya  
+- Memblokir permintaan dari sumber yang tidak diharapkan  
+
+#### Skenario: Organisasi Retail
+
+Dalam skenario organisasi retail, Pengguna bekerja dengan tim keamanan dan jaringan untuk menerapkan lingkungan yang aman. Tujuannya adalah:
+
+- Meneliti semua lalu lintas masuk  
+- Memblokir lalu lintas yang tidak sah  
+- Melindungi jaringan mesin virtual dan layanan Azure  
+
+> **Tujuan utama:** Mencegah lalu lintas jaringan yang tidak diinginkan atau tidak aman mencapai bagian pada sistem yang critical.
+
+<br/>
+### Network Virtual Appliance
+
+**Network Virtual Appliance (NVA)** adalah **mesin virtual** yang mengontrol alur lalu lintas jaringan dengan cara mengontrol routing. 
+NVA biasanya digunakan untuk mengelola lalu lintas dari **jaringan perimeter** ke jaringan atau subnet lain.
+
+![nva](/img/az104/136.png)
+
+Pengguna bisa mengonfigurasi firewall dalam jaringan virtual dalam berbagai cara:
+
+- Menempatkan firewall di subnet jaringan perimeter  
+- Menggunakan pendekatan **mikrosegmentasi** untuk kontrol keamanan yang lebih ketat
+
+<br/>
+#### Mikrosegmentasi
+
+Dengan mikrosegmentasi, Pengguna:
+
+- Membuat subnet khusus untuk firewall  
+- Menempatkan aplikasi web dan layanan lainnya di subnet lain  
+- Mengarahkan semua lalu lintas melalui firewall dan **diperiksa oleh NVA**  
+- Mengaktifkan penerusan (forwarding) di antarmuka jaringan appliance untuk meneruskan lalu lintas ke subnet yang sesuai
+
+Firewall dapat memeriksa semua paket di **Layer 4** (transport) dan, untuk perangkat yang memahami aplikasi, hingga **Layer 7** (aplikasi).
+
+Saat Pengguna mendepoy NVA ke Azure, NVA bertindak sebagai **router** yang meneruskan permintaan antar subnet dalam jaringan virtual.
+
+:::warning
+Beberapa NVA memerlukan **beberapa network interface**:
+> - Satu untuk jaringan manajemen
+> - Sisanya untuk lalu lintas data
+:::
+
+Setelah NVA dideploy, Pengguna bisa mengkonfigurasinya untuk meneruskan lalu lintas melalui antarmuka yang sesuai.
+
+### User-defined Routes (UDR)
+
+Secara default, Azure telah menyediakan **rute sistem** untuk memulai lingkungan. Namun, dalam beberapa kasus, Pengguna perlu membuat **tabel routing** dan
+ menambahkan **rute kustom**, misalnya:
+
+- Akses internet melalui jaringan lokal dengan **forced tunneling**  
+- Mengontrol lalu lintas melalui virtual appliance (NVA)
+
+:::info
+- Pengguna dapat membuat beberapa **route table** di Azure.  
+- Setiap **route table** bisa dikaitkan dengan satu atau lebih subnet.  
+- Namun, **satu subnet hanya bisa terhubung ke satu route table.**
+:::
+
+<br/>
+#### Ketersediaan Tinggi untuk NVA
+
+- Jika lalu lintas diarahkan melalui NVA, maka NVA menjadi **komponen kritis** dari infrastruktur. Kegagalan pada NVA bisa langsung memengaruhi kemampuan 
+layanan untuk berkomunikasi.
+- Oleh karena itu, penting untuk menerapkan **arsitektur dengan ketersediaan tinggi (high availability)** dalam deployment NVA.
+- Azure menyediakan beberapa metode untuk mencapai **ketersediaan tinggi** saat menggunakan NVA.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------

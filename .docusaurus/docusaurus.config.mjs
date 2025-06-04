@@ -7,7 +7,7 @@ export default {
   "title": "MyWiki",
   "trailingSlash": false,
   "url": "https://lively-stone-0b0c94d10.6.azurestaticapps.net",
-  "baseUrl": "/en/",
+  "baseUrl": "/",
   "onBrokenLinks": "throw",
   "onBrokenMarkdownLinks": "warn",
   "favicon": "img/favicon.png",

@@ -3,12 +3,257 @@ id: AZ-1052
 title: Pengenalan Azure Load Balancer
 ---
 
+Beberapa aplikasi memiliki lalu lintas masuk (trafik) yang sangat tinggi sehingga satu server tidak mampu menangani permintaan klien dengan cepat. 
+Alih-alih terus menambahkan kapasitas jaringan, prosesor, resource disk, dan RAM, Pengguna bisa menangani trafik ini dengan **implementasi load balancing**.
+
+**Load balancing** adalah proses mendistribusikan lalu lintas masuk secara merata ke beberapa komputer. 
+Kumpulan komputer dengan resource yang lebih rendah sering kali dapat merespons trafik lebih efektif dibandingkan satu server berkinerja tinggi.
+
+## Azure Load Balancer
+
+**Azure Load Balancer** adalah layanan dari Azure yang memungkinkan Pengguna untuk mendistribusikan trafik jaringan masuk secara merata ke sekelompok VM Azure, 
+atau ke instance dalam **Virtual Machine Scale Set**.
+
+Azure Load Balancer memberikan **ketersediaan tinggi (high availability)** dan **kinerja jaringan (network performance)** melalui cara berikut:
+
+- **Aturan load balancing** menentukan bagaimana trafik didistribusikan ke instance di back-end.
+- **Health probes** memastikan bahwa resource di back-end dalam kondisi sehat, dan mencegah pengiriman trafik ke instance yang tidak sehat.
+
+
+### Jenis Azure Load Balancer
+
+#### - Public Load Balancer
+
+- Digunakan untuk **mendistribusikan trafik dari internet** ke VM.
+- Memetakan alamat IP publik dan nomor port trafik masuk ke **alamat IP privat dan port** dari VM di back-end pool.
+- Contoh: menyebarkan permintaan web dari internet ke beberapa web server.
+- Juga dapat menyediakan koneksi keluar (**outbound**) untuk VM di dalam virtual network.
+
+#### - Internal (Private) Load Balancer
+
+- Mengarahkan trafik ke resource **di dalam virtual network** atau yang menggunakan **VPN** untuk mengakses infrastruktur Azure.
+- Alamat IP front-end dan virtual network tidak pernah diekspos langsung ke internet.
+- Cocok untuk **aplikasi internal (LOB - Line-of-Business)** yang dijalankan di Azure dan hanya diakses dari dalam Azure atau dari resource on-premises.
+- Digunakan ketika **alamat IP privat** diperlukan pada bagian depan.
+
+---
+
+### Skenario Load Balancing Internal
+
+Internal Load Balancer memungkinkan berbagai jenis skenario:
+
+-  **Dalam satu virtual network**: Load balancing dari VM ke sekumpulan VM lain dalam VNet yang sama.
+-  **Virtual network lintas lokasi (cross-premises)**: Load balancing dari komputer on-premises ke VM di VNet.
+-  **Aplikasi multi-tier**: Load balancing antara tier backend (tidak menghadap internet) dari aplikasi yang memiliki tier frontend publik.
+-  **Aplikasi LOB**: Load balancing aplikasi bisnis internal yang dihosting di Azure tanpa perangkat keras atau perangkat lunak load balancer tambahan.
+
+#### Skalabilitas
+
+Setiap jenis Azure Load Balancer mendukung **trafik masuk (inbound)** dan **keluar (outbound)** serta dapat diskalakan hingga **jutaan aliran aplikasi TCP dan UDP**.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Cara kerja Azure Load Balancer
+
+
+**Azure Load Balancer** beroperasi pada **lapisan transport (Layer 4)** dari model OSI. 
+Fungsi Layer 4 ini memungkinkan pengelolaan trafik berdasarkan properti spesifik seperti:
+
+- Alamat sumber dan tujuan
+- Jenis protokol TCP atau UDP
+- Nomor port
+
+#### Komponen Azure Load Balancer
+
+Berikut beberapa elemen utama dalam Load Balancer yang bekerja bersama untuk memastikan ketersediaan tinggi dan performa aplikasi:
+
+- Front-end IP
+- Aturan Load Balancer
+- Back-end pool
+- Health probe
+- Aturan NAT masuk (Inbound NAT)
+- Port ketersediaan tinggi
+- Aturan outbound
+
+<br/>
+### Front-end IP
+
+Alamat IP front-end adalah alamat yang digunakan klien untuk mengakses aplikasi. Azure Load Balancer dapat memiliki beberapa IP front-end, baik **publik** maupun **privat**.
+
+- **Public IP** → Load Balancer Publik  
+  Memetakan IP dan port publik ke IP dan port privat dari VM di back-end pool. Berguna untuk trafik dari internet.
+
+- **Private IP** → Load Balancer Internal  
+  Digunakan untuk trafik antar resource di dalam Virtual Network. Tidak terekspos langsung ke internet.
+
+![loadbalancer ilustration](/img/az104/137.png)
+
+<br/>
+### Aturan Load Balancer
+
+Aturan load balancer menentukan bagaimana trafik didistribusikan dari IP dan port front-end ke kombinasi IP dan port back-end pool.
+
+![lbl rule](/img/az104/138.png)
+
+Load Balancer menggunakan **hash lima-elemen (five-tuple)** berikut untuk menentukan rute trafik:
+
+- IP sumber
+- Port sumber
+- IP tujuan
+- Port tujuan
+- Jenis protokol (TCP/UDP)
+- Session affinity
+
 :::info
+> Load Balancer mendukung beberapa port dan IP di satu aturan, tetapi tidak bisa memproses konten trafik (karena berada di Layer 4). 
+Untuk Layer 7, gunakan Azure Application Gateway.
+:::
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+<br/>
+### Back-end Pool
 
+Back-end pool adalah kumpulan VM atau instance di **Virtual Machine Scale Set** yang merespons permintaan masuk.
+
+- Untuk skala yang efektif, tambahkan lebih banyak instance ke back-end pool.
+- Load Balancer secara otomatis mengonfigurasi ulang ketika jumlah instance berubah.
+
+<br/>
+### Health Probe
+
+Health probe digunakan untuk memeriksa kesehatan instance di back-end pool. Jika instance dianggap tidak sehat, Load Balancer tidak akan mengirim trafik baru ke sana.
+
+Jenis probe:
+
+- **TCP Probe**: Memeriksa apakah port tertentu dapat membuat sesi TCP.
+- **HTTP/HTTPS Probe**: Mengirim permintaan HTTP/HTTPS ke URI tertentu. Balasan HTTP 200 dianggap sehat.
+
+Parameter yang bisa disesuaikan:
+
+- Port
+- URI (untuk HTTP/HTTPS)
+- Interval (waktu antar pemeriksaan)
+- Unhealthy threshold (jumlah kegagalan sebelum dianggap tidak sehat)
+
+<br/>
+### Session Persistence
+
+Secara default, Load Balancer membagi trafik secara merata. Namun, resource bisa menetapkan **session affinity** agar trafik dari satu klien selalu diarahkan ke instance yang sama.
+
+Opsi session persistence:
+
+- **None** (default): Permintaan dapat dilayani oleh VM sehat mana pun.
+- **Client IP (2-tuple)**: Trafik dari IP yang sama selalu diarahkan ke instance yang sama.
+- **Client IP + Protocol (3-tuple)**: Berdasarkan IP dan jenis protokol (TCP/UDP).
+
+<br/>
+### High Availability Ports
+
+Aturan load balancer yang dikonfigurasi dengan **protocol: all** dan **port: 0** disebut sebagai **aturan port ketersediaan tinggi (High Availability/HA port rule)**.
+
+Aturan ini memungkinkan satu aturan saja untuk menyeimbangkan semua aliran trafik **TCP dan UDP** yang masuk melalui **semua port** pada **internal standard load balancer**.
+
+![ha port](/img/az104/139.png)
+
+#### Keputusan Load Balancing Berdasarkan Flow
+
+Keputusan penyeimbangan beban dibuat berdasarkan **setiap aliran koneksi (per flow)**, menggunakan kombinasi lima-elemen (five-tuple) berikut:
+
+- Alamat IP sumber (Source IP address)  
+- Port sumber (Source port)  
+- Alamat IP tujuan (Destination IP address)  
+- Port tujuan (Destination port)  
+- Protokol (Protocol)
+
+#### Kapan Menggunakan HA Ports?
+
+Aturan HA port berguna untuk skenario penting seperti:
+
+- Ketersediaan tinggi untuk **Network Virtual Appliances (NVA)**
+- **Skalabilitas besar** di dalam **virtual network**
+- Saat resource perlu menyeimbangkan trafik dalam jumlah **port yang sangat besar**
+
+Fitur ini menyederhanakan konfigurasi dan meningkatkan efisiensi dalam lingkungan jaringan yang kompleks.
+
+<br/>
+### Aturan NAT masuk (Inbound NAT)
+
+![inbound nat](/img/az104/140.png)
+
+Digunakan untuk mengakses VM secara langsung, contohnya:
+
+- NAT dari IP publik Load Balancer ke port **TCP 3389** dari VM untuk akses Remote Desktop.
+- Cocok untuk pengelolaan VM dari luar Azure.
+
+### Aturan NAT keluar (Outbound NAT)
+
+![nva](/img/az104/141.png)
+
+Aturan outbound mengatur **Source Network Address Translation (SNAT)**:
+
+- Memungkinkan instance di back-end pool mengakses internet.
+- Digunakan untuk komunikasi keluar ke internet atau layanan publik lainnya.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Kapan menggunakan Azure Load Balancer
+
+Azure Load Balancer sangat cocok digunakan untuk aplikasi yang membutuhkan **latensi sangat rendah** dan **performa tinggi**.
+
+Layanan ini cocok untuk kebutuhan organisasi karena Pengguna sedang **menggantikan perangkat keras jaringan** yang sebelumnya digunakan untuk menyeimbangkan trafik 
+pada berbagai aplikasi. Aplikasi-aplikasi tersebut menggunakan beberapa **tier VM** saat masih berada di lingkungan lokal (on-premises), dan kini dapat dijalankan dengan 
+layanan Azure yang memiliki fungsionalitas serupa.
+
+Karena Azure Load Balancer bekerja di **Layer 4** dari model OSI (seperti perangkat keras jaringan sebelumnya), Pengguna dapat menggunakan layanan ini untuk 
+**meniru fungsionalitas perangkat tersebut**, seperti:
+
+- **Health Probes** untuk memastikan Load Balancer tidak mengirim trafik ke node VM yang gagal.
+- **Session Persistence** untuk memastikan klien hanya berkomunikasi dengan satu VM selama sesi berlangsung.
+
+#### Contoh Penggunaan
+
+- Mengonfigurasi **public load balancer** untuk menangani trafik ke tier web aplikasi.
+- Mengonfigurasi **internal load balancer** untuk membagi trafik antara tier web dan tier analisis/data processing.
+- Mengatur **aturan NAT inbound** agar bisa mengakses VM melalui Remote Desktop Protocol (RDP) untuk keperluan administratif.
+
+<br/>
+:::info Kapan Tidak Menggunakan Azure Load Balancer
+
+Azure Load Balancer **tidak tepat digunakan** jika Pengguna hanya menjalankan satu instance VM untuk aplikasi web **tanpa kebutuhan load balancing**.
+
+Contohnya, jika aplikasi web hanya menerima sedikit trafik dan infrastruktur yang ada sudah menangani beban tersebut dengan baik, maka:
+
+- Tidak perlu menggunakan back-end pool.
+- Tidak perlu menggunakan Azure Load Balancer.
+:::
+
+### Alternatif Azure Load Balancer
+
+Azure menyediakan beberapa solusi load balancing lainnya, antara lain:
+
+##### - Azure Front Door
+- Layanan pengiriman aplikasi dan akselerasi situs global.
+- Mendukung **Layer 7**: offload TLS/SSL, routing berbasis path, failover cepat, firewall aplikasi web, caching.
+- Cocok untuk skenario **multi-region**.
+
+#### - Azure Traffic Manager
+- Load balancer berbasis **DNS** untuk distribusi trafik lintas region.
+- Memberikan **high availability dan responsiveness**.
+- Hanya bekerja di **level domain**, dengan waktu failover yang tidak secepat Front Door karena keterbatasan DNS caching dan TTL.
+
+#### - Azure Application Gateway
+- Menyediakan **Application Delivery Controller (ADC)** sebagai layanan.
+- Mendukung fitur Layer 7, seperti **offload TLS/SSL** untuk efisiensi CPU.
+- Bekerja di dalam satu **region Azure**, bukan global.
+
+:::tip Konklusi
+**Azure Load Balancer** adalah layanan **Layer 4** yang mendukung trafik **TCP dan UDP**, dengan performa tinggi dan latensi sangat rendah.
+
+- Mampu menangani **jutaaan permintaan per detik**
+- **Redundan zona (zone-redundant)** untuk memastikan ketersediaan tinggi
 :::
 
 :::warning
+Jika aplikasi membutuhkan fitur WAF, maka Azure Load Balancer **bukan** solusi yang tepat.
+:::
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+---------------------------------------------------------------------------------------------------------------------------------------------------
