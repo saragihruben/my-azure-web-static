@@ -5,22 +5,50 @@
       "plugin": "c141421f"
     }
   },
-  "/en/docs-974": {
+  "/en/docs-95e": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/en/docs-5f3": {
+  "/en/docs-ea5": {
     "__comp": "a7bd4aaa",
     "__props": "0abf49b1"
   },
-  "/en/docs-a9c": {
+  "/en/docs-74c": {
     "__comp": "a94703ab"
   },
   "/en/docs/devops-sre-9c4": {
     "__comp": "17896441",
     "content": "6dc5c9d6"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals-3f2": {
+    "__comp": "17896441",
+    "content": "ef2f3e59"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitHub-3c2": {
+    "__comp": "17896441",
+    "content": "198fabaa"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1-a7d": {
+    "__comp": "17896441",
+    "content": "877bd1ff"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2-caa": {
+    "__comp": "17896441",
+    "content": "4c6cefa6"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab-fa1": {
+    "__comp": "17896441",
+    "content": "f2934d4c"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1-bac": {
+    "__comp": "17896441",
+    "content": "518e74a3"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2-095": {
+    "__comp": "17896441",
+    "content": "077ec3cd"
   },
   "/en/docs/Getting-started/introduction-234": {
     "__comp": "17896441",

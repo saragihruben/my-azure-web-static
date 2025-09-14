@@ -16,6 +16,41 @@
               "sidebar": "defaultSidebar"
             },
             {
+              "id": "devops-sre/Git-Fundamentals/Git-Fundamentals",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitHub/GitHub",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitHub/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/GitLab",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/",
+              "sidebar": "defaultSidebar"
+            },
+            {
               "id": "Getting-started/introduction",
               "path": "/en/docs/Getting-started/introduction",
               "sidebar": "defaultSidebar"

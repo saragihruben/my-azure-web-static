@@ -137,26 +137,66 @@ module.exports = {
 
       ],
     },
+
     {
       type: "category",
       label: "Devops & SRE",
       collapsible: false,
       items: [
-        {
-          type: "category",
-          label: "sub1",
-          collapsible: true,
-          items: [
+            
             {
               type: "category",
-              label: "Devops",
+              label: "GitHub",
               collapsible: true,
               items: [
-                "devops-sre/devops-sre",
+                {
+                  type: "category",
+                  label: "Coming Soon 1",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitHub/example1/Coming Soon 1",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Coming Soon 2",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitHub/example2/Coming Soon 2",
+                  ],
+                },
+
+                
               ],
             },
-          ],
-        },
+            
+            {
+              type: "category",
+              label: "GitLab",
+              collapsible: true,
+              items: [
+                {
+                  type: "category",
+                  label: "Coming Soon 1",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitLab/example1/Coming Soon 1",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Coming Soon 2",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitLab/example2/Coming Soon 2",
+                  ],
+                },
+
+                
+              ],
+            },
       ],
     },
   ],
