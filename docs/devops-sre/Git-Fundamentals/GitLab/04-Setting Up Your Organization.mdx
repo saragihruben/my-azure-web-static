@@ -1,0 +1,163 @@
+---
+id: Setting Up Your Organization
+title: Mengatur Organisasi Anda
+---
+
+Dengan GitLab Anda dapat mengatur organisasi dan penggunanya agar sesuai dengan tujuan bisnis Anda.  
+Pengguna dapat memiliki peran tertentu dan akses ke berbagai proyek.
+
+Jika dilihat dari keseluruhan struktur organisasi dalam GitLab dari sudut pandang manajemen proyek, hubungan antara Group, Subgroup, dan Project bisa dianggap sebagai manajemen portofolio atau program.
+
+:::info
+Hal-hal penting untuk diingat
+
+- Proyek GitLab ditempatkan di dalam Group  
+- Group dapat memiliki sejumlah Subgroup  
+- Hak akses diwariskan dari group tingkat atas, jadi tambahkan pengguna dengan izin paling rendah dan berikan izin lebih tinggi di tingkat Subgroup atau Project  
+- Label dan Milestone yang dibuat di level group atas tersedia untuk semua Subgroup dan Project, jadi tambahkan label bersama di level tertinggi yang memungkinkan  
+:::
+
+![Gitlab](/img/gitlab/19.png)
+
+| Tingkat Visibilitas  | Hak Akses                                                                                                       | Catatan Tambahan                                                                 |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| **Private (Pribadi)** | - Hanya anggota proyek atau grup pribadi yang bisa:<br/> &nbsp;&nbsp;• Mengkloning proyek<br/> &nbsp;&nbsp;• Melihat direktori akses publik (`/public`) | - Guest **tidak bisa** mengkloning proyek.<br/>- Grup pribadi **hanya bisa punya** subgrup pribadi. |
+| **Internal (Internal)** | - Semua **pengguna terautentikasi**, termasuk Guest, bisa:<br/> &nbsp;&nbsp;• Mengkloning proyek<br/> &nbsp;&nbsp;• Melihat direktori akses publik (`/public`) | - **Hanya anggota internal** yang bisa melihat konten internal.<br/>- *External users* **tidak bisa** mengkloning proyek.<br/>- Grup internal bisa punya subgrup internal atau pribadi. |
+| **Public (Publik)**   | - **Pengguna tidak terautentikasi**, termasuk Guest, bisa:<br/> &nbsp;&nbsp;• Mengkloning proyek<br/> &nbsp;&nbsp;• Melihat direktori akses publik (`/public`) | - Grup publik bisa punya subgrup publik, internal, atau pribadi. |
+
+## GitLab Epics
+Epics memungkinkan Anda mengelola portofolio proyek dengan lebih efisien dan dengan lebih sedikit usaha dengan melacak kelompok isu yang memiliki tema yang sama, lintas proyek dan milestone.
+
+Epics memungkinkan Anda mengelompokkan isu dan epik yang saling terkait. Ini berguna jika Anda ingin visibilitas lebih baik atas isu-isu terkait.  
+Misalnya, Anda mungkin ingin melihat semua isu dalam suatu proyek di roadmap dan membuat diagram Gantt untuk program atau portofolio Anda.
+
+![Gitlab](/img/gitlab/20.png)
+
+:::info
+**Hal-hal penting untuk diingat**
+
+- Epics didefinisikan di level Group.  
+- Epics dapat berisi baik isu maupun epik sebagai anak.  
+- Epics dapat digunakan sebagai filter di daftar isu dan papan isu.  
+- Epics memberikan visibilitas pada epik turunan, status isu, dan garis waktu roadmap.  
+- Epics tidak memiliki Assignee.  
+- Epics tidak bisa dibuat di dalam Project.  
+:::
+
+![Gitlab](/img/gitlab/21.png)
+
+Anda bahkan dapat memilih untuk memiliki epik rahasia. Epik rahasia hanya terlihat oleh anggota proyek dengan izin yang cukup.  
+Epik rahasia dapat digunakan oleh proyek open source maupun perusahaan untuk menjaga kerentanan keamanan tetap pribadi atau mencegah kebocoran informasi sensitif.
+
+## GitLab Issues
+Issues adalah blok bangunan dasar dari perencanaan pekerjaan pengembangan dan digunakan untuk berkolaborasi dalam ide serta perencanaan pekerjaan di GitLab.  
+Anda sebaiknya membuat issue baru setiap kali mengembangkan fitur baru yang akan diimplementasikan dalam salah satu aplikasi Anda.  
+Saat membuat issue di GitLab, Anda dapat melihat berbagai properti Tahap Siklus Hidup DevOps, seperti epik terkait, merge request, tanggal milestone, board, roadmap, label, dan lainnya.
+
+Anda juga dapat menggunakan issues untuk:
+- Membahas implementasi ide baru  
+- Mengelola insiden  
+- Mengajukan pertanyaan  
+- Melaporkan bug  
+
+:::info
+**Hal-hal penting untuk diingat**
+
+1. Issues didefinisikan dalam lingkup Project, bukan Group.  
+   Issues hanya ada di project. Meskipun Group memiliki board yang mengelola isu dan daftar isu, isu selalu disimpan dalam project yang berada di bawah group.  
+2. GitLab Groups tidak memiliki issues. Group memiliki Epics.  
+3. Satu issue hanya bisa menjadi anak dari satu epik.  
+4. Keterbatasan: Satu issue tidak bisa ditambahkan ke lebih dari satu Milestone.  
+:::
+
+Terdapat banyak bagian detail dalam sebuah issue, seperti:  
+- Time tracking  
+- Weight  
+- Peserta dan notifikasi  
+- Mentions  
+- Isu terkait  
+- Merge Request terkait  
+- Komentar  
+
+**Quick Actions** adalah perintah yang memudahkan untuk mengubah issue, misalnya:
+
+- ```/assign``` diikuti ID pengguna untuk menetapkan issue ke seseorang  
+- ```/close``` untuk menutup issue  
+- ```/duplicate``` diikuti nomor issue akan menutup issue saat ini sebagai duplikat dan menautkan ke issue yang diberikan (yang masih terbuka)  
+
+Dalam setiap project, satu set **Template Issue** dapat didefinisikan untuk memudahkan pembuatan isu umum untuk berbagai situasi atau masalah.  
+Seperti halnya epik, issue juga bisa bersifat **rahasia**, untuk mencegah kebocoran informasi.
+
+## Labels di GitLab
+Label adalah cara yang kuat dan fleksibel untuk mengkategorikan Epics, Issues, dan Merge Requests.  
+Jika diterapkan dengan tepat dan konsisten, Label memungkinkan pengguna GitLab untuk menemukan (search), memfilter, mengelola, dan melaporkan berbagai item pekerjaan.
+
+Secara default, Label tidak eksklusif. Satu Epic, Issue, atau Merge Request bisa diberi beberapa label oleh banyak orang, mendukung banyak kasus penggunaan dan sudut pandang.  
+Pengecualian aturan ini adalah Scoped Label, yang menentukan sekumpulan Label yang saling eksklusif. Saat satu Scoped Label diterapkan, label sebelumnya dalam set tersebut otomatis digantikan.  
+
+Scoped Labels digunakan untuk:
+- Menetapkan status  
+- Mendukung workflow  
+- Membagi item ke dalam situasi "salah satu / atau"  
+
+:::info
+**Hal-hal penting untuk diingat**
+
+Ada dua jenis label di GitLab:  
+
+1. Label project hanya bisa digunakan untuk Issues dan Merge Requests di project tersebut saja.  
+2. Label group bisa digunakan untuk Epics, Issues, dan Merge Requests di project mana pun dalam Group yang dipilih atau Subgroup-nya.  
+3. Buat Label di level terendah yang memungkinkan.  
+4. Label di level Group sebaiknya hanya digunakan untuk pelacakan di level Group, lintas banyak project dan/atau subgroup.  
+:::
+
+Karena Label di level Group diteruskan ke setiap sub-group dan project di bawahnya, pembuatan label Group-level tanpa pembatasan dapat menyebabkan kebingungan dan kekacauan.  
+Misalnya, jika banyak tim membuat label 'High Priority' di level Group, semuanya akan muncul di menu Label untuk setiap project dalam group.  
+
+Untuk meminimalkan kekacauan dan mengurangi kemungkinan perhitungan ganda yang salah, sebaiknya selalu membuat Scoped Labels untuk mengotomatisasi manajemen Label,  
+alih-alih bergantung pada pengguna untuk menghapus label yang tidak valid saat mereka menetapkan yang baru.  
+
+Anda juga dapat menetapkan dan menghapus label dengan quick actions:  
+- Menetapkan label dengan ```/label```  
+- Menghapus label dengan ```/unlabel```  
+- Menghapus semua label dan menetapkan yang baru dengan ```/relabel```  
+
+## Ringkasan GitLab Workflow
+Contoh berikut menunjukkan bagaimana setiap perubahan, sekecil apa pun, dimulai dengan sebuah issue.  
+Sesuatu yang kecil seperti diskusi bisa mengarah pada perubahan yang lebih besar dan bermanfaat dalam organisasi.
+
+### Langkah 1: Buat dan Diskusikan Issue Baru
+- Tim membuat issue  
+- Tim menambahkan label scoped ```workflow::discussion```  
+- Tim berdiskusi menggunakan komentar dan thread  
+
+### Langkah 2: Mulai dengan Merge Request
+- Developer membuat Merge Request (MR)  
+- Developer menetapkan issue ke dirinya sendiri  
+- Tim backend mulai bekerja dan developer mulai menulis kode  
+- Developer menambahkan label nested ```workflow::dev::workingon```  
+
+### Langkah 3: Commit dan Uji
+- Developer membuat Commit  
+- Developer push commit ke feature-branch  
+- Developer memantau hasil CI Pipeline  
+- Tim backend mengganti label menjadi ```workflow::frontend```  
+
+### Langkah 4: Deploy ke Staging
+- Developer frontend mulai mengerjakan issue  
+- Developer menetapkan issue ke dirinya sendiri  
+- Developer menambahkan label nested ```workflow::dev::workingon```  
+- Tim meninjau dan menyempurnakan kode  
+- Kode di-deploy ke staging environment  
+- Tim mengganti label menjadi ```workflow::staging```  
+- Setelah implementasi berhasil, tim mengganti label menjadi ```workflow::ready```  
+
+### Langkah 5: Ready
+- Tim dokumentasi teknis menambahkan label nested ```workflow::docs::review```  
+- Tim marketing menambahkan label nested ```workflow::marketing::review```  
+- Tim dokumentasi teknis mengganti label ke ```workflow::docs::done``` setelah selesai  
+- Setelah selesai, tim marketing mengganti label ke ```workflow::marketing::done``` dan menambahkan ```workflow::production```  
+
+### Langkah 6: Deploy ke Production
+- Tim rilis menggabungkan MR dan melakukan deploy fitur ke production  
+- Tim rilis menutup issue  

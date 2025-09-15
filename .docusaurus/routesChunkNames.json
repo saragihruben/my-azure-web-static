@@ -5,17 +5,17 @@
       "plugin": "c141421f"
     }
   },
-  "/en/docs-95e": {
+  "/en/docs-670": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/en/docs-ea5": {
+  "/en/docs-93c": {
     "__comp": "a7bd4aaa",
     "__props": "0abf49b1"
   },
-  "/en/docs-74c": {
+  "/en/docs-95c": {
     "__comp": "a94703ab"
   },
   "/en/docs/devops-sre-9c4": {
@@ -26,29 +26,33 @@
     "__comp": "17896441",
     "content": "ef2f3e59"
   },
-  "/en/docs/devops-sre/Git-Fundamentals/GitHub-3c2": {
-    "__comp": "17896441",
-    "content": "198fabaa"
-  },
-  "/en/docs/devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1-a7d": {
-    "__comp": "17896441",
-    "content": "877bd1ff"
-  },
-  "/en/docs/devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2-caa": {
-    "__comp": "17896441",
-    "content": "4c6cefa6"
-  },
   "/en/docs/devops-sre/Git-Fundamentals/GitLab-fa1": {
     "__comp": "17896441",
     "content": "f2934d4c"
   },
-  "/en/docs/devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1-bac": {
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab CI CD Functions-28d": {
     "__comp": "17896441",
-    "content": "518e74a3"
+    "content": "09f9d824"
   },
-  "/en/docs/devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2-095": {
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Package and Release-b13": {
     "__comp": "17896441",
-    "content": "077ec3cd"
+    "content": "237bad9d"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Security Scanning-26f": {
+    "__comp": "17896441",
+    "content": "a8bc0f1f"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Workflow-89f": {
+    "__comp": "17896441",
+    "content": "84ce1950"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/Introduction to Git and Version Control-a36": {
+    "__comp": "17896441",
+    "content": "c88374f2"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization-ebe": {
+    "__comp": "17896441",
+    "content": "6039191a"
   },
   "/en/docs/Getting-started/introduction-234": {
     "__comp": "17896441",

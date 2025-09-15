@@ -21,33 +21,38 @@
               "sidebar": "defaultSidebar"
             },
             {
-              "id": "devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1",
-              "path": "/en/docs/devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2",
-              "path": "/en/docs/devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "devops-sre/Git-Fundamentals/GitHub/GitHub",
-              "path": "/en/docs/devops-sre/Git-Fundamentals/GitHub/",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1",
-              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1",
-              "sidebar": "defaultSidebar"
-            },
-            {
-              "id": "devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2",
-              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2",
-              "sidebar": "defaultSidebar"
-            },
-            {
               "id": "devops-sre/Git-Fundamentals/GitLab/GitLab",
               "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/Gitlab CI CD Functions",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab CI CD Functions",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/Gitlab Package and Release",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Package and Release",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/Gitlab Security Scanning",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Security Scanning",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/Gitlab Workflow",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Workflow",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/Introduction to Git and Version Control",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/Introduction to Git and Version Control",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization",
               "sidebar": "defaultSidebar"
             },
             {

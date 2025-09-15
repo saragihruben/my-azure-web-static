@@ -9,15 +9,15 @@ export default [
   },
   {
     path: '/en/docs',
-    component: ComponentCreator('/en/docs', '95e'),
+    component: ComponentCreator('/en/docs', '670'),
     routes: [
       {
         path: '/en/docs',
-        component: ComponentCreator('/en/docs', 'ea5'),
+        component: ComponentCreator('/en/docs', '93c'),
         routes: [
           {
             path: '/en/docs',
-            component: ComponentCreator('/en/docs', '74c'),
+            component: ComponentCreator('/en/docs', '95c'),
             routes: [
               {
                 path: '/en/docs/devops-sre',
@@ -32,38 +32,44 @@ export default [
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/en/docs/devops-sre/Git-Fundamentals/GitHub',
-                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitHub', '3c2'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/en/docs/devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1',
-                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitHub/example1/Coming Soon 1', 'a7d'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
-                path: '/en/docs/devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2',
-                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitHub/example2/Coming Soon 2', 'caa'),
-                exact: true,
-                sidebar: "defaultSidebar"
-              },
-              {
                 path: '/en/docs/devops-sre/Git-Fundamentals/GitLab',
                 component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab', 'fa1'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1',
-                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/example1/Coming Soon 1', 'bac'),
+                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab CI CD Functions',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab CI CD Functions', '28d'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
               {
-                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2',
-                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/example2/Coming Soon 2', '095'),
+                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Package and Release',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Package and Release', 'b13'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Security Scanning',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Security Scanning', '26f'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Workflow',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/Gitlab Workflow', '89f'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/Introduction to Git and Version Control',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/Introduction to Git and Version Control', 'a36'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization', 'ebe'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },

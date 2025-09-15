@@ -1,0 +1,233 @@
+---
+id: Gitlab Workflow
+title: Alur Kerja GitLab
+---
+
+# Komponen dan Alur Kerja GitLab
+**GitFlow** adalah seperangkat instruksi atau pedoman yang menjelaskan cara menggunakan Git secara efektif dan efisien untuk mencapai pekerjaan dengan cara yang konsisten dan produktif.  
+**GitLab Flow** menciptakan pendekatan tanpa hambatan dalam pengembangan perangkat lunak dengan mengintegrasikan alur kerja Git dengan sistem pelacakan isu.
+
+## Alur Kerja Git Dasar dengan GitLab
+
+GitLab berbasis Git dan menyediakan repositori pusat untuk tim Anda.  
+Anda menggunakan Git secara lokal di sistem Anda sendiri untuk membuat dan memperbarui kode,  
+berbagi perubahan dengan tim, dan melihat perubahan tim Anda menggunakan perintah Git untuk *push*, *fetch*, dan *merge* pekerjaan.  
+
+![Gitlab](/img/gitlab/10.png)
+
+## GitLab Flow: Alur Kerja yang Lebih Sederhana
+
+Organisasi menggunakan satu atau lebih sistem *version control* untuk mengembangkan alur kerja produktif; namun, *version control* dengan Git lebih disukai dibanding alternatifnya.  
+GitFlow adalah seperangkat pedoman untuk menggunakan Git dengan cara yang efektif dan efisien. GitLab mempermudah hal ini dengan **GitLab Flow**.  
+
+Git menyederhanakan *branching* dan *merging*, sehingga tim pengembangan perangkat lunak beralih dari alat pengendali sumber lain seperti SVN, dan mengadopsi alur kerja yang lebih sederhana.  
+
+GitLab Flow menciptakan pendekatan terpadu dalam pengembangan perangkat lunak dengan mengintegrasikan alur kerja Git dengan sistem pelacakan isu.  
+
+Dengan GitLab Flow, semua fitur dan *fix* masuk ke branch utama sambil memungkinkan adanya branch produksi dan stabil.  
+GitLab Flow mencakup seperangkat praktik terbaik dan pedoman untuk memastikan tim pengembangan perangkat lunak mengikuti proses yang mulus untuk merilis fitur secara kolaboratif.  
+
+Diagram berikut menunjukkan evolusi Git Flow dan posisi GitLab di dalamnya:  
+
+![Gitlab](/img/gitlab/11.png)
+
+| Git Flow | GitHub Flow | GitLab Flow |
+|----------|-------------|-------------|
+| **Git Flow adalah alur kerja berbasis feature branch.** <br/><br/> Bayangkan diagram Git Flow sebagai **sekumpulan pola yang memandu cara Anda mengatur branch dan memikirkan bagaimana mengintegrasikan kode ke dalam kode utama yang stabil.** <br/><br/> Ia mengusulkan cara terstruktur untuk mengatur branch dengan beberapa branch jangka panjang. <br/><br/> Sebuah *feature branch* dapat dibuat dari Master, dikerjakan, lalu digabungkan kembali ke Master. | **GitHub memperkenalkan alur yang lebih sederhana yang memungkinkan pembuatan branch khusus fitur yang kemudian digabungkan ke master branch.** <br/><br/> Namun, ini tidak menyelesaikan fakta bahwa **banyak organisasi memiliki banyak lingkungan, rilis, dan integrasi.** <br/><br/> Alur kerja merge disederhanakan dengan mengembalikan branch Master ke dalam persamaan untuk menyerap branch ringan. <br/><br/> Prinsipnya sejalan dengan **Continuous Delivery** — merilis fitur lebih awal agar dapat diuji sebelum benar-benar diluncurkan. | **GitLab Flow adalah penyempurnaan lebih lanjut dari Git Flow dan GitHub Flow.** <br/><br/> Kita membuat branch tambahan dari feature branch yang sifatnya sementara dan ringan. Mereka diintegrasikan lalu dihapus. <br/><br/> **Ia menyelesaikan tantangan dengan mengintegrasikan alur kerja Git dengan sistem pelacakan isu dan kemampuan membuat branch khusus untuk lingkungan dan rilis.** |
+
+:::info
+- [**Gambaran GitLab Flow**](https://about.gitlab.com/topics/version-control/what-is-gitlab-flow/)  
+- [**Menggabungkan GitLab Flow dan GitLab Duo untuk alur kerja yang lebih kuat**](https://about.gitlab.com/blog/2023/07/27/gitlab-flow-duo/)  
+:::
+
+## GitLab Flow: Environment Branches
+
+Branch adalah versi dari *working tree* sebuah proyek. Saat Anda membuat proyek baru, GitLab membuat branch default (yang tidak dapat dihapus) untuk repositori Anda.  
+Pengaturan branch default dapat dikonfigurasi pada level proyek, subgrup, grup, atau instance (komponen GitLab yang akan dijelaskan lebih lanjut di kursus ini).  
+
+Seiring berkembangnya proyek, tim Anda membuat lebih banyak branch. Setiap branch mewakili sekumpulan perubahan, yang memungkinkan pekerjaan pengembangan dilakukan secara paralel.  
+Pekerjaan di satu branch tidak memengaruhi branch lainnya.  
+
+Mari kita lihat diagram GitLab Flow sebelumnya dan lihat apa yang terjadi ketika Anda menambahkan branch fitur atau branch lingkungan (*environment*).  
+
+![Gitlab](/img/gitlab/12.png)
+
+Contoh GitLab Flow ini memiliki branch lingkungan, seperti produksi dan pra-produksi, atau branch rilis, tergantung kebutuhan.  
+Alur kerja ini juga memungkinkan adanya rilis versi dan *continuous delivery*.  
+
+Diagram ini menunjukkan master branch, yang mungkin di-*deploy* ke lingkungan *staging*.  
+Di lingkungan staging, mungkin ada jejak yang mendekati produksi, sehingga kita dapat melakukan pengujian tambahan,  
+dan ini memungkinkan kita untuk memvisualisasikan serta mengambil risiko terkait dengan *deploy* ke produksi.  
+
+Berdasarkan pengaturan environment branch ini, alur kerja yang direkomendasikan adalah:  
+
+![Gitlab](/img/gitlab/13.png)
+
+Alur kerja ini, di mana commit hanya mengalir ke bawah (*downstream*), memastikan bahwa semuanya diuji di semua lingkungan.  
+
+Jika Anda perlu melakukan *cherry-pick* sebuah commit dengan hotfix, biasanya dikerjakan pada feature branch lalu digabung ke master dengan *merge request*.  
+Dalam kasus ini, jangan hapus dulu feature branch tersebut. Jika master lulus pengujian otomatis, maka feature branch digabungkan ke branch lainnya.  
+Jika tidak memungkinkan karena diperlukan pengujian manual tambahan, Anda bisa mengirim merge request dari feature branch ke branch downstream.  
+
+## GitLab Flow: Release Branches
+
+Branch Rilis di GitLab  
+Mari kita lihat contoh GitLab Flow menggunakan release branch. Secara umum, Anda hanya perlu menggunakan release branch jika perangkat lunak dirilis ke publik.  
+Dalam kasus ini, setiap branch berisi versi minor, seperti ```2.3-stable``` atau ```2.4-stable```:  
+
+![Gitlab](/img/gitlab/14.png)  
+
+![Gitlab](/img/gitlab/15.png)  
+
+Jika Anda mulai dengan menggabungkan ke release branch, Anda mungkin lupa melakukan *cherry-pick* ke master branch dan akan menemui bug yang sama di rilis berikutnya.  
+
+Menggabungkan ke master branch lalu melakukan *cherry-pick* ke release branch disebut kebijakan **“upstream first”**.  
+Setiap kali Anda menyertakan perbaikan bug dalam release branch, tingkatkan versi *patch* dengan membuat tag baru.  
+
+Beberapa proyek juga memiliki branch stabil (*stable branch*) yang menunjuk ke commit yang sama dengan release branch terbaru.  
+Dalam alur ini, biasanya tidak ada branch produksi.  
+
+## Tips dan Trik Branching
+
+GitLab Flow memungkinkan Anda menggabungkan branch lingkungan dengan nama berbeda yang diperbarui otomatis dari master branch.  
+Branch adalah fondasi pengembangan dalam sebuah proyek.  
+
+### Tips & trik branching
+- Branch default (disebut Master jika tidak ada nama khusus yang ditentukan) tidak dapat dihapus  
+- Branch default awalnya dilindungi dari *forced push*  
+- Anda dapat mengelola branch:  
+  - Dengan antarmuka pengguna GitLab  
+  - Dengan command line  
+  - Dengan Branches API  
+
+### Manfaat branching GitLab
+- Dapat mempertahankan banyak lingkungan  
+- Lingkungan *staging* terpisah dari lingkungan produksi  
+- Memberikan isolasi antar lingkungan sehingga developer dapat mempertahankan banyak versi perangkat lunak di berbagai lingkungan  
+
+:::info
+Sementara Git Flow lain mengasumsikan Anda bisa *deploy* ke produksi setiap kali menggabungkan feature branch, hal ini memang mungkin untuk beberapa kasus, seperti aplikasi SaaS,  
+tetapi ada juga situasi di mana hal ini tidak mungkin, misalnya:  
+
+- Anda tidak mengontrol waktu rilis, contohnya aplikasi iOS yang hanya dirilis setelah lolos validasi App Store.  
+- Anda memiliki *deployment window* — misalnya, hari kerja pukul 10 pagi hingga 4 sore ketika tim operasi bekerja penuh — tetapi Anda juga melakukan merge kode di waktu lain.  
+
+Dalam kasus ini, Anda bisa membuat branch produksi yang mencerminkan kode yang di-*deploy*. Anda dapat *deploy* versi baru dengan menggabungkan master ke branch produksi.  
+Jika Anda perlu tahu kode apa yang ada di produksi, cukup *checkout* branch produksi.  
+:::
+
+## Komponen Alur Kerja GitLab
+
+Kita sudah melihat GitLab Flow dan proses yang direkomendasikan untuk membawa aplikasi ke produksi.  
+Sekarang mari kita lihat komponen alur kerja GitLab yang akan Anda gunakan.  
+
+GitLab menggunakan istilah berikut untuk komponennya yang mungkin sedikit berbeda dari sistem lain.  
+Berikut tabel yang menunjukkan masing-masing komponen utama GitLab dan istilah padanannya di sistem lain:  
+
+| KOMPONEN GITLAB   | FUNGSI                                                                                                                                                  | DIKENAL JUGA SEBAGAI…   |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| **Project**       | Unit inti tempat pekerjaan diorganisir, dikelola, dilacak, dan dikirim untuk membantu tim berkolaborasi dan merencanakan pekerjaan dalam bentuk isu.    | Repository               |
+| **Group**         | Kumpulan project dan/atau group lain. Mirip folder.                                                                                                     | Project                  |
+| **Issue**         | Bagian dari sebuah project. Objek perencanaan utama tempat tim mendokumentasikan *use case*, mendiskusikan pendekatan, memperkirakan usaha, dll.        | Story, Narrative, Ticket |
+| **Epic**          | Kumpulan isu terkait di berbagai grup dan project untuk membantu pengorganisasian berdasarkan tema.                                                     | Initiatives, Themes      |
+| **Merge Request** | Keterkaitan antara isu dan perubahan kode nyata. Mencakup desain, detail implementasi, diskusi, persetujuan, pengujian, dan pemindaian keamanan.        | Pull Request             |
+| **Label**         | Digunakan untuk menandai dan melacak pekerjaan dalam project atau group serta mengaitkan isu dengan berbagai inisiatif.                                 | Tag                      |
+| **Board**         | Daftar visual project dan isu yang berguna untuk tim mengelola backlog, memprioritaskan item, dan memindahkan isu ke tahap tertentu.                   | Kanban                   |
+| **Milestone**     | Sprint atau *deliverable*, membantu mengorganisir kode, isu, dan merge request menjadi satu kesatuan.                                                   | Release                  |
+| **Roadmap**       | Representasi visual berbagai epic dalam sebuah grup.                                                                                                   |                          |
+
+## GitLab Flow: Tinjauan Lebih Dalam
+
+Sekarang setelah kita membahas GitLab Flow dan mendefinisikan komponennya, mari kita lihat tahapan GitLab yang mendukung perjalanan pengembangan Anda.  
+
+Ada banyak langkah dari ide hingga solusi yang di-*deploy* ke produksi. Grafik ini menunjukkan tampilan lebih detail dari proses GitLab Flow.  
+Proses ini berlaku untuk apa saja — bug, fitur, atau kerentanan keamanan.  
+Sepanjang kursus ini kita akan membahas setiap langkah dalam proses ini seiring kita melewati siklus hidup DevOps serentak, dan memberi Anda kesempatan untuk praktik langsung.  
+
+![Gitlab](/img/gitlab/16.png)
+
+### Langkah 1 - Membuat Issue
+Semua perubahan di GitLab dimulai dengan sebuah Issue.  
+
+Issue memungkinkan Anda, tim, dan kolaborator berbagi serta mendiskusikan usulan sebelum dan selama implementasi.  
+Namun, issue juga bisa digunakan untuk berbagai tujuan lain sesuai kebutuhan dan alur kerja.  
+
+Issue selalu terkait dengan project tertentu, tetapi jika Anda memiliki beberapa project dalam satu grup, Anda juga bisa melihat semua issue di tingkat grup.  
+
+Contoh penggunaan umum:  
+- Diskusi implementasi ide baru  
+- Melacak tugas dan status pekerjaan  
+- Menerima usulan fitur, pertanyaan, permintaan dukungan, atau laporan bug  
+- Menjabarkan implementasi kode baru  
+
+### Langkah 2 - Membuat Merge Request
+Setelah membuat Issue dan menambahkan perubahan/penambahan, Anda membuat Merge Request untuk memulai proses CI/CD.  
+
+Merge request memungkinkan Anda memvisualisasikan dan berkolaborasi pada perubahan kode sumber yang ada sebagai commit dalam branch Git tertentu.  
+
+Anda mungkin juga mendengar merge request disebut *pull request*.  
+
+### Langkah 3 - Commit Perubahan
+Setelah Merge Request dikirimkan, Anda melakukan commit perubahan, yang akan memicu pipeline CI.  
+
+Langkah ini akan berulang selama proses tinjauan dan jika ada perubahan tambahan yang diperlukan.  
+
+### Langkah 4 - Pipeline CI Berjalan
+Pada langkah ini, pipeline CI berjalan dan memulai *build* kode, menjalankan tes otomatis, dan *deploy* branch ke lingkungan *staging*.  
+
+Jika ada kesalahan, konflik, atau masalah lain, pipeline akan gagal dan menampilkan pesan kesalahan yang relevan untuk ditinjau.  
+
+### Langkah 5 - Review Apps
+Review app memberikan pratinjau langsung otomatis dari perubahan pada feature branch dengan membuat lingkungan dinamis untuk merge request Anda.  
+
+Ini memungkinkan desainer dan product manager melihat perubahan tanpa harus *checkout* branch atau menjalankan kode di sandbox.  
+
+### Langkah 6 - Peer Review dan Diskusi
+Pada tahap ini, rekan atau stakeholder meninjau perubahan di review app dan memastikan tidak ada konflik atau revisi sebelum commit difinalisasi.  
+
+### Langkah 7 - Persetujuan Perubahan
+Setelah tinjauan selesai, seseorang dengan hak merge harus menyetujui perubahan Anda.  
+
+### Langkah 8 - Merge; Issue Ditutup; Pipeline CD Berjalan
+Setelah merge request disetujui, perubahan digabungkan ke Master dan issue Anda ditutup.  
+
+Pipeline *Continuous Delivery (CD)* akan *deploy* perubahan ke produksi sehingga perubahan Anda aktif di sistem.  
+
+### Langkah 9 - Monitoring
+Pada tahap ini, Anda memantau aplikasi untuk memastikan perubahan memberikan efek yang diharapkan.  
+
+Perlu diingat — dengan GitLab, mudah untuk melakukan *rollback* jika ada masalah atau sesuatu muncul di produksi yang perlu disesuaikan lebih lanjut.  
+
+## Code Review - Alur Kerja Umum
+
+Untuk memastikan semua kode yang masuk ke produksi berkualitas tinggi, GitLab memiliki proses review ketat.  
+Terlepas dari ukuran atau jenis perubahan, setiap perubahan ditinjau menggunakan alur berikut:  
+
+![Gitlab](/img/gitlab/17.png)
+
+## Alat Tambahan untuk Code Review & Kolaborasi
+
+#### Snippets
+Dengan GitLab Snippets, Anda dapat menyimpan dan berbagi potongan kode atau teks dengan pengguna lain.  
+
+![Gitlab](/img/gitlab/18.png)
+
+<br/>
+#### Wikis
+Sistem dokumentasi terpisah bernama Wiki sudah terintegrasi di setiap project GitLab.  
+Aktif secara default di semua project baru dan dapat ditemukan di menu Wiki dalam project.  
+
+Wiki sangat praktis jika Anda tidak ingin menyimpan dokumentasi dalam repositori, tetapi tetap ingin menyimpannya di project yang sama dengan kode.  
+
+Anda dapat membuat halaman Wiki melalui antarmuka web atau secara lokal menggunakan Git karena setiap Wiki adalah repositori Git terpisah.  
+
+<br/>
+#### Web IDE
+Editor Web IDE memudahkan kontribusi perubahan ke project dengan menyediakan editor canggih dengan *commit staging*.  
+Web IDE memungkinkan perubahan pada banyak file langsung dari antarmuka GitLab,  
+sehingga mudah bagi siapa saja untuk berkontribusi, terlepas dari pengalaman pengembangan mereka.  
+
+Web IDE baru lebih ramah pengguna dan efisien, menggabungkan fitur inti VS Code yang kuat dengan peningkatan performa signifikan serta kemampuan  
+untuk terhubung dengan aman ke lingkungan pengembangan remote langsung dari Web IDE.  
+
+Posting blog singkat ini menjelaskan peningkatan yang dibawa versi terbaru Web IDE GitLab.  

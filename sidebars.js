@@ -176,25 +176,62 @@ module.exports = {
               label: "GitLab",
               collapsible: true,
               items: [
+
                 {
                   type: "category",
-                  label: "Coming Soon 1",
+                  label: "Introduction to Git and Version Control",
                   collapsible: true,
                   items: [
-                    "Git-Fundamentals/GitLab/example1/Coming Soon 1",
+                    "Git-Fundamentals/GitLab/02-Introduction to Git and Version Control",
                   ],
                 },
 
                 {
                   type: "category",
-                  label: "Coming Soon 2",
+                  label: "Gitlab Workflow",
                   collapsible: true,
                   items: [
-                    "Git-Fundamentals/GitLab/example2/Coming Soon 2",
+                    "Git-Fundamentals/GitLab/03-Gitlab Workflow",
                   ],
                 },
 
+                {
+                  type: "category",
+                  label: "Setting Up Your Organization",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitLab/04-Setting Up Your Organization",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Gitlab CI CD Functions",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitLab/05-Gitlab CI CD Functions",
+                  ],
+                },
+
+              
+                {
+                  type: "category",
+                  label: "Gitlab Package and Release",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitLab/06-Gitlab Package and Release",
+                  ],
+                },
                 
+                {
+                  type: "category",
+                  label: "Gitlab Security Scanning",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/GitLab/07-Gitlab Security Scanning",
+                  ],
+                },
+
               ],
             },
       ],

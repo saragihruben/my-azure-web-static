@@ -1,0 +1,142 @@
+---
+id: Introduction to Git and Version Control
+title: Pengenalan Git dan Version Control
+---
+
+# Pengenalan Git dan Version Control
+Git adalah sistem *version control* (VCS) sumber terbuka yang digunakan untuk melacak perubahan pada file, 
+memungkinkan tim bekerja secara kolaboratif sekaligus menjaga integritas kode sumber.  
+File-file ini (kode sumber, dokumen, dll.) dapat disimpan dan dikelola di GitLab menggunakan git.
+
+## Apa itu Git
+Git adalah sistem *version control* (VCS) gratis dan sumber terbuka yang dirancang untuk menangani proyek dari yang kecil hingga besar dengan cepat dan efisien.  
+
+Git merekam semua perubahan yang dibuat pada sebuah file dalam sebuah repositori (basis data), sehingga memungkinkan kolaborasi antar developer perangkat lunak.  
+Git hadir dengan fitur-fitur luar biasa yang mendukung pengembangan non-linear dan dapat menangani proyek besar:  
+
+Alih-alih memiliki satu sumber tunggal untuk seluruh versi perangkat lunak, dengan Git Anda dapat memiliki banyak salinan kerja yang berisi seluruh riwayat perubahan.
+Anda dapat memeriksa riwayat sebuah repositori dan melihat kapan perubahan dibuat, oleh siapa, dan mengapa.  
+Dengan Git, semua orang yang bekerja dalam sebuah proyek dapat memiliki versi terpisah dari proyek tersebut secara lokal (branch) di komputer mereka, 
+dan ketika mereka mengunggah hasil kerja ke server, itu akan otomatis tersinkronisasi dengan versi lain di luar sana (branch utama/master).  
+
+### Manfaat Git
+- Gratis dan sumber terbuka  
+- Mendukung pengembangan non-linear  
+- Melacak riwayat file  
+- Membuat cadangan  
+- Mendukung kolaborasi – Git dapat digunakan melalui command line maupun GUI, sehingga semua orang bisa berkontribusi dengan mudah  
+- *Scalable* – model branching Git dapat beradaptasi dengan alur kerja hampir semua tim  
+- Lingkungan terdistribusi – tidak memerlukan koneksi konstan ke server pusat  
+
+![Gitlab](/img/gitlab/5.png)
+
+## Apa itu Version Control System?
+
+Git adalah sebuah *Version Control System*. Tetapi, apa itu *Version Control System*?  
+
+*Version Control System* (VCS) melacak perubahan pada sebuah file atau sekumpulan file dari waktu ke waktu. Developer dapat mengambil (*checkout*) file dari server, 
+membuat perubahan, lalu mengunggah kembali file tersebut. Server kemudian menyimpan versi baru dari file itu.  
+
+Ada tiga jenis *Version Control System*:  
+
+- *Local Version Control Systems*  
+- [**Centralized Version Control Systems (CVCS)**](https://about.gitlab.com/topics/version-control/what-is-centralized-version-control-system/)  
+- [**Distributed Version Control Systems (DVCS)**](https://about.gitlab.com/topics/version-control/benefits-distributed-version-control-system/)  
+
+### Centralized vs Distributed Version Control Systems
+
+Git dapat digunakan sebagai CVCS maupun DVCS. Mari kita lihat kelebihan dan kekurangan keduanya:  
+
+![Gitlab](/img/gitlab/6.png)
+
+| Centralised Version Control Systems (CVCS) | Distributed Version Control Systems (DVCS) |
+|---------------------------------------------|---------------------------------------------|
+| Developer memiliki akses ke seluruh basis kode | Operasi dilakukan pada server atau mesin lokal, bukan hanya satu repositori tunggal |
+| Operasi dilakukan pada satu repositori pusat (server) | Lebih fleksibel dibanding CVCS dan memungkinkan bekerja secara offline |
+| Karena perubahan dibuat di repositori pusat, developer lain tidak mengetahui perubahan kode hingga digabungkan | Tidak perlu bergantung pada server pusat. Pengguna bisa menyalin (clone) seluruh riwayat proyek secara lokal dan bekerja secara mandiri |
+| Developer bekerja menggunakan salinan lokal repo (menarik apa yang diperlukan), lalu commit dan menyelesaikan konflik saat digabung ke repositori | Konflik merge lebih jarang terjadi, karena setiap developer bekerja pada bagian kodenya sendiri |
+| Mudah dipelajari dan disiapkan bagi pemula Git | Mendapatkan perubahan baru = *pulling*; menggabungkan perubahan lokal = *pushing* |
+| Sulit dan memakan waktu untuk bekerja dengan branch dibanding DVCS | Lebih sulit dipelajari untuk pemula Git |
+| | Bisa memakan waktu lebih lama untuk menyalin seluruh repo secara lokal jika proyek besar |
+| | Developer cenderung bekerja terpisah lebih lama dibanding saat menggunakan CVCS |
+
+:::info
+Tiga alat *version control* (juga dikenal sebagai *revision control systems*) yang paling terkenal adalah Git, Subversion (SVN), dan Mercurial.  
+:::
+
+### Manfaat Version Control
+
+1. **Kualitas**  
+   Tim dapat meninjau, memberi komentar, dan meningkatkan kode maupun aset satu sama lain.  
+
+2. **Akselerasi**  
+   Membuat branch, melakukan perubahan, dan menggabungkan commit lebih cepat.  
+
+3. **Visibilitas**  
+   Memahami dan memicu kolaborasi tim untuk mendorong pola rilis yang lebih baik. Visibilitas yang lebih baik meningkatkan segalanya mulai dari manajemen proyek hingga kualitas kode.  
+
+## Istilah dan Definisi Git yang Umum
+
+#### Branch
+- Digunakan untuk mengembangkan fitur secara terpisah dari tim  
+- Berbagi dan bekerja pada kode sumber yang sama  
+- Branch utama adalah branch default  
+- `$ git branch [branch_name]`
+
+#### Tag
+- Digunakan untuk menandai rilis versi kode  
+- `$ git tag`
+
+#### Checkout
+- Membuat dan berpindah antar branch  
+- “Checking out” adalah menjalankan perintah `$ git checkout`
+
+#### Commit
+- Mekanisme untuk menyimpan perubahan ke repositori lokal  
+- Snapshot pada titik waktu tertentu  
+- Snapshot commit adalah versi "aman" dari sebuah proyek – Git tidak akan mengubahnya kecuali Anda secara eksplisit memintanya.  
+- `$ git commit`
+
+#### Push 
+- Mentransfer atau mengunggah konten dari repositori lokal ke repositori remote  
+- “Pushing” mentransfer commit dari lokal -> remote  
+- Pushing mengekspor commit `$ git push`  
+- Fetching mengimpor commit `$ git fetch`  
+
+## Perintah Dasar Git
+
+- `git pull`, `git push`, dan `git fetch` semuanya berhubungan dengan sinkronisasi repositori, tetapi dengan cara yang sedikit berbeda.  
+- `git fetch` memberi tahu Git lokal Anda untuk mengambil info meta-data terbaru dari repositori asal (tanpa memindahkan file). Ini memeriksa apakah ada perubahan.  
+- `git pull` melakukan hal itu DAN membawa (salinan) perubahan dari repositori remote.  
+
+![Gitlab](/img/gitlab/7.png)
+
+| Command | Deskripsi |
+|---------|-----------|
+| `git status` | Melihat status pekerjaan: file baru, staged, dimodifikasi, dan branch saat ini. |
+| `git diff [file]` | Menampilkan perubahan antara **working directory** dan **staging area**. |
+| `git diff --staged [file]` | Menampilkan perubahan antara **staging area** dan **index** (status commit repositori). |
+| `git checkout -- [file]` | Menghapus perubahan di **working directory**. ⚠️ Operasi ini **tidak dapat dipulihkan**. |
+| `git add [file]` | Menambahkan file ke **staging area**. Gunakan `.` untuk menambahkan semua file yang diubah dari direktori saat ini ke bawah. |
+| `git reset [file]` | Memindahkan file kembali dari **staging area** ke **working directory**. |
+| `git commit` | Membuat commit baru dari perubahan di staging area. Commit **harus memiliki pesan**. |
+
+## Alur Kerja Dasar Git
+
+Alur kerja dasar Git (agnostik terhadap software yang digunakan) melibatkan pemisahan pekerjaan ke berbagai jenis branch Git.  
+Secara umum, Git flow adalah strategi branching – mengetahui kapan harus menggunakan jenis branch yang berbeda selama proses pengembangan,  
+untuk mengatur dan mempercepat rilis. Dalam Git flow biasanya ada lima jenis branch:  
+
+- **Main (atau Master)** – dibuat di awal proyek dan dipelihara selama proses pengembangan. Branch utama harus berisi kode yang siap produksi.  
+- **Develop** – dibuat di awal proyek; berisi kode pra-produksi dengan fitur baru yang sedang diuji.  
+- **Feature** – jenis branch paling umum. Digunakan saat menambahkan fitur baru, dan akan digabungkan kembali ke branch *develop* saat fitur sudah siap.  
+- **Release** – digunakan ketika menyiapkan rilis produksi baru.  
+- **Hotfix** – digunakan untuk segera menangani perubahan penting pada branch utama.  
+
+Setiap kali Anda melakukan *push* perubahan, Git merekamnya sebagai commit unik. Commit-commit ini membentuk riwayat kapan dan bagaimana file berubah, serta siapa yang mengubahnya.  
+
+![Gitlab](/img/gitlab/8.png)
+
+Secara default, isi repositori ada di branch default. Untuk melakukan perubahan, Anda perlu bekerja di branch sendiri.  
+
+![Gitlab](/img/gitlab/9.png)
