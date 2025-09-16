@@ -3,12 +3,181 @@ id: Gitlab CI CD Functions
 title: Fungsi CI/CD GitLab
 ---
 
+Continuous Integration (CI) adalah praktik kolaboratif dalam pengembangan perangkat lunak di mana para pengembang sering mengintegrasikan perubahan kode mereka ke dalam repositori bersama.  
+Build dan pengujian otomatis kemudian dijalankan untuk memvalidasi perubahan, memastikan kualitas kode. CI mendorong kolaborasi antar anggota tim dengan mempromosikan integrasi kode secara rutin, deteksi masalah lebih awal, dan pendekatan kolektif untuk menjaga codebase tetap stabil dan andal.  
+
+Continuous Delivery (CD) adalah praktik pengembangan perangkat lunak yang bertujuan untuk mengotomatisasi dan menyederhanakan proses pengiriman perubahan kode ke lingkungan produksi secara sering dan andal.  
+Pendekatan ini membantu memastikan bahwa perangkat lunak selalu dalam keadaan siap rilis, sehingga lebih mudah merespons umpan balik pelanggan, menghadirkan fitur baru, dan memperbaiki bug dengan cepat.  
+
+Bersama-sama, CI dan CD mempercepat seberapa cepat tim Anda dapat memberikan hasil bagi pengguna akhir.  
+
+## Apa itu CI / CD ?
+
+GitLab CI/CD adalah alat untuk pengembangan perangkat lunak menggunakan metodologi berkelanjutan:
+
+![Gitlab](/img/gitlab/22.png)
+
+| **Continuous Integration** | **Continuous Delivery** |
+|-----------------------------|--------------------------|
+| Dengan Continuous Integration (CI), pengembang membagikan kode baru mereka ke cabang fitur dalam Merge Request. | Continuous Delivery (CD) mengotomatiskan pengiriman kode yang sudah divalidasi ke lingkungan staging. |
+| Ini memicu pipeline CI untuk membangun, menguji, dan memvalidasi kode baru sebelum menggabungkan perubahan ke basis kode utama. | Continuous Deployment melangkah lebih jauh, di mana setiap perubahan kode didorong melalui pipeline dan secara otomatis dimasukkan ke produksi. |
+
+**Bersama-sama, CI dan CD mempercepat seberapa cepat tim Anda dapat memberikan hasil bagi pengguna akhir.**
+
+- Continuous Integration membantu Anda menemukan dan mengurangi bug lebih awal dalam siklus pengembangan.  
+- Continuous Delivery dan Deployment memindahkan kode yang telah diverifikasi ke aplikasi Anda dengan lebih cepat.  
+
+## Continuous Integration di GitLab
+Pertimbangkan sebuah aplikasi yang kodenya disimpan di repositori Git di GitLab. Pengembang mendorong perubahan kode setiap hari, bahkan beberapa kali dalam sehari.  
+Untuk setiap push, mereka mendapat umpan balik langsung tentang kualitas dan potensi risiko dari perubahan mereka.  
+Skrip ini membantu mengurangi kemungkinan Anda memperkenalkan kesalahan pada aplikasi Anda.  
+
+Praktik ini dikenal sebagai Continuous Integration. Setiap perubahan yang dikirimkan ke aplikasi, bahkan ke cabang pengembangan, dibangun dan diuji secara otomatis dan berkelanjutan.  
+Pengujian ini memastikan bahwa perubahan lolos semua tes, pedoman, dan standar kepatuhan kode yang Anda tetapkan untuk aplikasi Anda.  
+
+GitLab sendiri adalah contoh proyek yang menggunakan Continuous Integration sebagai metode pengembangan perangkat lunak. Untuk setiap push ke proyek, serangkaian pengecekan dijalankan terhadap kode.  
+
+### Manfaat Continuous Integration
+
+| **Manfaat**                  | **Deskripsi** |
+|-------------------------------|---------------|
+| **Deteksi kesalahan cepat**   | Juga dikenal sebagai *failing faster*. Memungkinkan pengembang memperbaiki masalah selagi masih segar dalam ingatan mereka. Memungkinkan tim menjalankan rangkaian pengujian otomatis yang mereka buat untuk proyek. |
+| **Mengurangi masalah integrasi** | Mengurangi kejadian seringnya “berfungsi di mesin saya.” Memastikan aplikasi kita dapat di-deploy dan dijalankan tidak hanya di lingkungan pengembang, tetapi juga di lingkungan produksi. |
+| **Menghindari masalah berlapis** | Memungkinkan tim mengembangkan lebih cepat dengan lebih percaya diri, mengurangi risiko kode bermasalah dan kegagalan deployment. |
+
+## Continuous Delivery di GitLab
+Continuous Delivery adalah langkah lebih jauh dari Continuous Integration. Tidak hanya aplikasi Anda dibangun dan diuji setiap kali ada perubahan kode, aplikasi juga di-deploy secara berkelanjutan. Namun, pada continuous delivery, deployment ke produksi dipicu secara manual.  
+
+Continuous Delivery secara otomatis men-deploy kode ke lingkungan non-produksi, seperti staging, tanpa perlu campur tangan manusia.  
+Namun, ketika melakukan deployment ke lingkungan produksi, diperlukan pengawasan manusia dan terkadang persetujuan manual untuk memastikan pendekatan yang strategis.  
+
+Continuous Deployment adalah langkah lebih lanjut lagi. Bedanya, alih-alih melakukan deployment ke produksi secara manual, Anda mengaturnya agar deployment dilakukan otomatis. Campur tangan manusia tidak diperlukan.  
+
+Continuous Delivery memeriksa kode secara otomatis, tetapi memerlukan campur tangan manusia untuk secara manual dan strategis memicu deployment perubahan.  
+
+### Manfaat Continuous Delivery
+
+| **Manfaat**                           | **Deskripsi** |
+|---------------------------------------|---------------|
+| **Memastikan setiap perubahan siap dirilis** | Uji semuanya, termasuk deployment, sebelum menyatakannya selesai. |
+| **Mengurangi risiko tiap rilis**       | Saat Anda merilis perubahan kecil lebih sering, Anda dapat menangkap kesalahan lebih awal dalam proses pengembangan. Dan lebih mudah untuk membatalkan perubahan kecil jika diperlukan. |
+| **Menyampaikan nilai lebih sering**    | Deployment yang andal berarti lebih banyak rilis. Merilis fitur baru lebih awal dan sering berarti Anda mendapatkan umpan balik lebih sering, memberi kemampuan untuk belajar dari pelanggan Anda. |
+| **Siklus umpan balik pelanggan cepat** | Umpan balik pelanggan yang cepat dan sering terhadap perubahan adalah bagian integral dari Continuous Delivery, memungkinkan wawasan berharga dari pelanggan agar fitur dan pembaruan yang disampaikan selaras dengan kebutuhan serta harapan mereka. |
+
+## Bagaimana GitLab CI/CD Bekerja
+Untuk menggunakan GitLab CI/CD, Anda hanya perlu basis kode aplikasi yang di-host di repositori Git, serta skrip build, test, dan deployment yang ditentukan dalam file bernama `.gitlab-ci.yml` yang terletak di root repositori Anda.  
+
+GitLab CI/CD sesuai dengan alur kerja pengembangan umum. Klik ikon di bawah untuk mempelajari lebih lanjut.  
+
+![Gitlab](/img/gitlab/23.png)
+
+### Membuat branch baru
+Anda bisa memulai dengan mendiskusikan implementasi kode dalam sebuah issue dan bekerja secara lokal pada perubahan yang diusulkan.  
+
+### Push perubahan kode
+Kemudian Anda dapat mendorong commit ke branch fitur di repositori jarak jauh yang di-host di GitLab, yang memicu pipeline CI/CD untuk proyek Anda.  
+
+### Continuous Integration
+Lalu, GitLab CI/CD menjalankan skrip otomatis (secara berurutan atau paralel) untuk:  
+- Build dan uji aplikasi Anda.  
+- Preview perubahan di Review App, sama seperti yang Anda lihat di localhost.  
+
+### Review dan approve
+Setelah implementasi berfungsi sebagaimana mestinya, mintalah review dan persetujuan kode Anda.  
+
+### Merge
+Gabungkan branch fitur ke branch default.  
+
+<br/>
+### Continuous Deployment
+GitLab CI/CD secara otomatis men-deploy perubahan Anda ke lingkungan produksi. Jika ada yang salah, Anda bisa melakukan rollback perubahan.  
+
+## GitLab CI/CD: Komponen Utama
+Untuk menggunakan GitLab CI/CD, Anda atau administrator GitLab Anda harus terlebih dahulu mendefinisikan pipeline dalam file YAML bernama `.gitlab-ci.yml` lalu menginstal dan mengonfigurasi GitLab Runner.  
+
+### .gitlab-ci.yml
+File YAML ini adalah file definisi pipeline. Anggap saja sebagai serangkaian instruksi yang Anda buat untuk mendefinisikan pipeline CI.  
+File ini menentukan stage, job, dan aksi yang ingin Anda lakukan. Anggap YAML sebagai otak, dan runner sebagai tubuhnya.  
+Konfigurasi mendalam file-file ini dibahas secara terpisah dalam kursus GitLab CI/CD.  
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+- [**Referensi sintaks CI/CD YAML**](https://docs.gitlab.com/ci/yaml/)  
 :::
 
-:::warning
+### GitLab Runner
+GitLab Runner, file yang ditulis dalam Go, menjalankan job yang ditentukan dalam file YAML menggunakan API untuk berkomunikasi dengan GitLab.  
+GitLab Runner adalah agen ringan yang sangat skalabel, mengambil job CI melalui API koordinator GitLab CI/CD, menjalankannya, lalu mengirimkan hasilnya kembali ke instance GitLab.  
+Administrator GitLab dapat mengonfigurasi shared runner untuk digunakan di beberapa proyek, atau Anda dapat mengatur runner sendiri per proyek.  
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+:::info
+- [**Pelajari lebih lanjut GitLab Runner**](https://docs.gitlab.com/runner/)  
+:::
+
+## Arsitektur Runner
+GitLab menyediakan Runner SaaS, memungkinkan Anda menjalankan job CI/CD di GitLab.com menggunakan runner SaaS yang di-host oleh GitLab untuk membangun, menguji, dan men-deploy aplikasi Anda di berbagai lingkungan.  
+Runner ini terintegrasi penuh dengan GitLab.com dan diaktifkan secara default untuk semua proyek tanpa konfigurasi tambahan.  
+
+Jika mau, Anda dapat menginstal dan mengelola runner secara independen.  
+
+![Gitlab](/img/gitlab/24.png)
+
+#### Runner dapat diinstal di:
+- Cloud  
+- Dikelola sendiri di instance Anda  
+- Bisa berupa proses tunggal atau armada runner yang terdistribusi  
+
+:::info
+**Poin penting:**
+- Runner di-host di node terpisah dari server GitLab  
+- Runner mengeksekusi instruksi yang dikonfigurasi di file ci-yml Anda  
+- Di mana saja Anda bisa menginstal binary gitlab runner, di situ Anda bisa meng-host runner (contoh: Dockerized Runner atau Kubernetes Executor)  
+---
+**Pelajari lebih lanjut**
+- [**GitLab Runners**](https://docs.gitlab.com/runner/)  
+- [**Registering Runners**](https://docs.gitlab.com/runner/register/)  
+- [**Configuring Runners**](https://docs.gitlab.com/ee/ci/runners/configure_runners.html)  
+:::
+
+## Contoh file .gitlab-ci.yml
+Inilah contoh file `.gitlab-ci.yaml` tingkat tinggi. YAML adalah format data yang mudah dibaca manusia dan standar yang bisa digunakan dengan semua bahasa pemrograman, sering digunakan untuk menulis file konfigurasi.  
+
+Sintaks YAML disimpan di root proyek dan dikendalikan versinya bersama kode lainnya.  
+
+![Gitlab](/img/gitlab/25.png)
+
+| **Bagian** | **Deskripsi** |
+|------------|---------------|
+| **Stages** | Mendefinisikan tahap pipeline. Dalam contoh ini, tahap yang ditentukan adalah **“build”** dan **“deploy.”** |
+| **Build**  | Mewakili job **“build.”** Stage didefinisikan sebagai **“build”**, diikuti dengan skrip job. |
+| **Deploy** | Mewakili job **“deploy.”** Stage ditentukan sebagai **“deploy.”** Termasuk juga **environment**, **variables**, dan pernyataan **only** untuk job. |
+
+## Anatomi Pipeline CI/CD
+Ini adalah contoh grafik pipeline yang menunjukkan seperti apa build CI/CD.  
+Grafik ini memungkinkan Anda melihat bagaimana serangkaian job dijalankan dalam stage yang Anda definisikan di file YAML untuk pipeline.  
+
+![Gitlab](/img/gitlab/26.png)
+
+### Apa itu stages?
+Stages adalah kumpulan job yang dijalankan secara paralel.  
+Stage default adalah Build, Test, dan Deploy. Dalam contoh ini, file ci.yml memiliki 4 stage pipeline: Build, Test, Staging, dan Production.  
+Stage dalam pipeline dijalankan secara serial.  
+
+### Build
+Apa itu jobs?  
+- Jobs adalah skrip yang melakukan tugas.  
+    - Contoh: test1; test2;  
+- Jobs dalam setiap stage dijalankan secara paralel.  
+- Jika satu job dalam stage gagal, stage berikutnya biasanya tidak dieksekusi.  
+
+### Test
+Ikon dan tombol:  
+Saat melihat pipeline CI/CD di GitLab, Anda akan melihat serangkaian ikon dan tombol untuk dilihat atau diklik.  
+- Centang hijau = lulus  
+- Tombol play/gear = aksi manual sebelum dijalankan  
+- Panah retry = jalankan ulang  
+
+### Production
+Apa itu environments?  
+Environments adalah tempat di mana kita melakukan deployment.  
+- Contoh: Build, Test, Staging, Production  
+- Ini ditentukan di dalam job pada file ci.yml  

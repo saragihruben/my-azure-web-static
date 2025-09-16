@@ -3,12 +3,92 @@ id: Gitlab Package and Release
 title: Paket dan Rilis GitLab
 ---
 
-:::info
+## Fungsi Paket dan Rilis GitLab
+GitLab Packages memungkinkan organisasi untuk menggunakan GitLab sebagai repositori privat untuk berbagai package manager umum. 
+Pengguna dapat membangun dan mempublikasikan paket, yang dapat dengan mudah digunakan sebagai dependensi dalam proyek hilir.
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+![Gitlab](/img/gitlab/27.png)
 
+### Tahap Paket GitLab 
+GitLab memungkinkan tim untuk mengemas aplikasi dan dependensinya, mengelola container, dan membangun artefak dengan mudah. 
+Registry container privat dan aman serta repositori artefak sudah terpasang dan dikonfigurasi sebelumnya untuk bekerja secara mulus dengan manajemen kode sumber GitLab dan pipeline CI/CD. 
+Pastikan percepatan DevOps dengan pipeline perangkat lunak otomatis yang mengalir bebas tanpa gangguan.
+
+### Manajemen Paket yang Ditingkatkan
+Menggunakan sistem paket GitLab memungkinkan pengguna untuk dengan cepat mencari dan memanfaatkan artefak build, yang meningkatkan penggunaan kembali di seluruh organisasi. 
+Hal ini memudahkan semua tim untuk berkolaborasi dan berbagi praktik terbaik guna meminimalkan waktu ke pasar dan meningkatkan efisiensi secara keseluruhan.
+
+## Apa itu Package dan Container Registries?
+GitLab memungkinkan tim untuk mengemas aplikasi dan dependensinya, mengelola container, dan membangun artefak dengan mudah. 
+Registry container privat dan aman serta repositori artefak sudah terpasang dan dikonfigurasi sebelumnya untuk bekerja mulus dengan manajemen kode sumber GitLab dan pipeline CI/CD. 
+Tujuan utamanya adalah memastikan percepatan DevSecOps dengan pipeline perangkat lunak otomatis yang mengalir bebas tanpa hambatan.
+
+| **Fitur**          | **Package Registry** | **Container Registry** |
+|---------------------|-----------------------|-------------------------|
+| **Apa itu?**        | [GitLab Package Registry](https://docs.gitlab.com/ee/user/packages/package_registry/) berfungsi sebagai registry privat atau publik untuk berbagai package manager umum. Pengguna dapat membangun dan mempublikasikan paket, yang dapat dengan mudah digunakan sebagai dependensi dalam proyek hilir. | [GitLab Container Registry](https://docs.gitlab.com/ee/user/packages/container_registry/) adalah registry aman dan privat untuk container image. Dibangun di atas perangkat lunak open-source, sepenuhnya terintegrasi dalam GitLab. Gunakan GitLab CI/CD untuk membuat dan mempublikasikan image, serta GitLab API untuk mengelola registry di seluruh grup dan proyek. |
+| **Bagaimana kegunaannya?** | Setiap tim memerlukan tempat untuk menyimpan paket dan dependensinya. Dengan GitLab Package Registry, Anda dapat menggunakan GitLab sebagai registry privat atau publik untuk berbagai package manager yang didukung. Anda dapat mempublikasikan dan berbagi paket, yang dapat digunakan sebagai dependensi dalam proyek hilir. | Anda dapat menggunakan Container Registry bawaan untuk menyimpan container image untuk setiap proyek GitLab. Membuat, push, dan mengambil image berjalan mulus langsung dengan GitLab CI/CD. |
+
+### Fitur Tambahan Package dan Registry
+
+| **Fitur**              | **Terraform Module Registry** | **Dependency Proxy** |
+|-------------------------|-------------------------------|-----------------------|
+| **Apa itu?**            | [GitLab Terraform Module Registry](https://docs.gitlab.com/ee/user/packages/terraform_module_registry/) adalah registry aman dan privat untuk modul Terraform. Anda dapat menggunakan GitLab CI/CD untuk membuat dan mempublikasikan modul. | [Dependency Proxy](https://docs.gitlab.com/ee/user/packages/dependency_proxy/) adalah proxy lokal untuk image dan paket upstream yang sering digunakan. |
+| **Bagaimana kegunaannya?** | Dengan Terraform Module Registry, Anda dapat menggunakan proyek GitLab sebagai registry privat untuk modul Terraform. Anda dapat membuat dan mempublikasikan modul dengan GitLab CI/CD, yang kemudian dapat digunakan dari proyek privat lainnya. | Dependency Proxy menyimpan cache manifest dan blob untuk sebuah image, sehingga ketika Anda memintanya kembali, Docker Hub tidak perlu dihubungi. |
+
+## Rilis dengan GitLab
+Di GitLab, rilis memungkinkan Anda membuat snapshot proyek untuk pengguna Anda, termasuk paket instalasi dan catatan rilis. 
+Anda dapat membuat rilis GitLab pada cabang mana pun. Membuat rilis juga membuat tag Git untuk menandai titik rilis di kode sumber.
+
+:::info Sumber daya tambahan:
+- [**Membuat rilis**](https://docs.gitlab.com/ee/user/project/releases/#create-a-release)
+- [**Contoh Release CI/CD**](https://docs.gitlab.com/ee/user/project/releases/release_cicd_examples.html)  
+- [**Alat CLI Release**](https://docs.gitlab.com/ee/user/project/releases/release_cli.html)  
 :::
 
-:::warning
+## Fitur Tambahan Rilis
+Deployment adalah langkah dalam proses pengiriman perangkat lunak ketika aplikasi Anda diterapkan ke infrastruktur target akhirnya. 
+Anda dapat menerapkan aplikasi secara internal atau ke publik. Anda juga dapat meninjau rilis di Review App, dan menggunakan feature flag untuk merilis fitur secara bertahap.
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+Lihat beberapa fitur yang ditawarkan GitLab untuk menyederhanakan proses rilis dan deployment di bawah ini:
+
+### Review Apps
+Review Apps GitLab mencakup:
+- **Pratinjau Langsung Otomatis**  
+    - Kode, commit, dan tinjau branch Anda di lingkungan langsung. Review Apps secara otomatis membuat environment dinamis untuk merge request Anda.
+- **Satu klik untuk Kolaborasi**  
+    - Desainer dan manajer produk tidak perlu mengecek branch Anda dan menjalankannya di staging. Cukup kirimkan tautan ke tim dan biarkan mereka mencoba.
+- **Terintegrasi Penuh**  
+    - Dengan code review GitLab, CI/CD bawaan, dan Review Apps, Anda dapat mempercepat proses pengembangan dengan satu alat untuk coding, testing, dan preview perubahan Anda.
+- **Fleksibilitas Deployment**  
+    - Deploy ke Kubernetes, Heroku, FTP, dan lainnya. Anda dapat deploy di mana saja selama bisa discript dengan `.gitlab-ci.yml` dan Anda memiliki kendali penuh untuk membuat berbagai jenis review app sesuai kebutuhan tim.
+
+### Perluasan Feature Flags
+Dengan feature flags, Anda dapat menerapkan fitur baru aplikasi ke produksi dalam batch kecil. 
+Anda bisa mengaktifkan dan menonaktifkan fitur untuk subset pengguna, membantu Anda mencapai Continuous Delivery. Feature flags membantu mengurangi risiko, memungkinkan pengujian terkontrol, dan memisahkan pengiriman fitur dari peluncuran ke pelanggan.  
+- Untuk contoh penggunaan feature flags, lihat konfigurasi, instrumentasi, dan penggunaan Feature Flags.  
+- Anda juga dapat mencoba feature flags dengan demo klik langsung.
+
+### Perluasan GitLab Pages
+GitLab Pages adalah fitur yang memungkinkan Anda mempublikasikan situs web statis langsung dari repositori di GitLab.
+
+![Gitlab](/img/gitlab/28.png)
+
+Anda dapat menggunakannya untuk situs web pribadi atau bisnis, seperti portofolio, dokumentasi, manifesto, dan presentasi bisnis. 
+Anda juga dapat menambahkan lisensi apa pun ke konten Anda.  
+Pages tidak mendukung pemrosesan sisi server dinamis, misalnya `.php` atau `.asp`. Lihat artikel ini untuk mempelajari lebih lanjut tentang situs web statis vs dinamis.
+
+### Perluasan Release Evidence
+Setiap kali rilis dibuat, GitLab mengambil snapshot data yang terkait dengannya. Data ini disimpan dalam file JSON dan disebut sebagai release evidence. 
+Fitur ini mencakup artefak uji dan milestone yang ditautkan untuk memfasilitasi proses internal, seperti audit eksternal.
+
+Untuk mengakses release evidence, pada halaman Rilis, pilih tautan ke file JSON yang terdaftar di bawah heading Evidence collection.
+
+Anda juga dapat menggunakan API untuk menghasilkan release evidence dari rilis yang sudah ada. Karena itu, setiap rilis dapat memiliki beberapa snapshot release evidence. 
+Anda dapat melihat release evidence dan detailnya di halaman Rilis.
+
+## GitLab dan AutoDevOps
+Auto DevOps memberi Anda konfigurasi CI/CD yang sudah ditentukan sebelumnya, yang memungkinkan Anda secara otomatis mendeteksi, membangun, menguji, menerapkan, dan memantau aplikasi Anda. 
+Ini membuat setiap proyek lebih mudah disiapkan secara konsisten.
+
+Auto DevOps diaktifkan secara default untuk semua proyek Anda tetapi dapat dinonaktifkan oleh administrator pada tingkat instance. 
+Pengguna GitLab.com dapat menonaktifkan dan mengaktifkannya di tingkat proyek, dan pengguna self-managed juga dapat mengaktifkannya di tingkat grup atau instance.
