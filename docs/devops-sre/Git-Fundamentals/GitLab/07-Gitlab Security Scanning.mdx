@@ -3,12 +3,65 @@ id: Gitlab Security Scanning
 title: Pemindaian Keamanan GitLab
 ---
 
-:::info
+Seiring dengan semakin pentingnya keamanan perangkat lunak, banyak perusahaan ingin memperkenalkan proses pemindaian kode standar ke dalam alur kerja pengembangan untuk menemukan dan memperbaiki kerentanan keamanan sebelum mencapai produksi.  
+Platform DevSecOps GitLab memungkinkan pengguna untuk melakukan pemindaian keamanan dalam pipeline CI/CD, yang dapat dengan mudah diaktifkan untuk memeriksa aplikasi dari kerentanan keamanan seperti akses tidak sah, kebocoran data, dan serangan denial of service (DoS).
 
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
+## Pengenalan Pemindaian Keamanan
 
-:::
+Dalam lanskap perangkat lunak saat ini, memastikan keamanan aplikasi sangatlah penting.  
 
-:::warning
+GitLab dapat memeriksa aplikasi Anda dari kerentanan keamanan termasuk:
+- Akses tidak sah.
+- Kebocoran data.
+- Serangan Denial of Service (DoS).
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+# Mengapa Keamanan Aplikasi Itu Penting
+
+|                          | Risiko Privasi | Memastikan Kualitas Kode | Perlindungan Data |
+|--------------------------|----------------|---------------------------|-------------------|
+| **Judul**                | Risiko Privasi | Memastikan Kualitas Kode  | Perlindungan Data |
+| **Deskripsi**            | Mirip dengan perlindungan data, pemindaian keamanan membantu meminimalkan risiko privasi yang dapat berdampak negatif pada reputasi organisasi Anda dan kepercayaan pelanggan. | Pemindaian keamanan membantu mengidentifikasi kesalahan pengkodean dan masalah keamanan yang mungkin terlewat dalam proses pengembangan. | Tanpa pemindaian keamanan, data sensitif terekspos pada serangan siber yang dapat mengakibatkan konsekuensi finansial dan hukum yang serius. |
+
+## Bagaimana GitLab Menangani Masalah Keamanan?
+GitLab menawarkan berbagai pemindai keamanan beserta beragam fitur pelaporan dan manajemen:  
+
+| **Pemindai Keamanan** | **Fitur Dukungan Keamanan** |
+|------------------------|------------------------------|
+| **SAST (Static Application Security Testing)** – mencari masalah yang sudah diketahui dalam kode sumber (misalnya, input pengguna yang tidak tervalidasi dapat menyebabkan command injection). | **Laporan Keamanan** – menampilkan kerentanan keamanan di berbagai tempat dan cara yang berbeda. |
+| **Deteksi Rahasia (Secret Detection)** – mencari rahasia yang ditulis secara hard-coded di kode sumber (misalnya, kata sandi). | **Manajemen Kerentanan** – memungkinkan Anda melihat masalah di beberapa tempat dalam GitLab dan menerima/menolak/menandai untuk tindakan. |
+| **DAST (Dynamic Application Security Testing)** – secara pasif atau aktif memanggil aplikasi web atau API untuk mencari kerentanan keamanan. | **Kebijakan (Policies)** – memberi tim keamanan cara untuk mewajibkan pemindaian pilihan mereka dijalankan setiap kali pipeline proyek berjalan sesuai konfigurasi yang ditentukan. |
+| **IaC (Infrastructure-as-Code Scanning)** – memindai file konfigurasi IaC (misalnya, Ansible, Terraform) untuk kerentanan keamanan yang diketahui. | |
+| **Pemindaian Dependensi** – memeriksa dependensi proyek untuk melihat apakah ada kerentanan yang diketahui pada versi tersebut (misalnya, library parsing YAML pihak ketiga). | |
+| **Pemindaian Container** – memeriksa image Docker proyek Anda dan memindai kerentanan yang diketahui. | |
+| **Fuzz Testing** – mengirim input acak ke fungsi Anda untuk mencoba menimbulkan masalah tak terduga (misalnya, kata sandi 200 karakter atau karakter Klingon dalam Unicode). | |
+
+## Pengenalan Analisis Statis
+Ada banyak pemindai berbeda yang dapat digunakan organisasi untuk mengamankan aplikasi mereka.  
+Untuk tujuan kursus pengantar ini, kita hanya akan melihat **Static Application Security Testing (SAST)** karena ini adalah pemindai keamanan yang paling sering digunakan.  
+
+### Contoh Kasus Penggunaan Analisis Statis
+- Kode Anda memiliki atribut berbahaya dalam sebuah class, atau kode tidak aman yang dapat menyebabkan eksekusi kode yang tidak diinginkan.  
+- Aplikasi Anda rentan terhadap serangan cross-site scripting (XSS) yang dapat dimanfaatkan untuk mengakses data sesi secara tidak sah.  
+
+Jika Anda menggunakan GitLab CI/CD, Anda dapat menggunakan **Static Application Security Testing (SAST)** untuk memeriksa kode sumber dari kerentanan yang sudah diketahui.  
+Analyzer menghasilkan laporan berformat JSON sebagai artefak pekerjaan.  
+
+Hasil SAST juga diproses sehingga Anda dapat:
+- Melihatnya di merge request.  
+- Menggunakannya dalam alur kerja persetujuan.  
+- Meninjaunya di dasbor keamanan.  
+
+## Pengenalan Kebijakan Keamanan
+Kebijakan keamanan aplikasi adalah serangkaian pedoman dan prosedur yang memastikan kerahasiaan, integritas, dan ketersediaan data dalam aplikasi perangkat lunak.  
+Dengan menerapkan kebijakan ini, organisasi dapat melindungi informasi sensitif dan mengurangi risiko pelanggaran keamanan.  
+Saat menyiapkan pemindai keamanan, mendefinisikan kebijakan adalah cara untuk memberi tahu pemindai apa yang harus ditandai dan apa yang harus diabaikan.  
+
+GitLab mendukung kebijakan keamanan berikut:  
+
+|                          | **Kebijakan Eksekusi Pemindaian** | **Kebijakan Hasil Pemindaian** |
+|--------------------------|-----------------------------------|--------------------------------|
+| **Apa itu?**             | Tim keamanan menggunakan kebijakan eksekusi pemindaian untuk mewajibkan pemindaian kerentanan dijalankan, baik pada jadwal tertentu atau sebagai bagian dari pekerjaan pipeline. <br/><br/> Kebijakan eksekusi pemindaian menegakkan pemindaian keamanan untuk **branch tertentu pada waktu tertentu**. | Kebijakan hasil pemindaian memungkinkan tim keamanan untuk menegakkan persetujuan pada merge request ketika kondisi kebijakan dilanggar. Misalnya, pengguna dapat mewajibkan persetujuan pada merge request yang memperkenalkan kerentanan kritis baru ke dalam aplikasi mereka. <br/><br/> Kebijakan hasil pemindaian memastikan bahwa masalah keamanan diperiksa **sebelum menggabungkan merge request**. |
+| **Mengapa penting?**      | Kebijakan eksekusi pemindaian menegakkan seperangkat standar alat keamanan yang umum di seluruh proyek. | Kebijakan hasil pemindaian mencegah pengembang secara tidak sengaja atau tidak disengaja melakukan commit kode yang tidak sesuai dengan standar ke basis kode. |
+| **Contoh Kasus Penggunaan** | Menjalankan pemindaian DAST dengan Scan Profile A dan Site Profile A ketika pipeline dijalankan pada branch utama. | Jika ada pemindai yang menemukan kerentanan kritis baru dalam merge request terbuka yang menargetkan branch master, maka diperlukan dua persetujuan dari anggota keamanan aplikasi. |
+| **Pemindai yang berlaku** | Analisis Statis, Deteksi Rahasia, Pemindaian Container, Pemindaian Dependensi, dan Pemindaian Analisis Dinamis | Semua pemindai |
+

@@ -3,15 +3,68 @@ id: Gitlab Security Scanning
 title: Gitlab Security Scanning
 ---
 
-:::info
+As software security becomes increasingly important, many companies want to introduce standard code scanning processes into development workflows to find and remediate 
+security vulnerabilities before they get to production. GitLab's DevSecOps Platform allows users to perform security scans in CI/CD pipelines, which can easily be 
+enabled to check applications for security vulnerabilities such as unauthorized access, data leaks, and denial of service (DoS) attacks.
 
-Additional topics will be added to the wiki over time. Please stay tuned for updates.
+## Introduction to Security Scanning
 
-:::
+In today's software landscape, ensuring application security is critical. 
 
-:::warning
+GitLab can check your application for security vulnerabilities including:
+- Unauthorized access.
+- Data leaks.
+- Denial of Service (DoS) attacks.
 
-Some of the materials or topics presented may cover foundational concepts. Your understanding is appreciated.
+# Why Application Security Is Important
 
-:::
+|                          | Privacy Risks | Ensure Code Quality | Data Protection |
+|--------------------------|---------------|---------------------|-----------------|
+| **Title**                | Privacy Risks | Ensure Code Quality | Data Protection |
+| **Description**          | Similar to data protection, security scans help minimize privacy risks that could have a negative impact on your organization's reputation and customer trust. | Security scans help identify coding mistakes and security issues that may have been overlooked in the development process. | Without security scans, sensitive data is exposed to cyberattacks which can result in serious financial and legal consequences. |
+
+
+## How does GitLab Address Security Concerns ?
+GitLab offers multiple security scanners along with a variety of reporting and management features: 
+
+| **Security Scanners** | **Security Support Features** |
+|------------------------|-------------------------------|
+| **SAST (Static Application Security Testing)** – looks for known problems in source code (e.g., unvalidated user input leads to command injection). | **Security Reports** – show security vulnerabilities in different places and different ways. |
+| **Secret Detection** – looks for hard-coded secrets in source code (e.g., passwords). | **Vulnerability Management** – lets you view problems in several places within GitLab and accept/dismiss/mark for action. |
+| **DAST (Dynamic Application Security Testing)** – passively or actively calls a web app or an API to look for security vulnerabilities. | **Policies** – provide security teams a way to require scans of their choice to be run whenever a project pipeline runs according to the configuration specified. |
+| **IaC (Infrastructure-as-Code Scanning)** – scans IaC configuration files (e.g., Ansible, Terraform) for known security vulnerabilities. | |
+| **Dependency Scanning** – looks at a project’s dependencies to see if there are known vulnerabilities with those versions (e.g., third-party YAML-parsing library). | |
+| **Container Scanning** – looks at your project's Docker images and scans for known vulnerabilities. | |
+| **Fuzz Testing** – sends random input to your functions, trying to cause unexpected problems (e.g., 200-character password or Klingon characters in Unicode). | |
+
+## Introduction to Static Analysis
+There are many different scanners that organizations can use to secure their applications. 
+For the purpose of this introductory course, we'll just take a look at Static Application Security Testing (SAST) as it is the most often-used security scanner. 
+
+### Static Analysis Use Cases
+- Your code has a potentially dangerous attribute in a class, or unsafe code that can lead to unintended code execution.
+- Your application is vulnerable to cross-site scripting (XSS) attacks that can be leveraged to unauthorized access to session data.
+
+If you’re using GitLab CI/CD, you can use Static Application Security Testing (SAST) to check your source code for known vulnerabilities. 
+The analyzers output JSON-formatted reports as job artifacts.
+
+SAST results are also processed so you can:
+- See them in merge requests.
+- Use them in approval workflows.
+- Review them in the security dashboard.
+
+## Introduction to Security Policies
+Application security policies are a set of guidelines and procedures that ensure the confidentiality, integrity, and availability of data in software applications. 
+By implementing these policies, organizations can protect sensitive information and mitigate the risk of security breaches. 
+When setting up a security scanner, defining policies is how you tell the scanner what to flag and what to ignore.
+
+GitLab supports the following security policies:
+
+|                          | **Scan Execution Policy** | **Scan Result Policy** |
+|--------------------------|---------------------------|-------------------------|
+| **What is it?**          | Security Teams use scan execution policies to require vulnerability scans to be run, either on a specified schedule or as part of a pipeline job. <br/><br/> Scan execution policies enforce security scans for **particular branches at a certain time**. | Scan Result Policies allow Security Teams to enforce approval on a merge request when policy conditions are violated. For example, users can require approval on merge requests that introduce newly detected, critical vulnerabilities into their application. <br/><br/> Scan result policies ensure that security issues are checked **before merging a merge request**. |
+| **Why is it important?** | Scan execution policies enforce a common set of security tool standards across projects. | Scan result policies prevent developers from accidentally or unintentionally committing out-of-compliance code to the codebase. |
+| **Use Case Examples**    | Run a DAST scan with Scan Profile A and Site Profile A when a pipeline runs against the main branch. | If any scanner finds a newly detected critical vulnerability in an open merge request targeting the master branch, then require two approvals from any member of App security. |
+| **What Scanners does it apply to?** | Static Analysis, Secret Detection, Container Scanning, Dependency Scanning, and Dynamic Analysis Scans | All scanners |
+
 
