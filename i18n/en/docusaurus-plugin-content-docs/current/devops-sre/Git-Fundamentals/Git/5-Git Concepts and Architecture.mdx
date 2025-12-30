@@ -1,0 +1,261 @@
+---
+id: Git Concepts and Architecture
+title: Git Concepts and Architecture
+---
+
+## What Git is
+
+Git is a version control system that helps developers:
+- Track changes in code
+- Work with others at the same time
+- Keep a safe and reliable history of a project
+
+Many Git commands look similar to other tools (add, commit, diff, log), but Git works very differently inside.
+
+---
+## How Git is different 
+### Git does NOT focus on files
+- In Git, files are not the main object
+- Git tracks snapshots of the entire project
+- That’s why actions like renaming or moving files are easy and fast
+
+### What are those long commit IDs?
+- Commits have long hexadecimal IDs (hashes)
+- These IDs:
+    - Uniquely identify a commit
+    - Verify that the data was not changed or corrupted
+- Git uses these hashes for trust and integrity, not filenames
+
+### Why Git was designed this way
+Git was originally created for Linux kernel development, which has:
+- Thousands of developers
+- Many changes happening at the same time
+- Developers all over the world
+Because of this, Git was designed with specific goals.
+
+---
+## Key Design Features
+### Distributed development
+- Every developer has a full copy of the repository
+- You can:
+    - Work offline
+    - Commit without a server
+- No constant syncing needed
+
+### Works with many developers
+- Designed to handle thousands of contributors
+- Used successfully by very large projects
+
+### Fast and efficient
+- Git avoids copying unnecessary data
+- Uses compression
+- Most operations are very fast and local
+
+### Strong security and trust
+- Uses cryptographic hashes
+- Prevents unauthorized changes
+- Ensures repository authenticity
+If history changes, Git will detect it.
+
+### Accountability
+- Every change:
+    - Has an author
+    - Has a timestamp
+    - Has a message
+- You can always see who did what
+
+### History cannot be changed easily
+- Once committed, history is immutable
+- This protects project integrity
+- Advanced users can rewrite history, but it’s discouraged
+
+### Atomic changes
+- A commit is all or nothing
+- Either everything is saved correctly, or nothing is
+- Prevents broken or half-saved states
+
+### Powerful branching and merging
+- Branches are cheap and fast
+- Multiple features can be developed in parallel
+- Merging is robust and reliable
+
+### Independent repositories
+- Each repository contains:
+- Full project history
+- No dependency on a central server
+- Servers like GitHub are for collaboration, not requirements
+
+### Free and open-source
+- Git is released under GPL v2
+- Free to use and modify
+
+---
+## Git Repository, Objects and How Git Tracks Changes
+
+### What is a Git repository
+A Git repository is a database that stores everything about a project.
+
+It contains:
+- All files (current and past versions)
+- Complete change history
+- Information about authors and commits
+- Branches, tags, and metadata
+
+### What is inside .git/config
+Each repository has its own configuration, such as Username User email and Repository settings.
+
+Important:
+- These settings are local
+- When you clone a repository, your own name and email are used, not the original author’s
+
+### Two important parts inside a repository
+1. Object Store (Permanent storage)
+- Stores everything permanently
+- Contains project history and data
+
+2. Index (Staging area)
+- Temporary and changes often
+- Represents what will go into the next commit
+- Updated when you run git add
+
+Think of it as:
+- Object store → Database
+- Index → Shopping cart
+
+### Git objects (the core building blocks)
+Git stores 4 main object types:
+#### Blob (file content)
+- Stores file content only
+- No filename
+- No directory info
+Same content = same blob, even if filenames differ
+
+#### Tree (folder structure)
+- Stores:
+    - Filenames
+    - Folder structure
+    - Permissions
+- Points to blobs and other trees
+Trees connect filenames to file contents
+
+#### Commit (snapshot)
+A commit:
+- Points to a tree
+- Records author, date, message
+- Links to previous commit(s)
+Each commit is a complete snapshot of the project
+
+#### Tag (friendly name)
+Gives a readable name to a commit. Example: v1.0, release-2025
+
+### What is the index (staging area)?
+*The index is Git’s “prepare area” before committing.*
+
+- Changes appear in the index after git add
+- Nothing is permanent until git commit
+- Git uses the index heavily during merges
+
+### Git tracks content, NOT files
+What this means
+- Git tracks file content
+- Filenames are just metadata
+
+Example:
+- Two files with different names but same content
+- Git stores one blob, not two copies
+
+#### Why this is powerful
+- Renaming files is easy
+- Moving files is easy
+- Comparing versions is fast
+- Saves disk space
+Git compares hashes, not file text line by line.
+
+### Git approach
+
+```
+git add file1
+git add file2
+git add file3
+git commit -s
+```
+
+- All changes are saved together
+- Commit is atomic (all or nothing)
+- Rollback = revert one commit
+
+Rolling back changes in Git
+- Just remove or revert the commit
+- No need to hunt for individual files
+
+### Commiting and Publishing
+
+### What is a commit?
+
+A **commit** is saving your work **locally** in your own Git repository.
+
+- No internet needed  
+- Only you can see it  
+- Acts like a checkpoint  
+
+You can commit:
+- Often (small changes)
+- Rarely (big changes)
+
+**Think of a commit as:**  
+> “Saving your work on your laptop”
+
+### What is publishing?
+
+**Publishing** means sharing your commits with others.
+
+This can be done by:
+- `git push` (send your changes)
+- Letting others `git pull`
+- Sending patches
+
+Once published:
+- Others can see your changes
+- History becomes harder to change
+- Your commits are now public
+
+**Think of publishing as:**  
+> “Uploading your work so others can use it”
+
+##### Key difference
+
+| Commit | Publish |
+|------|--------|
+| Local | Shared |
+| Offline | Requires network |
+| Private | Public |
+| Flexible | Mostly fixed |
+
+### Upstream and Downstream 
+
+- **Upstream** → Where changes come from
+- **Downstream** → Where changes go to
+
+#### Common example
+- Main project repository → **Upstream**
+- Your cloned copy → **Downstream**
+
+> This is a concept, not a rule enforced by Git.
+
+#### Important Git idea
+
+Git has **no server/client hierarchy**.  
+All repositories are **equals**.
+
+**In Git:**
+- Any repo you push to = **upstream**
+- Any repo based on yours = **downstream**
+
+#### Real-world example
+- Linux kernel repo → upstream
+- Your company’s custom Linux repo → downstream
+- Your feature repo → downstream of your company repo
+
+One repository can be:
+- Upstream to some repos
+- Downstream to others

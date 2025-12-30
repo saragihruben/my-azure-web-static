@@ -1,0 +1,488 @@
+---
+id: Commits
+title: Commits
+---
+
+## What Is a Commit?
+
+A **commit** is a saved snapshot of your project at a specific point in time.
+
+Think of a commit as:
+> **A safe checkpoint in your work**
+
+Each commit:
+- Saves the current staged changes
+- Gets a unique ID
+- Becomes part of the project history
+
+---
+
+## What Happens Internally (Simple View)
+
+When you commit:
+
+- Git takes files from the **staging area (index)**
+- Creates a **commit object**
+- Stores it safely in the repository
+
+Git is efficient:
+- Unchanged files are reused
+- Only new or changed content is stored
+- This makes commits **fast** and **space‑efficient**
+
+You don’t need to worry about hashes or blobs at first — Git handles that.
+
+---
+
+## How Often Should You Commit?
+
+That’s your choice.
+
+Good practices:
+- Commit when a logical task is done
+- One feature = one commit
+- One bug fix = one commit
+
+Git works very well with:
+- Many small commits
+- Or fewer large commits
+
+Small commits are especially helpful when debugging.
+
+---
+
+## Making a Commit
+
+### Commit Only One File
+
+```
+git commit -s file1
+```
+
+This commits only `file1`, even if other files are staged.
+
+### Commit Everything That Is Staged
+
+Any of these commands work:
+
+```
+git commit -s
+git commit . -s
+git commit -a -s
+```
+
+Notes:
+- `-s` adds a **Signed-off-by** line
+- `-a` automatically stages tracked files
+
+### What Changes During Commit?
+
+| Area            | What Happens |
+|-----------------|--------------|
+| Working files   | No change |
+| Staging area    | No change |
+| Commit history  | New commit added |
+| HEAD pointer    | Moves to new commit |
+
+After committing:
+
+```
+git diff
+```
+
+Shows **no differences**, because everything is saved.
+
+---
+
+## Commit Identifiers (Hashes)
+
+Every commit gets a **unique ID**, for example:
+
+```text
+56b24d1bbcff213dc9e1625eea5b8e13bb50feb8
+```
+
+This ID:
+- Uniquely identifies a commit
+- Is generated from the content
+- Ensures data integrity
+
+You usually only need the **first few characters**.
+
+---
+
+## Tags (Human‑Friendly Names)
+
+Tags give **easy names** to commits.
+
+Instead of remembering hashes, you can do:
+
+```
+git tag v1.0
+```
+
+Or tag a specific commit:
+
+```
+git tag v1.0 08d869
+```
+
+Tags are useful for:
+- Releases
+- Stable versions
+- Milestones
+
+#### Using a Tag
+
+To move your project to a tagged version:
+
+```
+git checkout v1.0
+```
+
+---
+
+## Viewing Commit History
+
+#### Basic History
+
+```
+git log
+```
+
+Shows:
+- Commit ID
+- Author
+- Date
+- Message
+
+Newest commits appear first.
+
+#### One‑Line History
+
+```
+git log --pretty=oneline
+```
+
+Example output:
+
+```text
+4b4bf2c5 Fourth commit
+55eceacc Third commit
+f60c0c21 Second commit
+712cbafa First commit
+```
+
+#### See Actual Changes
+
+```
+git log -p
+```
+
+To inspect a specific commit:
+
+```
+git log -p f60c
+```
+
+This shows:
+- What changed
+- Which lines were added or removed
+
+:::info Summary
+
+- A **commit** saves your work locally
+- Commits form a history chain
+- Each commit has a unique ID
+- **Tags** give readable names to commits
+- `git log` lets you explore history easily
+
+:::
+
+---
+
+## Reverting vs Resetting Commits
+
+Sometimes you commit something by mistake:
+- A bug
+- An unfinished feature
+- A wrong change
+
+Git gives you **two safe ways** to undo commits.
+
+---
+
+## git revert (Safe for Shared Repositories)
+
+#### What does `git revert` do?
+
+`git revert` **undoes a commit by creating a new commit**.
+
+Think of it as:
+> “Make a new commit that cancels an old commit”
+
+#### Example
+
+```
+git revert <commit-id>
+```
+
+You can specify commits using:
+- `HEAD` → latest commit
+- `HEAD~1` → previous commit
+- `HEAD~2` → two commits ago
+- Commit hash (short or full)
+- Tag name
+
+#### Important Behavior
+
+- No history is deleted
+- A new commit is added
+- Safe when others already pulled your changes
+
+#### What Changes with git revert?
+
+| Area | Effect |
+|----|----|
+| Working files | Updated |
+| Staging area | Clean |
+| Commit history | New commit added |
+| Old commits | Still exist |
+
+---
+
+## git reset (For Local Undo)
+
+### When to use reset
+
+Use `git reset` **only if you are the only one using the branch**.
+
+Think of it as:
+> “Pretend these commits never happened”
+
+### Basic Reset
+
+```
+git reset HEAD~2
+```
+
+This:
+- Removes last 2 commits from history
+- Keeps your files unchanged
+- Moves the branch pointer backward
+
+
+### Reset Modes
+
+#### --soft
+```
+git reset --soft HEAD~1
+```
+- Commits removed
+- Changes stay staged
+
+#### --mixed (default)
+```
+git reset HEAD~1
+```
+- Commits removed
+- Changes unstaged
+
+#### --hard (dangerous)
+```
+git reset --hard HEAD~1
+```
+- Commits removed
+- Files reset to old state
+- Changes are lost
+
+⚠️ **Never use `--hard` on shared branches**
+
+---
+
+## Saving Work While Cleaning Main Branch
+
+Example scenario:
+- Last 3 commits are experimental
+- Older commits are stable
+
+#### Solution
+
+```
+git branch work
+git reset --hard HEAD~3
+git checkout work
+```
+
+Result:
+- `main` is clean
+- Work continues safely in `work` branch
+
+---
+
+## Cleaning and Optimizing a Repository
+
+#### Git Garbage Collection
+
+Over time, repositories grow in size.
+
+```
+git gc
+```
+
+This:
+- Removes unnecessary objects
+- Compresses data
+- Makes repo smaller and faster
+
+#### Checking Repository Health
+
+```
+git fsck
+```
+
+Finds:
+- Broken references
+- Dangling objects (usually safe)
+
+#### Removing Dangling Objects
+
+Preview first:
+
+```
+git prune -n
+```
+
+Actually clean:
+
+```
+git prune
+```
+
+---
+
+## Who Changed This Line? (git blame)
+
+#### What is git blame?
+
+`git blame` shows:
+- Who modified each line
+- When it was changed
+- Which commit did it
+
+Think of it as:
+> “Who touched this line?”
+
+#### Basic Usage
+
+```
+git blame file.txt
+```
+
+Output shows:
+- Commit ID
+- Author
+- Date
+- Line content
+
+#### Blame a Line Range
+
+```
+git blame -L 10,20 file.txt
+```
+
+Useful for:
+- Debugging bugs
+- Code reviews
+- Understanding legacy code
+
+:::info Summary
+
+- Use **git revert** for shared branches
+- Use **git reset** only locally
+- `--hard` can destroy work
+- `git gc` cleans your repo
+- `git blame` tells who changed what
+:::
+
+---
+## What problem does `git bisect` solve?
+
+Sometimes your code *used to work*, but after many commits, it *no longer works*.
+You don’t know **which commit introduced the bug**.
+
+`git bisect` helps you quickly find the exact commit that broke things
+
+Instead of checking every commit one by one, Git uses a binary search, which is much faster.
+
+Example:
+If the bug was introduced somewhere in the last 1024 commits, Git can find it in about 10 steps.
+
+### Basic Idea
+
+1. Tell Git which commit is **bad** (bug exists)
+2. Tell Git which commit is **good** (works fine)
+3. Git checks a commit in the middle
+4. You test and mark it good or bad
+5. Repeat until the exact bad commit is found
+
+### Step-by-Step: Manual Bisect
+
+#### 1. Start bisect mode
+
+```
+git bisect start
+```
+
+#### 2. Mark the current commit as bad
+
+```
+git bisect bad
+```
+
+#### 3. Mark a known good commit
+
+```
+git bisect good V_10
+```
+
+#### 4. Test and report
+
+If the bug is present:
+```
+git bisect bad
+```
+
+If the bug is not present:
+```
+git bisect good
+```
+
+#### 5. Exit bisect mode
+
+```
+git bisect reset
+```
+
+### Automated Bisect (Recommended)
+
+If you have a test script:
+
+- Exit code `0` → good
+- Exit code `1–127` → bad
+
+Run:
+
+```
+git bisect start
+git bisect bad
+git bisect good V_10
+git bisect run ./myscript.sh
+```
+
+#### Tips
+
+- Small commits make bugs easier to find
+- Automated tests make bisect very powerful
+- Great for finding regressions
+

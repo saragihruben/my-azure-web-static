@@ -1,0 +1,190 @@
+---
+id: Merges
+title: Merges
+---
+
+## Apa itu Merging?
+
+**Merging** berarti menggabungkan pekerjaan dari beberapa branch ke dalam satu branch.
+
+Ini biasanya terjadi ketika:
+- Banyak developer bekerja secara bersamaan
+- Semua orang ingin perubahan mereka masuk ke satu branch bersama (sering kali `main`)
+
+### Kasus Sederhana: Tanpa Konflik
+Jika:
+- Anda mengedit file yang berbeda, atau
+- Anda mengedit bagian yang berbeda dari file yang sama  
+
+Git dapat melakukan merge secara otomatis.
+
+Contoh:
+- Developer A mengedit `file1`
+- Developer B mengedit `file2`
+
+Git menggabungkan kedua perubahan tanpa masalah.
+
+### Masalah Tersembunyi (Masalah Manusia)
+Bahkan tanpa konflik, masalah tetap bisa terjadi:
+- Dua orang memperbaiki bug yang sama dengan cara berbeda
+- Kode berjalan, tetapi logikanya menjadi salah
+
+**Praktik terbaik:**
+- Buat commit kecil
+- Lakukan pengujian secara rutin
+- Gunakan alat seperti `git bisect` jika bug muncul
+
+---
+
+## Perintah Merge Dasar
+
+Untuk meng-merge `devel` ke `main`:
+
+```
+git checkout main
+git merge devel
+```
+
+Sebelum melakukan merge, pastikan direktori kerja bersih:
+
+```
+git status
+```
+
+Ini mencegah kebingungan di kemudian hari.
+
+---
+
+## Apa yang Terjadi Saat Ada Konflik?
+
+Konflik terjadi ketika:
+- Dua branch memodifikasi baris yang sama pada file yang sama
+
+Git akan berhenti dan meminta Anda untuk memperbaikinya.
+
+Contoh keluaran:
+```text
+CONFLICT (content): Merge conflict in file1
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+---
+
+## Memahami Penanda Konflik
+
+Di dalam file yang mengalami konflik, Anda akan melihat sesuatu seperti ini:
+
+```text
+<<<<<<< HEAD
+file901
+=======
+file701
+>>>>>>> devel
+```
+
+Artinya:
+- `HEAD` → branch saat ini (`main`)
+- `devel` → branch yang akan digabungkan
+
+Anda harus mengedit file tersebut dan menentukan isi akhir yang benar.
+
+---
+
+## Memperbaiki Konflik Merge (Dua Opsi)
+
+### Opsi 1: Membatalkan Merge
+Jika terjadi kesalahan:
+
+```
+git reset --hard main
+```
+
+Perbaiki branch secara terpisah, lalu coba merge kembali.
+
+---
+
+### Opsi 2: Perbaiki dan Lanjutkan (Paling Umum)
+
+1. Edit file yang konflik
+2. Hapus penanda konflik
+3. Simpan konten yang benar
+4. Jalankan:
+
+```
+git add file1
+git commit -m "Fix merge conflict"
+```
+
+Merge sekarang selesai.
+
+---
+
+## Merge vs Rebase
+
+Keduanya menggabungkan perubahan, tetapi caranya berbeda.
+
+### Apa itu Rebasing?
+
+**Rebasing** memindahkan pekerjaan Anda agar berada di atas versi terbaru dari branch lain.
+
+Alih-alih menggabungkan riwayat, Git:
+1. Menghapus sementara commit Anda
+2. Memperbarui branch Anda
+3. Menerapkan kembali commit satu per satu
+
+### Kapan Rebasing Berguna
+
+Contoh:
+- Anda mulai bekerja dari versi `4.16`
+- Branch utama sudah bergerak ke `4.17`
+- Fitur Anda belum selesai
+
+Rebasing memperbarui pekerjaan Anda agar diterapkan dengan bersih di `4.17`.
+
+### Perintah Rebase
+
+```
+git checkout devel
+git rebase main
+```
+
+Jika muncul konflik:
+```
+git add <file>
+git rebase --continue
+```
+
+Untuk membatalkan rebase:
+```
+git rebase --abort
+```
+
+### Mengapa Rebasing Bisa Berbahaya
+
+Rebasing **menulis ulang riwayat**.
+
+Masalah yang mungkin timbul:
+- Tes lama mungkin tidak lagi valid
+- Riwayat commit menjadi lebih sulit dilacak
+- Developer lain bisa kehilangan sinkronisasi jika sudah menarik branch Anda
+
+**Aturan praktis:**
+- Jangan pernah melakukan rebase pada branch bersama/publik
+- Lakukan rebase hanya pada pekerjaan pribadi Anda
+
+### Perbandingan Singkat
+
+| Fitur | Merge | Rebase |
+|------|------|------|
+| Riwayat | Dipertahankan | Ditulis ulang |
+| Aman untuk tim | Ya | Tidak (jika branch dibagikan) |
+| Penyelesaian konflik | Sekali | Bisa berkali-kali |
+| Mudah untuk pemula | Ya | Menengah |
+
+:::info Practical Advice
+
+- Gunakan **merge** untuk kerja tim
+- Gunakan **rebase** untuk merapikan pekerjaan sendiri
+- Selalu merge atau rebase pada milestone yang jelas
+- Jika ragu → **merge**
+:::

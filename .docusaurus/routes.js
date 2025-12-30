@@ -9,15 +9,15 @@ export default [
   },
   {
     path: '/en/docs',
-    component: ComponentCreator('/en/docs', '670'),
+    component: ComponentCreator('/en/docs', '4b9'),
     routes: [
       {
         path: '/en/docs',
-        component: ComponentCreator('/en/docs', '93c'),
+        component: ComponentCreator('/en/docs', '428'),
         routes: [
           {
             path: '/en/docs',
-            component: ComponentCreator('/en/docs', '95c'),
+            component: ComponentCreator('/en/docs', 'de0'),
             routes: [
               {
                 path: '/en/docs/devops-sre',
@@ -28,6 +28,66 @@ export default [
               {
                 path: '/en/docs/devops-sre/Git-Fundamentals',
                 component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals', '3f2'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git', '3ef'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Branches',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Branches', 'ec4'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Commits',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Commits', 'f6c'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Diffs',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Diffs', 'b5c'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Git Concepts and Architecture',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Git Concepts and Architecture', '897'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Managing Files and the Index',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Managing Files and the Index', '8d7'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Managing Local and Remote Repositories',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Managing Local and Remote Repositories', 'e68'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Merges',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Merges', '96d'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Using Git - An Example',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Using Git - An Example', '9f8'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/Git/Using Patches',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/Git/Using Patches', '077'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },

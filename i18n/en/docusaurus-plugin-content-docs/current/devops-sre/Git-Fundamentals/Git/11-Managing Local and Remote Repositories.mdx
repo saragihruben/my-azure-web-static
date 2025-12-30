@@ -1,0 +1,277 @@
+---
+id: Managing Local and Remote Repositories
+title: Managing Local and Remote Repositories
+---
+
+## Big Idea: No Central Server
+
+Unlike older version control systems, Git does **not require a single central repository**.
+
+Every developer:
+- Has a full copy of the repository
+- Can work offline
+- Can share changes when ready
+
+---
+
+## Why Multiple Repositories Make Sense
+
+Separate repositories are useful when:
+
+- A developer works alone
+- Teams are spread across different locations
+- Experimental or long-term features need isolation
+
+Git handles this well because it is **very strong at branching and merging**.
+
+---
+
+## Key Remote Repository Operations
+
+| Action | What It Does | Command |
+|-----|-----|-----|
+| Clone | Copy a repository | `git clone` |
+| Fetch | Download updates (no merge) | `git fetch` |
+| Pull | Download + merge updates | `git pull` |
+| Push | Upload your changes | `git push` |
+| Publish | Make repo available to others | (server setup) |
+
+---
+
+## What Is a Tracking Branch?
+
+A **tracking branch** is a local reference to a remote branch.
+
+Example:
+- `origin/main` → remote branch
+- `main` → your local branch
+
+Git uses tracking branches to know:
+- What changed remotely
+- What you can pull or push
+
+---
+
+## Bare Repositories 
+
+A **bare repository**:
+- Has **no working directory**
+- Cannot be edited directly
+- Is used only for **push, pull, and clone**
+
+:::info
+Best for shared or server repositories  
+Not used for development
+:::
+
+Create one with:
+```
+git clone --bare my-project my-project.git
+```
+
+---
+
+## Cloning a Repository
+
+Basic clone:
+```
+git clone https://example.com/project.git
+```
+
+This:
+- Downloads the full history
+- Creates a working directory
+- Is a one-time operation
+
+---
+
+## Common Clone Protocols
+
+Git supports many ways to connect:
+
+- `https://` → most common, easiest
+- `ssh://` → secure, good for pushing
+- `git://` → fast, read-only
+- `file://` → local machine
+
+Use **HTTPS or SSH** unless you know you need something else.
+
+---
+
+## Local Clone Optimization
+
+If you clone a local repo, Git may use hard links to save space.
+
+Disable this if needed:
+```
+git clone --no-hardlinks source target
+```
+
+---
+
+## Viewing Repository References
+
+Show local references:
+```
+git show-ref
+```
+
+Show remote references:
+```
+git ls-remote https://example.com/project.git
+```
+
+This helps you see:
+- Branches
+- Tags
+- HEAD pointers
+
+---
+
+## Keeping Your Repo Updated
+
+Safest method:
+```
+git fetch
+git merge origin/main
+```
+
+Shortcut:
+```
+git pull
+```
+
+:::warning
+ `git pull` = `fetch + merge`
+:::
+
+## Publishing Your Own Repository
+
+### Step 1: Create a Bare Repo
+```
+git clone --bare my-project /tmp/my-project.git
+```
+
+### Step 2: Local User Clones
+```
+git clone /tmp/my-project.git my-copy
+```
+
+### Step 3: Network Access (Git Daemon)
+
+Enable export:
+```
+touch /tmp/my-project.git/git-daemon-export-ok
+```
+
+Run daemon:
+```
+git daemon &
+```
+
+Users can now clone:
+```
+git clone 192.168.1.100:/tmp/my-project.git
+```
+
+---
+
+## Allowing Push Access
+
+:::warning 
+Only for trusted environments.
+:::
+
+Global:
+```
+git daemon --enable=receive-pack
+```
+
+Per-repository config:
+```ini
+[daemon]
+receivepack = true
+```
+
+---
+
+## Publishing Over HTTP / HTTPS
+
+Requirements:
+- Web server (Apache, Nginx)
+- Basic server configuration knowledge
+
+Prepare repo:
+```
+git --bare update-server-info
+```
+
+Clone examples:
+```
+git clone https://server/git-test
+git clone https://server/~username/git-test
+```
+
+---
+
+## Sharing Without Git (Archives)
+
+Create a compressed snapshot:
+```
+git archive HEAD | bzip2 > project.tar.bz2
+```
+
+Archive a specific version:
+```
+git archive v1.7.1 | bzip2 > project_v1.7.1.tar.bz2
+```
+
+- No `.git` directory included  
+- Good for releases or backups
+
+---
+
+## Fetching vs Pulling vs Pushing
+
+### Fetch (Safe)
+```
+git fetch
+```
+- Downloads changes
+- Does NOT modify your branch
+
+### Pull (Fetch + Merge)
+```
+git pull origin main
+```
+
+
+### Push (Upload Your Work)
+```
+git push origin main
+```
+
+:::warning
+Always push to a **bare repository**
+:::
+---
+
+<br/>
+:::info
+ **Common Beginner Mistakes (Including me :D)**
+
+- Pushing to a non-bare repo  
+- Pulling without committing local changes  
+- Rebasing shared branches  
+- Using `git pull` without understanding it
+
+---
+
+ **Practical Rules of Thumb**
+
+- Use **bare repos** for servers
+- Use **fetch** if you want safety
+- Use **pull** if you want speed
+- Push only clean, committed code
+- Prefer **HTTPS or SSH**
+:::

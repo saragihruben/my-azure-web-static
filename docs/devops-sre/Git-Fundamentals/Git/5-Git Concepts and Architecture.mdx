@@ -1,0 +1,261 @@
+---
+id: Git Concepts and Architecture
+title: Konsep Git dan Arsitekturnya
+---
+
+## Apa itu Git
+
+Git adalah sistem version control yang membantu developer untuk:
+- Melacak perubahan kode
+- Bekerja bersama orang lain secara bersamaan
+- Menjaga riwayat proyek yang aman dan andal
+
+Banyak perintah Git terlihat mirip dengan tools lain (add, commit, diff, log), tetapi cara kerja Git di dalam sangat berbeda.
+
+---
+## Apa yang membuat Git berbeda
+### Git TIDAK berfokus pada file
+- Di Git, file bukanlah objek utama
+- Git melacak snapshot dari keseluruhan proyek
+- Itulah sebabnya operasi seperti mengganti nama atau memindahkan file menjadi mudah dan cepat
+
+### Apa itu commit ID yang panjang?
+- Commit memiliki ID heksadesimal yang panjang (hash)
+- ID ini:
+    - Mengidentifikasi commit secara unik
+    - Memverifikasi bahwa data tidak diubah atau rusak
+- Git menggunakan hash ini untuk kepercayaan dan integritas, bukan nama file
+
+### Mengapa Git dirancang seperti ini
+Git awalnya dibuat untuk pengembangan kernel Linux, yang memiliki:
+- Ribuan developer
+- Banyak perubahan yang terjadi secara bersamaan
+- Developer yang tersebar di seluruh dunia
+Karena itu, Git dirancang dengan tujuan khusus.
+
+---
+## Fitur Desain Utama
+### Pengembangan terdistribusi
+- Setiap developer memiliki salinan lengkap repository
+- Anda dapat:
+    - Bekerja secara offline
+    - Melakukan commit tanpa server
+- Tidak perlu sinkronisasi terus-menerus
+
+### Bekerja dengan banyak developer
+- Dirancang untuk menangani ribuan kontributor
+- Digunakan dengan sukses oleh proyek-proyek sangat besar
+
+### Cepat dan efisien
+- Git menghindari penyalinan data yang tidak perlu
+- Menggunakan kompresi
+- Sebagian besar operasi sangat cepat dan bersifat lokal
+
+### Keamanan dan kepercayaan yang kuat
+- Menggunakan hash kriptografi
+- Mencegah perubahan tanpa izin
+- Menjamin keaslian repository
+Jika riwayat berubah, Git akan mendeteksinya.
+
+### Akuntabilitas
+- Setiap perubahan:
+    - Memiliki penulis
+    - Memiliki timestamp
+    - Memiliki pesan
+- Anda selalu dapat melihat siapa melakukan apa
+
+### Riwayat tidak mudah diubah
+- Setelah di-commit, riwayat bersifat immutable
+- Ini melindungi integritas proyek
+- Pengguna tingkat lanjut bisa menulis ulang riwayat, tetapi tidak dianjurkan
+
+### Perubahan atomik
+- Sebuah commit bersifat all-or-nothing
+- Semua tersimpan dengan benar, atau tidak sama sekali
+- Mencegah kondisi rusak atau setengah tersimpan
+
+### Branching dan merging yang kuat
+- Branch murah dan cepat
+- Banyak fitur dapat dikembangkan secara paralel
+- Proses merge kuat dan andal
+
+### Repository independen
+- Setiap repository berisi:
+- Riwayat proyek lengkap
+- Tidak bergantung pada server pusat
+- Server seperti GitHub digunakan untuk kolaborasi, bukan keharusan
+
+### Gratis dan open-source
+- Git dirilis di bawah lisensi GPL v2
+- Bebas digunakan dan dimodifikasi
+
+---
+## Repository Git, Objek, dan Cara Git Melacak Perubahan
+
+### Apa itu repository Git
+Repository Git adalah database yang menyimpan semua hal tentang sebuah proyek.
+
+Isinya:
+- Semua file (versi sekarang dan sebelumnya)
+- Riwayat perubahan lengkap
+- Informasi penulis dan commit
+- Branch, tag, dan metadata
+
+### Apa isi .git/config
+Setiap repository memiliki konfigurasi sendiri, seperti nama pengguna, email, dan pengaturan repository.
+
+Penting:
+- Pengaturan ini bersifat lokal
+- Saat Anda melakukan clone, nama dan email Anda yang digunakan, bukan milik penulis asli
+
+### Dua bagian penting dalam repository
+1. Object Store (penyimpanan permanen)
+- Menyimpan semuanya secara permanen
+- Berisi riwayat dan data proyek
+
+2. Index (staging area)
+- Bersifat sementara dan sering berubah
+- Mewakili apa yang akan masuk ke commit berikutnya
+- Diperbarui saat menjalankan git add
+
+Anggap saja:
+- Object store → Database
+- Index → Keranjang belanja
+
+### Objek Git (blok bangunan inti)
+Git menyimpan 4 tipe objek utama:
+#### Blob (isi file)
+- Menyimpan isi file saja
+- Tanpa nama file
+- Tanpa informasi direktori
+Konten sama = blob sama, meskipun nama file berbeda
+
+#### Tree (struktur folder)
+- Menyimpan:
+    - Nama file
+    - Struktur folder
+    - Permission
+- Menunjuk ke blob dan tree lainnya
+Tree menghubungkan nama file ke isi file
+
+#### Commit (snapshot)
+Sebuah commit:
+- Menunjuk ke tree
+- Mencatat penulis, tanggal, dan pesan
+- Terhubung ke commit sebelumnya
+Setiap commit adalah snapshot lengkap proyek
+
+#### Tag (nama yang mudah dibaca)
+Memberikan nama yang mudah dibaca pada sebuah commit. Contoh: v1.0, release-2025
+
+### Apa itu index (staging area)?
+*Index adalah area “persiapan” Git sebelum commit.*
+
+- Perubahan masuk ke index setelah git add
+- Tidak ada yang permanen sampai git commit
+- Git sangat bergantung pada index saat merge
+
+### Git melacak konten, BUKAN file
+Artinya:
+- Git melacak isi file
+- Nama file hanyalah metadata
+
+Contoh:
+- Dua file dengan nama berbeda tetapi konten sama
+- Git menyimpan satu blob, bukan dua salinan
+
+#### Mengapa ini sangat kuat
+- Mengganti nama file sangat mudah
+- Memindahkan file sangat mudah
+- Membandingkan versi sangat cepat
+- Menghemat ruang disk
+Git membandingkan hash, bukan teks baris per baris.
+
+### Pendekatan Git
+
+```
+git add file1
+git add file2
+git add file3
+git commit -s
+```
+
+- Semua perubahan disimpan bersama
+- Commit bersifat atomik (semua atau tidak sama sekali)
+- Rollback = membatalkan satu commit
+
+Mengembalikan perubahan di Git:
+- Cukup hapus atau revert commit
+- Tidak perlu mencari file satu per satu
+
+### Commit dan Publishing
+
+### Apa itu commit?
+
+Sebuah **commit** adalah menyimpan pekerjaan Anda **secara lokal** di repository Git Anda sendiri.
+
+- Tidak perlu internet  
+- Hanya Anda yang bisa melihatnya  
+- Bertindak seperti checkpoint  
+
+Anda bisa commit:
+- Sering (perubahan kecil)
+- Jarang (perubahan besar)
+
+**Anggap commit sebagai:**  
+> “Menyimpan pekerjaan di laptop Anda”
+
+### Apa itu publishing?
+
+**Publishing** berarti membagikan commit Anda kepada orang lain.
+
+Hal ini dapat dilakukan dengan:
+- `git push` (mengirim perubahan Anda)
+- Orang lain melakukan `git pull`
+- Mengirim patch
+
+Setelah dipublikasikan:
+- Orang lain dapat melihat perubahan Anda
+- Riwayat menjadi lebih sulit diubah
+- Commit Anda sekarang bersifat publik
+
+**Anggap publishing sebagai:**  
+> “Mengunggah pekerjaan agar bisa digunakan orang lain”
+
+##### Perbedaan utama
+
+| Commit | Publish |
+|------|--------|
+| Lokal | Dibagikan |
+| Offline | Membutuhkan jaringan |
+| Privat | Publik |
+| Fleksibel | Sebagian besar tetap |
+
+### Upstream dan Downstream
+
+- **Upstream** → Tempat asal perubahan
+- **Downstream** → Tempat tujuan perubahan
+
+#### Contoh umum
+- Repository proyek utama → **Upstream**
+- Salinan hasil clone Anda → **Downstream**
+
+> Ini adalah konsep, bukan aturan yang dipaksakan oleh Git.
+
+#### Konsep penting Git
+
+Git **tidak memiliki hierarki server/client**.  
+Semua repository adalah **setara**.
+
+**Di Git:**
+- Repository mana pun yang Anda push → **upstream**
+- Repository yang berbasis pada milik Anda → **downstream**
+
+#### Contoh dunia nyata
+- Repository kernel Linux → upstream
+- Repository Linux kustom perusahaan Anda → downstream
+- Repository fitur Anda → downstream dari repository perusahaan
+
+Satu repository bisa menjadi:
+- Upstream bagi beberapa repository
+- Downstream bagi repository lainnya

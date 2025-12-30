@@ -1,0 +1,190 @@
+---
+id: Managing Files and the Index
+title: Manajement file dan index
+---
+
+## Kategori File di Git
+
+Git mengklasifikasikan file dalam proyek Anda ke dalam tiga kategori.
+
+### File Terlacak (Tracked Files)
+
+File terlacak adalah file yang sudah dikenal oleh Git.
+
+File-file ini:
+- Pernah di-commit sebelumnya, atau
+- Telah diubah dan dimasukkan ke staging menggunakan `git add`
+
+Contohnya meliputi:
+- File kode sumber
+- File konfigurasi yang sudah tersimpan di repositori
+
+Git secara aktif memantau perubahan pada file-file ini.
+
+### File Diabaikan (Ignored Files)
+
+File yang diabaikan adalah file yang diperintahkan kepada Git untuk sepenuhnya diabaikan.
+
+File yang diabaikan:
+- Tidak muncul di `git status`
+- Didaftarkan dalam file `.gitignore`
+
+File yang sering diabaikan meliputi:
+- Hasil build
+- File sementara
+- File log
+
+Contoh file `.gitignore`:
+
+```text
+*.o
+*.log
+```
+
+Konfigurasi ini memberi tahu Git untuk mengabaikan semua file `.o` dan `.log`.
+
+#### Mengabaikan Aturan Ignore
+
+Aturan ignore dapat dibatalkan menggunakan tanda seru (`!`).
+
+Contoh:
+
+```text
+*.ko
+!my_driver.ko
+```
+
+Artinya:
+- Abaikan semua file `.ko`
+- Kecuali `my_driver.ko`
+
+### File Tidak Terlacak (Untracked Files)
+
+File tidak terlacak adalah file yang terlihat oleh Git tetapi belum dilacak.
+
+File-file ini:
+- Ada di direktori kerja
+- Tidak diabaikan
+- Belum ditambahkan menggunakan `git add`
+
+Setelah Anda menambahkan file tidak terlacak dengan `git add`, file tersebut menjadi file terlacak.
+
+#### Ringkasan Status File
+
+| Jenis File | Perilaku Git                           |
+|------------|----------------------------------------|
+| Terlacak   | Git melacak dan mencatat perubahan     |
+| Diabaikan  | Git sepenuhnya mengabaikan file         |
+| Tidak terlacak | Git melihat file tetapi tidak melacaknya |
+
+---
+## Perintah Dasar File
+
+### git add
+
+Perintah `git add` memasukkan file ke staging untuk commit berikutnya.
+
+Fungsinya:
+- Menambahkan file baru
+- Memasukkan perubahan file yang dimodifikasi ke staging
+- Tidak menyimpan perubahan secara permanen
+
+Contoh:
+
+```
+git add myfile.txt
+```
+
+Opsi yang berguna:
+- `git add .` memasukkan semua file ke staging
+- `git add -u` hanya memasukkan file yang sudah terlacak
+- `git add -i` memungkinkan staging secara interaktif
+
+Perubahan hanya berada di staging dan belum menjadi bagian dari riwayat repositori sampai Anda melakukan commit.
+
+### git rm
+
+Perintah `git rm` menghapus file dan memasukkan penghapusannya ke staging.
+
+Hal penting:
+- Menghapus file dari direktori kerja
+- Memasukkan penghapusan ke staging
+- Tidak menghapus file dari riwayat Git
+
+Contoh:
+
+```
+git rm myfile.txt
+```
+
+#### Menghapus dari Git tetapi Tetap Menyimpan File Secara Lokal
+
+```
+git rm --cached myfile.txt
+```
+
+Ini berguna jika:
+- File ditambahkan secara tidak sengaja
+- Anda ingin Git berhenti melacak file tersebut
+
+### git mv
+
+Perintah `git mv` mengganti nama atau memindahkan file dan memasukkan perubahannya ke staging.
+
+Contoh:
+
+```
+git mv oldfile.txt newfile.txt
+```
+
+Ini setara dengan:
+
+```
+mv oldfile.txt newfile.txt
+git rm oldfile.txt
+git add newfile.txt
+```
+
+Git menangani penggantian nama dengan efisien karena Git melacak konten file, bukan nama file.
+
+#### Dampak Perintah File
+
+| Perintah  | Direktori Kerja | Area Staging | Riwayat Commit |
+|----------|------------------|--------------|----------------|
+| git add  | Tidak berubah    | Diperbarui   | Tidak berubah  |
+| git rm   | File dihapus     | Diperbarui   | Tidak berubah  |
+| git mv   | File diganti nama| Diperbarui   | Tidak berubah  |
+
+Riwayat commit hanya berubah setelah menjalankan `git commit`.
+
+---
+
+## Menampilkan Daftar File di Git
+
+### git ls-files
+
+Perintah `git ls-files` menampilkan file yang dilacak oleh Git.
+
+```
+git ls-files
+```
+
+---
+
+### Menampilkan File Tidak Terlacak
+
+```
+git ls-files --others --exclude-standard
+```
+
+- `--others` menampilkan file yang tidak terlacak
+- `--exclude-standard` mengikuti aturan `.gitignore`
+
+---
+
+:::info Summary
+
+Git mengklasifikasikan file sebagai terlacak, diabaikan, atau tidak terlacak.
+Perintah seperti `git add`, `git rm`, dan `git mv` mengontrol file mana yang masuk ke staging dan kemudian di-commit ke repositori.
+
+:::

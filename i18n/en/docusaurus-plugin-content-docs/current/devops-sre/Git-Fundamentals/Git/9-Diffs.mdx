@@ -1,0 +1,203 @@
+---
+id: Diffs
+title: Diffs
+---
+
+
+## What does “diff” mean?
+
+**Diffing** means comparing two versions of something to see:
+- What changed
+- What was added
+- What was removed
+
+This can be done with:
+- Regular UNIX tools (`diff`)
+- Git commands (`git diff`)
+
+#### Using the UNIX `diff` command
+
+The standard UNIX `diff` command compares:
+- Two files
+- Or two directories (recursively)
+
+### Simple file comparison
+
+Suppose:
+
+**file1**
+```
+This is the contents of a simple file.
+```
+
+**file2**
+```
+This is the contents of a slightly different file.
+```
+
+Run:
+
+```
+diff file1 file2
+```
+
+Example output:
+```
+2,3c2,3
+< contents
+< of a simple
+---
+> contents of a slightly
+> different
+```
+
+This output is correct, but not very easy to read.
+
+### Unified diff (recommended)
+
+Most people use the **unified diff** format with `-u`:
+
+```
+diff -u file1 file2
+```
+
+Example output:
+```diff
+--- file1
++++ file2
+@@ -1,4 +1,4 @@
+ This is the
+-contents
+-of a simple
++contents of a slightly
++different
+ file.
+```
+### How to read unified diff output
+
+- `---` → original file
+- `+++` → new file
+- `@@` → line number context
+- `-` → line removed
+- `+` → line added
+- No symbol → unchanged context
+
+This format is also used by **patch tools**.
+
+---
+
+## Diffing directories
+
+To compare two directory trees:
+
+```
+diff -Nur directory1 directory2
+```
+
+#### Common options explained
+- `-r` → recursive (check subdirectories)
+- `-N` → show added or deleted files
+- `-u` → unified output
+
+This is useful when comparing two project folders.
+
+---
+
+## Diffing with Git
+
+Git provides more powerful and convenient diff tools.
+
+### Basic Git diff
+
+```
+git diff
+```
+
+Shows differences between:
+- Your working directory
+- The last commit (HEAD)
+
+
+### Compare working directory with a commit
+
+```
+git diff earlier_commit
+```
+
+Compares your current files with a specific commit or branch.
+
+### Compare staged changes
+
+```
+git diff --cached
+```
+
+or (more intuitive):
+
+```
+git diff --staged
+```
+
+Shows what is **staged** and will go into the next commit.
+
+You can also compare staged changes to a commit:
+
+```
+git diff --cached earlier_commit
+```
+
+### Compare two commits
+
+```
+git diff commit1 commit2
+```
+
+Shows exactly what changed between two commits.
+
+### Useful Git diff options
+
+- Ignore whitespace:
+```
+git diff --ignore-all-space
+```
+
+- Show summary statistics:
+```
+git diff --stat
+```
+
+- Show numeric statistics:
+```
+git diff --numstat
+```
+
+### Limit diff to part of a project
+
+You can focus on a specific directory.
+
+Example (Linux kernel repo):
+
+```
+git diff v4.2.1 v4.2.2 Documentation/vm
+```
+
+Only shows changes inside `Documentation/vm`.
+
+### Show stats for a subdirectory
+
+```
+git diff --stat v4.2.1 v4.2.2 arch/x86_64
+```
+
+Shows a brief summary instead of full diffs.
+
+---
+
+:::info Summary
+
+- `diff` compares files or directories
+- `diff -u` gives readable, standard output
+- `git diff` is more powerful and Git-aware
+- You can compare working files, staged files, commits, or directories
+- Essential for reviewing changes before committing
+:::

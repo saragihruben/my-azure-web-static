@@ -146,28 +146,90 @@ module.exports = {
             
             {
               type: "category",
-              label: "GitHub",
+              label: "Git",
               collapsible: true,
               items: [
                 {
                   type: "category",
-                  label: "Coming Soon 1",
+                  label: "Using Git - An Example",
                   collapsible: true,
                   items: [
-                    "Git-Fundamentals/GitHub/example1/Coming Soon 1",
+                    "Git-Fundamentals/Git/4-Using Git - An Example",
                   ],
                 },
 
                 {
                   type: "category",
-                  label: "Coming Soon 2",
+                  label: "Git Concepts and Architecture",
                   collapsible: true,
                   items: [
-                    "Git-Fundamentals/GitHub/example2/Coming Soon 2",
+                    "Git-Fundamentals/Git/5-Git Concepts and Architecture",
                   ],
                 },
 
-                
+                {
+                  type: "category",
+                  label: "Managing Files and the Index",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/Git/6-Managing Files and the Index",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Commits",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/Git/7-Commits",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Branches",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/Git/8-Branches",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Diffs",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/Git/9-Diffs",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Merges",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/Git/10-Merges",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Managing Local and Remote Repositories",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/Git/11-Managing Local and Remote Repositories",
+                  ],
+                },
+
+                {
+                  type: "category",
+                  label: "Using Patches",
+                  collapsible: true,
+                  items: [
+                    "Git-Fundamentals/Git/12-Using Patches",
+                  ],
+                },
+
               ],
             },
             

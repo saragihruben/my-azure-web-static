@@ -1,0 +1,324 @@
+---
+id: Using Git - An Example
+title: Contoh Penggunaan Git
+---
+
+## Perintah Dasar
+
+Anda dapat melihat versi Git yang terpasang dengan:
+
+```
+$ git --version
+git version 2.27.0
+```
+
+Informasi bantuan lengkap dalam bentuk man page dapat diperoleh untuk setiap subcommand dengan menjalankan:
+
+```
+$ git help [subcommand]
+```
+
+Sebagai contoh, dua perintah berikut menghasilkan output yang sama:
+
+```
+$ git help status
+
+$ man git-status
+```
+
+Anda bisa mendapatkan daftar dasar perintah Git hanya dengan mengetik git, yang akan menampilkan daftar berikut:
+```
+$ git
+usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]
+           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]
+           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone     Clone a repository into a new directory
+   init      Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add       Add file contents to the index
+   mv        Move or rename a file, a directory, or a symlink
+   restore   Restore working tree files
+   rm        Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect    Use binary search to find the commit that introduced a bug
+   diff      Show changes between commits, commit and working tree, etc
+   grep      Print lines matching a pattern
+   log       Show commit logs
+   show      Show various types of objects
+   status    Show the working tree status
+
+grow, mark and tweak your common history
+   branch    List, create, or delete branches
+   commit    Record changes to the repository
+   merge     Join two or more development histories together
+   rebase    Reapply commits on top of another base tip
+   reset     Reset current HEAD to the specified state
+   switch    Switch branches
+   tag       Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch     Download objects and refs from another repository
+   pull      Fetch from and integrate with another repository or a local branch
+   push      Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+See 'git help git' for an overview of the system.
+```
+
+Hanya ada beberapa opsi global yang berlaku, yaitu yang diawali dengan -- pada daftar di atas. Banyak subcommand memiliki opsi masing-masing yang termasuk dalam [ARGS].
+
+Jika Anda ingin melihat daftar perintah yang lebih lengkap, jalankan:
+
+```
+$ git help --all
+```
+
+---
+## Master vs Main
+
+### Apa itu master atau main?
+Master atau Main adalah branch default dalam sebuah repository Git. Branch ini biasanya berisi kode yang stabil dan berfungsi. Saat orang meng-clone sebuah proyek, inilah branch yang biasanya mereka dapatkan.
+
+### Mengapa dulu menggunakan master?
+Di masa lalu, Git secara otomatis menamai branch pertama sebagai master. Hampir semua proyek lama masih memiliki branch master.
+
+### Mengapa sekarang menggunakan main?
+Banyak proyek memutuskan untuk mengganti nama master menjadi main. Perubahan ini sebagian besar berkaitan dengan penamaan yang lebih inklusif. Secara fungsional, tidak ada yang berubah — kode dan perilakunya tetap sama.
+Anda bisa menamai branch utama dengan apa saja:
+- main
+- master
+- production
+- stable
+
+Namun Git dan platform seperti GitHub memerlukan satu nama default, dan saat ini default tersebut adalah main.
+
+### Contoh perintah Git
+
+#### Membuat repository baru dengan main
+```
+git init                             # Membuat repository Git
+git checkout -b main                 # Membuat dan berpindah ke branch bernama main
+```
+
+#### Proyek lama dengan master dan beralih ke main
+```
+git branch -m master main             # Mengganti nama branch secara lokal
+git push -u origin main               # Mengirim main ke repository remote
+```
+
+#### Alih-alih menghapus master, Anda bisa menyalinnya
+```
+git checkout master                    # Berpindah ke branch master
+git branch main                        # Membuat branch baru bernama main (salinan master)
+git checkout main                      # Berpindah ke branch main
+git push -u origin main                # Mengirim main ke repository remote
+```
+
+:::info 
+Untuk berpindah branch, Git sekarang lebih menyarankan: ```git switch main``` dibandingkan: ```git checkout main```
+:::
+
+---
+## Memulai dengan Git
+Dalam contoh ini kita ingin:
+- membuat proyek lokal
+- membiarkan Git melacak perubahan
+- melihat bagaimana Git mendeteksi perubahan file
+- melihat riwayat perubahan
+- memahami manfaat sign commit
+
+### Membuat proyek dan menginisialisasi Git
+```
+mkdir git-test            # membuat folder baru untuk proyek Anda
+cd git-test               # masuk ke folder proyek
+git init                  # memberi tahu Git: “Mulai melacak proyek ini”
+```
+
+Setelah ini:
+- Git membuat folder tersembunyi bernama .git
+- File proyek Anda tidak berubah
+- Git mulai memantau folder tersebut
+
+<br/>
+### Apa itu folder .git?
+```
+ls -l .git
+```
+
+```.git``` adalah otak Git dan menyimpan:
+- Riwayat perubahan
+- Branch
+- Commit
+- Konfigurasi
+
+Biasanya Anda tidak menyentuh folder ini. Jika Anda menghapus .git, proyek Anda bukan lagi proyek Git.
+
+<br/>
+### Membuat file dan memberi tahu Git
+```
+echo some junk > somejunkfile       # Perintah pertama membuat file bernama somejunkfile
+git add somejunkfile                # Perintah kedua melakukan staging file
+```
+
+**Staging berarti: “Saya ingin Git menyertakan file ini pada snapshot (commit) berikutnya.”**
+
+<br/>
+### Memeriksa status proyek
+```
+git status
+```
+
+Apa yang diberitahukan Git:
+- Anda berada di branch master (bisa jadi main pada proyek baru)
+- Ini adalah commit pertama
+- File sudah di-stage tetapi belum disimpan
+
+**Anggap staging seperti memilih file sebelum menekan tombol Save.**
+
+<br/>
+### Memberi tahu Git siapa Anda
+```
+git config user.name "Another Genius"
+git config user.email "a_genius@linux.com"
+```
+
+Mengapa ini diperlukan:
+- Git mencatat siapa yang membuat setiap perubahan
+- Penting untuk kerja tim dan proyek open-source
+
+**Biasanya ini diatur sekali secara global, bukan setiap kali.**
+
+<br/>
+### Memodifikasi file dan melihat perubahannya
+```
+echo another line >> somejunkfile
+
+git diff
+```
+
+git diff menampilkan perbedaan antara:
+- Versi terakhir yang di-stage
+- Versi working tree saat ini
+
+Arti output (disederhanakan):
+```
++another line
++ → konten baru ditambahkan
+
+(jika kasusnya menghapus baris)
+-another line
+- → konten dihapus
+```
+
+**Git menunjukkan dengan tepat apa yang berubah, sangat berguna untuk mengecek ulang sebelum commit.**
+
+<br/>
+### Melakukan commit perubahan
+```
+git commit -m "My initial commit"   # menyimpan file ke riwayat Git dan (-m) menambahkan pesan singkat
+```
+
+Setelah ini:
+- File disimpan permanen di riwayat Git
+- Git memberikan ID unik untuk snapshot ini
+
+<br/>
+### Memahami output commit
+```
+1 file changed, 1 insertion(+), 0 deletions(-)
+create mode 100644 somejunkfile
+```
+
+Artinya:
+- 1 file berubah
+- 1 baris ditambahkan
+- Tidak ada baris dihapus
+- File baru dibuat
+
+<br/>
+### Bagaimana jika tidak menggunakan -m?
+```
+git commit
+```
+
+Artinya:
+- Git membuka editor teks
+- Anda harus mengetik pesan commit
+- Jika ditutup tanpa menyimpan, commit dibatalkan
+
+**Gunakan -m untuk kesederhanaan**
+
+:::warning Singkatnya
+Commit adalah snapshot proyek yang disimpan dengan pesan yang menjelaskan apa yang berubah dan siapa yang bertanggung jawab.
+:::
+
+<br/>
+### Melihat riwayat commit
+```
+git log
+```
+
+Apa yang ditampilkan git log:
+- ID commit (angka heksadesimal panjang)
+- Nama dan email penulis
+- Tanggal dan waktu
+- Pesan commit
+
+```
+commit eafad66304ebbcd6acfe69843d246de3d8f6b9cc
+Author: A Genius <a_genius@linux.com>
+Date: Wed Dec 30 11:07:19 2009 -0600
+
+My initial commit
+```
+
+<br/>
+### Apa itu ID commit yang panjang itu?
+Itu adalah pengenal unik (hash) dengan 40 karakter heksadesimal (160-bit). Git menggunakannya untuk melacak commit, bukan nama file.
+
+Dalam praktiknya: biasanya Anda hanya menggunakan 7–8 karakter pertama.
+
+```
+git show eafad66
+```
+
+<br/>
+### Menandatangani commit (sign-off)
+Mengapa menandatangani commit?
+- Menunjukkan siapa yang menyetujui perubahan
+- Membantu kepemilikan hukum dan lisensi
+- Umum di proyek open-source dan perusahaan
+
+```
+git commit -s -m "My initial commit"
+```
+
+Ini menambahkan baris seperti:
+```
+"Signed-off-by: Another Genius <a_genius@linux.com>"
+```
+
+:::info Catatan penting tentang sign-off
+
+- Penandatangan belum tentu penulis
+- Reviewer atau maintainer dapat menandatangani
+- Banyak orang bisa menandatangani commit yang sama
+- Menandatangani berarti Anda bertanggung jawab
+:::
+
+<br/>
+**Alur kerja Git sederhana**
+```
+Edit files -> git add -> git commit -> Ulangi
+```

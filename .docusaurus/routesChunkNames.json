@@ -5,17 +5,17 @@
       "plugin": "c141421f"
     }
   },
-  "/en/docs-670": {
+  "/en/docs-4b9": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/en/docs-93c": {
+  "/en/docs-428": {
     "__comp": "a7bd4aaa",
     "__props": "0abf49b1"
   },
-  "/en/docs-95c": {
+  "/en/docs-de0": {
     "__comp": "a94703ab"
   },
   "/en/docs/devops-sre-9c4": {
@@ -25,6 +25,46 @@
   "/en/docs/devops-sre/Git-Fundamentals-3f2": {
     "__comp": "17896441",
     "content": "ef2f3e59"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git-3ef": {
+    "__comp": "17896441",
+    "content": "9e9a6fe7"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Branches-ec4": {
+    "__comp": "17896441",
+    "content": "cf9318e1"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Commits-f6c": {
+    "__comp": "17896441",
+    "content": "45f880b1"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Diffs-b5c": {
+    "__comp": "17896441",
+    "content": "7b80a42a"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Git Concepts and Architecture-897": {
+    "__comp": "17896441",
+    "content": "c863cc40"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Managing Files and the Index-8d7": {
+    "__comp": "17896441",
+    "content": "2ab09488"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Managing Local and Remote Repositories-e68": {
+    "__comp": "17896441",
+    "content": "837d4669"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Merges-96d": {
+    "__comp": "17896441",
+    "content": "076599ac"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Using Git - An Example-9f8": {
+    "__comp": "17896441",
+    "content": "78c5c84b"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/Git/Using Patches-077": {
+    "__comp": "17896441",
+    "content": "49ed37b9"
   },
   "/en/docs/devops-sre/Git-Fundamentals/GitLab-fa1": {
     "__comp": "17896441",

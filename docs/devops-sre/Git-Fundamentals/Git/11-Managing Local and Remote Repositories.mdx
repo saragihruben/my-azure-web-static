@@ -1,0 +1,276 @@
+---
+id: Managing Local and Remote Repositories
+title: Manajemen repositori remote dan lokal
+---
+
+## Gagasan Besar: Tidak Ada Server Pusat
+
+Berbeda dengan sistem kontrol versi lama, Git **tidak memerlukan satu repositori pusat**.
+
+Setiap developer:
+- Memiliki salinan penuh repositori
+- Dapat bekerja secara offline
+- Dapat berbagi perubahan saat sudah siap
+
+---
+
+## Mengapa Banyak Repositori Masuk Akal
+
+Repositori terpisah berguna ketika:
+
+- Seorang developer bekerja sendiri
+- Tim tersebar di lokasi yang berbeda
+- Fitur eksperimental atau jangka panjang perlu diisolasi
+
+Git menangani ini dengan sangat baik karena **sangat kuat dalam branching dan merging**.
+
+---
+
+## Operasi Utama Repositori Remote
+
+| Aksi | Fungsinya | Perintah |
+|-----|-----|-----|
+| Clone | Menyalin repositori | `git clone` |
+| Fetch | Mengunduh pembaruan (tanpa merge) | `git fetch` |
+| Pull | Mengunduh + merge pembaruan | `git pull` |
+| Push | Mengunggah perubahan Anda | `git push` |
+| Publish | Membuat repo tersedia untuk orang lain | (setup server) |
+
+---
+
+## Apa Itu Tracking Branch?
+
+Sebuah **tracking branch** adalah referensi lokal ke branch remote.
+
+Contoh:
+- `origin/main` → branch remote
+- `main` → branch lokal Anda
+
+Git menggunakan tracking branch untuk mengetahui:
+- Apa yang berubah di remote
+- Apa yang bisa Anda pull atau push
+
+---
+
+## Bare Repository 
+
+Sebuah **bare repository**:
+- **Tidak memiliki working directory**
+- Tidak bisa diedit secara langsung
+- Digunakan hanya untuk **push, pull, dan clone**
+
+:::info
+Paling cocok untuk repositori bersama atau server  
+Tidak digunakan untuk pengembangan
+:::
+
+Membuatnya dengan:
+```
+git clone --bare my-project my-project.git
+```
+
+---
+
+## Melakukan Clone Repositori
+
+Clone dasar:
+```
+git clone https://example.com/project.git
+```
+
+Ini akan:
+- Mengunduh seluruh riwayat
+- Membuat working directory
+- Dilakukan satu kali
+
+---
+
+## Protokol Clone yang Umum
+
+Git mendukung banyak cara koneksi:
+
+- `https://` → paling umum, paling mudah
+- `ssh://` → aman, bagus untuk push
+- `git://` → cepat, hanya baca
+- `file://` → mesin lokal
+
+Gunakan **HTTPS atau SSH** kecuali Anda benar-benar tahu membutuhkan yang lain.
+
+---
+
+## Optimasi Clone Lokal
+
+Jika Anda men-clone repositori lokal, Git dapat menggunakan hard link untuk menghemat ruang.
+
+Nonaktifkan jika perlu:
+```
+git clone --no-hardlinks source target
+```
+
+---
+
+## Melihat Referensi Repositori
+
+Menampilkan referensi lokal:
+```
+git show-ref
+```
+
+Menampilkan referensi remote:
+```
+git ls-remote https://example.com/project.git
+```
+
+Ini membantu Anda melihat:
+- Branch
+- Tag
+- Pointer HEAD
+
+---
+
+## Menjaga Repositori Tetap Terbarui
+
+Cara paling aman:
+```
+git fetch
+git merge origin/main
+```
+
+Jalan pintas:
+```
+git pull
+```
+
+:::warning
+ `git pull` = `fetch + merge`
+:::
+
+## Mempublikasikan Repositori Sendiri
+
+### Langkah 1: Membuat Bare Repo
+```
+git clone --bare my-project /tmp/my-project.git
+```
+
+### Langkah 2: Clone oleh Pengguna Lokal
+```
+git clone /tmp/my-project.git my-copy
+```
+
+### Langkah 3: Akses Jaringan (Git Daemon)
+
+Aktifkan ekspor:
+```
+touch /tmp/my-project.git/git-daemon-export-ok
+```
+
+Jalankan daemon:
+```
+git daemon &
+```
+
+Pengguna sekarang dapat melakukan clone:
+```
+git clone 192.168.1.100:/tmp/my-project.git
+```
+
+---
+
+## Mengizinkan Akses Push
+
+:::warning 
+Hanya untuk lingkungan terpercaya.
+:::
+
+Global:
+```
+git daemon --enable=receive-pack
+```
+
+Konfigurasi per-repositori:
+```ini
+[daemon]
+receivepack = true
+```
+
+---
+
+## Mempublikasikan Melalui HTTP / HTTPS
+
+Kebutuhan:
+- Web server (Apache, Nginx)
+- Pengetahuan dasar konfigurasi server
+
+Menyiapkan repo:
+```
+git --bare update-server-info
+```
+
+Contoh clone:
+```
+git clone https://server/git-test
+git clone https://server/~username/git-test
+```
+
+---
+
+## Berbagi Tanpa Git (Arsip)
+
+Membuat snapshot terkompresi:
+```
+git archive HEAD | bzip2 > project.tar.bz2
+```
+
+Mengarsipkan versi tertentu:
+```
+git archive v1.7.1 | bzip2 > project_v1.7.1.tar.bz2
+```
+
+- Tidak menyertakan direktori `.git`  
+- Cocok untuk rilis atau backup
+
+---
+
+## Fetch vs Pull vs Push
+
+### Fetch (Aman)
+```
+git fetch
+```
+- Mengunduh perubahan
+- TIDAK mengubah branch Anda
+
+### Pull (Fetch + Merge)
+```
+git pull origin main
+```
+
+### Push (Mengunggah Pekerjaan Anda)
+```
+git push origin main
+```
+
+:::warning
+Selalu push ke **bare repository**
+:::
+---
+
+<br/>
+:::info
+ **Kesalahan Umum Pemula (Termasuk saya :D)**
+
+- Push ke repo non-bare  
+- Pull tanpa meng-commit perubahan lokal  
+- Rebase branch bersama  
+- Menggunakan `git pull` tanpa memahaminya
+
+---
+
+ **Aturan Praktis**
+
+- Gunakan **bare repo** untuk server
+- Gunakan **fetch** jika ingin aman
+- Gunakan **pull** jika ingin cepat
+- Push hanya kode yang bersih dan sudah di-commit
+- Utamakan **HTTPS atau SSH**
+:::

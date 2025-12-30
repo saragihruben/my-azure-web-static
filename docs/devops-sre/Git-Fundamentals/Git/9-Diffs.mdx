@@ -1,0 +1,203 @@
+---
+id: Diffs
+title: Diffs
+---
+
+
+## Apa arti “diff”?
+
+**Diffing** berarti membandingkan dua versi dari sesuatu untuk melihat:
+- Apa yang berubah
+- Apa yang ditambahkan
+- Apa yang dihapus
+
+Ini bisa dilakukan dengan:
+- Alat UNIX standar (`diff`)
+- Perintah Git (`git diff`)
+
+#### Menggunakan perintah UNIX `diff`
+
+Perintah UNIX `diff` standar membandingkan:
+- Dua file
+- Atau dua direktori (secara rekursif)
+
+### Perbandingan file sederhana
+
+Misalkan:
+
+**file1**
+```
+Ini adalah isi dari sebuah file sederhana.
+```
+
+**file2**
+```
+Ini adalah isi dari sebuah file yang sedikit berbeda.
+```
+
+Jalankan:
+
+```
+diff file1 file2
+```
+
+Contoh keluaran:
+```
+2,3c2,3
+< isi
+< dari sebuah
+---
+> isi dari sebuah yang sedikit
+> berbeda
+```
+
+Keluaran ini benar, tetapi tidak terlalu mudah dibaca.
+
+### Unified diff (direkomendasikan)
+
+Kebanyakan orang menggunakan format **unified diff** dengan `-u`:
+
+```
+diff -u file1 file2
+```
+
+Contoh keluaran:
+```diff
+--- file1
++++ file2
+@@ -1,4 +1,4 @@
+ Ini adalah
+-isi
+-dari sebuah
++isi dari sebuah yang sedikit
++berbeda
+ file.
+```
+
+### Cara membaca keluaran unified diff
+
+- `---` → file asli
+- `+++` → file baru
+- `@@` → konteks nomor baris
+- `-` → baris yang dihapus
+- `+` → baris yang ditambahkan
+- Tanpa simbol → konteks tidak berubah
+
+Format ini juga digunakan oleh **alat patch**.
+
+---
+
+## Diff direktori
+
+Untuk membandingkan dua struktur direktori:
+
+```
+diff -Nur directory1 directory2
+```
+
+#### Penjelasan opsi umum
+- `-r` → rekursif (memeriksa subdirektori)
+- `-N` → menampilkan file yang ditambahkan atau dihapus
+- `-u` → keluaran unified
+
+Ini berguna saat membandingkan dua folder proyek.
+
+---
+
+## Diff dengan Git
+
+Git menyediakan alat diff yang lebih kuat dan praktis.
+
+### Git diff dasar
+
+```
+git diff
+```
+
+Menampilkan perbedaan antara:
+- Direktori kerja Anda
+- Commit terakhir (HEAD)
+
+### Membandingkan direktori kerja dengan sebuah commit
+
+```
+git diff earlier_commit
+```
+
+Membandingkan file saat ini dengan commit atau branch tertentu.
+
+### Membandingkan perubahan yang sudah di-stage
+
+```
+git diff --cached
+```
+
+atau (lebih intuitif):
+
+```
+git diff --staged
+```
+
+Menampilkan apa yang **sudah di-stage** dan akan masuk ke commit berikutnya.
+
+Anda juga dapat membandingkan perubahan yang di-stage dengan sebuah commit:
+
+```
+git diff --cached earlier_commit
+```
+
+### Membandingkan dua commit
+
+```
+git diff commit1 commit2
+```
+
+Menampilkan secara tepat apa yang berubah di antara dua commit.
+
+### Opsi git diff yang berguna
+
+- Abaikan spasi:
+```
+git diff --ignore-all-space
+```
+
+- Tampilkan ringkasan statistik:
+```
+git diff --stat
+```
+
+- Tampilkan statistik numerik:
+```
+git diff --numstat
+```
+
+### Membatasi diff ke bagian proyek tertentu
+
+Anda dapat memfokuskan diff pada direktori tertentu.
+
+Contoh (repositori kernel Linux):
+
+```
+git diff v4.2.1 v4.2.2 Documentation/vm
+```
+
+Hanya menampilkan perubahan di dalam `Documentation/vm`.
+
+### Menampilkan statistik untuk subdirektori
+
+```
+git diff --stat v4.2.1 v4.2.2 arch/x86_64
+```
+
+Menampilkan ringkasan singkat alih-alih diff lengkap.
+
+---
+
+:::info Summary
+
+- `diff` membandingkan file atau direktori
+- `diff -u` memberikan keluaran standar yang mudah dibaca
+- `git diff` lebih kuat dan memahami konteks Git
+- Anda dapat membandingkan file kerja, file yang di-stage, commit, atau direktori
+- Sangat penting untuk meninjau perubahan sebelum melakukan commit
+:::

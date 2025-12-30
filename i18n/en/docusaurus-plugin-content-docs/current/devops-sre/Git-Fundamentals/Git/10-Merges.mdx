@@ -1,0 +1,192 @@
+---
+id: Merges
+title: Merges
+---
+
+## What is Merging?
+
+**Merging** means combining work from different branches into one branch.
+
+This usually happens when:
+- Multiple developers work at the same time
+- Everyone wants their changes in one shared branch (often `main`)
+
+### Simple Case: No Conflicts
+If:
+- You edit different files, or
+- You edit different parts of the same file  
+
+Git can merge automatically.
+
+Example:
+- Developer A edits `file1`
+- Developer B edits `file2`
+
+Git combines both changes without issues.
+
+### Subtle Problems (Human Issues)
+Even without conflicts, problems can still happen:
+- Two people fix the same bug in different ways
+- The code works, but logic becomes wrong
+
+**Best practice:**
+- Make small commits
+- Test often
+- Use tools like `git bisect` if bugs appear
+
+---
+
+## Basic Merge Command
+
+To merge `devel` into `main`:
+
+```
+git checkout main
+git merge devel
+```
+
+Before merging, clean your working directory:
+
+```
+git status
+```
+
+This avoids confusion later.
+
+---
+
+## What Happens When There Is a Conflict?
+
+A conflict happens when:
+- Two branches modify the same line in the same file
+
+Git will stop and ask you to fix it.
+
+Example output:
+```text
+CONFLICT (content): Merge conflict in file1
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+---
+
+## Understanding Conflict Markers
+
+Inside the conflicted file, you will see something like:
+
+```text
+<<<<<<< HEAD
+file901
+=======
+file701
+>>>>>>> devel
+```
+
+Meaning:
+- `HEAD` → current branch (`main`)
+- `devel` → incoming branch
+
+You must edit the file and decide what the final content should be.
+
+---
+
+## Fixing a Merge Conflict (Two Options)
+
+### Option 1: Cancel the Merge
+If things go wrong:
+
+```
+git reset --hard main
+```
+
+Fix the branches separately, then try merging again.
+
+---
+
+### Option 2: Fix and Continue (Most Common)
+
+1. Edit the conflicted file
+2. Remove conflict markers
+3. Save correct content
+4. Run:
+
+```
+git add file1
+git commit -m "Fix merge conflict"
+```
+
+The merge is now complete.
+
+---
+
+## Merging vs Rebasing
+
+Both combine changes, but they work differently.
+
+### What is Rebasing?
+
+**Rebasing** moves your work to sit on top of the latest version of another branch.
+
+Instead of merging histories, Git:
+1. Temporarily removes your commits
+2. Updates your branch
+3. Re-applies your commits one by one
+
+### When Rebasing Is Useful
+
+Example:
+- You start work from version `4.16`
+- Main branch moves to `4.17`
+- Your feature is not finished yet
+
+Rebasing updates your work to apply cleanly on `4.17`.
+
+### Rebase Commands
+
+```
+git checkout devel
+git rebase main
+```
+
+If conflicts appear:
+```
+git add <file>
+git rebase --continue
+```
+
+To cancel rebasing:
+```
+git rebase --abort
+```
+
+### Why Rebasing Can Be Dangerous
+
+Rebasing **rewrites history**.
+
+Problems include:
+- Old tests may no longer be valid
+- Commit history becomes harder to track
+- Other developers may lose sync if they pulled your branch
+
+**Rule of thumb:**
+- Never rebase shared/public branches
+- Rebase only your private work
+
+
+### Quick Comparison
+
+| Feature | Merge | Rebase |
+|------|------|------|
+| History | Preserved | Rewritten |
+| Safe for teams | Yes | No (if shared) |
+| Conflict resolution | Once | Possibly many times |
+| Beginner-friendly | Yes | Medium |
+
+
+:::info Practical Advice
+
+- Use **merge** for teamwork
+- Use **rebase** for cleaning up your own work
+- Always merge or rebase at clear milestones
+- When unsure → **merge**
+:::

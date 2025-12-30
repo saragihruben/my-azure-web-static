@@ -1,0 +1,190 @@
+---
+id: Managing Files and the Index
+title: Managing Files and the Index
+---
+
+## File Categories in Git
+
+Git classifies files in your project into three categories.
+
+### Tracked Files
+
+Tracked files are files that Git already knows about.
+
+These files:
+- Were committed in the past, or
+- Have been changed and staged using `git add`
+
+Examples include:
+- Source code files
+- Configuration files already stored in the repository
+
+Git actively monitors these files for changes.
+
+### Ignored Files
+
+Ignored files are files that Git is instructed to completely ignore.
+
+Ignored files:
+- Do not appear in `git status`
+- Are listed in a `.gitignore` file
+
+Common ignored files include:
+- Build outputs
+- Temporary files
+- Log files
+
+Example `.gitignore` file:
+
+```text
+*.o
+*.log
+```
+
+This configuration tells Git to ignore all `.o` and `.log` files.
+
+#### Overriding Ignore Rules
+
+Ignore rules can be overridden using an exclamation mark (`!`).
+
+Example:
+
+```text
+*.ko
+!my_driver.ko
+```
+
+This means:
+- Ignore all `.ko` files
+- Except `my_driver.ko`
+
+### Untracked Files
+
+Untracked files are files that Git sees but does not track yet.
+
+These files:
+- Exist in the working directory
+- Are not ignored
+- Have not been added using `git add`
+
+Once you add an untracked file with `git add`, it becomes a tracked file.
+
+#### File Status Summary
+
+| File Type   | Git Behavior                          |
+|------------|----------------------------------------|
+| Tracked    | Git tracks and records changes          |
+| Ignored    | Git completely ignores the file         |
+| Untracked  | Git sees the file but does not track it |
+
+---
+## Basic File Commands
+
+### git add
+
+The `git add` command stages files for the next commit.
+
+What it does:
+- Adds new files
+- Stages modified files
+- Does not save changes permanently
+
+Example:
+
+```
+git add myfile.txt
+```
+
+Useful options:
+- `git add .` stages all files
+- `git add -u` stages only tracked files
+- `git add -i` allows interactive staging
+
+Changes are only staged and are not part of the repository history until you commit them.
+
+### git rm
+
+The `git rm` command removes a file and stages its deletion.
+
+Important points:
+- Removes the file from the working directory
+- Stages the removal
+- Does not erase the file from Git history
+
+Example:
+
+```
+git rm myfile.txt
+```
+
+#### Remove from Git but Keep the File Locally
+
+```
+git rm --cached myfile.txt
+```
+
+This is useful if:
+- A file was added by mistake
+- You want Git to stop tracking the file
+
+### git mv
+
+The `git mv` command renames or moves a file and stages the change.
+
+Example:
+
+```
+git mv oldfile.txt newfile.txt
+```
+
+This is equivalent to:
+
+```
+mv oldfile.txt newfile.txt
+git rm oldfile.txt
+git add newfile.txt
+```
+
+Git handles renaming efficiently because it tracks file content, not filenames.
+
+#### Effect of File Commands
+
+| Command   | Working Directory | Staging Area | Commit History |
+|----------|-------------------|--------------|----------------|
+| git add  | No change         | Updated      | No change      |
+| git rm   | File removed      | Updated      | No change      |
+| git mv   | File renamed      | Updated      | No change      |
+
+The commit history changes only after running `git commit`.
+
+---
+
+## Listing Files in Git
+
+### git ls-files
+
+The `git ls-files` command shows files tracked by Git.
+
+```
+git ls-files
+```
+
+---
+
+### Show Untracked Files
+
+```
+git ls-files --others --exclude-standard
+```
+
+- `--others` shows untracked files
+- `--exclude-standard` respects `.gitignore` rules
+
+---
+
+:::info Summary
+
+Git classifies files as tracked, ignored, or untracked.
+Commands like `git add`, `git rm`, and `git mv` control which files are staged and later committed to the repository.
+
+:::

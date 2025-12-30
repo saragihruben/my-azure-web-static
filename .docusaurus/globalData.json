@@ -21,6 +21,56 @@
               "sidebar": "defaultSidebar"
             },
             {
+              "id": "devops-sre/Git-Fundamentals/Git/Branches",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Branches",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Commits",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Commits",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Diffs",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Diffs",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Git",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Git Concepts and Architecture",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Git Concepts and Architecture",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Managing Files and the Index",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Managing Files and the Index",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Managing Local and Remote Repositories",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Managing Local and Remote Repositories",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Merges",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Merges",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Using Git - An Example",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Using Git - An Example",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/Git/Using Patches",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/Git/Using Patches",
+              "sidebar": "defaultSidebar"
+            },
+            {
               "id": "devops-sre/Git-Fundamentals/GitLab/GitLab",
               "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/",
               "sidebar": "defaultSidebar"

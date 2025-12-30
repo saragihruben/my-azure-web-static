@@ -1,0 +1,486 @@
+---
+id: Commits
+title: Commits
+---
+
+## Apa Itu Commit?
+
+Sebuah **commit** adalah snapshot tersimpan dari proyek Anda pada titik waktu tertentu.
+
+Anggap commit sebagai:
+> **Titik aman (checkpoint) dalam pekerjaan Anda**
+
+Setiap commit:
+- Menyimpan perubahan yang sudah di-stage
+- Memiliki ID unik
+- Menjadi bagian dari riwayat proyek
+
+---
+
+## Apa yang Terjadi Secara Internal (Tampilan Sederhana)
+
+Saat Anda melakukan commit:
+
+- Git mengambil file dari **staging area (index)**
+- Membuat sebuah **objek commit**
+- Menyimpannya dengan aman di repositori
+
+Git bekerja secara efisien:
+- File yang tidak berubah akan digunakan kembali
+- Hanya konten baru atau yang berubah yang disimpan
+- Ini membuat commit menjadi **cepat** dan **hemat ruang**
+
+Anda tidak perlu memikirkan hash atau blob di awal — Git yang menanganinya.
+
+---
+
+## Seberapa Sering Harus Commit?
+
+Itu tergantung Anda.
+
+Praktik yang baik:
+- Commit ketika satu tugas logis selesai
+- Satu fitur = satu commit
+- Satu perbaikan bug = satu commit
+
+Git bekerja sangat baik dengan:
+- Banyak commit kecil
+- Atau sedikit commit besar
+
+Commit kecil sangat membantu saat debugging.
+
+---
+
+## Melakukan Commit
+
+### Commit Hanya Satu File
+
+```
+git commit -s file1
+```
+
+Ini hanya meng-commit `file1`, meskipun file lain sudah di-stage.
+
+### Commit Semua yang Sudah Di‑Stage
+
+Semua perintah berikut bisa digunakan:
+
+```
+git commit -s
+git commit . -s
+git commit -a -s
+```
+
+Catatan:
+- `-s` menambahkan baris **Signed-off-by**
+- `-a` otomatis men-stage file yang sudah terlacak
+
+### Apa yang Berubah Saat Commit?
+
+| Area           | Apa yang Terjadi |
+|----------------|------------------|
+| File kerja     | Tidak berubah |
+| Staging area   | Tidak berubah |
+| Riwayat commit | Commit baru ditambahkan |
+| Pointer HEAD   | Pindah ke commit baru |
+
+Setelah commit:
+
+```
+git diff
+```
+
+Menampilkan **tidak ada perbedaan**, karena semuanya sudah tersimpan.
+
+---
+
+## Pengenal Commit (Hash)
+
+Setiap commit memiliki **ID unik**, contohnya:
+
+```text
+56b24d1bbcff213dc9e1625eea5b8e13bb50feb8
+```
+
+ID ini:
+- Mengidentifikasi commit secara unik
+- Dihasilkan dari konten
+- Menjamin integritas data
+
+Biasanya Anda hanya perlu **beberapa karakter pertama**.
+
+---
+
+## Tag (Nama yang Mudah Dibaca)
+
+Tag memberi **nama yang mudah diingat** untuk commit.
+
+Daripada mengingat hash, Anda bisa:
+
+```
+git tag v1.0
+```
+
+Atau memberi tag ke commit tertentu:
+
+```
+git tag v1.0 08d869
+```
+
+Tag berguna untuk:
+- Rilis
+- Versi stabil
+- Tonggak (milestone)
+
+#### Menggunakan Tag
+
+Untuk berpindah ke versi yang diberi tag:
+
+```
+git checkout v1.0
+```
+
+---
+
+## Melihat Riwayat Commit
+
+#### Riwayat Dasar
+
+```
+git log
+```
+
+Menampilkan:
+- ID commit
+- Penulis
+- Tanggal
+- Pesan
+
+Commit terbaru muncul paling atas.
+
+#### Riwayat Satu Baris
+
+```
+git log --pretty=oneline
+```
+
+Contoh keluaran:
+
+```text
+4b4bf2c5 Commit keempat
+55eceacc Commit ketiga
+f60c0c21 Commit kedua
+712cbafa Commit pertama
+```
+
+#### Melihat Perubahan Sebenarnya
+
+```
+git log -p
+```
+
+Untuk memeriksa commit tertentu:
+
+```
+git log -p f60c
+```
+
+Ini menampilkan:
+- Apa yang berubah
+- Baris mana yang ditambahkan atau dihapus
+
+:::info Summary
+
+- **Commit** menyimpan pekerjaan Anda secara lokal
+- Commit membentuk rantai riwayat
+- Setiap commit memiliki ID unik
+- **Tag** memberi nama yang mudah dibaca pada commit
+- `git log` memudahkan penelusuran riwayat
+
+:::
+
+---
+
+## Revert vs Reset Commit
+
+Terkadang Anda melakukan commit secara tidak sengaja:
+- Bug
+- Fitur belum selesai
+- Perubahan yang salah
+
+Git menyediakan **dua cara aman** untuk membatalkan commit.
+
+---
+
+## git revert (Aman untuk Repositori Bersama)
+
+#### Apa yang Dilakukan `git revert`?
+
+`git revert` **membatalkan commit dengan membuat commit baru**.
+
+Anggap saja:
+> “Buat commit baru yang membatalkan commit lama”
+
+#### Contoh
+
+```
+git revert <commit-id>
+```
+
+Anda dapat menentukan commit dengan:
+- `HEAD` → commit terbaru
+- `HEAD~1` → commit sebelumnya
+- `HEAD~2` → dua commit sebelumnya
+- Hash commit (pendek atau penuh)
+- Nama tag
+
+#### Perilaku Penting
+
+- Tidak ada riwayat yang dihapus
+- Commit baru ditambahkan
+- Aman jika orang lain sudah menarik perubahan Anda
+
+#### Apa yang Berubah dengan git revert?
+
+| Area | Efek |
+|----|----|
+| File kerja | Diperbarui |
+| Staging area | Bersih |
+| Riwayat commit | Commit baru ditambahkan |
+| Commit lama | Tetap ada |
+
+---
+
+## git reset (Untuk Pembatalan Lokal)
+
+### Kapan Menggunakan Reset
+
+Gunakan `git reset` **hanya jika Anda satu‑satunya pengguna branch tersebut**.
+
+Anggap saja:
+> “Anggap commit‑commit ini tidak pernah terjadi”
+
+### Reset Dasar
+
+```
+git reset HEAD~2
+```
+
+Ini akan:
+- Menghapus 2 commit terakhir dari riwayat
+- Membiarkan file tetap tidak berubah
+- Memindahkan pointer branch ke belakang
+
+### Mode Reset
+
+#### --soft
+```
+git reset --soft HEAD~1
+```
+- Commit dihapus
+- Perubahan tetap di-stage
+
+#### --mixed (default)
+```
+git reset HEAD~1
+```
+- Commit dihapus
+- Perubahan tidak di-stage
+
+#### --hard (berbahaya)
+```
+git reset --hard HEAD~1
+```
+- Commit dihapus
+- File dikembalikan ke kondisi lama
+- Perubahan hilang
+
+⚠️ **Jangan pernah gunakan `--hard` pada branch bersama**
+
+---
+
+## Menyimpan Pekerjaan Sambil Membersihkan Branch Utama
+
+Contoh skenario:
+- 3 commit terakhir bersifat eksperimental
+- Commit lama sudah stabil
+
+#### Solusi
+
+```
+git branch work
+git reset --hard HEAD~3
+git checkout work
+```
+
+Hasil:
+- `main` menjadi bersih
+- Pekerjaan berlanjut dengan aman di branch `work`
+
+---
+
+## Membersihkan dan Mengoptimalkan Repositori
+
+#### Git Garbage Collection
+
+Seiring waktu, ukuran repositori membesar.
+
+```
+git gc
+```
+
+Ini akan:
+- Menghapus objek yang tidak perlu
+- Mengompresi data
+- Membuat repositori lebih kecil dan cepat
+
+#### Memeriksa Kesehatan Repositori
+
+```
+git fsck
+```
+
+Menemukan:
+- Referensi rusak
+- Objek menggantung (biasanya aman)
+
+#### Menghapus Objek Menggantung
+
+Pratinjau terlebih dahulu:
+
+```
+git prune -n
+```
+
+Membersihkan secara nyata:
+
+```
+git prune
+```
+
+---
+
+## Siapa yang Mengubah Baris Ini? (git blame)
+
+#### Apa itu git blame?
+
+`git blame` menampilkan:
+- Siapa yang mengubah setiap baris
+- Kapan diubah
+- Commit mana yang melakukannya
+
+Anggap saja:
+> “Siapa yang menyentuh baris ini?”
+
+#### Penggunaan Dasar
+
+```
+git blame file.txt
+```
+
+Keluaran menampilkan:
+- ID commit
+- Penulis
+- Tanggal
+- Isi baris
+
+#### Blame Rentang Baris
+
+```
+git blame -L 10,20 file.txt
+```
+
+Berguna untuk:
+- Debugging bug
+- Code review
+- Memahami kode lama
+
+:::info Summary
+
+- Gunakan **git revert** untuk branch bersama
+- Gunakan **git reset** hanya secara lokal
+- `--hard` bisa menghancurkan pekerjaan
+- `git gc` membersihkan repositori
+- `git blame` menunjukkan siapa mengubah apa
+:::
+
+---
+## Masalah Apa yang Diselesaikan oleh `git bisect`?
+
+Terkadang kode Anda *dulu berfungsi*, tetapi setelah banyak commit, *tidak lagi berfungsi*.
+Anda tidak tahu **commit mana yang memperkenalkan bug**.
+
+`git bisect` membantu Anda menemukan commit yang menyebabkan masalah dengan cepat.
+
+Alih‑alih memeriksa setiap commit satu per satu, Git menggunakan pencarian biner, yang jauh lebih cepat.
+
+Contoh:
+Jika bug diperkenalkan di antara 1024 commit terakhir, Git dapat menemukannya dalam sekitar 10 langkah.
+
+### Ide Dasar
+
+1. Beri tahu Git commit mana yang **buruk** (bug ada)
+2. Beri tahu Git commit mana yang **baik** (berfungsi)
+3. Git memeriksa commit di tengah
+4. Anda menguji dan menandainya baik atau buruk
+5. Ulangi sampai commit bermasalah ditemukan
+
+### Langkah‑demi‑Langkah: Bisect Manual
+
+#### 1. Mulai mode bisect
+
+```
+git bisect start
+```
+
+#### 2. Tandai commit saat ini sebagai buruk
+
+```
+git bisect bad
+```
+
+#### 3. Tandai commit yang diketahui baik
+
+```
+git bisect good V_10
+```
+
+#### 4. Uji dan laporkan
+
+Jika bug ada:
+```
+git bisect bad
+```
+
+Jika bug tidak ada:
+```
+git bisect good
+```
+
+#### 5. Keluar dari mode bisect
+
+```
+git bisect reset
+```
+
+### Bisect Otomatis (Direkomendasikan)
+
+Jika Anda memiliki skrip pengujian:
+
+- Kode keluar `0` → baik
+- Kode keluar `1–127` → buruk
+
+Jalankan:
+
+```
+git bisect start
+git bisect bad
+git bisect good V_10
+git bisect run ./myscript.sh
+```
+
+#### Tips
+
+- Commit kecil memudahkan pencarian bug
+- Tes otomatis membuat bisect sangat kuat
+- Sangat bagus untuk menemukan regresi

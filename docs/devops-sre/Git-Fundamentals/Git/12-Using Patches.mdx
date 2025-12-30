@@ -1,0 +1,248 @@
+---
+id: Using Patches
+title: Penggunaan Patches
+---
+
+## Mengapa Menggunakan Patch?
+
+Biasanya Git membagikan perubahan menggunakan:
+- `git push`
+- `git pull`
+
+Namun terkadang **patch (file teks berisi perubahan)** adalah pilihan yang lebih baik.
+
+### Alasan Umum Menggunakan Patch
+
+#### 1. Review Kode Terlebih Dahulu
+Banyak proyek besar (seperti kernel Linux) mengharuskan:
+- Perubahan dikirim melalui email ke mailing list
+- Diskusi dan review publik sebelum di-merge
+
+Lebih banyak reviewer → kualitas kode lebih baik.
+
+#### 2. Tidak Semua Orang Menggunakan Git
+Beberapa kontributor:
+- Tidak menggunakan Git
+- Lebih suka meninjau diff dalam bentuk teks biasa
+
+Patch memungkinkan siapa pun untuk berpartisipasi.
+
+#### 3. Pembatasan Jaringan
+Lingkungan perusahaan bisa memblokir:
+- SSH
+- Protokol Git
+- Bahkan terkadang HTTPS
+
+Email hampir selalu bisa digunakan.
+
+---
+
+## Apa Itu Patch?
+
+Sebuah **patch** adalah file teks yang menjelaskan:
+- Baris apa yang ditambahkan
+- Baris apa yang dihapus
+- Di file mana perubahan terjadi
+
+Biasanya patch dibuat menggunakan `diff` atau perintah Git.
+
+<br/>
+### Dasar Patch dengan `diff`
+
+Membandingkan dua direktori:
+```
+diff -Nur stable_tree modified_tree > my_patch.patch
+```
+
+Penjelasan opsi:
+- `-N` → menyertakan file yang ditambahkan/dihapus
+- `-u` → unified diff (mudah dibaca manusia)
+- `-r` → rekursif
+
+Membandingkan dua file:
+```
+diff -u original_file modified_file > my_patch.patch
+```
+
+Menerapkan patch:
+```
+cd stable_tree
+patch -p1 < my_patch.patch
+```
+
+<br/>
+### Membuat Patch dengan Git (Direkomendasikan)
+
+#### Patch Cepat (Perubahan Belum Di-commit)
+```
+git diff > my_patch.patch
+```
+
+Cocok untuk:
+- Review cepat
+- Perbaikan kecil
+
+<br/>
+### Membuat Patch Berbasis Commit (Praktik Terbaik)
+
+Gunakan:
+```
+git format-patch
+```
+
+Contoh: 3 commit terakhir
+```
+git format-patch -3
+```
+
+Keluaran:
+```text
+0001-first-commit.patch
+0002-second-commit.patch
+0003-third-commit.patch
+```
+
+Setiap commit menjadi **satu file patch**.
+
+#### Patch Sejak Sebuah Branch
+```
+git format-patch main
+```
+
+Ini membuat patch untuk semua perubahan sejak bercabang dari `main`.
+
+<br/>
+### Sign-Off 
+
+Menambahkan konfirmasi penulis:
+```
+git format-patch -s main
+```
+
+Menambahkan:
+```text
+Signed-off-by: Nama Anda <you@email.com>
+```
+
+:::info
+- Wajib di beberapa proyek  
+- Melacak tanggung jawab
+:::
+
+---
+
+## Mengirim Patch Lewat Email
+
+### Menggunakan Git (Opsional)
+```
+git send-email 0001-first-commit.patch
+```
+
+Git akan meminta:
+- Informasi pengirim
+- Konfigurasi SMTP
+- Daftar penerima
+
+:::warning 
+Konfigurasinya bisa merepotkan.
+:::
+
+### Menggunakan Klien Email Sendiri
+
+Jika menggunakan cara ini:
+- Kirim **teks polos saja**
+- Nonaktifkan HTML
+- Nonaktifkan pemenggalan baris
+- Tempelkan patch **langsung di isi email**, bukan sebagai lampiran
+
+Lampiran sering merusak patch & HTML merusak format.
+
+---
+
+## Menerapkan Patch dengan Git
+
+### Metode Terbaik: `git am`
+```
+git am 0001-first-commit.patch
+```
+
+Fungsinya:
+- Menerapkan patch
+- Membuat commit secara otomatis
+- Menjaga informasi penulis
+
+### Menangani Error
+Jika patch gagal:
+```text
+patch failed: file2
+```
+
+Perbaiki konflik secara manual, lalu:
+```
+git am --resolved
+```
+
+Lewati patch:
+```
+git am --skip
+```
+
+Batalkan sepenuhnya:
+```
+git am --abort
+```
+
+---
+
+## Penerapan Patch yang Lebih Aman / Manual
+
+#### Dry Run (Direkomendasikan)
+```
+patch --dry-run < patch.patch
+```
+
+Jika bersih:
+```
+patch < patch.patch
+git add .
+git commit
+```
+
+---
+## Alat Patch Git Level Rendah
+
+### `git apply`
+Cek saja:
+```
+git apply --check patch.patch
+```
+
+Terapkan tanpa commit:
+```
+git apply patch.patch
+git commit
+```
+
+---
+## `git am` vs `git apply`
+
+| Perintah | File | Index | Commit | Riwayat |
+|------|------|------|------|------|
+| `git am` | Dimodifikasi | Diperbarui | Commit baru | Dipertahankan |
+| `git apply` | Dimodifikasi | Opsional | Tidak ada | Tidak berubah |
+
+---
+
+:::info Practical Rules of Thumb
+
+- Gunakan **`git format-patch`** untuk pekerjaan serius
+- Gunakan **`git am`** untuk menerapkan patch dari email
+- Gunakan **`git apply`** untuk kontrol manual
+- Jangan pernah mengirim patch sebagai HTML
+- Utamakan **patch inline lewat email**
+- Lakukan sign-off patch jika diwajibkan
+
+---
+
+Patch mungkin terasa kuno, tetapi tetap **sangat penting dalam proyek besar dan serius**
+:::

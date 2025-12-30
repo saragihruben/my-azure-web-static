@@ -1,0 +1,246 @@
+---
+id: Using Patches
+title: Using Patches
+---
+
+## Why Use Patches?
+
+Git normally shares changes using:
+- `git push`
+- `git pull`
+
+But sometimes **patches (text files with changes)** are better.
+
+### Common Reasons to Use Patches
+
+#### 1. Code Review First
+Many large projects (like the Linux kernel) require:
+- Changes to be emailed to a mailing list
+- Public discussion and review before merging
+
+More reviewers → better quality code.
+
+#### 2. Not Everyone Uses Git
+Some contributors:
+- Don’t use Git
+- Prefer reviewing plain text diffs
+
+Patches allow anyone to participate.
+
+#### 3. Network Restrictions
+Corporate environments may block:
+- SSH
+- Git protocol
+- Sometimes even HTTPS
+
+Email almost always works.
+
+---
+
+## What Is a Patch?
+
+A **patch** is a text file describing:
+- What lines were added
+- What lines were removed
+- In which files
+
+It is usually generated using `diff` or Git commands.
+
+<br/>
+### Patch Basics with `diff`
+
+Compare two directories:
+```
+diff -Nur stable_tree modified_tree > my_patch.patch
+```
+
+Options explained:
+- `-N` → include added/deleted files
+- `-u` → unified diff (human-readable)
+- `-r` → recursive
+
+Compare two files:
+```
+diff -u original_file modified_file > my_patch.patch
+```
+
+Apply patch:
+```
+cd stable_tree
+patch -p1 < my_patch.patch
+```
+<br/>
+### Creating Patches with Git (Recommended)
+
+#### Quick Patch (Uncommitted Changes)
+```
+git diff > my_patch.patch
+```
+
+Good for:
+- Quick reviews
+- Small fixes
+
+<br/>
+### Creating Commit-Based Patches (Best Practice)
+
+Use:
+```
+git format-patch
+```
+
+Example: last 3 commits
+```
+git format-patch -3
+```
+
+Output:
+```text
+0001-first-commit.patch
+0002-second-commit.patch
+0003-third-commit.patch
+```
+
+Each commit becomes **one patch file**.
+
+#### Patches Since a Branch
+```
+git format-patch main
+```
+
+This creates patches for everything since branching off `main`.
+
+<br/>
+### Sign-Off 
+
+Add author confirmation:
+```
+git format-patch -s main
+```
+
+Adds:
+```text
+Signed-off-by: Your Name <you@email.com>
+```
+:::info
+- Required in some projects  
+- Tracks responsibility
+:::
+
+---
+
+## Sending Patches by Email
+
+### Using Git (Optional)
+```
+git send-email 0001-first-commit.patch
+```
+
+Git will ask for:
+- Sender info
+- SMTP configuration
+- Recipients
+
+:::warning 
+Setup can be painful.
+:::
+
+### Using Your Own Email Client 
+
+If you do this:
+- Send **plain text only**
+- Disable HTML
+- Disable line wrapping
+- Paste patch **inline**, not as attachment
+
+Attachments often break patches & HTML destroys formatting
+
+---
+
+## Applying Patches with Git
+
+### Best Method: `git am`
+```
+git am 0001-first-commit.patch
+```
+
+What it does:
+- Applies the patch
+- Creates a commit automatically
+- Preserves author info
+
+### Handling Errors
+If a patch fails:
+```text
+patch failed: file2
+```
+
+Fix conflicts manually, then:
+```
+git am --resolved
+```
+
+Skip patch:
+```
+git am --skip
+```
+
+Abort completely:
+```
+git am --abort
+```
+
+---
+
+## Safer / Manual Patch Application
+
+#### Dry Run (Recommended)
+```
+patch --dry-run < patch.patch
+```
+
+If clean:
+```
+patch < patch.patch
+git add .
+git commit
+```
+
+---
+## Lower-Level Git Patch Tool
+
+### `git apply`
+Check only:
+```
+git apply --check patch.patch
+```
+
+Apply without committing:
+```
+git apply patch.patch
+git commit
+```
+
+---
+## `git am` vs `git apply`
+
+| Command | Files | Index | Commit | History |
+|------|------|------|------|------|
+| `git am` | Modified | Updated | New commit | Preserved |
+| `git apply` | Modified | Optional | No commit | Unchanged |
+
+---
+
+:::info Practical Rules of Thumb
+
+- Use **`git format-patch`** for serious work
+- Use **`git am`** to apply emailed patches
+- Use **`git apply`** for manual control
+- Never send patches as HTML
+- Prefer **inline email patches**
+- Sign off your patches when required
+
+---
+
+Patches may feel old-school, but they are still **critical in large, serious projects**
+:::

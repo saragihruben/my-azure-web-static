@@ -1,0 +1,209 @@
+---
+id: Branches
+title: Branches
+---
+
+## What is a branch?
+
+A **branch** is an independent line of development in Git.
+
+You create a branch when you want to:
+- Work on new features
+- Fix bugs safely
+- Maintain an older release
+- Experiment without breaking main code
+
+The default branch is usually called **main**.
+
+---
+
+## Why use branches?
+
+Common real-world scenarios
+
+- **Maintenance branch**
+  - Fix bugs
+  - Improve performance
+  - Patch security issues
+
+- **Development branch**
+  - Add new features
+  - Make breaking changes
+  - Prepare for the next major release
+
+- **Bug-fix or experiment branch**
+  - Isolate risky work
+  - Avoid conflicts with other changes
+
+Branches let multiple efforts move forward **at the same time**.
+
+<br/>
+#### Why Git branches are powerful
+
+- Creating a branch is fast
+- Switching branches is fast
+- Merging branches is easy
+- All branches are technically equal
+
+Even the Linux kernel uses **many parallel branches**.
+The main branch (maintained by Linus Torvalds) is socially important,
+but technically no different from other branches.
+
+<br/>
+#### One active branch at a time
+
+You can have many branches in a repository, but:
+- Only **one branch is active**
+- Your working files always match the active branch
+- Switching branches changes the files on disk
+
+---
+
+## Branch names vs tags
+### Branches
+- Represent an **ongoing line of development**
+- Move forward as new commits are added
+- Examples: `main`, `devel`, `stable`, `debug`
+
+### Tags
+- Represent a **fixed point in history**
+- Do NOT move
+- Should never change
+- Examples: `v1.0`, `v2.4.1`
+
+Think of it this way:
+- Branch = moving pointer
+- Tag = permanent bookmark
+
+---
+
+## Creating a branch
+
+#### Basic command
+
+```
+git branch <branch_name> [starting_point]
+```
+
+#### Example: create a development branch
+
+```
+git branch devel
+```
+
+This creates a new branch from the current commit.
+
+---
+
+## List branches
+
+```
+git branch
+```
+
+The current branch is marked with `*`.
+
+For more detailed history:
+
+```
+git show-branch
+```
+
+---
+
+## Deleting a branch
+
+```
+git branch -d devel
+```
+
+:::warning
+You cannot delete the branch you are currently on.  
+Recovering deleted branches is hard — be careful.
+:::
+
+---
+## Switching branches (checkout)
+
+To switch to another branch:
+
+```
+git checkout devel
+```
+
+- Files change to match the branch
+- HEAD moves to the latest commit of that branch
+- No data is lost
+
+To go back:
+
+```
+git checkout main
+```
+
+---
+
+## Create and switch branch in one step
+
+```
+git checkout -b newbranch startpoint
+```
+
+This is the same as:
+
+```
+git branch newbranch startpoint
+git checkout newbranch
+```
+
+<br/>
+#### Important safety note
+
+If you have **uncommitted changes**, Git may refuse to switch branches.
+This prevents you from accidentally losing work.
+
+---
+
+## Example: files differ across branches
+
+```
+git branch devel
+echo hello > hello
+git add hello
+git commit -m "add hello file"
+git checkout devel
+```
+
+The file `hello` will NOT exist in `devel` because it was created after branching.
+
+---
+
+## Getting an earlier version of a file
+
+### View an old version
+
+```
+git show v2.4.1:src/myfile.c
+```
+
+(Note the `:`)
+
+---
+
+### Restore an old version
+
+```
+git checkout v2.4.1 src/myfile.c
+```
+
+(No colon here)
+
+---
+
+:::info Summary
+- Branches let you work independently and safely
+- Only one branch is active at a time
+- Branches move, tags do not
+- Creating and switching branches is fast
+- Essential for professional Git workflows
+:::

@@ -1,0 +1,209 @@
+---
+id: Branches
+title: Branches
+---
+
+## Apa itu branch?
+
+Sebuah **branch** adalah jalur pengembangan yang independen di Git.
+
+Anda membuat branch ketika ingin:
+- Mengerjakan fitur baru
+- Memperbaiki bug dengan aman
+- Memelihara rilis lama
+- Bereksperimen tanpa merusak kode utama
+
+Branch default biasanya bernama **main**.
+
+---
+
+## Mengapa menggunakan branch?
+
+Skenario umum di dunia nyata:
+
+- **Branch maintenance**
+  - Memperbaiki bug
+  - Meningkatkan performa
+  - Menambal masalah keamanan
+
+- **Branch development**
+  - Menambahkan fitur baru
+  - Melakukan perubahan besar (breaking changes)
+  - Mempersiapkan rilis utama berikutnya
+
+- **Branch perbaikan bug atau eksperimen**
+  - Mengisolasi pekerjaan berisiko
+  - Menghindari konflik dengan perubahan lain
+
+Branch memungkinkan banyak pekerjaan berjalan **secara bersamaan**.
+
+<br/>
+#### Mengapa branch Git sangat kuat
+
+- Membuat branch sangat cepat
+- Berpindah branch sangat cepat
+- Menggabungkan branch itu mudah
+- Semua branch secara teknis setara
+
+Bahkan kernel Linux menggunakan **banyak branch paralel**.
+Branch utama (dipelihara oleh Linus Torvalds) penting secara sosial,
+tetapi secara teknis tidak berbeda dari branch lainnya.
+
+<br/>
+#### Satu branch aktif dalam satu waktu
+
+Anda bisa memiliki banyak branch dalam satu repositori, tetapi:
+- Hanya **satu branch yang aktif**
+- File kerja selalu sesuai dengan branch aktif
+- Berpindah branch akan mengubah file di disk
+
+---
+
+## Nama branch vs tag
+### Branch
+- Mewakili **jalur pengembangan yang sedang berjalan**
+- Bergerak maju seiring penambahan commit baru
+- Contoh: `main`, `devel`, `stable`, `debug`
+
+### Tag
+- Mewakili **titik tetap dalam riwayat**
+- TIDAK bergerak
+- Tidak boleh berubah
+- Contoh: `v1.0`, `v2.4.1`
+
+Bayangkan seperti ini:
+- Branch = penunjuk yang bergerak
+- Tag = penanda permanen
+
+---
+
+## Membuat branch
+
+#### Perintah dasar
+
+```
+git branch <nama_branch> [titik_awal]
+```
+
+#### Contoh: membuat branch development
+
+```
+git branch devel
+```
+
+Ini membuat branch baru dari commit saat ini.
+
+---
+
+## Melihat daftar branch
+
+```
+git branch
+```
+
+Branch yang sedang aktif ditandai dengan `*`.
+
+Untuk riwayat yang lebih detail:
+
+```
+git show-branch
+```
+
+---
+
+## Menghapus branch
+
+```
+git branch -d devel
+```
+
+:::warning
+Anda tidak dapat menghapus branch yang sedang aktif.  
+Mengembalikan branch yang terhapus itu sulit — berhati-hatilah.
+:::
+
+---
+## Berpindah branch (checkout)
+
+Untuk berpindah ke branch lain:
+
+```
+git checkout devel
+```
+
+- File akan berubah sesuai branch
+- HEAD berpindah ke commit terbaru di branch tersebut
+- Tidak ada data yang hilang
+
+Untuk kembali:
+
+```
+git checkout main
+```
+
+---
+
+## Membuat dan berpindah branch dalam satu langkah
+
+```
+git checkout -b newbranch startpoint
+```
+
+Ini sama dengan:
+
+```
+git branch newbranch startpoint
+git checkout newbranch
+```
+
+<br/>
+#### Catatan penting tentang keamanan
+
+Jika Anda memiliki **perubahan yang belum di-commit**, Git mungkin menolak berpindah branch.
+Ini mencegah Anda kehilangan pekerjaan secara tidak sengaja.
+
+---
+
+## Contoh: file berbeda di setiap branch
+
+```
+git branch devel
+echo hello > hello
+git add hello
+git commit -m "add hello file"
+git checkout devel
+```
+
+File `hello` **tidak akan ada** di `devel` karena file tersebut dibuat setelah proses branching.
+
+---
+
+## Mendapatkan versi lama dari sebuah file
+
+### Melihat versi lama
+
+```
+git show v2.4.1:src/myfile.c
+```
+
+(Perhatikan tanda `:`)
+
+---
+
+### Mengembalikan versi lama
+
+```
+git checkout v2.4.1 src/myfile.c
+```
+
+(Tidak ada tanda titik dua di sini)
+
+---
+
+:::info Summary
+- Branch memungkinkan Anda bekerja secara independen dan aman
+- Hanya satu branch yang aktif dalam satu waktu
+- Branch bergerak, tag tidak
+- Membuat dan berpindah branch sangat cepat
+- Sangat penting untuk alur kerja Git profesional
+:::
