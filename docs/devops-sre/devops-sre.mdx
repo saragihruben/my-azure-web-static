@@ -1,14 +1,164 @@
 ---
 id: devops-sre
-title: DevOps and SRE Practices
+title: Praktik DevOps dan SRE
 ---
 
+## Apa itu DevOps?
+
+**DevOps** adalah sekumpulan praktik, alat, dan mindset yang bertujuan untuk **mempersingkat Software Delivery Lifecycle (SDLC)** sambil tetap menjaga **kualitas dan stabilitas yang tinggi**.
+
+### Ide Utama
+
+Menghilangkan silo antara Development dan Operations agar tim dapat bekerja sama untuk membangun, menguji, merilis, dan menjalankan software secara efisien.
+
 :::info
-
-Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!
-
+Silo berarti orang atau tim bekerja secara terpisah dan tidak saling berkomunikasi.
 :::
 
-:::warning
+### Fokus Utama DevOps
 
-Beberapa materi atau topic kemungkinan bersifat fundamental, harap dimaklumi :)
+- Otomatisasi tugas-tugas yang berulang
+- Continuous Integration dan Continuous Delivery (CI/CD)
+- Konsistensi infrastruktur
+- Kolaborasi antar tim
+- Loop umpan balik yang cepat
+
+### Tanggung Jawab Umum DevOps
+
+- Membangun dan memelihara pipeline CI/CD
+- Mengelola infrastruktur menggunakan kode
+- Memaketkan dan melakukan deployment aplikasi
+- Meningkatkan kecepatan dan keandalan deployment
+- Mendukung developer dengan tooling dan otomatisasi
+
+---
+
+## Apa itu Site Reliability Engineering (SRE)?
+
+**Site Reliability Engineering (SRE)** adalah pendekatan praktis yang menerapkan **prinsip-prinsip rekayasa perangkat lunak** untuk mengatasi tantangan operasional dan keandalan sistem.
+
+### Ide Utama
+
+Memperlakukan operasi sebagai masalah perangkat lunak dan meningkatkan keandalan sistem melalui rekayasa dan otomatisasi.
+
+### Fokus Utama SRE
+
+- Keandalan dan ketersediaan
+- Monitoring dan alerting
+- Respons insiden dan postmortem
+- Perencanaan kapasitas
+- Manajemen risiko melalui error budget
+
+### Tanggung Jawab Umum SRE
+
+- Mendefinisikan dan mengukur keandalan menggunakan SLI, SLO, dan SLA
+- Merancang sistem monitoring dan alerting
+- Merespons dan menganalisis insiden di production
+- Mengotomatiskan tugas-tugas operasional
+- Meningkatkan ketahanan dan skalabilitas sistem
+
+#### DevOps vs SRE (Perbandingan Tingkat Tinggi)
+
+| Aspek | DevOps | SRE |
+|------|--------|-----|
+| Tujuan utama | Kecepatan dan delivery | Keandalan dan stabilitas |
+| Fokus | CI/CD, otomatisasi, platform | SLI/SLO, monitoring, insiden |
+| Alat umum | Git, CI/CD, container, IaC | Monitoring, alerting, otomatisasi |
+
+> Di banyak organisasi, peran DevOps dan SRE menggunakan alat yang serupa tetapi memiliki prioritas dan metrik keberhasilan yang berbeda.
+
+---
+
+## Overview
+
+DevOps dan Site Reliability Engineering (SRE) sama-sama membahas bagaimana software bergerak dari sekadar kode sampai benar-benar berjalan dan stabil di production.
+Keduanya fokus pada cara melakukan perubahan, cara deploy aplikasi, cara sistem berjalan dalam skala besar, serta bagaimana masalah bisa cepat diketahui dan diperbaiki di production.
+Agar semua ini bisa dilakukan dengan baik, engineer perlu memahami beberapa dasar penting: Git untuk mengelola perubahan, 
+GitOps dan CI/CD untuk otomatisasi build dan deployment, container agar aplikasi berjalan konsisten di berbagai environment, 
+Kubernetes untuk menjalankan dan melakukan scale pada aplikasi, serta observability untuk melihat apa yang sebenarnya terjadi di dalam sistem.
+Dasar-dasar ini adalah fondasi penting bagi siapa pun yang ingin mulai belajar DevOps atau SRE.
+
+> *Bagian-bagian di bawah ini membahas fondasi teknis utama yang digunakan bersama oleh peran DevOps dan SRE.*
+
+### [Git Fundamentals](/docs/devops-sre/Git-Fundamentals)
+
+Git adalah **fondasi dari workflow DevOps dan SRE modern**.
+
+#### Konsep Utama
+
+- Dasar Git: clone, commit, branch, merge, rebase
+- Workflow umum: feature branch, trunk-based development
+- Repository Git sebagai **single source of truth**
+
+#### GitOps dan CI/CD
+
+- Infrastruktur deklaratif yang disimpan di Git
+- Perubahan berbasis pull request
+- Pipeline otomatis untuk build, test, dan deploy
+- Rollback menggunakan histori Git
+
+---
+
+### [Containerization](/docs/devops-sre/containerization)
+
+Container menyediakan **konsistensi environment dan portabilitas**.
+
+#### Konsep Utama
+
+- Masalah yang diselesaikan oleh container (dependency dan environment drift)
+- Perbedaan antara image dan container
+- Siklus hidup container
+
+#### Fundamental Praktis
+
+- Menulis Dockerfile dasar
+- Membangun dan memberi tag image
+- Menjalankan dan melakukan debugging container
+- Menggunakan container registry
+
+---
+
+### [Kubernetes](/docs/devops-sre/kubernetes)
+
+Kubernetes adalah **platform orkestrasi standar** untuk workload berbasis container.
+
+#### Konsep Utama
+
+- Arsitektur cluster (control plane dan worker node)
+- Objek inti: Pod, Deployment, Service
+- Manajemen konfigurasi: ConfigMap dan Secret
+- Namespace untuk isolasi
+
+#### Fokus Rekayasa Praktis
+
+- Workload stateless vs stateful
+- Scaling dan self-healing
+- Rolling update dan rollback
+- Konsep keamanan dasar (RBAC, service account)
+
+---
+
+### [Observability](/docs/devops-sre/observability)
+
+Observability membantu engineer memahami **apa yang terjadi di dalam sistem dan mengapa**.
+
+#### Tiga Pilar Observability
+
+1. **Metrics** – kesehatan dan performa sistem
+2. **Logs** – event dan konteks untuk debugging
+3. **Traces** – alur request antar service
+
+#### Konsep Utama
+
+- Golden signals: latency, traffic, errors, saturation
+- Monitoring vs alerting
+- Symptoms vs root causes
+- Alert yang actionable
+
+#### Konsep Keandalan Khusus SRE
+
+- Service Level Indicators (SLI)
+- Service Level Objectives (SLO)
+- Service Level Agreements (SLA)
+- Error budget
+- Blameless postmortem

@@ -3,14 +3,162 @@ id: devops-sre
 title: DevOps and SRE Practices
 ---
 
-:::info
+## What is DevOps?
 
-Additional topics will be added to the wiki over time. Please stay tuned for updates.
+**DevOps** is a set of practices, tools, and cultural philosophies that aim to **shorten the Software Delivery Lifecycle (SDLC)** while maintaining **high quality and stability**.
 
+### Core Idea
+
+Break down silos between Development and Operations so teams can work together to build, test, release, and run software efficiently.
+
+:::info 
+Silos mean people or teams working separately and not talking to each other.
 :::
 
-:::warning
+### DevOps Focus Areas
 
-Some of the materials or topics presented may cover foundational concepts. Your understanding is appreciated.
+- Automation of repetitive tasks
+- Continuous Integration and Continuous Delivery (CI/CD)
+- Infrastructure consistency
+- Collaboration between teams
+- Fast feedback loops
 
-:::
+### Typical DevOps Responsibilities
+
+- Build and maintain CI/CD pipelines
+- Manage infrastructure using code
+- Package and deploy applications
+- Improve deployment speed and reliability
+- Support developers with tooling and automation
+
+---
+
+## What is Site Reliability Engineering (SRE)?
+
+**Site Reliability Engineering (SRE)** is a discipline that applies **software engineering principles** to operational and reliability challenges.
+
+### Core Idea
+
+Treat operations as a software problem and improve system reliability through engineering and automation.
+
+### SRE Focus Areas
+
+- Reliability and availability
+- Monitoring and alerting
+- Incident response and postmortems
+- Capacity planning
+- Risk management through error budgets
+
+### Typical SRE Responsibilities
+
+- Define and measure reliability using SLIs, SLOs, and SLAs
+- Design monitoring and alerting systems
+- Respond to and analyze production incidents
+- Automate operational tasks
+- Improve system resilience and scalability
+
+#### DevOps vs SRE (High-Level Comparison)
+
+| Aspect | DevOps | SRE |
+|------|-------|-----|
+| Primary goal | Speed and delivery | Reliability and stability |
+| Focus | CI/CD, automation, platforms | SLIs/SLOs, monitoring, incidents |
+| Common tools | Git, CI/CD, containers, IaC | Monitoring, alerting, automation |
+
+> In many organizations, DevOps and SRE roles share similar tools but differ in priorities and success metrics.
+---
+
+## Overview
+
+DevOps and Site Reliability Engineering (SRE) are both about taking software from code to a running, reliable service. 
+They focus on how changes are made, how applications are deployed, how systems run at scale, and how issues are detected and fixed in production. 
+To do this effectively, engineers need a strong foundation in a few core areas: Git for tracking and managing changes, 
+GitOps and CI/CD for automating builds and deployments, containers for keeping applications consistent across environments, 
+Kubernetes for running and scaling those applications, and observability for understanding what is happening inside a system. 
+These fundamentals form the base knowledge for anyone starting a journey into DevOps or SRE.
+
+> *The sections below cover the core technical foundations shared by both DevOps and SRE roles.*
+
+### [Git Fundamentals](/docs/devops-sre/Git-Fundamentals)
+
+Git is the **foundation of modern DevOps and SRE workflows**.
+
+#### Key Concepts
+
+- Git basics: clone, commit, branch, merge, rebase
+- Common workflows: feature branches, trunk-based development
+- Git repositories as the **single source of truth**
+
+#### GitOps and CI/CD
+
+- Declarative infrastructure stored in Git
+- Pull-request based changes
+- Automated pipelines for build, test, and deploy
+- Rollbacks using Git history
+
+---
+
+### [Containerization](/docs/devops-sre/containerization)
+
+Containers provide **environment consistency and portability**.
+
+#### Core Concepts
+
+- Problems containers solve (dependency and environment drift)
+- Difference between images and containers
+- Container lifecycle
+
+#### Practical Fundamentals
+
+- Writing basic Dockerfiles
+- Building and tagging images
+- Running and debugging containers
+- Using container registries
+
+---
+
+### [Kubernetes](/docs/devops-sre/kubernetes)
+
+Kubernetes is the **standard orchestration platform** for containerized workloads.
+
+#### Key Concepts
+
+- Cluster architecture (control plane and worker nodes)
+- Core objects: Pods, Deployments, Services
+- Configuration management: ConfigMaps and Secrets
+- Namespaces for isolation
+
+#### Practical Engineering Focus
+
+- Stateless vs stateful workloads
+- Scaling and self-healing
+- Rolling updates and rollbacks
+- Basic security concepts (RBAC, service accounts)
+
+---
+
+### [Observability](/docs/devops-sre/observability)
+
+Observability helps engineers understand **what is happening inside a system and why**.
+
+#### Three Pillars of Observability
+
+1. **Metrics** – system health and performance
+2. **Logs** – events and debugging context
+3. **Traces** – request flow across services
+
+#### Key Concepts
+
+- Golden signals: latency, traffic, errors, saturation
+- Monitoring vs alerting
+- Symptoms vs root causes
+- Actionable alerts
+
+#### SRE-Specific Reliability Concepts
+
+- Service Level Indicators (SLIs)
+- Service Level Objectives (SLOs)
+- Service Level Agreements (SLAs)
+- Error budgets
+- Blameless postmortems
+

@@ -5,22 +5,26 @@
       "plugin": "c141421f"
     }
   },
-  "/en/docs-4b9": {
+  "/en/docs-4e7": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/en/docs-428": {
+  "/en/docs-8ac": {
     "__comp": "a7bd4aaa",
     "__props": "0abf49b1"
   },
-  "/en/docs-de0": {
+  "/en/docs-df8": {
     "__comp": "a94703ab"
   },
   "/en/docs/devops-sre-9c4": {
     "__comp": "17896441",
     "content": "6dc5c9d6"
+  },
+  "/en/docs/devops-sre/containerization-f86": {
+    "__comp": "17896441",
+    "content": "82ae97c0"
   },
   "/en/docs/devops-sre/Git-Fundamentals-3f2": {
     "__comp": "17896441",
@@ -93,6 +97,18 @@
   "/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization-ebe": {
     "__comp": "17896441",
     "content": "6039191a"
+  },
+  "/en/docs/devops-sre/Git-Fundamentals/GitOps-5e8": {
+    "__comp": "17896441",
+    "content": "d07feba7"
+  },
+  "/en/docs/devops-sre/kubernetes-736": {
+    "__comp": "17896441",
+    "content": "70585932"
+  },
+  "/en/docs/devops-sre/observability-8a2": {
+    "__comp": "17896441",
+    "content": "8e16351b"
   },
   "/en/docs/Getting-started/introduction-234": {
     "__comp": "17896441",

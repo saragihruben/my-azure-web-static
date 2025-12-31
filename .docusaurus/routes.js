@@ -9,19 +9,25 @@ export default [
   },
   {
     path: '/en/docs',
-    component: ComponentCreator('/en/docs', '4b9'),
+    component: ComponentCreator('/en/docs', '4e7'),
     routes: [
       {
         path: '/en/docs',
-        component: ComponentCreator('/en/docs', '428'),
+        component: ComponentCreator('/en/docs', '8ac'),
         routes: [
           {
             path: '/en/docs',
-            component: ComponentCreator('/en/docs', 'de0'),
+            component: ComponentCreator('/en/docs', 'df8'),
             routes: [
               {
                 path: '/en/docs/devops-sre',
                 component: ComponentCreator('/en/docs/devops-sre', '9c4'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/containerization',
+                component: ComponentCreator('/en/docs/devops-sre/containerization', 'f86'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },
@@ -130,6 +136,24 @@ export default [
               {
                 path: '/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization',
                 component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization', 'ebe'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/Git-Fundamentals/GitOps',
+                component: ComponentCreator('/en/docs/devops-sre/Git-Fundamentals/GitOps', '5e8'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/kubernetes',
+                component: ComponentCreator('/en/docs/devops-sre/kubernetes', '736'),
+                exact: true,
+                sidebar: "defaultSidebar"
+              },
+              {
+                path: '/en/docs/devops-sre/observability',
+                component: ComponentCreator('/en/docs/devops-sre/observability', '8a2'),
                 exact: true,
                 sidebar: "defaultSidebar"
               },

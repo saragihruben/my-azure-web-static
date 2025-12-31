@@ -1,7 +1,7 @@
 {
   "id": "devops-sre/devops-sre",
-  "title": "DevOps and SRE Practices",
-  "description": "Beberapa topic akan ditambahkan ke dalam wiki. Stay tuned!",
+  "title": "Praktik DevOps dan SRE",
+  "description": "Apa itu DevOps?",
   "source": "@site/docs/devops-sre/devops-sre.mdx",
   "sourceDirName": "devops-sre",
   "slug": "/devops-sre/",
@@ -12,7 +12,7 @@
   "version": "current",
   "frontMatter": {
     "id": "devops-sre",
-    "title": "DevOps and SRE Practices"
+    "title": "Praktik DevOps dan SRE"
   },
   "sidebar": "defaultSidebar",
   "previous": {

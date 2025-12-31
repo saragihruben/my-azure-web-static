@@ -11,6 +11,11 @@
           "mainDocId": "Getting-started/introduction",
           "docs": [
             {
+              "id": "devops-sre/containerization/Containerization",
+              "path": "/en/docs/devops-sre/containerization/",
+              "sidebar": "defaultSidebar"
+            },
+            {
               "id": "devops-sre/devops-sre",
               "path": "/en/docs/devops-sre/",
               "sidebar": "defaultSidebar"
@@ -103,6 +108,21 @@
             {
               "id": "devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization",
               "path": "/en/docs/devops-sre/Git-Fundamentals/GitLab/Setting Up Your Organization",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/Git-Fundamentals/GitOps/GitOps",
+              "path": "/en/docs/devops-sre/Git-Fundamentals/GitOps/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/kubernetes/Kubernetes",
+              "path": "/en/docs/devops-sre/kubernetes/",
+              "sidebar": "defaultSidebar"
+            },
+            {
+              "id": "devops-sre/observability/Observability",
+              "path": "/en/docs/devops-sre/observability/",
               "sidebar": "defaultSidebar"
             },
             {
