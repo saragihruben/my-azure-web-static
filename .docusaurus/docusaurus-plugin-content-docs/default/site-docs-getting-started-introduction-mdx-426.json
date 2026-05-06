@@ -1,7 +1,7 @@
 {
   "id": "Getting-started/introduction",
   "title": "Welcome",
-  "description": "MyWiki adalah personal wiki dari Ruben Saragih , seorang yang bekerja di bidang IT Infrastructure. Wiki ini berisi beberapa materi dan hands-on seputar Cloud Computing berdasarkan interest dan pengalaman penulis.",
+  "description": "MyWiki adalah personal wiki dari Ruben Saragih , seorang yang sedang bekerja di bidang IT Infrastructure. Wiki ini berisi beberapa materi dan hands-on seputar Cloud Computing berdasarkan interest dan pengalaman penulis.",
   "source": "@site/docs/Getting-started/introduction.mdx",
   "sourceDirName": "Getting-started",
   "slug": "/Getting-started/introduction",

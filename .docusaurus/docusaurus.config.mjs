@@ -7,9 +7,8 @@ export default {
   "title": "MyWiki",
   "trailingSlash": false,
   "url": "https://lively-stone-0b0c94d10.6.azurestaticapps.net",
-  "baseUrl": "/en/",
+  "baseUrl": "/",
   "onBrokenLinks": "throw",
-  "onBrokenMarkdownLinks": "warn",
   "favicon": "img/favicon.png",
   "organizationName": "saragihruben",
   "projectName": "saragihruben.wiki",
@@ -51,7 +50,7 @@ export default {
         "src": "img/logo_hi.png"
       },
       "links": [],
-      "copyright": "Copyright © 2025 Saragih Ruben.<br /> Built with <a href=\"https://docusaurus.io\" target=\"_blank\">Docusaurus</a>."
+      "copyright": "Copyright © 2026 Saragih Ruben.<br /> Built with <a href=\"https://docusaurus.io\" target=\"_blank\">Docusaurus</a>."
     },
     "prism": {
       "theme": {
@@ -234,12 +233,19 @@ export default {
     "path": "i18n"
   },
   "baseUrlIssueBanner": true,
+  "storage": {
+    "type": "localStorage",
+    "namespace": false
+  },
   "future": {
     "v4": {
       "removeLegacyPostBuildHeadAttribute": false,
-      "useCssCascadeLayers": false
+      "useCssCascadeLayers": false,
+      "siteStorageNamespacing": false,
+      "fasterByDefault": false,
+      "mdx1CompatDisabledByDefault": false
     },
-    "experimental_faster": {
+    "faster": {
       "swcJsLoader": false,
       "swcJsMinimizer": false,
       "swcHtmlMinimizer": false,
@@ -247,12 +253,10 @@ export default {
       "mdxCrossCompilerCache": false,
       "rspackBundler": false,
       "rspackPersistentCache": false,
-      "ssgWorkerThreads": false
+      "ssgWorkerThreads": false,
+      "gitEagerVcs": false
     },
-    "experimental_storage": {
-      "type": "localStorage",
-      "namespace": false
-    },
+    "experimental_vcs": {},
     "experimental_router": "browser"
   },
   "onBrokenAnchors": "warn",
@@ -272,6 +276,7 @@ export default {
   "markdown": {
     "format": "mdx",
     "mermaid": false,
+    "emoji": true,
     "mdx1Compat": {
       "comments": true,
       "admonitions": true,
@@ -279,6 +284,10 @@ export default {
     },
     "anchors": {
       "maintainCase": false
+    },
+    "hooks": {
+      "onBrokenMarkdownLinks": "warn",
+      "onBrokenMarkdownImages": "throw"
     }
   }
 };

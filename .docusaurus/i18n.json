@@ -5,21 +5,27 @@
     "en"
   ],
   "path": "i18n",
-  "currentLocale": "en",
+  "currentLocale": "id",
   "localeConfigs": {
     "id": {
       "label": "Bahasa Indonesia",
       "direction": "ltr",
       "htmlLang": "id",
       "calendar": "gregory",
-      "path": "id"
+      "path": "id",
+      "translate": false,
+      "url": "https://lively-stone-0b0c94d10.6.azurestaticapps.net",
+      "baseUrl": "/"
     },
     "en": {
       "label": "English",
       "direction": "ltr",
       "htmlLang": "en",
       "calendar": "gregory",
-      "path": "en"
+      "path": "en",
+      "translate": true,
+      "url": "https://lively-stone-0b0c94d10.6.azurestaticapps.net",
+      "baseUrl": "/en/"
     }
   }
 }
