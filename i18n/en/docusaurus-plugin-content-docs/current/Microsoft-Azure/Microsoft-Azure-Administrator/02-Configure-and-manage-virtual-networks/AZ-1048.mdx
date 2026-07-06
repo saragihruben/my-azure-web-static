@@ -25,6 +25,8 @@ Let’s review the characteristics of a Network Security Group:
 
 ![nsg](/img/az104/114.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/2-implement-network-security-groups*
+
 ##### NSG and Subnets
 
 - You can assign an NSG to a **subnet** and create a **protected subnet** (also known as a **Demilitarized Zone** or **DMZ**).
@@ -82,6 +84,8 @@ Azure defines **three default inbound rules** for each NSG:
 
 ![inbound](/img/az104/115.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/3-determine-network-security-groups-rules*
+
 ### Outbound Traffic Rules
 
 Azure also defines **three default outbound rules**:
@@ -91,6 +95,8 @@ Azure also defines **three default outbound rules**:
   - The **same virtual network**
 
 ![outbound](/img/az104/116.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/3-determine-network-security-groups-rules*
 
 ---
 
@@ -109,6 +115,8 @@ How Azure applies these rules determines how **effective** your security posture
 If you apply NSGs to both **subnets** and **NICs**, each NSG is evaluated independently. Inbound and outbound rules are processed by **priority order**.
 
 ![nsg evaluation](/img/az104/117.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/4-determine-network-security-groups-effective-rules*
 
 ### Considerations for Effective Rule Creation
 
@@ -143,6 +151,8 @@ This helps verify active rules for:
 
 ![effective rule](/img/az104/118.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/4-determine-network-security-groups-effective-rules*
+
 :::info **Note:**  
 > **Azure Network Watcher** provides a consolidated view of all network infrastructure rules.
 :::
@@ -159,6 +169,8 @@ You can configure NSG rule settings in your virtual network and choose from comm
 Below are properties you must configure when creating a rule. Consider what services your network requires.
 
 ![nsg creation](/img/az104/119.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/5-create-network-security-groups-rules*
 
 #### Source
 Controls **inbound** traffic by specifying the source IP address range to **allow** or **deny**. Sources can be:
@@ -187,6 +199,8 @@ Or set custom port ranges as needed.
 
 ![nsg creation service](/img/az104/120.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/5-create-network-security-groups-rules*
+
 #### Priority
 Determines rule order. All rules in an NSG — at both subnet and NIC levels — are processed based on **priority**.
 
@@ -194,6 +208,8 @@ Determines rule order. All rules in an NSG — at both subnet and NIC levels —
 - No two rules can have the same priority.
 
 ![nsg creation priority](/img/az104/121.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/5-create-network-security-groups-rules*
 
 :::tip
 > Enhance your learning with the [**Secure and isolate access to Azure resources using NSGs and service endpoints**](https://learn.microsoft.com/en-us/training/modules/secure-and-isolate-with-nsg-and-service-endpoints/) module.  
@@ -213,6 +229,8 @@ ASGs work like NSGs but provide an application-focused approach to network secur
 Let’s explore ASGs using an online store scenario. In this case, we’ll control traffic to VMs grouped by ASG.
 
 ![application security group](/img/az104/121.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/6-implement-asgs*
 
 #### Scenario Requirements
 

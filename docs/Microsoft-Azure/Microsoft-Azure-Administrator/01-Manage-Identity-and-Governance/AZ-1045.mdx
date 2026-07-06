@@ -30,6 +30,8 @@ dalam subscription yang sama.
 
 ![Docusaurus logo](/img/az104/7.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 :::warning Penjelasan Diagram
 Dalam diagram diatas, satu subscription hanya dikaitkan dengan satu tenant Microsoft Entra. 
 Perlu juga dicatat bahwa satu resource group dapat memiliki banyak resources, namun hanya terikat dengan satu subscription dan 
@@ -49,6 +51,8 @@ Contoh: Alain telah diberikan role Backup Operator untuk sebuah resource group t
 
 ![Docusaurus logo](/img/az104/8.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Cara kerja Azure RBAC
@@ -62,11 +66,15 @@ Yaitu pengguna, grup, atau aplikasi (service principal) yang ingin Anda beri aks
 
 ![Docusaurus logo](/img/az104/9.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 ### Role definition (what)
 Berisi izin yang dapat dilakukan oleh role tersebut, seperti membaca, menulis, dan menghapus. 
 Role dapat bersifat umum atau tingkat tinggi, seperti **Owner**, atau lebih spesifik, seperti **Virtual Machine Contributor**.
 
 ![Docusaurus logo](/img/az104/10.png)
+
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
 
 Contoh built-in role di Azure:
 - **Owner:** Akses penuh ke seluruh resource, termasuk memberi akses kepada orang lain.
@@ -82,6 +90,8 @@ tetapi hanya untuk satu resource group.
 
 ![Docusaurus logo](/img/az104/11.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 Di Azure, pengguna dapat menentukan cakupan pada beberapa tingkat: **management group**, **subscription**, **resource group**, atau **resource**. 
 Cakupan disusun dalam hubungan *inheritance*. Ketika memberikan akses pada cakupan induk, maka semua cakupan anak di bawahnya secara otomatis mewarisi izin tersebut. 
 
@@ -92,6 +102,8 @@ Ini adalah proses untuk memberikan (atau mencabut) akses.
 Contoh: Grup marketing diberikan role Contributor pada cakupan resource group Sales.
 
 ![Docusaurus logo](/img/az104/12.png)
+
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
 
 #### Azure RBAC merupakan allow model
 

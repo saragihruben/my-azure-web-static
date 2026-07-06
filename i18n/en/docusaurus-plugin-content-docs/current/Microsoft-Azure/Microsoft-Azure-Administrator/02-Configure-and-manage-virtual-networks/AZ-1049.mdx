@@ -185,11 +185,15 @@ Provide the following:
 
 ![dns creation](/img/az104/123.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
+
 #### Step 2: Get Azure DNS name server details
 
 Once the DNS zone is created, retrieve the NS (name server) record details. Use these to update your domain registrar settings to delegate to Azure DNS.
 
 ![dns creation](/img/az104/124.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
 
 #### Step 3: Update the registrar's DNS settings
 
@@ -249,6 +253,8 @@ In Azure Portal, search for **private DNS zones**. When creating the zone, enter
 
 ![dns creation](/img/az104/125.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
+
 #### Step 2: Identify the virtual network
 
 Assuming you have a VM and a VNet, identify which VNet should resolve DNS names. You'll need the VNet name to link it to the private zone.
@@ -261,9 +267,13 @@ In the portal, open the private zone and select **Virtual network links**.
 
 ![dns creation](/img/az104/126.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
+
 Click **Add** and select the VNet to link.
 
 ![dns creation](/img/az104/127.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
 
 Create one link for each VNet that needs private DNS resolution.
 

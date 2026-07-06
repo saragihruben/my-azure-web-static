@@ -14,6 +14,8 @@ The service also supports TLS/SSL encryption for traffic between users and the a
 
 ![application gw illustration](/img/az104/142.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/2-what-is-azure-application-gateway*
+
 The Application Gateway uses a round-robin process to balance request load across servers in each backend pool. **Session stickiness** ensures 
 that client requests within the same session are directed to the same backend server. Session stickiness is crucial for e-commerce applications where transactions must not 
 be interrupted by the load balancer redirecting requests to different backend servers.
@@ -33,6 +35,8 @@ Azure Application Gateway includes the following features:
 Azure Application Gateway consists of components that work together to securely route and balance request load to a pool of web servers. The components include:
 
 ![application gw illustration](/img/az104/143.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
 
 #### 1. Front-end IP Address
 
@@ -116,6 +120,8 @@ Requests with specific URL paths are routed to different server pools. Examples:
 
 ![path-based routing](/img/az104/144.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
+
 #### Multiple-Site Routing
 
 Runs multiple web applications on a single Application Gateway instance. This configuration uses multiple domain names (CNAMEs), listeners, and different rules. Examples:
@@ -124,6 +130,8 @@ Runs multiple web applications on a single Application Gateway instance. This co
 - `http://fabrikam.com` → another pool
 
 ![multiple-site-routing](/img/az104/145.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
 
 Multi-site routing is useful for multitenant applications where each tenant has its own VM or resources.
 
@@ -146,6 +154,8 @@ For end-to-end encryption, the Application Gateway can:
 Requests come in on the front-end port and are processed by the listener based on host, port, and IP. The listener then applies routing rules to direct traffic to the backend pool.
 
 ![tls ssl termination](/img/az104/146.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
 
 Accessing a website through the Application Gateway also reduces the **attack surface** because only ports 80 or 443 are open to the internet, not directly to the servers.
 

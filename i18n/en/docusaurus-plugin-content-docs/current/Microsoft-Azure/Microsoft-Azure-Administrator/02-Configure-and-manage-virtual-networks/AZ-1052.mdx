@@ -84,12 +84,16 @@ The front-end IP address is the address clients use to access the application. A
 
 ![loadbalancer ilustration](/img/az104/137.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
+
 <br/>
 ### Load Balancer Rules
 
 Load Balancer rules define how traffic is distributed from the frontend IP and port to the backend pool’s IP and port combinations.
 
 ![lbl rule](/img/az104/138.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
 
 Load Balancer uses a **five-tuple hash** based on:
 
@@ -149,6 +153,8 @@ This rule allows a single rule to balance all TCP and UDP traffic flows **across
 
 ![ha port](/img/az104/139.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
+
 #### Load Balancing Decision Based on Flow
 
 Load balancing decisions are made per connection flow using the five-tuple:
@@ -174,6 +180,8 @@ This feature simplifies configuration and increases efficiency in complex networ
 
 ![inbound nat](/img/az104/140.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
+
 Used to access VMs directly, for example:
 
 - NAT from public Load Balancer IP to TCP port **3389** on a VM for Remote Desktop access.  
@@ -182,6 +190,8 @@ Used to access VMs directly, for example:
 ### Outbound NAT Rules
 
 ![nva](/img/az104/141.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
 
 Outbound rules control **Source Network Address Translation (SNAT)**:
 

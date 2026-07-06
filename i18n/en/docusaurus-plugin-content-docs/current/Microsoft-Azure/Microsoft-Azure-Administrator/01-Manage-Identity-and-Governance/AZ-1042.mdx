@@ -14,6 +14,8 @@ Note the User Type column to see members and guests, as shown in the following i
 
 ![Docusaurus logo](/img/az104/18.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/2-users*
+
 Typically, Microsoft Entra ID defines users in three ways:
 - **Cloud identities** – These users exist only in Microsoft Entra ID. Examples include administrator and regular user accounts.  
 Their source is Microsoft Entra ID or an external Microsoft Entra directory if the user is defined in another Microsoft Entra tenant but needs access to resources controlled by this directory.
@@ -111,6 +113,8 @@ If you click the user name to open the user detail page, you will manage only th
 
 ![Docusaurus logo](/img/az104/21.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/4-exercise-restore-remove-deleted-users*
+
 4. After selecting the user account, in the menu, select Delete user.
 5. Review the dialog box, then select OK.
 
@@ -155,6 +159,8 @@ You can view all groups via the Groups item under Identity in the Microsoft Entr
 
 ![Docusaurus logo](/img/az104/22.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/5-groups*
+
 ### Group Membership Types
 The second characteristic to know about a group is Membership Type, which determines how members are added. There are two types:
 - **Assigned** – Members are added and managed manually.
@@ -165,6 +171,8 @@ The last group type is dynamic groups, where membership is determined by a formu
 If a recipient’s properties change to meet the filter, they automatically become members and start receiving messages sent to the group. Well-defined and consistent account provisioning reduces potential issues.
 
 ![Docusaurus logo](/img/az104/23.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/5-groups*
 
 These dynamic groups consist of all valid Microsoft Entra ID members.
 
@@ -179,6 +187,9 @@ Creating a Microsoft 365 Group in Microsoft Entra ID
 4. Create the group using the following information:
 
 ![Docusaurus logo](/img/az104/24.png)
+
+***Image Source*** : 
+*https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/6-exercise-add-groups-azure-active-directory*
 
 5. After completion, verify that the group named Northwest Sales appears in the All groups list.  
 6. You might need to refresh the All groups list several times before the new group appears.
@@ -205,6 +216,8 @@ The goal of devices registered in Microsoft Entra is to support bring-your-own-d
 <br/>
 
 ![Docusaurus logo](/img/az104/26.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/7-configure-manage-device-registration*
 
 These devices sign in using local accounts like Microsoft accounts on Windows 10, with Microsoft Entra accounts linked for organizational resource access.
 
@@ -253,6 +266,8 @@ Although Microsoft Entra Join is mainly for organizations **without on-premises 
 
 ![Docusaurus logo](/img/az104/28.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/7-configure-manage-device-registration*
+
 You can configure Microsoft Entra joined devices for all **Windows 10** devices except **Windows 10 Home**.  
 The goal of Microsoft Entra Join devices is to simplify:
 - Windows deployment for organization-owned devices,
@@ -282,6 +297,8 @@ These devices are joined to your on-premises Active Directory and registered wit
 <br/>
 
 ![Docusaurus logo](/img/az104/30.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/7-configure-manage-device-registration*
 
 #### Scenarios for Hybrid Joined Devices
 Use hybrid Microsoft Entra joined devices if:
@@ -375,6 +392,8 @@ You must have one of the following:
 
 ![Docusaurus logo](/img/az104/33.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities*
+
 6. Click Save.
 
 ---
@@ -382,6 +401,8 @@ You must have one of the following:
 ## Creating Custom Attributes for Security
 
 ![Docusaurus logo](/img/az104/34.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/11-create-custom-security-attributes*
 
 #### What Are Custom Security Attributes?  
 Custom security attributes in Microsoft Entra ID are business-specific attributes (key-value pairs) that you can define and assign to Microsoft Entra objects.  
@@ -429,6 +450,8 @@ User repository used to manage identity lifecycle and access rights.
 Applications or systems with SCIM endpoints that work with Microsoft Entra provisioning to enable automatic user and group provisioning.
 
 ![Docusaurus logo](/img/az104/36.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/12-explore-automatic-user-creation*
 
 #### Why Use SCIM?  
 **SCIM** is an open standard protocol that automates identity information exchange between identity domains and IT systems. 

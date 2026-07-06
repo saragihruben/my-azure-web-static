@@ -28,6 +28,8 @@ For example, one employee might manage virtual machines in a subscription, while
 
 ![Diagram](/img/az104/7.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 :::warning Diagram Explanation
 In the diagram above, one subscription is only associated with one Microsoft Entra tenant.  
 Note that one resource group can contain many resources, but it is linked to only one subscription,  
@@ -44,6 +46,8 @@ Example: Alain has been given the **Backup Operator** role for a specific resour
 
 ![IAM Example](/img/az104/8.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 ---
 
 ## How Azure RBAC Works
@@ -55,10 +59,14 @@ This is the user, group, or application (service principal) you want to give acc
 
 ![Security Principal](/img/az104/9.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 ### Role Definition (What)
 Specifies the permissions the role grants, such as read, write, and delete. Roles can be broad like **Owner**, or more specific like **Virtual Machine Contributor**.
 
 ![Role Definition](/img/az104/10.png)
+
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
 
 Examples of built-in roles in Azure:
 - **Owner:** Full access to all resources, including assigning access to others.
@@ -73,6 +81,8 @@ Scope defines the level at which access is applied. This is useful when you want
 
 ![Scope](/img/az104/11.png)
 
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
+
 In Azure, you can define scope at several levels: **management group**, **subscription**, **resource group**, or **resource**. Scopes follow an *inheritance* model. When you grant access at a parent scope, all child scopes inherit the permissions.
 
 ### Role Assignment
@@ -80,6 +90,8 @@ In Azure, you can define scope at several levels: **management group**, **subscr
 This is the process of granting (or revoking) access. Example: The marketing group is granted the **Contributor** role on the Sales resource group.
 
 ![Role Assignment](/img/az104/12.png)
+
+**Image Source*** : *https://learn.microsoft.com/en-us/training/modules/secure-azure-resources-with-rbac/2-rbac-overview*
 
 #### Azure RBAC is an Allow Model
 

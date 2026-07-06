@@ -88,12 +88,16 @@ Alamat IP front-end adalah alamat yang digunakan klien untuk mengakses aplikasi.
 
 ![loadbalancer ilustration](/img/az104/137.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
+
 <br/>
 ### Aturan Load Balancer
 
 Aturan load balancer menentukan bagaimana trafik didistribusikan dari IP dan port front-end ke kombinasi IP dan port back-end pool.
 
 ![lbl rule](/img/az104/138.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
 
 Load Balancer menggunakan **hash lima-elemen (five-tuple)** berikut untuk menentukan rute trafik:
 
@@ -154,6 +158,8 @@ Aturan ini memungkinkan satu aturan saja untuk menyeimbangkan semua aliran trafi
 
 ![ha port](/img/az104/139.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
+
 #### Keputusan Load Balancing Berdasarkan Flow
 
 Keputusan penyeimbangan beban dibuat berdasarkan **setiap aliran koneksi (per flow)**, menggunakan kombinasi lima-elemen (five-tuple) berikut:
@@ -179,6 +185,8 @@ Fitur ini menyederhanakan konfigurasi dan meningkatkan efisiensi dalam lingkunga
 
 ![inbound nat](/img/az104/140.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
+
 Digunakan untuk mengakses VM secara langsung, contohnya:
 
 - NAT dari IP publik Load Balancer ke port **TCP 3389** dari VM untuk akses Remote Desktop.
@@ -187,6 +195,8 @@ Digunakan untuk mengakses VM secara langsung, contohnya:
 ### Aturan NAT keluar (Outbound NAT)
 
 ![nva](/img/az104/141.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-load-balancer/3-how-azure-load-balancer-works*
 
 Aturan outbound mengatur **Source Network Address Translation (SNAT)**:
 

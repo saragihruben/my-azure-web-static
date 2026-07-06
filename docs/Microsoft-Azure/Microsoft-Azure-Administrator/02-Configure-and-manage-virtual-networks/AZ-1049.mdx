@@ -179,11 +179,15 @@ Saat membuat zona DNS, Pengguna harus menyediakan:
 
 ![dns creation](/img/az104/123.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
+
 #### - Langkah 2: Dapatkan name server Azure DNS
 
 Setelah membuat zona DNS, ambil detail name server dari catatan NS (name server). Gunakan detail ini untuk memperbarui pengaturan registrar domain agar menunjuk ke zona Azure DNS.
 
 ![dns creation](/img/az104/124.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
 
 #### - Langkah 3: Perbarui pengaturan registrar domain
 
@@ -243,6 +247,8 @@ Di portal Azure, cari **private DNS zones**. Saat membuat zona, masukkan grup re
 
 ![dns creation](/img/az104/125.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
+
 #### - Langkah 2: Identifikasi jaringan virtual
 
 Misalnya VM dan jaringan virtual sudah dibuat. Identifikasi jaringan virtual mana yang perlu menggunakan resolusi nama DNS. 
@@ -256,9 +262,13 @@ Di portal Azure, buka zona privat dan pilih **Virtual network links**.
 
 ![dns creation](/img/az104/126.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
+
 Klik **Add** untuk memilih jaringan virtual yang akan ditautkan ke zona privat.
 
 ![dns creation](/img/az104/127.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/host-domain-azure-dns/3-configure-azure-dns-host-domain*
 
 Tambahkan satu entri tautan jaringan virtual untuk setiap jaringan virtual yang memerlukan dukungan resolusi nama privat.
 

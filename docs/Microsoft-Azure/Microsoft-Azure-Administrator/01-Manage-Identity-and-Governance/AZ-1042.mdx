@@ -16,6 +16,8 @@ Perhatikan kolom User Type untuk melihat anggota (members) dan tamu (guests), se
 
 ![Docusaurus logo](/img/az104/18.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/2-users*
+
 Biasanya, Microsoft Entra ID mendefinisikan user dalam tiga cara:
 - **Identitas cloud** – User ini hanya ada di Microsoft Entra ID. Contohnya adalah akun administrator dan user biasa.
 Sumber mereka adalah Microsoft Entra ID atau direktori Microsoft Entra eksternal jika user tersebut didefinisikan di instansi Microsoft 
@@ -102,6 +104,8 @@ Jika Anda mengklik nama user untuk membuka halaman detail user tersebut, Anda ha
 
 ![Docusaurus logo](/img/az104/21.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/4-exercise-restore-remove-deleted-users*
+
 4. Setelah akun user dipilih, di menu, pilih Delete user.
 5. Tinjau kotak dialog yang muncul, lalu pilih OK.
 
@@ -153,6 +157,8 @@ Sebuah deployment baru Microsoft Entra ID biasanya belum memiliki grup yang dide
 
 ![Docusaurus logo](/img/az104/22.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/5-groups*
+
 ### Tipe Keanggotaan Grup (Membership Type)
 Karakteristik kedua dari sebuah grup yang perlu Anda ketahui adalah Membership Type, yang menentukan bagaimana anggota grup ditambahkan. Ada dua tipe:
 - **Assigned** – Anggota ditambahkan dan dikelola secara manual.
@@ -168,6 +174,8 @@ Proses provisioning akun yang didefinisikan dengan baik dan konsisten akan mengu
 
 ![Docusaurus logo](/img/az104/23.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/5-groups*
+
 Grup dinamis ini akan terdiri dari semua anggota valid dari Microsoft Entra ID.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -182,11 +190,14 @@ Membuat Grup Microsoft 365 di Microsoft Entra ID
 
 ![Docusaurus logo](/img/az104/24.png)
 
+***Image Source*** : 
+*https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/6-exercise-add-groups-azure-active-directory*
+
 5. Setelah selesai, verifikasi bahwa grup bernama Northwest Sales muncul di daftar All groups.
 6. Anda mungkin perlu me-refresh daftar All groups beberapa kali agar grup baru muncul.
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-## konfigurasi dan manajemen registrasi perangkat
+## Konfigurasi dan manajemen registrasi perangkat
 
 Untuk melindungi aset ini, staf IT harus terlebih dahulu mengelola identitas perangkat. 
 Mereka kemudian dapat membangun pengelolaan ini menggunakan alat seperti **Microsoft Intune** untuk memastikan standar keamanan dan kepatuhan dipenuhi.
@@ -200,6 +211,8 @@ Dalam skenario ini, User dapat mengakses resource yang dikendalikan oleh Microso
 ![Docusaurus logo](/img/az104/25.png)
 
 ![Docusaurus logo](/img/az104/26.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/7-configure-manage-device-registration*
 
 
 Perangkat ini masuk menggunakan akun lokal seperti akun Microsoft di Windows 10, dengan akun Microsoft Entra terlampir untuk akses resource organisasi.
@@ -253,6 +266,8 @@ Skenario ini bisa diterapkan, misalnya, untuk pekerja musiman, kontraktor, atau 
 
 ![Docusaurus logo](/img/az104/28.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/7-configure-manage-device-registration*
+
 Anda dapat mengonfigurasi perangkat yang bergabung dengan Microsoft Entra untuk semua perangkat **Windows 10**, kecuali **Windows 10 Home**.
 Tujuan dari perangkat Microsoft Entra Join adalah untuk menyederhanakan:
 - Penerapan Windows untuk perangkat milik organisasi,
@@ -275,6 +290,8 @@ Anda dan terdaftar di direktori Microsoft Entra Anda.
 ![Docusaurus logo](/img/az104/29.png)
 
 ![Docusaurus logo](/img/az104/30.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/7-configure-manage-device-registration*
 
 #### Skenario untuk perangkat yang digabungkan secara hibrida
 Gunakan perangkat yang digabungkan secara hibrida Microsoft Entra jika:
@@ -366,6 +383,8 @@ Perlu memiliki salah satu dari:
 
 ![Docusaurus logo](/img/az104/33.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities*
+
 6. Klik Save.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -373,6 +392,8 @@ Perlu memiliki salah satu dari:
 ## Membuat atribut custom untuk keamanan
 
 ![Docusaurus logo](/img/az104/34.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/11-create-custom-security-attributes*
 
 #### Apa itu Atribut Keamanan Kustom?
 Atribut keamanan kustom di Microsoft Entra ID adalah atribut spesifik bisnis (pasangan kunci-nilai) yang dapat Anda definisikan dan tetapkan ke objek Microsoft Entra. 
@@ -413,6 +434,8 @@ Repositori user yang digunakan untuk mengelola siklus hidup identitas dan hak ak
 Aplikasi atau sistem yang memiliki endpoint SCIM dan bekerja sama dengan provisioning Microsoft Entra untuk memungkinkan provisioning otomatis user dan grup.
 
 ![Docusaurus logo](/img/az104/36.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/create-configure-manage-identities/12-explore-automatic-user-creation*
 
 #### Mengapa Menggunakan SCIM?
 **SCIM (System for Cross-Domain Identity Management)** adalah protokol standar terbuka untuk mengotomatiskan pertukaran informasi identitas user antara domain identitas 

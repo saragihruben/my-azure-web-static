@@ -7,7 +7,7 @@ export default {
   "title": "MyWiki",
   "trailingSlash": false,
   "url": "https://lively-stone-0b0c94d10.6.azurestaticapps.net",
-  "baseUrl": "/",
+  "baseUrl": "/en/",
   "onBrokenLinks": "throw",
   "favicon": "img/favicon.png",
   "organizationName": "saragihruben",
@@ -50,7 +50,7 @@ export default {
         "src": "img/logo_hi.png"
       },
       "links": [],
-      "copyright": "Copyright © 2026 Saragih Ruben.<br /> Built with <a href=\"https://docusaurus.io\" target=\"_blank\">Docusaurus</a>."
+      "copyright": "Copyright © 2025 Saragih Ruben.<br /> Built with <a href=\"https://docusaurus.io\" target=\"_blank\">Docusaurus</a>."
     },
     "prism": {
       "theme": {

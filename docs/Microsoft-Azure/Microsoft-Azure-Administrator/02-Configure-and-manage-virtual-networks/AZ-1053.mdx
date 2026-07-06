@@ -14,6 +14,8 @@ Layanan ini juga mendukung enkripsi TLS/SSL untuk lalu lintas antara pengguna da
 
 ![application gw ilustration](/img/az104/142.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/2-what-is-azure-application-gateway*
+
 Application Gateway menggunakan proses round-robin untuk menyeimbangkan beban permintaan ke server di setiap kumpulan back-end. **Session stickiness** memastikan 
 permintaan klien dalam sesi yang sama diarahkan ke server back-end yang sama. Session stickiness sangat penting untuk aplikasi e-commerce di mana transaksi tidak boleh 
 terganggu karena load balancer mengalihkan permintaan ke server back-end yang berbeda.
@@ -34,6 +36,8 @@ Azure Application Gateway memiliki serangkaian komponen yang bekerja bersama unt
 Application Gateway mencakup komponen-komponen berikut:
 
 ![application gw ilustration](/img/az104/143.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
 
 #### 1. Alamat IP Front-end
 
@@ -116,6 +120,8 @@ Permintaan dengan jalur URL tertentu diarahkan ke kumpulan server yang berbeda. 
 
 ![path-based routing](/img/az104/144.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
+
 #### Multiple-Site Routing
 
 Menjalankan beberapa aplikasi web pada satu instance Application Gateway. Konfigurasi ini menggunakan beberapa nama domain (CNAME), listener, dan aturan berbeda. Contoh:
@@ -124,6 +130,8 @@ Menjalankan beberapa aplikasi web pada satu instance Application Gateway. Konfig
 - `http://fabrikam.com` → pool yang lain
 
 ![multple-site-routing](/img/az104/145.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
 
 Multi-site routing berguna untuk aplikasi multitenant, di mana tiap tenant memiliki VM atau resource masing-masing.
 
@@ -146,6 +154,8 @@ Untuk enkripsi ujung ke ujung, Application Gateway dapat:
 Permintaan masuk melalui port front-end dan diproses oleh listener berdasarkan host, port, dan IP. Listener kemudian menerapkan aturan routing untuk mengarahkan ke back-end pool.
 
 ![tls ssl termination](/img/az104/146.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/intro-to-azure-application-gateway/3-how-azure-application-gateway-works*
 
 Membuka website melalui Application Gateway juga mengurangi **attack surface** karena hanya port 80 atau 443 yang terbuka ke internet, bukan ke server langsung.
 

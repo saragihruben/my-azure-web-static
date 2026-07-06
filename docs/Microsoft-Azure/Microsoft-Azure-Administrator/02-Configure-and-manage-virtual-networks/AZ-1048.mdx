@@ -25,6 +25,8 @@ Mari kita lihat karakteristik dari Network Security Group:
 
 ![nsg](/img/az104/114.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/2-implement-network-security-groups*
+
 ##### NSG dan Subnet
 
 - Pengguna dapat menetapkan NSG ke sebuah **subnet** dan menciptakan **subnet terlindung** (juga dikenal sebagai **Demilitarized Zone** atau **DMZ**).
@@ -82,6 +84,8 @@ Azure mendefinisikan **tiga aturan bawaan untuk lalu lintas masuk** pada NSG:
 
 ![inbound](/img/az104/115.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/3-determine-network-security-groups-rules*
+
 ### Aturan Lalu Lintas Keluar (*Outbound*)
 
 Azure juga mendefinisikan **tiga aturan bawaan untuk lalu lintas keluar**:
@@ -91,6 +95,8 @@ Azure juga mendefinisikan **tiga aturan bawaan untuk lalu lintas keluar**:
   - **Jaringan virtual sendiri**
 
 ![outbound](/img/az104/116.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/3-determine-network-security-groups-rules*
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -113,6 +119,8 @@ Jika Pengguna menerapkan NSG pada **subnet** dan **NIC**, masing-masing NSG akan
 Aturan inbound dan outbound diproses berdasarkan **urutan prioritas**.
 
 ![nsg evaluation](/img/az104/117.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/4-determine-network-security-groups-effective-rules*
 
 ### Hal yang Perlu Dipertimbangkan saat Membuat Aturan Efektif
 
@@ -149,6 +157,8 @@ Tautan ini akan membantu dalam memverifikasi aturan-aturan yang aktif pada:
 
 ![effective rule](/img/az104/118.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/4-determine-network-security-groups-effective-rules*
+
 :::info **Catatan:**  
 > Azure **Network Watcher** menyediakan tampilan gabungan dari semua aturan infrastruktur jaringan.
 :::
@@ -167,6 +177,8 @@ Berikut adalah beberapa properti yang perlu di tentukan saat membuat aturan keam
 Pengguna perlukan dan layanan apa yang sesuai dengan kebutuhan jaringan.
 
 ![nsg creation](/img/az104/119.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/5-create-network-security-groups-rules*
 
 #### Sumber (*Source*)
 Menentukan bagaimana aturan keamanan mengontrol **lalu lintas masuk (inbound)**. Nilainya menunjukkan rentang alamat IP sumber tertentu yang akan **diizinkan** atau **ditolak**.
@@ -197,6 +209,8 @@ Atau menentukan rentang port kustom sesuai kebutuhan. Tersedia berbagai pilihan 
 
 ![nsg creation service](/img/az104/120.png)
 
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/5-create-network-security-groups-rules*
+
 #### Prioritas (*Priority*)
 Menentukan urutan prioritas untuk aturan keamanan. Semua aturan dalam sebuah NSG — baik di tingkat subnet maupun NIC — diproses berdasarkan **nilai prioritas** ini.
 
@@ -204,6 +218,8 @@ Menentukan urutan prioritas untuk aturan keamanan. Semua aturan dalam sebuah NSG
 - Pastikan tidak ada dua aturan dengan prioritas yang sama.
 
 ![nsg creation priority](/img/az104/121.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/5-create-network-security-groups-rules*
 
 :::tip
 > Tingkatkan pembelajaran dengan modul pelatihan [**Secure and isolate access to Azure resources by using network security groups and service endpoints**](https://learn.microsoft.com/en-us/training/modules/secure-and-isolate-with-nsg-and-service-endpoints/).
@@ -226,6 +242,8 @@ Mari kita lihat bagaimana cara menerapkan ASG dengan membuat konfigurasi untuk s
 kita perlu mengontrol lalu lintas jaringan ke mesin virtual yang tergabung dalam ASG.
 
 ![application security group](/img/az104/121.png)
+
+***Image Source*** : *https://learn.microsoft.com/en-us/training/modules/configure-network-security-groups/6-implement-asgs*
 
 #### Kebutuhan Skenario
 
