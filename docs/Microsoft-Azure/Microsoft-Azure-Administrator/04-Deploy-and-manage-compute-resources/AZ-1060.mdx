@@ -62,6 +62,8 @@ Ciri-ciri fault domain:
 
 ![ud and fd](/img/az104/63.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/4-review-update-fault-domains*
+
 Bayangkan pengguna memiliki dua **fault domain**, masing-masing berisi dua mesin virtual. Mesin-mesin virtual ini tersebar dalam dua **availability set** berbeda:
 
 - **Availability Set Web**: berisi dua mesin virtual, masing-masing berada di fault domain yang berbeda.
@@ -118,6 +120,8 @@ Skala vertikal (juga dikenal sebagai *scale up* dan *scale down*) adalah proses 
 
 ![vertical scaling](/img/az104/64.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/6-compare-vertical-horizontal-scaling*
+
 #### Contoh Situasi Penggunaan Skala Vertikal:
 
 - Jika Pengguna memiliki layanan yang berjalan di mesin virtual dan penggunaannya rendah saat akhir pekan, Pengguna bisa menurunkan ukuran VM untuk menghemat biaya.
@@ -130,6 +134,8 @@ Skala vertikal (juga dikenal sebagai *scale up* dan *scale down*) adalah proses 
 Skala horizontal (juga dikenal sebagai *scale out* dan *scale in*) melibatkan penambahan atau pengurangan jumlah **instance mesin virtual** untuk menangani perubahan beban kerja.
 
 ![horizontal scaling](/img/az104/65.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/6-compare-vertical-horizontal-scaling*
 
 #### Contoh Penggunaan Skala Horizontal:
 
@@ -187,6 +193,8 @@ Saat membuat Virtual Machine Scale Sets di portal Azure, Pengguna akan mengonfig
 
 ![vm creation](/img/az104/66.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/8-create-scale-sets*
+
 #### Mode Orkestrasi (Orchestration Mode)
 
 - **Flexible**: Pengguna dapat menambahkan VM dengan konfigurasi berbeda secara manual ke dalam scale set.
@@ -230,6 +238,8 @@ Misalnya, Pengguna dapat mengonfigurasi autoscale dengan **minimal 2 VM** dan **
 
 ![vm autoscale](/img/az104/67.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/9-implement-autoscale*
+
 #### Hal yang Perlu Dipertimbangkan Saat Menggunakan Autoscaling
 
 #### 1. Penyesuaian Kapasitas Otomatis
@@ -260,6 +270,8 @@ Saat Pengguna membuat implementasi **Azure Virtual Machine Scale Sets** melalui 
 
 ![scale mode](/img/az104/68.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/10-configure-autoscale*
+
 Di portal Azure, Pengguna dapat memilih mode skala yang diinginkan.
 
 - **Perbarui kapasitas secara manual**: Pengguna dapat memperbarui kapasitas secara manual dan mempertahankan jumlah instance tetap. Setel jumlah instance sesuai kebutuhan (antara 0–1000).  
@@ -270,6 +282,8 @@ Di portal Azure, Pengguna dapat memilih mode skala yang diinginkan.
 ### Konfigurasi Autoscale
 
 ![autoscaling](/img/az104/69.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-virtual-machine-availability/10-configure-autoscale*
 
 Autoscaling diatur berdasarkan **kondisi penskalaan** tertentu.
 

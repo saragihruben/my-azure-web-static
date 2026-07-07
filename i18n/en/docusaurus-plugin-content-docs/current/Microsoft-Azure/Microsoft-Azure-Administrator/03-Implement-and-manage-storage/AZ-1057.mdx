@@ -65,6 +65,8 @@ Two typical design approaches for user data storage accounts:
 
 ![Docusaurus logo](/img/az104/54.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-security/3-create-shared-access-signatures*
+
 Clients upload/download data through a front-end proxy service that handles authentication.  
 - **Advantage:** Allows for rule validation.  
 - **Challenge:** Hard to scale for large data or high transaction volumes.
@@ -72,6 +74,8 @@ Clients upload/download data through a front-end proxy service that handles auth
 2. **Lightweight Service with SAS**
 
 ![Docusaurus logo](/img/az104/55.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-security/3-create-shared-access-signatures*
 
 A lightweight service authenticates clients and then generates SAS.  
 - Clients use SAS to directly access resources.  
@@ -104,6 +108,8 @@ Policies allow grouping SAS and applying further restrictions.
 When creating a SAS in the Azure Portal, users configure the following:
 
 ![Docusaurus logo](/img/az104/56.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-security/3-create-shared-access-signatures*
 
 - **Signing Method:** Choose *Account Key* or *User Delegation Key*.
 - **Signing Key:** Select a key from the account key list.
@@ -226,6 +232,8 @@ Gives customers full control over the encryption keys used to protect data in Az
 In the Azure Portal, users can configure encryption using customer-managed keys. You can either generate your own key or use Microsoft-managed keys.
 
 ![Docusaurus logo](/img/az104/57.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-security/6-create-customer-managed-keys*
 
 #### Configuration Steps:
 

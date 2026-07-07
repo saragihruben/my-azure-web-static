@@ -153,6 +153,8 @@ Jika terjadi bencana tingkat data center (seperti kebakaran atau banjir), semua 
 
 ![Docusaurus logo](/img/az104/39.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
+
 Meski ada keterbatasan, LRS cocok digunakan dalam skenario berikut:
 - Aplikasi menyimpan data yang mudah dikonstruksi ulang jika terjadi kehilangan.
 - Data terus berubah (misalnya dari live feed), dan pengarsipan data tidaklah penting.
@@ -162,6 +164,8 @@ Meski ada keterbatasan, LRS cocok digunakan dalam skenario berikut:
 Replikasi sinkron ke tiga availability zone dalam satu wilayah.
 
 ![Docusaurus logo](/img/az104/40.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
 
 ZRS mereplikasi data Anda secara sinkron ke tiga klaster penyimpanan di satu wilayah, masing-masing berada di availability zone berbeda. 
 Dengan ZRS, Anda tetap bisa mengakses data jika satu zona mengalami kegagalan. 
@@ -179,6 +183,8 @@ GRS dirancang untuk daya tahan 99.99999999999999% (16 angka 9).
 
 ![Docusaurus logo](/img/az104/41.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
+
 Terdapat memiliki dua pilihan terkait GRS:
 - GRS: Data hanya dapat dibaca dari wilayah sekunder jika Microsoft menginisiasi failover.
 - RA-GRS (Read-Access GRS): Kita bisa membaca data dari wilayah sekunder setiap saat, tanpa menunggu failover.
@@ -192,6 +198,8 @@ Cara kerjanya:
 Gabungan antara ZRS dan GRS untuk ketahanan maksimal.
 
 ![Docusaurus logo](/img/az104/42.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
 
 GZRS mereplikasi data ke tiga zona ketersediaan di wilayah utama dan juga ke wilayah geografis sekunder. 
 Ini memberikan perlindungan terhadap bencana tingkat zona maupun wilayah.
@@ -269,10 +277,14 @@ Pengaturan ini membatasi akses ke storage account dari subnet tertentu di virtua
 
 ![Docusaurus logo](/img/az104/45.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/7-secure-storage-endpoints*
+
 Endpoint layanan untuk akun penyimpanan menyediakan URL dasar untuk objek blob, queue, table, atau file di Azure Storage. 
 Gunakan URL ini untuk membuat alamat resource tertentu.
 
 ![Docusaurus logo](/img/az104/46.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/7-secure-storage-endpoints*
 
 #### Hal yang Perlu Diketahui Saat Mengonfigurasi Endpoint Layanan
 Berikut beberapa hal penting saat mengonfigurasi pengaturan akses layanan:

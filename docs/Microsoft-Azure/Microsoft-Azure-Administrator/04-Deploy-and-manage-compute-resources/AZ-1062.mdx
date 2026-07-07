@@ -26,6 +26,8 @@ Setelah aplikasi dibuat, pengaturan konfigurasi tambahan tersedia di portal Azur
 
 ![app service post creation](/img/az104/71.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/3-create-app-service*
+
 Beberapa pengaturan tambahan dapat disertakan dalam kode pengembang, sementara yang lain dapat dikonfigurasi langsung dalam aplikasi. 
 Berikut adalah beberapa pengaturan aplikasi tambahan:
 
@@ -50,12 +52,16 @@ rilis ke dalam aplikasi web setiap kali Pengguna melakukan commit. Semua operasi
 
 ![azure app service cd](/img/az104/72.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/4-explore-continuous-integration-deployment*
+
 ### Hal yang Perlu Diketahui tentang Penerapan Berkelanjutan dan Manual
 
 Saat membuat aplikasi web dengan App Service, Pengguna dapat memilih metode **penerapan berkelanjutan** atau **manual**. 
 Pertimbangkan metode mana yang paling sesuai untuk aplikasi App Service. Kedua opsi ini dapat diatur melalui **Deployment Center**.
 
 ![settings deployment center](/img/az104/73.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/4-explore-continuous-integration-deployment*
 
 ### Penerapan Berkelanjutan (CI/CD)
 
@@ -95,6 +101,8 @@ Aplikasi harus berjalan di salah satu tier ini untuk menggunakan deployment slot
 - **Konten aplikasi** dan **elemen konfigurasi** dapat dipertukarkan (swap) antar deployment slot, termasuk dengan slot produksi.
 
 ![deployment slot](/img/az104/74.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/5-create-deployment-slots*
 
 ### Hal yang Perlu Dipertimbangkan saat Menggunakan Deployment Slot
 
@@ -254,6 +262,8 @@ Membuat domain kustom membutuhkan informasi tentang penyedia domain, pengamanan,
 
 ![add custom domain](/img/az104/75.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/8-create-custom-domain-names*
+
 #### 1. Cadangkan Nama Domain
 
 Cara termudah adalah dengan **membeli domain langsung di portal Azure**. Nama ini bukan dalam format `*.azurewebsites.net`. 
@@ -290,6 +300,8 @@ Fitur **Backup and Restore** di Azure App Service memungkinkan Pengguna membuat 
 Cadangan ini dapat disimpan untuk jangka waktu tertentu atau tanpa batas. Pengguna juga dapat memulihkan aplikasi ke kondisi sebelumnya dengan menimpa konten yang ada atau memulihkannya ke aplikasi atau situs lain.
 
 ![app service backup](/img/az104/76.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/9-backup-app-service*
 
 ### Hal-hal yang Perlu Diketahui tentang Backup dan Restore
 
@@ -348,6 +360,8 @@ serta mengembalikannya dengan mudah ke kondisi sebelumnya.
 ## Menggunakan Azure Application Insight
 
 ![application insight](/img/az104/77.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/10-use-application-insights*
 
 **Azure Application Insights** adalah fitur dari **Azure Monitor** yang memungkinkan Pengguna memantau aplikasi yang sedang berjalan (live).
 Pengguna dapat mengintegrasikan Application Insights dengan **Azure App Service** untuk secara otomatis mendeteksi anomali performa pada aplikasi.

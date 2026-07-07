@@ -18,6 +18,8 @@ To better understand container-based virtualization, let's compare containers an
 
 ![compare container to vm](/img/az104/78.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-container-instances/2-compare-containers-to-virtual-machines*
+
 | **Comparison**          | **Container**                                                                                          | **Virtual Machine**                                                                                                     |
 |-------------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
 | **Isolation**           | Provides lightweight isolation from the host and other containers, but not as strong as VMs' security boundaries. | Provides full isolation from the host OS and other VMs. Suitable when strong security boundaries are required, such as running apps from different companies on the same server or cluster. |
@@ -65,6 +67,8 @@ All containers are created from **container images**, which are lightweight, sta
 Once created, a container image becomes a portable unit that runs consistently across different computing environments.
 
 ![aci](/img/az104/79.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-container-instances/3-review*
 
 ### Benefits of Azure Container Instances
 
@@ -129,6 +133,8 @@ A multi-container group scenario with 2 containers:
 - Each container mounts an **Azure Files share** for persistent storage.
 
 ![configuration example](/img/az104/80.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-container-instances/4-implement-container-groups*
 
 ### Considerations When Using Container Groups
 

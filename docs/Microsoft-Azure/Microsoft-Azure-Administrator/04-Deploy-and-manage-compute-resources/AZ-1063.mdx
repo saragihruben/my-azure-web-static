@@ -18,6 +18,8 @@ Untuk lebih memahami virtualisasi berbasis container, mari bandingkan container 
 
 ![compare container to vm](/img/az104/78.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-container-instances/2-compare-containers-to-virtual-machines*
+
 | **Perbandingan**        | **Container** | **Mesin Virtual** |
 |-------------------------|---------------|--------------------|
 | **Isolasi**             | Memberikan isolasi ringan dari host dan container lain, namun tidak sekuat batas keamanan yang disediakan mesin virtual. | Memberikan isolasi penuh dari sistem operasi host dan mesin virtual lainnya. Cocok saat dibutuhkan batas keamanan yang kuat, seperti menjalankan aplikasi dari perusahaan berbeda dalam server atau klaster yang sama. |
@@ -66,6 +68,8 @@ Semua container dibuat dari **container image**, yaitu paket perangkat lunak rin
 Setelah dibuat, container image menjadi unit portabel yang dapat dijalankan secara konsisten di berbagai lingkungan komputasi.
 
 ![aci](/img/az104/79.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-container-instances/3-review*
 
 ### Keunggulan Azure Container Instances
 
@@ -131,6 +135,8 @@ Skenario multi-container group dengan 2 container:
 - Masing-masing container me-mount satu **Azure Files share** untuk penyimpanan persisten.
 
 ![configuration example](/img/az104/80.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-container-instances/4-implement-container-groups*
 
 ### Pertimbangan Saat Menggunakan Container Groups
 

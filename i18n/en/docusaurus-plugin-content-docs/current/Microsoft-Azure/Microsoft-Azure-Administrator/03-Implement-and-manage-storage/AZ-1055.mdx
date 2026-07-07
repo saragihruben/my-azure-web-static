@@ -154,6 +154,8 @@ In a datacenter-level disaster (fire, flood), all copies may be lost or unrecove
 
 ![LRS](/img/az104/39.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
+
 LRS is suitable for:
 - Apps storing easily recreated data.
 - Constantly changing data where archiving isn’t essential.
@@ -163,6 +165,8 @@ LRS is suitable for:
 Synchronous replication to three availability zones in a region.
 
 ![ZRS](/img/az104/40.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
 
 ZRS replicates data across three storage clusters in separate zones. You can still access data if one zone fails. Offers high performance and low latency.
 
@@ -178,6 +182,8 @@ GRS replicates data to a secondary region (hundreds of miles away), providing hi
 
 ![GRS](/img/az104/41.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
+
 GRS has two options:
 - GRS: Read-only from secondary if Microsoft initiates failover.
 - RA-GRS (Read-Access GRS): Read access to the secondary region anytime.
@@ -191,6 +197,8 @@ How it works:
 Combines ZRS and GRS for maximum durability.
 
 ![GZRS](/img/az104/42.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/5-determine-replication-strategies*
 
 GZRS replicates data to three zones in the primary region and to a secondary region.  
 - You can still read/write if one zone fails.
@@ -274,9 +282,13 @@ Use the **Firewalls and virtual networks** settings. You can add virtual network
 
 ![Storage account](/img/az104/45.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/7-secure-storage-endpoints*
+
 Storage account service endpoints provide the base URL for blob, queue, table, or file access.
 
 ![Storage endpoint](/img/az104/46.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-storage-accounts/7-secure-storage-endpoints*
 
 #### Endpoint Configuration Considerations
 - You can allow access from specific public IP ranges.

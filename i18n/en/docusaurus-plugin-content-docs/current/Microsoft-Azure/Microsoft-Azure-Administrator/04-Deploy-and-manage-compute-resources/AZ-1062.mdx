@@ -27,6 +27,8 @@ Once the app is created, additional configuration settings are available in the 
 
 ![app service post creation](/img/az104/71.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/3-create-app-service*
+
 Some settings can be included in developer code, while others can be configured directly in the app. Here are a few additional app settings:
 
 - **Always On**: Keeps the app running even when there’s no traffic. Required for continuous **WebJobs** or those triggered using **CRON** expressions.
@@ -47,11 +49,15 @@ With Azure DevOps, users can also define their own build and release processes: 
 
 ![azure app service cd](/img/az104/72.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/4-explore-continuous-integration-deployment*
+
 ### Key Points about Continuous and Manual Deployment
 
 When creating a web app with App Service, users can choose between **continuous** and **manual** deployment methods. Consider which method best suits the App Service app. Both options can be managed via the **Deployment Center**.
 
 ![settings deployment center](/img/az104/73.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/4-explore-continuous-integration-deployment*
 
 ### Continuous Deployment (CI/CD)
 
@@ -86,6 +92,8 @@ Let’s look at key characteristics of deployment slots:
 - **App content** and **configuration elements** can be swapped between slots, including the production slot.
 
 ![deployment slot](/img/az104/74.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/5-create-deployment-slots*
 
 ### Considerations When Using Deployment Slots
 
@@ -235,6 +243,8 @@ Creating a custom domain requires information about domain providers, security, 
 
 ![add custom domain](/img/az104/75.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/8-create-custom-domain-names*
+
 #### 1. Reserve a Domain Name
 
 The easiest way is to **purchase a domain directly from the Azure portal**. This domain will not be in the format `*.azurewebsites.net`.  
@@ -272,6 +282,8 @@ The **Backup and Restore** feature in Azure App Service lets you back up your ap
 Backups can be kept for a limited time or indefinitely. You can restore your app to a previous state, either overwriting current content or restoring to a different app or site.
 
 ![app service backup](/img/az104/76.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/9-backup-app-service*
 
 ### Key Considerations for Backup and Restore
 
@@ -330,6 +342,8 @@ and easily restore it to a previous state.
 ## Using Azure Application Insights
 
 ![application insight](/img/az104/77.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-azure-app-services/10-use-application-insights*
 
 **Azure Application Insights** is a feature of **Azure Monitor** that allows you to monitor live-running applications.  
 You can integrate Application Insights with **Azure App Service** to automatically detect performance anomalies.

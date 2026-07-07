@@ -25,7 +25,7 @@ export default function Hero() {
               Getting started
             </Link>
             <p className="padding-top--md">
-            Shares what I <strong>learn</strong> and <strong>my interests</strong> in <span className="highlight"><b>cloud computing</b></span>
+            Shares what I <strong>learn</strong> and <strong>my interests</strong> in <span className="highlight"><b>IT Operations</b></span>
             </p>
           </div>
           <div className="col col--6">

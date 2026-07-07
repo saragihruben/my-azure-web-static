@@ -29,6 +29,8 @@ The diagram below shows the relationship between Blob Storage resources:
 
 ![Docusaurus logo](/img/az104/47.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-blob-storage/2-implement*
+
 #### Considerations When Implementing Azure Blob Storage
 
 Consider the following scenarios and think about your data needs:
@@ -58,6 +60,8 @@ Let’s review some configuration characteristics of containers and blobs:
 In the Azure portal, you'll encounter two key settings when creating a container in a storage account:
 
 ![Docusaurus logo](/img/az104/48.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-blob-storage/3-create-blob-containers*
 
 **Name:** Enter a unique name for your container within the Azure storage account.
 - Name must contain only lowercase letters, numbers, and hyphens.
@@ -152,6 +156,8 @@ a few settings. Each rule defines an If - Then condition to transition or delete
 
 ![Docusaurus logo](/img/az104/50.png)
 
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-blob-storage/5-add-blob-lifecycle-management-rules*
+
 - **If:** This clause defines the evaluation condition for the policy rule. When the If clause is true, the Then clause is executed. 
 Use the If clause to define the time period applied to blob data. Lifecycle management checks whether data has been accessed 
 or modified based on the specified time.
@@ -178,6 +184,8 @@ During replication, the following are copied from the source to the destination 
 - All data versions associated with the blob
 
 ![Docusaurus logo](/img/az104/51.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-blob-storage/6-determine-blob-object-replication*
 
 #### Key Concepts of Blob Object Replication
 
@@ -226,6 +234,8 @@ Here’s an example of how to upload blob data:
 - Set access tier and encryption scope.
 
 ![Docusaurus logo](/img/az104/52.png)
+
+***Image Source*** *https://learn.microsoft.com/en-us/training/modules/configure-blob-storage/7-upload-blobs*
 
 :::warning 
 - The default blob type is block blob. If you don’t specify a type when creating the blob, it will default to block blob.
